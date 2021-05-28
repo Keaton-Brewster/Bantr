@@ -26,6 +26,7 @@
     "start:dev": "concurrently \"nodemon server.js\" \"yarn run client\"",
     "client": "cd client && yarn start",
     "install": "cd client && yarn install",
+    "build": "cd client && yarn run build",
     "heroku-postbuild": "yarn run build",
     "server": "nodemon server/index.js"
   }
