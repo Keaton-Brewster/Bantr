@@ -6,9 +6,27 @@
   "author": "Keaton Brewster <keatonbrewsrterdev@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.17.1"
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-session": "^1.17.2",
+    "mongodb": "^3.6.9",
+    "mongoose": "^5.12.11",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0",
+    "socket.io": "^4.1.2"
   },
   "devDependencies": {
-    "concurrently": "^6.2.0"
+    "concurrently": "^6.2.0",
+    "if-env": "^1.0.4"
+  },
+  "scripts": {
+    "start": "if-env NODE_ENV=production && yarn run start:prod || yarn run start:dev",
+    "start:prod": "node server/index.js",
+    "start:dev": "concurrently \"nodemon server.js\" \"yarn run client\"",
+    "client": "cd client && yarn start",
+    "install": "cd client && yarn install",
+    "heroku-postbuild": "yarn run build",
+    "server": "nodemon server/index.js"
   }
 }
