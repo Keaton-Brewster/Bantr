@@ -7,7 +7,7 @@ const passport = require("passport");
 const mongoose = require("mongoose");
 require("dotenv").config();
 
-// const router = require("../controllers");
+const router = require("./controllers");
 const PORT = process.env.PORT || 3001;
 const app = express();
 
@@ -27,7 +27,7 @@ app.use(
 );
 app.use(passport.initialize());
 app.use(passport.session());
-// app.use(router);
+app.use(router);
 
 // Check for production environment before trying to set up the constant service of the index.html
 if (process.env.NODE_ENV === "production") {
