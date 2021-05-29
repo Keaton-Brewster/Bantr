@@ -20,7 +20,7 @@ app.use(express.json());
 // We need to use sessions to keep track of our user's login status
 app.use(
   session({
-    secret: "keyboard cat",
+    secret: "giant whackamole",
     resave: true,
     saveUninitialized: true,
   })
@@ -40,7 +40,7 @@ if (process.env.NODE_ENV === "production") {
 }
 
 // Connect to the Mongo DB
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/devlr", {
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/msging", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useFindAndModify: false,

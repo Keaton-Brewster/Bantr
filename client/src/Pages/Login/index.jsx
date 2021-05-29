@@ -1,59 +1,40 @@
 import { useState, useRef } from "react";
-import { Container, Row, Form, Button, Spinner } from "react-bootstrap";
+import { Container, Row, Form, Button } from "react-bootstrap";
 import API from "../../utils/API";
-import "./signup.css";
+import "./login.css";
 
-export default function Signup() {
+export default function Home() {
   const [formValues, setFormValues] = useState({
     email: "",
     password: "",
   });
   const emailRef = useRef();
   const passwordRef = useRef();
-  const phoneRef = useRef();
-  const nameRef = useRef();
 
   function handleChange(e) {
     e.preventDefault();
     setFormValues({
-      name: nameRef.current.value,
-      phone: phoneRef.current.value,
       email: emailRef.current.value,
       password: passwordRef.current.value,
     });
   }
 
-  function signup(e) {
+  function login(e) {
     e.preventDefault();
-    API.signup(formValues).then((response) => {
-      console.log(response);
-      window.location.href = "/login";
-    });
+    API.login(formValues)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   return (
     <Container>
       <Row className="justify-content-center">
-        <Form id="form" onSubmit={signup}>
-          <h2>Sign up here to get started</h2>
-          <Form.Group className="mb-3" controlId="formBasicName">
-            <Form.Label>Name</Form.Label>
-            <Form.Control
-              onChange={handleChange}
-              ref={nameRef}
-              placeholder="Name"
-              type="name"
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicPhone">
-            <Form.Label>Phone Number</Form.Label>
-            <Form.Control
-              onChange={handleChange}
-              ref={phoneRef}
-              type="number"
-              placeholder="Phone number"
-            />
-          </Form.Group>
+        <Form id="form" onSubmit={login}>
+          <h2>Login</h2>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
             <Form.Control

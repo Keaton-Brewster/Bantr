@@ -1,14 +1,17 @@
 const router = require("express").Router();
 const bcrypt = require("bcryptjs");
-const axios = require("axios");
 
 const mongoose = require("mongoose");
 const passport = require("../config/passport");
 
 const ObjectId = require("mongodb").ObjectId;
+const db = require("../models");
 
 router.post("/signup", (request, response) => {
-  console.log(request.body);
+  // try {
+  //   db.User.create()
+  // }
+  response.send(request.body);
 });
 
 module.exports = router;
