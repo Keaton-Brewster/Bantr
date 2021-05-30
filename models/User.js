@@ -17,7 +17,7 @@ const userSchema = new Schema({
     default: Date.now,
   },
   name: String,
-  phoneNumber: String,
+  phone: String,
 });
 
 const User = mongoose.model("User", userSchema);

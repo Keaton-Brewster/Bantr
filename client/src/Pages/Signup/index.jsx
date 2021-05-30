@@ -1,7 +1,23 @@
 import { useState, useRef } from "react";
-import { Container, Row, Form, Button, Spinner } from "react-bootstrap";
+import PasswordValidator from "password-validator";
 import API from "../../utils/API";
 import "./signup.css";
+
+const schema = new PasswordValidator();
+
+schema
+  .is()
+  .min(8) // Minimum length 8
+  .is()
+  .max(100) // Maximum length 100
+  .has()
+  .digits(1) // Must have at least 2 digits
+  .has()
+  .not()
+  .spaces() // Should not have spaces
+  .is()
+  .not()
+  .oneOf(["Passw0rd", "Password123"]);
 
 export default function Signup() {
   const [formValues, setFormValues] = useState({
@@ -25,10 +41,23 @@ export default function Signup() {
 
   function signup(e) {
     e.preventDefault();
-    API.signup(formValues).then((response) => {
-      console.log(response);
-      window.location.href = "/login";
-    });
+
+    if (!schema.validate(formValues.password)) {
+      alert(
+        "Your password must be at lest 8 characters long, cannot contain spaces, and must include one number"
+      );
+      return;
+    }
+
+    API.signup(formValues)
+      .then((response) => {
+        console.log(response);
+        window.location.href = "/login";
+      })
+      .catch((error) => {
+        alert("That user already exists");
+        console.log(error);
+      });
   }
 
   return (
@@ -43,6 +72,7 @@ export default function Signup() {
               ref={nameRef}
               placeholder="Name"
               type="name"
+              required
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicPhone">
@@ -52,6 +82,7 @@ export default function Signup() {
               ref={phoneRef}
               type="number"
               placeholder="Phone number"
+              required
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -61,6 +92,7 @@ export default function Signup() {
               ref={emailRef}
               type="email"
               placeholder="Email"
+              required
             />
           </Form.Group>
 
@@ -71,6 +103,7 @@ export default function Signup() {
               ref={passwordRef}
               type="password"
               placeholder="Password"
+              required
             />
           </Form.Group>
           <Button variant="primary" type="submit" className="float-right">

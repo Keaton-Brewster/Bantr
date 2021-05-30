@@ -1,11 +1,12 @@
 import React from "react";
 import { Container, Navbar, Nav, NavDropdown } from "react-bootstrap";
+import "./navbar.css";
 
 export default function MyNavbar() {
   return (
-    <Navbar bg="dark" expand="lg">
+    <Navbar bg="light" expand="lg" id="Navbar">
       <Container>
-        <Navbar.Brand href="#home">Msging</Navbar.Brand>
+        <Navbar.Brand href="#home">Messenger</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">

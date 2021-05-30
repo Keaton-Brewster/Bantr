@@ -23,6 +23,7 @@ export default function Home() {
     e.preventDefault();
     API.login(formValues)
       .then((response) => {
+        window.location.href = "/home";
         console.log(response);
       })
       .catch((error) => {
@@ -31,7 +32,7 @@ export default function Home() {
   }
 
   return (
-    <Container>
+    <Container id="login">
       <Row className="justify-content-center">
         <Form id="form" onSubmit={login}>
           <h2>Login</h2>

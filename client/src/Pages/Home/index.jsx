@@ -1,5 +1,12 @@
 import React from "react";
+import { Container } from "react-bootstrap";
+import Navbar from "../../Comps/Navbar";
 
 export default function Home() {
-  return <div></div>;
+  return (
+    <>
+      <Navbar />
+      <Container fluid></Container>
+    </>
+  );
 }
