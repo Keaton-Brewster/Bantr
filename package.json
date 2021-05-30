@@ -29,6 +29,7 @@
     "install": "cd client && yarn install",
     "build": "cd client && yarn run build",
     "heroku-postbuild": "yarn run build",
-    "server": "nodemon server/index.js"
+    "server": "nodemon server/index.js",
+    "seed": "node models/seeder.js"
   }
 }
