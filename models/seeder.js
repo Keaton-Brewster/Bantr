@@ -8,10 +8,26 @@ mongoose.connect("mongodb://localhost:27017/msging", {
   useCreateIndex: true,
 });
 
-var ObjectId = require("mongodb").ObjectID;
+const ObjectId = require("mongodb").ObjectID;
 const userSeed = [
   {
-    _id: ObjectId("60a298987ec6b108b107ddb7"),
+    _id: "User1",
+    email: "keaton.brewster@gmail.com",
+    name: "Keaton",
+    phone: "7859698002",
+    password: "$2a$10$QSxpvRPve2WG7xL2/LoM4eGiFWo345Fi7ckwgjIECLihO2NJJpTVq",
+    __v: 0,
+  },
+  {
+    _id: "User2",
+    email: "timmeree@mail.com",
+    name: "Timmeree",
+    phone: "9136369994",
+    password: "$2a$10$QSxpvRPve2WG7xL2/LoM4eGiFWo345Fi7ckwgjIECLihO2NJJpTVq",
+    __v: 0,
+  },
+  {
+    _id: "User3",
     email: "brandyquinlan@gmail.com",
     name: "Brandy",
     phone: "7856961110",
@@ -19,7 +35,7 @@ const userSeed = [
     __v: 0,
   },
   {
-    _id: ObjectId("60a532c9266a4f2cc69925f6"),
+    _id: "User4",
     email: "brenna.mcleod@gmail.com",
     name: "Brenna",
     phone: "3931110444",
@@ -27,7 +43,7 @@ const userSeed = [
     __v: 0,
   },
   {
-    _id: ObjectId("60a533d0266a4f2cc69925fa"),
+    _id: "User5",
     email: "kolton.c.decker@gmail.com",
     name: "Kolton",
     phone: "4841110499",
@@ -35,7 +51,7 @@ const userSeed = [
     __v: 0,
   },
   {
-    _id: ObjectId("60a5344d266a4f2cc69925fc"),
+    _id: "User6",
     email: "steve.babb@outlook.com",
     name: "Steve",
     phone: "9132201212",
@@ -44,38 +60,38 @@ const userSeed = [
   },
 ];
 
+const conversationSeed = [
+  {
+    _id: "Convo1",
+    participants: ["User1", "User2"],
+    messsages: [],
+  },
+  {
+    _id: "Convo2",
+    participants: ["User1", "User3"],
+    messsages: [],
+  },
+];
+
 db.User.deleteMany({})
   .then(() => db.User.collection.insertMany(userSeed))
   .then((data) => {
     console.log(data);
     console.log(`${data.result.n}  'user records inserted!'`);
-    // process.exit(0)
   })
   .catch((err) => {
     console.error(err);
-    // process.exit(1)
+    process.exit(1);
   });
 
-// db.Profile.deleteMany({})
-//   .then(() => db.Profile.collection.insertMany(profileSeed))
-//   .then((data) => {
-//     console.log(data);
-//     console.log(`${data.result.n}  'profile records inserted!'`);
-//     process.exit(0)
-//   })
-//   .catch((err) => {
-//     console.error(err);
-//     // process.exit(1)
-//   });
-
-// db.Post.deleteMany({})
-//   .then(() => db.Post.collection.insertMany(postSeed))
-//   .then((data) => {
-//     console.log(data);
-//     console.log(`${data.result.n}  'profile records inserted!'`);
-//     process.exit(0);
-//   })
-//   .catch((err) => {
-//     console.error(err);
-//     process.exit(1);
-//   });
+db.Conversation.deleteMany({})
+  .then(() => db.Conversation.collection.insertMany(conversationSeed))
+  .then((data) => {
+    console.log(data);
+    console.log(`${data.result.n}  'conversation records inserted!'`);
+    process.exit(0);
+  })
+  .catch((err) => {
+    console.error(err);
+    process.exit(1);
+  });
