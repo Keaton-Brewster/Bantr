@@ -21,7 +21,6 @@ export default function Home() {
   useEffect(() => {
     API.init()
       .then(([convos, topMessages]) => {
-        console.log(topMessages);
         setConversations(convos);
         setMessages(topMessages);
         setIsLoading(false);
@@ -31,7 +30,9 @@ export default function Home() {
 
   function selectConversation(e, convo_id) {
     e.preventDefault();
-    API.getMessages();
+    API.getMessages(convo_id)
+      .then((messages) => setMessages(messages))
+      .catch((e) => console.error(e));
   }
 
   return (
@@ -55,7 +56,10 @@ export default function Home() {
                 {conversations.map((convo, i) => {
                   return (
                     <div key={i}>
-                      <Row className="convoBox">
+                      <Row
+                        className="convoBox"
+                        onClick={(e) => selectConversation(e, convo._id)}
+                      >
                         {convo.name || "New Conversation"}
                       </Row>
                     </div>

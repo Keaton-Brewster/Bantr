@@ -5,11 +5,17 @@
 }
 
 
-.convoBox {
+.convoBox,
+.convoBox:hover {
     border-top: 1px solid grey !important;
     border-right: 1px solid grey !important;
     padding: 1rem;
     padding-left: 0;
+    cursor: pointer;
+}
+
+.convoBox:hover {
+    background-color: #404040;
 }
 
 #spinner {
