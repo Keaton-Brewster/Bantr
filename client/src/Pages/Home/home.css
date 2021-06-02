@@ -1,0 +1,19 @@
+#userSearch,
+#userSearch:focus {
+    background-color: #202020;
+    border: none !important;
+}
+
+
+.convoBox {
+    border-top: 1px solid grey !important;
+    border-right: 1px solid grey !important;
+    padding: 1rem;
+    padding-left: 0;
+}
+
+#spinner {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+}

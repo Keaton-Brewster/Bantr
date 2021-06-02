@@ -5,6 +5,17 @@
   "main": "index.js",
   "author": "Keaton Brewster <keatonbrewsrterdev@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "start": "if-env NODE_ENV=production && yarn run start:prod || yarn run start:dev",
+    "start:prod": "node server/index.js",
+    "start:dev": "concurrently \"nodemon server.js\" \"yarn run client\"",
+    "client": "cd client && yarn start",
+    "install": "cd client && yarn install",
+    "build": "cd client && yarn run build",
+    "heroku-postbuild": "yarn run build",
+    "server": "nodemon server/index.js",
+    "seed": "node models/seeder.js"
+  },
   "dependencies": {
     "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",
@@ -20,16 +31,5 @@
   "devDependencies": {
     "concurrently": "^6.2.0",
     "if-env": "^1.0.4"
-  },
-  "scripts": {
-    "start": "if-env NODE_ENV=production && yarn run start:prod || yarn run start:dev",
-    "start:prod": "node server/index.js",
-    "start:dev": "concurrently \"nodemon server.js\" \"yarn run client\"",
-    "client": "cd client && yarn start",
-    "install": "cd client && yarn install",
-    "build": "cd client && yarn run build",
-    "heroku-postbuild": "yarn run build",
-    "server": "nodemon server/index.js",
-    "seed": "node models/seeder.js"
   }
 }

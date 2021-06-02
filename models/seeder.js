@@ -8,10 +8,9 @@ mongoose.connect("mongodb://localhost:27017/msging", {
   useCreateIndex: true,
 });
 
-const ObjectId = require("mongodb").ObjectID;
 const userSeed = [
   {
-    _id: "User1",
+    id: "User1",
     email: "keaton.brewster@gmail.com",
     name: "Keaton",
     phone: "7859698002",
@@ -19,7 +18,7 @@ const userSeed = [
     __v: 0,
   },
   {
-    _id: "User2",
+    id: "User2",
     email: "timmeree@mail.com",
     name: "Timmeree",
     phone: "9136369994",
@@ -27,7 +26,7 @@ const userSeed = [
     __v: 0,
   },
   {
-    _id: "User3",
+    id: "User3",
     email: "brandyquinlan@gmail.com",
     name: "Brandy",
     phone: "7856961110",
@@ -35,7 +34,7 @@ const userSeed = [
     __v: 0,
   },
   {
-    _id: "User4",
+    id: "User4",
     email: "brenna.mcleod@gmail.com",
     name: "Brenna",
     phone: "3931110444",
@@ -43,7 +42,7 @@ const userSeed = [
     __v: 0,
   },
   {
-    _id: "User5",
+    id: "User5",
     email: "kolton.c.decker@gmail.com",
     name: "Kolton",
     phone: "4841110499",
@@ -51,7 +50,7 @@ const userSeed = [
     __v: 0,
   },
   {
-    _id: "User6",
+    id: "User6",
     email: "steve.babb@outlook.com",
     name: "Steve",
     phone: "9132201212",
@@ -62,14 +61,40 @@ const userSeed = [
 
 const conversationSeed = [
   {
-    _id: "Convo1",
+    id: "Convo1",
     participants: ["User1", "User2"],
-    messsages: [],
   },
   {
-    _id: "Convo2",
+    id: "Convo2",
     participants: ["User1", "User3"],
-    messsages: [],
+  },
+];
+
+const messageSeed = [
+  {
+    conversation_id: "Convo1",
+    sender_id: "User2",
+    content: "Hey! I see that you are making good progess!",
+  },
+  {
+    conversation_id: "Convo1",
+    sender_id: "User1",
+    content: "sure if that's what you want to call it..",
+  },
+  {
+    conversation_id: "Convo1",
+    sender_id: "User1",
+    content: "I'm trying at least!",
+  },
+  {
+    conversation_id: "Convo1",
+    sender_id: "User2",
+    content: "Don't be like that to your self, you're doing great",
+  },
+  {
+    conversation_id: "Convo2",
+    sender_id: "User1",
+    content: "I am glad that you think so",
   },
 ];
 
@@ -89,6 +114,17 @@ db.Conversation.deleteMany({})
   .then((data) => {
     console.log(data);
     console.log(`${data.result.n}  'conversation records inserted!'`);
+  })
+  .catch((err) => {
+    console.error(err);
+    process.exit(1);
+  });
+
+db.Message.deleteMany({})
+  .then(() => db.Message.collection.insertMany(messageSeed))
+  .then((data) => {
+    console.log(data);
+    console.log(`${data.result.n}  'message records inserted!'`);
     process.exit(0);
   })
   .catch((err) => {
