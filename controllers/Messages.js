@@ -1,6 +1,8 @@
 const router = require("express").Router();
 const db = require("../models");
 
+//todo I WILL NEED TO COME IN AT SOMEPOINT AND MAKE SURE THAT ALL MESSAGES ARE BEING SENT BACK IN REVERSE CHRONILOGICAL ORDER
+
 router.get("/:convo_id", (req, res) => {
   const convo_id = req.params.convo_id;
   try {

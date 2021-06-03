@@ -2,3 +2,9 @@
     color: white;
     background-color: #202020;
 }
+
+#spinner {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+}

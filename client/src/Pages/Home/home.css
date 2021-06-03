@@ -17,9 +17,3 @@
 .convoBox:hover {
     background-color: #404040;
 }
-
-#spinner {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-}
