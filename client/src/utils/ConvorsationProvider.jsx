@@ -11,6 +11,7 @@ export function useConversations() {
 export function Provider({ children }) {
   const [isLoading, setIsLoading] = useState(true);
   const [conversations, setConversations] = useState([]);
+  const [selectedConversation, setSelectedConversation] = useState({});
   const [messages, setMessages] = useState([]);
   const [user, setUser] = useState({
     _id: "User1",
@@ -19,6 +20,7 @@ export function Provider({ children }) {
   useEffect(() => {
     API.init(([convos, topMessages]) => {
       setConversations(convos);
+      setSelectedConversation(convos[0]);
       setMessages(topMessages);
       setIsLoading(false);
     }).catch((e) => console.error(e));
@@ -27,6 +29,7 @@ export function Provider({ children }) {
   const value = {
     loadingState: [isLoading, setIsLoading],
     conversationState: [conversations, setConversations],
+    selectedConversationState: [selectedConversation, setSelectedConversation],
     messageState: [messages, setMessages],
     userState: [user, setUser],
   };

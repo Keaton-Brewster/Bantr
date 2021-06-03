@@ -8,8 +8,6 @@ const ObjectId = require("mongodb").ObjectId;
 const db = require("../models");
 
 router.post("/signup", (request, response) => {
-  console.log(request.body);
-
   try {
     request.body.password = bcrypt.hashSync(request.body.password, 10);
     db.User.create({

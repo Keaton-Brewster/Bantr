@@ -2,26 +2,16 @@ import React, { useEffect, useState } from "react";
 import { Container, Row, Col, InputGroup, FormControl } from "react-bootstrap";
 import API from "../../utils/API";
 import { useConversations } from "../../utils/ConvorsationProvider";
-import Message from "../../Comps/Message";
+import Messages from "../../Comps/Message";
 import "./home.css";
 
 export default function Home() {
-  const { loadingState, conversationState, messageState, userState } =
+  const { conversationState, messageState, selectedConversationState } =
     useConversations();
-  const [isLoading, setIsLoading] = loadingState;
   const [conversations, setConversations] = conversationState;
   const [messages, setMessages] = messageState;
-  const [user, setUser] = userState;
-
-  function selectConversation(convo_id) {
-    //   e.preventDefault();
-    //   API.getMessages(convo_id)
-    //     .then((messages) => {
-    //       console.log(messages);
-    //       setMessages(messages);
-    //     })
-    //     .catch((e) => console.error(e));
-  }
+  const [selectedConversation, setSelectedConversation] =
+    selectedConversationState;
 
   return (
     <>
@@ -40,36 +30,27 @@ export default function Home() {
 
               {conversations.map((convo, i) => {
                 return (
-                  <div key={i}>
-                    <Row
-                      className="convoBox"
-                      // Just another place where I am having to use a different "id"
-                      // onClick={(e) => selectConversation(e, convo._id)}
-                      onClick={() =>
-                        API.selectConversation(convo.id).then((messages) => {
-                          setMessages(messages);
-                        })
-                      }
-                    >
-                      {convo.name || "New Conversation"}
-                    </Row>
-                  </div>
+                  <Row
+                    key={i}
+                    className="convoBox"
+                    id={selectedConversation.id === convo.id ? "selected" : "#"}
+                    // className={selectedConversation._id === convo._id ? "selected" : "notSelected"}
+                    // Just another place where I am having to use a different "id"
+                    // onClick={(e) => selectConversation(e, convo._id)}
+                    onClick={() =>
+                      API.selectConversation(convo.id).then((messages) => {
+                        setSelectedConversation(convo);
+                        setMessages(messages);
+                      })
+                    }
+                  >
+                    {convo.name || "New Conversation"}
+                  </Row>
                 );
               })}
             </Col>
             <Col sm={9}>
-              {messages.map((message, i) => {
-                console.log(message);
-                return (
-                  <Message
-                    i={i}
-                    key={i}
-                    user={user}
-                    message={message}
-                    messages={messages}
-                  />
-                );
-              })}
+              <Messages />
             </Col>
           </>
         </Row>

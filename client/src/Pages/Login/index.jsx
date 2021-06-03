@@ -24,7 +24,6 @@ export default function Home() {
     API.login(formValues)
       .then((response) => {
         window.location.href = "/home";
-        console.log(response);
       })
       .catch((error) => {
         console.log(error);

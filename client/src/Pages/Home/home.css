@@ -17,3 +17,7 @@
 .convoBox:hover {
     background-color: #404040;
 }
+
+#selected {
+    background-color: #404040;
+}

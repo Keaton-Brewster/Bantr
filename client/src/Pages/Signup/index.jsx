@@ -52,7 +52,6 @@ export default function Signup() {
 
     API.signup(formValues)
       .then((response) => {
-        console.log(response);
         window.location.href = "/login";
       })
       .catch((error) => {
