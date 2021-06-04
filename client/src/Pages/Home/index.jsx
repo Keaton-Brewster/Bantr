@@ -1,22 +1,25 @@
 import { useEffect, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
+import { useConversations } from "../../utils/ConvorsationProvider";
 import useViewport from "../../utils/useViewport";
 import ConversationsDesktop from "../../Comps/Desktop/Conversations";
 import MessagesDesktop from "../../Comps/Desktop/Messages";
 import ConversationsMobile from "../../Comps/Mobile/Conversations";
 import MessagesMobile from "../../Comps/Mobile/Messages";
 import "./home.css";
-import { useConversations } from "../../utils/ConvorsationProvider";
 
 export default function Home() {
   const { selectedConversationState } = useConversations();
   const [selectedConversation, setSelectedConversation] =
     selectedConversationState;
-  const [text, setText] = useState("");
   const { width } = useViewport();
 
-  function sendMessage(e) {
-    e.preventDefault();
+  function sendMessage(text) {
+    console.log(selectedConversation);
+    // Yet another place where I ran into id issues.. this is going to be a mess to fix later
+    const convo_id = selectedConversation.id;
+    // const convo_id = selectedConversation._id;
+    API.sendMessage(convo_id, text);
   }
 
   useEffect(() => {

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef } from "react";
 import { Navbar, Container, Row, Col } from "react-bootstrap";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { useConversations } from "../../utils/ConvorsationProvider";
@@ -8,11 +8,8 @@ export default function Message({ sendMessage }) {
   const [messages, setMessages] = messageState;
   const [user, setUser] = userState;
   const [mobileView, setMobileView] = mobileViewState;
-  const [text, setText] = useState();
 
-  function handleSubmit(e) {
-    e.preventDefault();
-  }
+  const textRef = useRef();
 
   return (
     <div className={mobileView.messages ? "show" : "hide"}>
@@ -97,10 +94,16 @@ export default function Message({ sendMessage }) {
       <Container fluid id="chatBox">
         <Row>
           <Col xs={10}>
-            <textarea rows="1" id="chatInput" type="text" />
+            <textarea ref={textRef} rows="1" id="chatInput" type="text" />
           </Col>
           <Col xs={2}>
-            <button id="sendButton" onClick={sendMessage}>
+            <button
+              id="sendButton"
+              onClick={(e) => {
+                e.preventDefault();
+                sendMessage(textRef.current.value);
+              }}
+            >
               <FaArrowRight className="bg-primary" />
             </button>
           </Col>
