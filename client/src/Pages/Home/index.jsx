@@ -1,61 +1,44 @@
-import React, { useRef } from "react";
-import { Container, Row, Col, InputGroup, FormControl } from "react-bootstrap";
-import API from "../../utils/API";
-import { useConversations } from "../../utils/ConvorsationProvider";
-import Messages from "../../Comps/Message";
+import { useEffect } from "react";
+import { Container, Row, Col } from "react-bootstrap";
+import useViewport from "../../utils/useViewport";
+import ConversationsDesktop from "../../Comps/Desktop/Conversations";
+import MessagesDesktop from "../../Comps/Desktop/Messages";
+import ConversationsMobile from "../../Comps/Mobile/Conversations";
+import MessagesMobile from "../../Comps/Mobile/Messages";
 import "./home.css";
+import { useConversations } from "../../utils/ConvorsationProvider";
 
 export default function Home() {
-  const { conversationState, messageState, selectedConversationState } =
-    useConversations();
-  const [conversations, setConversations] = conversationState;
-  const [messages, setMessages] = messageState;
+  const { selectedConversationState } = useConversations();
   const [selectedConversation, setSelectedConversation] =
     selectedConversationState;
+  const { width } = useViewport();
 
-  const searchRef = useRef();
+  useEffect(() => {
+    if (width <= 575) {
+      setSelectedConversation();
+    }
+  }, []);
 
   return (
     <>
-      <Container fluid>
-        <Row>
-          <>
+      {width > 575 ? (
+        <Container fluid>
+          <Row>
             <Col sm={3}>
-              <input
-                id="searchConversationsInput"
-                type="text"
-                ref={searchRef}
-                placeholder="search"
-              />
-
-              {conversations.map((convo, i) => {
-                return (
-                  <Row
-                    key={i}
-                    className="convoBox"
-                    id={selectedConversation.id === convo.id ? "selected" : "#"}
-                    // className={selectedConversation._id === convo._id ? "selected" : "notSelected"}
-                    // Just another place where I am having to use a different "id"
-                    // onClick={(e) => selectConversation(e, convo._id)}
-                    onClick={() =>
-                      API.selectConversation(convo.id).then((messages) => {
-                        setSelectedConversation(convo);
-                        setMessages(messages);
-                      })
-                    }
-                  >
-                    {convo.name || "New Conversation"}
-                  </Row>
-                );
-              })}
-              <div id="bottomOfConvos" />
+              <ConversationsDesktop />
             </Col>
             <Col sm={9} id="messageBox">
-              <Messages />
+              <MessagesDesktop />
             </Col>
-          </>
-        </Row>
-      </Container>
+          </Row>
+        </Container>
+      ) : (
+        <Container fluid>
+          <ConversationsMobile />
+          <MessagesMobile />
+        </Container>
+      )}
     </>
   );
 }

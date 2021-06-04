@@ -13,6 +13,10 @@ export function Provider({ children }) {
   const [conversations, setConversations] = useState([]);
   const [selectedConversation, setSelectedConversation] = useState({});
   const [messages, setMessages] = useState([]);
+  const [mobileView, setMobileView] = useState({
+    conversations: true,
+    messages: false,
+  });
   const [user, setUser] = useState({
     _id: "User1",
   });
@@ -32,6 +36,7 @@ export function Provider({ children }) {
     selectedConversationState: [selectedConversation, setSelectedConversation],
     messageState: [messages, setMessages],
     userState: [user, setUser],
+    mobileViewState: [mobileView, setMobileView],
   };
   return (
     <conversationContext.Provider value={value}>

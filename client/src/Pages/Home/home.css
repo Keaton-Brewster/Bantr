@@ -47,3 +47,29 @@
     outline: none !important;
     box-shadow: 0 0 5px 1px var(--light);
 }
+
+.show {
+    display: block;
+}
+
+.hide {
+    display: none;
+}
+
+#backButton {
+    padding: 10px;
+    margin-top: 10px;
+}
+
+#chatBox {
+    position: absolute;
+    bottom: 0;
+    padding: 1rem;
+}
+
+#sendButton {
+    height: 25px;
+    width: 25px;
+    background-color: var(--primary);
+    border-radius: 50px;
+}
