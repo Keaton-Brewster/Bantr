@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useRef } from "react";
 import { Container, Row, Col, InputGroup, FormControl } from "react-bootstrap";
 import API from "../../utils/API";
 import { useConversations } from "../../utils/ConvorsationProvider";
@@ -13,20 +13,20 @@ export default function Home() {
   const [selectedConversation, setSelectedConversation] =
     selectedConversationState;
 
+  const searchRef = useRef();
+
   return (
     <>
       <Container fluid>
         <Row>
           <>
             <Col sm={3}>
-              <InputGroup className="mb-3">
-                <FormControl
-                  id="userSearch"
-                  aria-label="Username"
-                  aria-describedby="basic-addon1"
-                  placeholder="search"
-                />
-              </InputGroup>
+              <input
+                id="searchConversationsInput"
+                type="text"
+                ref={searchRef}
+                placeholder="search"
+              />
 
               {conversations.map((convo, i) => {
                 return (
@@ -48,8 +48,9 @@ export default function Home() {
                   </Row>
                 );
               })}
+              <div id="bottomOfConvos" />
             </Col>
-            <Col sm={9}>
+            <Col sm={9} id="messageBox">
               <Messages />
             </Col>
           </>

@@ -18,7 +18,7 @@ export default function Message() {
         <div
           className={`rounded px-2 py-1 ${
             messages[0].sender_id === user._id
-              ? "bg-success text-white"
+              ? "bg-primary text-white"
               : "border"
           }`}
         >
@@ -47,7 +47,7 @@ export default function Message() {
             <div
               className={`rounded px-2 py-1 ${
                 message.sender_id === user._id
-                  ? "bg-success text-white"
+                  ? "bg-primary text-white"
                   : "border"
               }`}
             >

@@ -8,10 +8,21 @@
 .convoBox,
 .convoBox:hover {
     border-top: 1px solid grey !important;
-    border-right: 1px solid grey !important;
     padding: 1rem;
     padding-left: 0;
     cursor: pointer;
+}
+
+#messageBox {
+    border-left: 1px solid grey !important;
+    height: 100vh;
+}
+
+#bottomOfConvos {
+    border-top: 1px solid grey !important;
+    position: relative;
+    right: 15px;
+    width: 130%
 }
 
 .convoBox:hover {
@@ -19,5 +30,20 @@
 }
 
 #selected {
-    background-color: #404040;
+    background-color: var(--primary);
+}
+
+#searchConversationsInput {
+    padding: 5px;
+    padding-left: 15px;
+    width: 100%;
+    border: none;
+    border-radius: 25px;
+    border: 1px solid grey;
+    margin: 15px 5px;
+}
+
+#searchConversationsInput:focus {
+    outline: none !important;
+    box-shadow: 0 0 5px 1px var(--light);
 }
