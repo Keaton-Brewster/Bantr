@@ -3,7 +3,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import { FaArrowRight } from "react-icons/fa";
 import { useConversations } from "../../utils/ConvorsationProvider";
 
-export default function Message() {
+export default function Message({ sendMessage }) {
   const { messageState, userState } = useConversations();
   const [messages, setMessages] = messageState;
   const [user, setUser] = userState;
@@ -85,7 +85,7 @@ export default function Message() {
             <textarea rows="1" id="chatInput" type="text" />
           </Col>
           <Col xs={2}>
-            <button id="sendButton">
+            <button id="sendButton" onClick={sendMessage}>
               <FaArrowRight className="bg-primary" />
             </button>
           </Col>

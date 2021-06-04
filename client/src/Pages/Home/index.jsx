@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import useViewport from "../../utils/useViewport";
 import ConversationsDesktop from "../../Comps/Desktop/Conversations";
@@ -12,7 +12,12 @@ export default function Home() {
   const { selectedConversationState } = useConversations();
   const [selectedConversation, setSelectedConversation] =
     selectedConversationState;
+  const [text, setText] = useState("");
   const { width } = useViewport();
+
+  function sendMessage(e) {
+    e.preventDefault();
+  }
 
   useEffect(() => {
     if (width <= 575) {
@@ -29,14 +34,14 @@ export default function Home() {
               <ConversationsDesktop />
             </Col>
             <Col sm={9} id="messageBox">
-              <MessagesDesktop />
+              <MessagesDesktop sendMessage={sendMessage} />
             </Col>
           </Row>
         </Container>
       ) : (
         <Container fluid>
           <ConversationsMobile />
-          <MessagesMobile />
+          <MessagesMobile sendMessage={sendMessage} />
         </Container>
       )}
     </>
