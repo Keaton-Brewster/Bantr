@@ -10,6 +10,7 @@ export function useConversations() {
 
 export function Provider({ children }) {
   const [isLoading, setIsLoading] = useState(true);
+  const [loadingMessages, setLoadingMessages] = useState(false);
   const [conversations, setConversations] = useState([]);
   const [selectedConversation, setSelectedConversation] = useState({});
   const [messages, setMessages] = useState([]);
@@ -37,6 +38,7 @@ export function Provider({ children }) {
     messageState: [messages, setMessages],
     userState: [user, setUser],
     mobileViewState: [mobileView, setMobileView],
+    loadingMessagesState: [loadingMessages, setLoadingMessages],
   };
   return (
     <conversationContext.Provider value={value}>

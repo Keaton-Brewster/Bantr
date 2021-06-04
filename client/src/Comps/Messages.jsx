@@ -1,7 +1,8 @@
 import { useRef } from "react";
 import { Navbar, Container, Row, Col } from "react-bootstrap";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
-import { useConversations } from "../../utils/ConvorsationProvider";
+import { useConversations } from "../utils/ConvorsationProvider";
+import useViewport from "../utils/useViewport";
 
 export default function Message({ sendMessage }) {
   const { messageState, userState, mobileViewState } = useConversations();
@@ -10,23 +11,27 @@ export default function Message({ sendMessage }) {
   const [mobileView, setMobileView] = mobileViewState;
 
   const textRef = useRef();
+  const { width } = useViewport();
 
   return (
     <div className={mobileView.messages ? "show" : "hide"}>
-      <Navbar>
-        <button
-          id="backButton"
-          onClick={(e) => {
-            e.preventDefault();
-            setMobileView({
-              conversations: true,
-              messages: false,
-            });
-          }}
-        >
-          <FaArrowLeft className="bg-danger" />
-        </button>
-      </Navbar>
+      {width <= 575 ? (
+        <Navbar>
+          <button
+            id="backButton"
+            onClick={(e) => {
+              e.preventDefault();
+              setMobileView({
+                conversations: true,
+                messages: false,
+              });
+            }}
+          >
+            <FaArrowLeft className="bg-danger" />
+          </button>
+        </Navbar>
+      ) : null}
+
       {messages.length === 1 ? (
         <div>
           <div

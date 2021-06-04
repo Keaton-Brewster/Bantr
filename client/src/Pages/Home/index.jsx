@@ -1,37 +1,48 @@
-import { useEffect, useState } from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import { useEffect } from "react";
+import { Container, Row, Col, Spinner } from "react-bootstrap";
 import { useConversations } from "../../utils/ConvorsationProvider";
 import API from "../../utils/API";
 import useViewport from "../../utils/useViewport";
-import ConversationsDesktop from "../../Comps/Desktop/Conversations";
-import MessagesDesktop from "../../Comps/Desktop/Messages";
-import ConversationsMobile from "../../Comps/Mobile/Conversations";
-import MessagesMobile from "../../Comps/Mobile/Messages";
+import Conversations from "../../Comps/Conversations";
+import Messages from "../../Comps/Messages";
 import "./home.css";
 
 export default function Home() {
-  const { selectedConversationState } = useConversations();
+  const {
+    selectedConversationState,
+    userState,
+    messageState,
+    loadingMessagesState,
+    mobileViewState,
+  } = useConversations();
+  const [user, setUser] = userState;
   const [selectedConversation, setSelectedConversation] =
     selectedConversationState;
+  const [messages, setMessages] = messageState;
+  const [loadingMessages, setLoadingMessages] = loadingMessagesState;
+  const [mobileView, setMobileView] = mobileViewState;
   const { width } = useViewport();
 
   function sendMessage(text) {
-    console.log(selectedConversation);
     // Yet another place where I ran into id issues.. this is going to be a mess to fix later
     const convo_id = selectedConversation.id;
     // const convo_id = selectedConversation._id;
-    API.sendMessage(convo_id, text)
+    API.sendMessage(convo_id, user._id, text)
       .then((data) => {
         console.log(data);
+        setMessages([...messages, data]);
       })
       .catch((e) => console.error(e));
   }
 
   useEffect(() => {
     if (width <= 575) {
+      setMobileView({ conversations: true, messages: false });
       setSelectedConversation();
+      return;
     }
-  }, []);
+    setMobileView({ conversations: true, messages: true });
+  }, [width, setSelectedConversation, setMobileView]);
 
   return (
     <>
@@ -39,17 +50,21 @@ export default function Home() {
         <Container fluid>
           <Row>
             <Col sm={3}>
-              <ConversationsDesktop />
+              <Conversations />
             </Col>
             <Col sm={9} id="messageBox">
-              <MessagesDesktop sendMessage={sendMessage} />
+              <Messages sendMessage={sendMessage} />
             </Col>
           </Row>
         </Container>
       ) : (
         <Container fluid>
-          <ConversationsMobile />
-          <MessagesMobile sendMessage={sendMessage} />
+          <Conversations />
+          {loadingMessages ? (
+            <Spinner id="spinner" animation="border" />
+          ) : (
+            <Messages sendMessage={sendMessage} />
+          )}
         </Container>
       )}
     </>

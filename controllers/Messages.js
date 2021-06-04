@@ -21,7 +21,19 @@ router.get("/:convo_id", (req, res) => {
 });
 
 router.put("/newMessage", (req, res) => {
-  console.log(req.body);
+  try {
+    db.Message.create(req.body)
+      .then((data) => {
+        res.send(data);
+      })
+      .catch((e) => {
+        console.error(e);
+        res.sendStatus(400);
+      });
+  } catch (e) {
+    console.error(e);
+    res.sendStatus(500);
+  }
 });
 
 module.exports = router;
