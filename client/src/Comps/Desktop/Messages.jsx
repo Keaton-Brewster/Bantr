@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Form, InputGroup, Button } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import { FaArrowRight } from "react-icons/fa";
 import { useConversations } from "../../utils/ConvorsationProvider";
 
@@ -79,12 +79,18 @@ export default function Message() {
           );
         })
       )}
-      <form id="chatBox" onSubmit={handleSubmit}>
-        <input type="text" />
-        <button id="sendButton">
-          <FaArrowRight />
-        </button>
-      </form>
+      <Container fluid id="chatBox">
+        <Row>
+          <Col xs={10}>
+            <textarea rows="1" id="chatInput" type="text" />
+          </Col>
+          <Col xs={2}>
+            <button id="sendButton">
+              <FaArrowRight className="bg-primary" />
+            </button>
+          </Col>
+        </Row>
+      </Container>
     </>
   );
 }

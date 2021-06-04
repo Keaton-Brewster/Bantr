@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Navbar, Form, InputGroup, Button } from "react-bootstrap";
-import { FaArrowLeft } from "react-icons/fa";
+import { Navbar, Container, Row, Col } from "react-bootstrap";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { useConversations } from "../../utils/ConvorsationProvider";
 
 export default function Message() {
@@ -27,7 +27,7 @@ export default function Message() {
             });
           }}
         >
-          <FaArrowLeft />
+          <FaArrowLeft className="bg-danger" />
         </button>
       </Navbar>
       {messages.length === 1 ? (
@@ -94,22 +94,18 @@ export default function Message() {
           );
         })
       )}
-      <Form onSubmit={handleSubmit}>
-        <Form.Group className="m-2">
-          <InputGroup>
-            <Form.Control
-              as="textarea"
-              required
-              value={text}
-              onChange={(e) => setText(e.target.value)}
-              style={{ height: "75px", resize: "none" }}
-            />
-            <InputGroup.Append>
-              <Button type="submit">Send</Button>
-            </InputGroup.Append>
-          </InputGroup>
-        </Form.Group>
-      </Form>
+      <Container fluid id="chatBox">
+        <Row>
+          <Col xs={10}>
+            <textarea rows="1" id="chatInput" type="text" />
+          </Col>
+          <Col xs={2}>
+            <button id="sendButton">
+              <FaArrowRight className="bg-primary" />
+            </button>
+          </Col>
+        </Row>
+      </Container>
     </div>
   );
 }

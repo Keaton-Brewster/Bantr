@@ -35,7 +35,7 @@
 
 #searchConversationsInput {
     padding: 5px;
-    padding-left: 15px;
+    padding-left: 20px;
     width: 100%;
     border: none;
     border-radius: 25px;
@@ -57,8 +57,11 @@
 }
 
 #backButton {
-    padding: 10px;
     margin-top: 10px;
+    height: 35px;
+    width: 35px;
+    background-color: var(--danger);
+    border-radius: 50px;
 }
 
 #chatBox {
@@ -67,9 +70,25 @@
     padding: 1rem;
 }
 
+#chatInput {
+    padding: 5px;
+    padding-left: 20px;
+    width: 100%;
+    border: none;
+    border-radius: 25px;
+    border: 1px solid grey;
+    overflow-wrap: break-word;
+    resize: none;
+}
+
+#chatInput:focus {
+    outline: none;
+    box-shadow: 0 0 5px 1px var(--light);
+}
+
 #sendButton {
-    height: 25px;
-    width: 25px;
+    height: 35px;
+    width: 35px;
     background-color: var(--primary);
     border-radius: 50px;
 }
