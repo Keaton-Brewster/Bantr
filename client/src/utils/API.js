@@ -21,5 +21,12 @@ const API = {
     const { data } = await axios.get(`/api/messages/${convo_id}`);
     return data;
   },
+  async sendMessage(convo_id, text) {
+    const { data } = await axios.put("/api/messages/newMessage", {
+      convo_id,
+      text,
+    });
+    return data;
+  },
 };
 export default API;

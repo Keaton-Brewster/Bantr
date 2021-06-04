@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { useConversations } from "../../utils/ConvorsationProvider";
+import API from "../../utils/API";
 import useViewport from "../../utils/useViewport";
 import ConversationsDesktop from "../../Comps/Desktop/Conversations";
 import MessagesDesktop from "../../Comps/Desktop/Messages";
@@ -19,7 +20,11 @@ export default function Home() {
     // Yet another place where I ran into id issues.. this is going to be a mess to fix later
     const convo_id = selectedConversation.id;
     // const convo_id = selectedConversation._id;
-    API.sendMessage(convo_id, text);
+    API.sendMessage(convo_id, text)
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((e) => console.error(e));
   }
 
   useEffect(() => {

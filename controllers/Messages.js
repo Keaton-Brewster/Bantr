@@ -20,4 +20,8 @@ router.get("/:convo_id", (req, res) => {
   }
 });
 
+router.put("/newMessage", (req, res) => {
+  console.log(req.body);
+});
+
 module.exports = router;
