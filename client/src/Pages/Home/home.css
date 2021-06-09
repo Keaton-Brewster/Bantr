@@ -49,11 +49,11 @@
 }
 
 .show {
-    display: block;
+    display: block !important;
 }
 
 .hide {
-    display: none;
+    display: none !important;
 }
 
 #backButton {
@@ -65,9 +65,13 @@
 }
 
 #chatBox {
-    position: absolute;
+    position: fixed;
     bottom: 0;
     padding: 1rem;
+}
+
+.overflow {
+    overflow-wrap: break-word;
 }
 
 #chatInput {
@@ -91,4 +95,10 @@
     width: 35px;
     background-color: var(--primary);
     border-radius: 50px;
+}
+
+#messages {
+    overflow-y: scroll !important;
+    white-space: nowrap;
+    margin-bottom: 3rem;
 }
