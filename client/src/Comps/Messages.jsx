@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { Navbar, Container, Row, Col, Spinner } from "react-bootstrap";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { useConversations } from "../utils/ConvorsationProvider";
@@ -12,6 +12,19 @@ export default function Message({ sendMessage }) {
 
   const textRef = useRef();
   const { width } = useViewport();
+
+  // Setting up the ability to delete messages via a custom context menu (from "right-click")
+  useEffect(() => {
+    const messageElements = document.querySelectorAll(".message");
+    messageElements.forEach((element) => {
+      element.addEventListener("contextmenu", (e) => {
+        e.preventDefault();
+        const messageIndex = element.getAttribute("data-key");
+        const xPos = e.pageX + "px";
+        const yPos = e.pageY + "px";
+      });
+    });
+  }, []);
 
   return (
     <div className={mobileView.messages ? "show" : "hide"}>
@@ -46,7 +59,8 @@ export default function Message({ sendMessage }) {
                 }`}
               >
                 <div
-                  className={`rounded px-2 py-1 ${
+                  data-key={i}
+                  className={`message rounded px-2 py-1 ${
                     message.sender_id === user._id
                       ? "bg-primary text-white"
                       : "border"

@@ -25,12 +25,12 @@ export default function Conversations() {
 
   return (
     <div className={mobileView.conversations ? "show" : "hide"}>
-      <input
+      {/* <input
         id="searchConversationsInput"
         type="text"
         ref={searchRef}
         placeholder="search"
-      />
+      /> */}
 
       {conversations.map((convo, i) => {
         return (
