@@ -38,7 +38,6 @@ export default function Home() {
   useEffect(() => {
     if (width <= 575) {
       setMobileView({ conversations: true, messages: false });
-      setSelectedConversation();
       return;
     }
     setMobileView({ conversations: true, messages: true });

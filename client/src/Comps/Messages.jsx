@@ -37,26 +37,26 @@ export default function Message({ sendMessage }) {
         ) : (
           messages.map((message, i) => {
             return (
-              <div key={i}>
+              <div
+                key={i}
+                className={`my-1 d-flex flex-column ${
+                  message.sender_id === user._id
+                    ? "align-self-end align-items-end"
+                    : "align-items-start"
+                }`}
+              >
                 <div
-                  className={`my-1 d-flex flex-column ${
+                  className={`rounded px-2 py-1 ${
                     message.sender_id === user._id
-                      ? "align-self-end align-items-end"
-                      : "align-items-start"
+                      ? "bg-primary text-white"
+                      : "border"
                   }`}
                 >
-                  <div
-                    className={`overflow rounded px-2 py-1 ${
-                      message.sender_id === user._id
-                        ? "bg-primary text-white"
-                        : "border"
-                    }`}
-                  >
-                    {message.content}
-                  </div>
-                  {
-                    // for some reason, this thing breaks when you tryi to select a new conversation? No idea why
-                    /* <div
+                  {message.content}
+                </div>
+                {
+                  // for some reason, this thing breaks when you tryi to select a new conversation? No idea why
+                  /* <div
                     className={`text-muted small ${
                       message.sender_id === user._id ? "text-right" : ""
                     }`}
@@ -66,8 +66,7 @@ export default function Message({ sendMessage }) {
                       ? "You"
                       : message.senderName}
                   </div> */
-                  }
-                </div>
+                }
               </div>
             );
           })

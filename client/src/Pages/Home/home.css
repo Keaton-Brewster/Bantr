@@ -70,10 +70,6 @@
     padding: 1rem;
 }
 
-.overflow {
-    overflow-wrap: break-word;
-}
-
 #chatInput {
     padding: 5px;
     padding-left: 20px;

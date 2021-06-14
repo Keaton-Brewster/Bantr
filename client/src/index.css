@@ -5,6 +5,7 @@ html {
 * {
     color: white;
     background-color: #202020;
+    overflow-wrap: break-word !important;
 }
 
 #spinner {
