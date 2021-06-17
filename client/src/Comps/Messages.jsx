@@ -1,14 +1,16 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { Navbar, Container, Row, Col, Spinner } from "react-bootstrap";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { useConversations } from "../utils/ConvorsationProvider";
 import useViewport from "../utils/useViewport";
+import MessageContextMenu from "./MessageContextMenu";
 
 export default function Message({ sendMessage }) {
   const { messageState, userState, mobileViewState } = useConversations();
   const [messages, setMessages] = messageState;
   const [user, setUser] = userState;
   const [mobileView, setMobileView] = mobileViewState;
+  const [contextMenu, setContextMenu] = useState({});
 
   const textRef = useRef();
   const { width } = useViewport();
@@ -22,55 +24,69 @@ export default function Message({ sendMessage }) {
         const messageIndex = element.getAttribute("data-key");
         const xPos = e.pageX + "px";
         const yPos = e.pageY + "px";
+
+        //! this does not work. I need a different way to handle the display state of the message context menu.
+        //! Possibly with custom CSS or there may be another eventListener I need
+        setContextMenu({
+          xPos,
+          yPos,
+          display: "block",
+        });
+        console.log(contextMenu);
       });
     });
-  }, []);
+  }, [contextMenu]);
 
   return (
-    <div className={mobileView.messages ? "show" : "hide"}>
-      {width <= 575 ? (
-        <Navbar>
-          <button
-            id="backButton"
-            onClick={(e) => {
-              e.preventDefault();
-              setMobileView({
-                conversations: true,
-                messages: false,
-              });
-            }}
-          >
-            <FaArrowLeft className="bg-danger" />
-          </button>
-        </Navbar>
-      ) : null}
-      <Container id="messages">
-        {messages.length < 0 ? (
-          <Spinner id="spinner" animation="border" />
-        ) : (
-          messages.map((message, i) => {
-            return (
-              <div
-                key={i}
-                className={`my-1 d-flex flex-column ${
-                  message.sender_id === user._id
-                    ? "align-self-end align-items-end"
-                    : "align-items-start"
-                }`}
-              >
+    <>
+      <MessageContextMenu
+        style={{ display: contextMenu.display }}
+        position={contextMenu}
+      />
+      <div className={mobileView.messages ? "show" : "hide"}>
+        {width <= 575 ? (
+          <Navbar>
+            <button
+              id="backButton"
+              onClick={(e) => {
+                e.preventDefault();
+                setMobileView({
+                  conversations: true,
+                  messages: false,
+                });
+              }}
+            >
+              <FaArrowLeft className="bg-danger" />
+            </button>
+          </Navbar>
+        ) : null}
+        <Container id="messages">
+          {messages.length < 0 ? (
+            <Spinner id="spinner" animation="border" />
+          ) : (
+            messages.map((message, i) => {
+              return (
                 <div
-                  data-key={i}
-                  className={`message rounded px-2 py-1 ${
+                  key={i}
+                  className={`my-1 d-flex flex-column ${
                     message.sender_id === user._id
-                      ? "bg-primary text-white"
-                      : "border"
+                      ? "align-self-end align-items-end"
+                      : "align-items-start"
                   }`}
                 >
-                  {message.content}
-                </div>
-                {
-                  // for some reason, this thing breaks when you tryi to select a new conversation? No idea why
-                  /* <div
+                  <div
+                    data-key={i}
+                    className={`message rounded px-2 py-1 ${
+                      message.sender_id === user._id
+                        ? "bg-primary text-white"
+                        : "border"
+                    }`}
+                  >
+                    {message.content}
+                  </div>
+                  {
+                    // for some reason, this thing breaks when you tryi to select a new conversation? No idea why
+                    /* <div
                     className={`text-muted small ${
                       message.sender_id === user._id ? "text-right" : ""
                     }`}
@@ -80,30 +96,31 @@ export default function Message({ sendMessage }) {
                       ? "You"
                       : message.senderName}
                   </div> */
-                }
-              </div>
-            );
-          })
-        )}
-      </Container>
-      <Container fluid id="chatBox">
-        <Row>
-          <Col xs={7}>
-            <textarea ref={textRef} rows="1" id="chatInput" type="text" />
-          </Col>
-          <Col xs={2}>
-            <button
-              id="sendButton"
-              onClick={(e) => {
-                e.preventDefault();
-                sendMessage(textRef.current.value);
-              }}
-            >
-              <FaArrowRight className="bg-primary" />
-            </button>
-          </Col>
-        </Row>
-      </Container>
-    </div>
+                  }
+                </div>
+              );
+            })
+          )}
+        </Container>
+        <Container fluid id="chatBox">
+          <Row>
+            <Col xs={7}>
+              <textarea ref={textRef} rows="1" id="chatInput" type="text" />
+            </Col>
+            <Col xs={2}>
+              <button
+                id="sendButton"
+                onClick={(e) => {
+                  e.preventDefault();
+                  sendMessage(textRef.current.value);
+                }}
+              >
+                <FaArrowRight className="bg-primary" />
+              </button>
+            </Col>
+          </Row>
+        </Container>
+      </div>
+    </>
   );
 }
