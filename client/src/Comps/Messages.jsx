@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState, useCallback } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Navbar, Container, Row, Col, Spinner } from "react-bootstrap";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { useConversations } from "../utils/ConvorsationProvider";
@@ -15,6 +15,15 @@ export default function Message({ sendMessage }) {
     yPos: "0px",
     show: false,
   });
+  const bottomRef = useRef();
+
+  function scrollToBottom() {
+    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+  }
+
+  useEffect(() => {
+    scrollToBottom();
+  }, []);
 
   const textRef = useRef();
   const { width } = useViewport();
@@ -137,6 +146,7 @@ export default function Message({ sendMessage }) {
                   );
                 })
               )}
+              <div ref={bottomRef}></div>
             </div>
           </div>
         </div>
