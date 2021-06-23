@@ -73,7 +73,10 @@ export default function Message({ sendMessage }) {
     <>
       {contextMenu.show ? <MessageContextMenu position={contextMenu} /> : null}
 
-      <div className={mobileView.messages ? "show" : "hide"}>
+      <div
+        id="messageWrapper"
+        className={mobileView.messages ? "show" : "hide"}
+      >
         {width <= 575 ? (
           <Navbar>
             <button
