@@ -16,8 +16,12 @@ router.post("/signup", (request, response) => {
       name: request.body.name,
       phone: request.body.phone,
     })
-      .then((user) => {
-        response.send(user);
+      .then((res) => {
+        const user = {
+          email: res.email,
+          _id: res._id,
+        };
+        response.json(user);
       })
       .catch((error) => {
         console.error(error);

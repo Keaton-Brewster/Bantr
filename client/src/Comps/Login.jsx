@@ -1,9 +1,8 @@
 import { useState, useRef } from "react";
 import { Container, Row, Form, Button } from "react-bootstrap";
-import API from "../../utils/API";
-import "./login.css";
+import API from "../utils/API";
 
-export default function Home() {
+export default function Login({ onLoginSubmit }) {
   const [formValues, setFormValues] = useState({
     email: "",
     password: "",
@@ -23,7 +22,7 @@ export default function Home() {
     e.preventDefault();
     API.login(formValues)
       .then((response) => {
-        window.location.href = "/home";
+        console.log(response);
       })
       .catch((error) => {
         console.log(error);
@@ -57,6 +56,9 @@ export default function Home() {
           <Button variant="primary" type="submit" className="float-right">
             Submit
           </Button>
+
+          <span>Or sign up</span>
+          <Button variant="secondary">here</Button>
         </Form>
       </Row>
     </Container>

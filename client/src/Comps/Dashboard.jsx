@@ -1,13 +1,12 @@
 import { useEffect } from "react";
 import { Container, Row, Col, Spinner } from "react-bootstrap";
-import { useConversations } from "../../utils/ConvorsationProvider";
-import API from "../../utils/API";
-import useViewport from "../../utils/useViewport";
-import Conversations from "../../Comps/Conversations";
-import Messages from "../../Comps/Messages";
-import "./home.css";
+import { useConversations } from "../utils/ConvorsationProvider";
+import API from "../utils/API";
+import useViewport from "../utils/useViewport";
+import Conversations from "./Conversations";
+import Messages from "./Messages";
 
-export default function Home() {
+export default function Dashboard() {
   const {
     selectedConversationState,
     userState,
