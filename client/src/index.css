@@ -130,3 +130,9 @@ button {
     margin: 4rem;
     min-width: 15rem;
 }
+
+#signupLink {
+    background-color: rgb(67, 66, 66);
+    padding: 1rem;
+    border-radius: 5px;
+}

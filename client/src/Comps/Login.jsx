@@ -56,10 +56,13 @@ export default function Login({ onLoginSubmit }) {
           <Button variant="primary" type="submit" className="float-right">
             Submit
           </Button>
-
-          <span>Or sign up</span>
-          <Button variant="secondary">here</Button>
         </Form>
+      </Row>
+      <Row className="justify-content-center">
+        <span id="signupLink" className="text-center">
+          Don't have an account?
+          <br /> Sign up <a href="/signup">here</a>!
+        </span>
       </Row>
     </Container>
   );
