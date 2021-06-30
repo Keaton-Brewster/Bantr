@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Signup from "./Pages/Signup";
 import Home from "./Pages/Home";
@@ -8,7 +7,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 
 function App() {
-  // const [user, setUser] = useState("user1");
   const [user, setUser] = useLocalStorage("user", null);
 
   return (
