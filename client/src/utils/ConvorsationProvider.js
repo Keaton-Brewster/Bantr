@@ -9,7 +9,6 @@ export function useConversations() {
 }
 
 export function Provider({ id, children }) {
-  const [isLoading, setIsLoading] = useState(true);
   const [loadingMessages, setLoadingMessages] = useState(false);
   const [conversations, setConversations] = useState([]);
   const [selectedConversationIndex, setSelectedConversationIndex] = useState(0);
@@ -27,15 +26,14 @@ export function Provider({ id, children }) {
   }
 
   useEffect(() => {
+    if (!id) return;
     API.init(([convos, topMessages]) => {
       setConversations(convos);
       setMessages(topMessages);
-      setIsLoading(false);
     }).catch((e) => console.error(e));
-  }, []);
+  }, [id]);
 
   const value = {
-    loadingState: [isLoading, setIsLoading],
     conversationState: [conversations, setConversations],
     selectedConversation: conversations[selectedConversationIndex],
     messageState: [messages, setMessages],
@@ -46,7 +44,7 @@ export function Provider({ id, children }) {
   };
   return (
     <conversationContext.Provider value={value}>
-      {isLoading ? <Spinner id="spinner" animation="border" /> : children}
+      {children}
     </conversationContext.Provider>
   );
 }

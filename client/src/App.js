@@ -10,7 +10,7 @@ function App() {
   const [user, setUser] = useLocalStorage("user", null);
 
   return (
-    <Provider id={user._id}>
+    <Provider id={user?._id}>
       <Router>
         <Switch>
           <Route exact path="/signup">
