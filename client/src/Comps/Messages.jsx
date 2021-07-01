@@ -2,30 +2,27 @@ import { useRef, useState, useEffect } from "react";
 import { Navbar, Container, Row, Col, Spinner } from "react-bootstrap";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { useConversations } from "../utils/ConversationProvider";
-import useMobileLayout from "../utils/useMobileLayout";
 import useViewport from "../utils/useViewport";
 import MessageContextMenu from "./MessageContextMenu";
 
-export default function Messages({ messages }) {
+export default function Messages({ messages, show, setShow }) {
   const { sendMessage } = useConversations();
   const [contextMenu, setContextMenu] = useState({
     xPos: "0px",
     yPos: "0px",
     show: false,
   });
-  const bottomRef = useRef();
 
+  const bottomRef = useRef();
   function scrollToBottom() {
     bottomRef.current?.scrollIntoView();
   }
-
   useEffect(() => {
     scrollToBottom();
   }, []);
 
   const textRef = useRef();
   const width = useViewport();
-  const [show, setShow] = useMobileLayout();
 
   // //! I need to research useCallback.
   // //* I REALLY NEED TO JUST TRASH THIS WHOLE IDEA AND START FROM SCRATCH ON THE CONTEXT MENU IDEA
@@ -78,7 +75,7 @@ export default function Messages({ messages }) {
   // }, [contextMenu, handleRightClick]);
 
   return (
-    <div className={show.messages ? "show" : "hide"}>
+    <div className={show ? "show" : "hide"}>
       {contextMenu.show ? <MessageContextMenu position={contextMenu} /> : null}
 
       <div id="messageWrapper">
@@ -86,8 +83,7 @@ export default function Messages({ messages }) {
           <Navbar>
             <button
               id="backButton"
-              onClick={(e) => {
-                e.preventDefault();
+              onClick={() => {
                 setShow({
                   convos: true,
                   messages: false,
@@ -118,7 +114,9 @@ export default function Messages({ messages }) {
                       <div
                         data-key={i}
                         className={`message rounded px-2 py-1 ${
-                          message.fromMe ? "bg-primary text-white" : "border"
+                          message.fromMe
+                            ? "bg-primary text-white"
+                            : "bg-success"
                         }`}
                       >
                         {message.content}

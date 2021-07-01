@@ -136,7 +136,7 @@ button {
 
 #chatInput:focus {
     outline: none;
-    box-shadow: 0 0 5px 1px var(--light);
+    box-shadow: 0 0 4px 0px var(--light);
 }
 
 #sendButton {
@@ -147,9 +147,16 @@ button {
 }
 
 #messages {
-    overflow-y: scroll !important;
+    overflow-y: scroll;
     white-space: nowrap;
     margin-bottom: 3rem;
+}
+
+.message {
+    width: max-content;
+    max-width: 350px;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
 }
 
 /* from login css */

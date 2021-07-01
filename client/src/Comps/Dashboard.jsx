@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Container, Row, Col, Spinner } from "react-bootstrap";
 import { useConversations } from "../utils/ConversationProvider";
 import useViewport from "../utils/useViewport";
@@ -8,24 +9,37 @@ export default function Dashboard() {
   const { selectedConversation } = useConversations();
   const width = useViewport();
 
+  // For mobile Layout
+  const [show, setShow] = useState({
+    convos: true,
+    messages: false,
+  });
+
   const Main = () => {
     return (
       <>
-        {width > 575 ? (
+        {width >= 575 ? (
           <Container fluid>
             <Row>
               <Col sm={3}>
-                <Conversations />
+                <Conversations show={true} />
               </Col>
               <Col sm={9} id="messageBox">
-                <Messages messages={selectedConversation.messages} />
+                <Messages
+                  show={true}
+                  messages={selectedConversation.messages}
+                />
               </Col>
             </Row>
           </Container>
         ) : (
           <Container fluid>
-            <Conversations />
-            <Messages messages={selectedConversation.messages} />
+            <Conversations setShow={setShow} show={show.convos} />
+            <Messages
+              show={show.messages}
+              setShow={setShow}
+              messages={selectedConversation.messages}
+            />
           </Container>
         )}
       </>

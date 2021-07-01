@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState, useCallback } from "react";
 import axios from "axios";
-import API from "./API";
 
 const conversationContext = React.createContext();
 

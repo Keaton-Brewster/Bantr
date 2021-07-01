@@ -2,23 +2,21 @@ import { useState, useRef } from "react";
 import { Row } from "react-bootstrap";
 import { BsChatSquareDots as Chat } from "react-icons/bs";
 import { useConversations } from "../utils/ConversationProvider";
-import useMobileLayout from "../utils/useMobileLayout";
 import useViewport from "../utils/useViewport";
 import NewConversationModal from "./NewConversationModal";
 
-export default function Conversations() {
+export default function Conversations({ show, setShow }) {
   const { conversations, selectConversationIndex } = useConversations();
   const [newConvoModal, setNewConvoModal] = useState(false);
 
   const searchRef = useRef();
 
   const width = useViewport();
-  const [show, setShow] = useMobileLayout();
 
   function createConversation(event) {}
 
   return (
-    <div className={show.convos ? "show" : "hide"}>
+    <div className={show ? "show" : "hide"}>
       {/* <input
         id="searchConversationsInput"
         type="text"
@@ -31,14 +29,15 @@ export default function Conversations() {
           <Row
             key={index}
             className="convoBox"
-            onClick={(e) => {
-              e.preventDefault();
+            onClick={(event) => {
+              event.preventDefault();
+              selectConversationIndex(index);
               if (width < 575)
                 setShow({
                   convos: false,
                   messages: true,
                 });
-              selectConversationIndex(index);
+              console.log(show);
             }}
           >
             {convo.name || "New Conversation"}
