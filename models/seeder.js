@@ -65,18 +65,22 @@ const conversationSeed = [
       {
         sender_id: ObjectId("60a532c9266a4f2cc69925f6"),
         content: "Hey! I see that you are making good progess!",
+        senderName: "Timmeree",
       },
       {
         sender_id: ObjectId("60dd2b58eeda4429a8f4ca91"),
         content: "sure if that's what you want to call it..",
+        senderName: "Keaton",
       },
       {
         sender_id: ObjectId("60dd2b58eeda4429a8f4ca91"),
         content: "I'm trying at least!",
+        senderName: "Keaton",
       },
       {
         sender_id: ObjectId("60a532c9266a4f2cc69925f6"),
         content: "Don't be like that to your self, you're doing great",
+        senderName: "Timmeree",
       },
     ],
   },
@@ -89,50 +93,28 @@ const conversationSeed = [
     messages: [
       {
         sender_id: ObjectId("60dd2b58eeda4429a8f4ca91"),
-        content: "I am glad that you think so",
+        content: "What's up",
+        senderName: "Keaton",
+      },
+      {
+        sender_id: ObjectId("60a533d0266a4f2cc69925fa"),
+        content: "Not much",
+        senderName: "Fred",
       },
     ],
   },
 ];
 
-// const messageSeed = [
-//   {
-//     conversation_id: "Convo1",
-//     sender_id: ObjectId("60a532c9266a4f2cc69925f6"),
-//     content: "Hey! I see that you are making good progess!",
-//   },
-//   {
-//     conversation_id: "Convo1",
-//     sender_id: ObjectId("60dd2b58eeda4429a8f4ca91"),
-//     content: "sure if that's what you want to call it..",
-//   },
-//   {
-//     conversation_id: "Convo1",
-//     sender_id: ObjectId("60dd2b58eeda4429a8f4ca91"),
-//     content: "I'm trying at least!",
-//   },
-//   {
-//     conversation_id: "Convo1",
-//     sender_id: ObjectId("60a532c9266a4f2cc69925f6"),
-//     content: "Don't be like that to your self, you're doing great",
-//   },
-//   {
-//     conversation_id: "Convo2",
-//     sender_id: ObjectId("60dd2b58eeda4429a8f4ca91"),
-//     content: "I am glad that you think so",
-//   },
-// ];
-
-db.User.deleteMany({})
-  .then(() => db.User.collection.insertMany(userSeed))
-  .then((data) => {
-    console.log(data);
-    console.log(`${data.result.n}  'user records inserted!'`);
-  })
-  .catch((err) => {
-    console.error(err);
-    process.exit(1);
-  });
+// db.User.deleteMany({})
+//   .then(() => db.User.collection.insertMany(userSeed))
+//   .then((data) => {
+//     console.log(data);
+//     console.log(`${data.result.n}  'user records inserted!'`);
+//   })
+//   .catch((err) => {
+//     console.error(err);
+//     process.exit(1);
+//   });
 
 db.Conversation.deleteMany({})
   .then(() => db.Conversation.collection.insertMany(conversationSeed))
@@ -144,15 +126,3 @@ db.Conversation.deleteMany({})
     console.error(err);
     process.exit(1);
   });
-
-// db.Message.deleteMany({})
-//   .then(() => db.Message.collection.insertMany(messageSeed))
-//   .then((data) => {
-//     console.log(data);
-//     console.log(`${data.result.n}  'message records inserted!'`);
-//     process.exit(0);
-//   })
-//   .catch((err) => {
-//     console.error(err);
-//     process.exit(1);
-//   });

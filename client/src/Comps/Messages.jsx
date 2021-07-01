@@ -124,7 +124,6 @@ export default function Messages({ messages }) {
                         {message.content}
                       </div>
                       {
-                        //? for some reason, this thing breaks when you tryi to select a new conversation? No idea why
                         <div
                           className={`text-muted small ${
                             message.fromMe ? "text-right" : ""
@@ -132,6 +131,8 @@ export default function Messages({ messages }) {
                         >
                           {message.fromMe && !messages[i + 1]?.fromMe
                             ? "You"
+                            : message.fromMe
+                            ? ""
                             : message.senderName}
                         </div>
                       }
