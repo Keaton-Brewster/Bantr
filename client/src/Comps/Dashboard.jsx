@@ -20,8 +20,8 @@ export default function Dashboard() {
       <>
         {width >= 575 ? (
           <Container fluid>
-            <Row>
-              <Col sm={3}>
+            <Row style={{ marginRight: "0px !important" }}>
+              <Col sm={3} style={{ paddingRight: "0px" }}>
                 <Conversations show={true} />
               </Col>
               <Col sm={9} id="messageBox">

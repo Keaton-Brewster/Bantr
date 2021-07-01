@@ -56,7 +56,7 @@ export default function Messages({ messages, show, setShow }) {
                 });
               }}
             >
-              <FaArrowLeft className="bg-danger" />
+              <FaArrowLeft className="bg-danger backButton" />
             </button>
           </Navbar>
         ) : null}
@@ -82,9 +82,9 @@ export default function Messages({ messages, show, setShow }) {
             </div>
           </div>
         </div>
-        <Container fluid id="chatBox">
+        <div id="chatBox">
           <Row>
-            <Col xs={7}>
+            <Col xs={10}>
               <textarea ref={textRef} rows="1" id="chatInput" type="text" />
             </Col>
             <Col xs={2}>
@@ -96,11 +96,11 @@ export default function Messages({ messages, show, setShow }) {
                   textRef.current.value = "";
                 }}
               >
-                <FaArrowRight className="bg-primary" />
+                <FaArrowRight className="bg-primary sendButton" />
               </button>
             </Col>
           </Row>
-        </Container>
+        </div>
       </div>
     </div>
   );

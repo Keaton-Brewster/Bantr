@@ -30,12 +30,18 @@ button {
     border: none !important;
 }
 
+.convoBox {
+    background-color: #202020 !important;
+    padding: 1rem !important;
+}
 
-.convoBox,
 .convoBox:hover {
-    border-top: 1px solid grey !important;
-    padding: 1rem;
+    background-color: #404040 !important;
     cursor: pointer;
+}
+
+.activeConvo {
+    background-color: #404040 !important;
 }
 
 #newConversationButton {
@@ -51,12 +57,13 @@ button {
 
 @media screen and (max-width: 575px) {
     #newConversationButton {
-        left: 80vw;
+        position: absolute;
+        right: 20px !important;
     }
 }
 
-#newConversationButton:active #newChat,
-#newConversationButton:active {
+#newConversationButton:hover,
+#newConversationButton:hover #newChat {
     background-color: rgb(1, 109, 1) !important;
 }
 
@@ -69,7 +76,7 @@ button {
 #messageBox {
     border-left: 1px solid grey !important;
     height: 100vh;
-    padding-left: 0;
+    padding: 0;
 }
 
 #bottomOfConvos {
@@ -79,9 +86,6 @@ button {
     width: 130%
 }
 
-.convoBox:hover {
-    background-color: #404040;
-}
 
 #selected {
     background-color: var(--primary);
@@ -120,15 +124,30 @@ button {
     border-radius: 50px;
 }
 
+.backButton {
+    position: relative;
+    right: 1px;
+    bottom: 1px;
+}
+
+#backButton:hover,
+#backButton:hover .backButton {
+    background-color: #9e3c39 !important;
+}
+
 #chatBox {
+    width: 80%;
+    margin-right: auto;
+    margin-left: auto;
     position: fixed;
     bottom: 0;
     padding: 1rem;
+    padding-left: 35px;
 }
 
 @media screen and (max-width: 575px) {
     #chatBox {
-        width: 130vw;
+        width: 100% !important;
 
     }
 
@@ -164,6 +183,16 @@ button {
     border-radius: 50px;
 }
 
+.sendButton {
+    position: relative;
+    bottom: 1px;
+}
+
+#sendButton:hover,
+#sendButton:hover .sendButton {
+    background-color: #0068c2 !important;
+}
+
 #messages {
     overflow-y: scroll;
     white-space: nowrap;
@@ -172,14 +201,20 @@ button {
 
 .message {
     width: max-content;
-    max-width: 350px;
+    max-width: 600px;
     overflow-wrap: break-word;
     white-space: pre-wrap;
 }
 
 @media screen and (max-width: 575px) {
     .message {
-        max-width: 275px;
+        max-width: 250px;
+    }
+}
+
+@media screen and (max-width: 1024px) and (min-width: 575px) {
+    .message {
+        max-width: 350px;
     }
 }
 
@@ -212,4 +247,14 @@ button {
 
 .deleteMessageButton:hover {
     fill: var(--danger);
+}
+
+/*  Chanign container padding */
+/* Sometimes Bootstrap makes this really difficult */
+.container-fluid {
+    padding: 0px !important;
+}
+
+.row {
+    margin-right: 0px !important;
 }
