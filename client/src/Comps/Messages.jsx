@@ -1,17 +1,18 @@
-import { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useCallback } from "react";
 import { Navbar, Container, Row, Col, Spinner } from "react-bootstrap";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { useConversations } from "../utils/ConversationProvider";
 import useViewport from "../utils/useViewport";
 import MessageContextMenu from "./MessageContextMenu";
+import SingleMessage from "./SingleMessage";
 
 export default function Messages({ messages, show, setShow }) {
   const { sendMessage } = useConversations();
   const [contextMenu, setContextMenu] = useState({
-    xPos: "0px",
-    yPos: "0px",
-    show: false,
+    x: "0px",
+    y: "0px",
   });
+  const [contextMenuShow, setContextMenuShow] = useState(false);
 
   const bottomRef = useRef();
   function scrollToBottom() {
@@ -24,59 +25,33 @@ export default function Messages({ messages, show, setShow }) {
   const textRef = useRef();
   const width = useViewport();
 
-  // //! I need to research useCallback.
-  // //* I REALLY NEED TO JUST TRASH THIS WHOLE IDEA AND START FROM SCRATCH ON THE CONTEXT MENU IDEA
-  // const handleRightClick = useCallback(
-  //   (event, element) => {
-  //     event.preventDefault();
-  //     // const messageIndex = element.getAttribute("data-key");
-  //     const xPos = `${event.pageX}px`;
-  //     const yPos = `${event.pageY}px`;
-  //     console.log(xPos, yPos);
+  function handleRightClick(event, element) {
+    if (contextMenuShow) return;
+    event.preventDefault();
+    // const messageIndex = element.getAttribute("data-key");
 
-  //     //! this does not work. I need a different way to handle the display state of the message context menu.
-  //     //! Possibly with custom CSS or there may be another eventListener I need
+    setContextMenu({
+      x: `${event.pageX}px`,
+      y: `${event.pageY}px`,
+    });
+    setContextMenuShow(true);
+  }
 
-  //     //! The problem is that I am setting state in an event listener,
-  //     //! this causes the page to re render and so the event listener function gets lost.
-  //     setContextMenu({
-  //       xPos: xPos,
-  //       yPos: yPos,
-  //       show: true,
-  //     });
-  //     console.log(contextMenu);
-  //   },
-  //   [contextMenu]
-  // );
+  const dismissContextMenu = useCallback(() => {
+    if (!contextMenuShow) return;
+    setContextMenuShow(false);
+  }, [contextMenuShow]);
 
-  // //* Setting up the ability to delete messages via a custom context menu (from "right-click")
-  // useEffect(() => {
-  //   //? May want to set up a filter for which element you click on dismiss the menu,
-  //   //? Cause obviously if you click on a setting in the context menu, you don't want the menu to disappear
-  //   document.addEventListener("click", (event) => {
-  //     setContextMenu({
-  //       ...contextMenu,
-  //       show: false,
-  //     });
-  //   });
-  //   const messageElements = document.querySelectorAll(".message");
-  //   messageElements.forEach((element) => {
-  //     element.addEventListener("contextmenu", (event) => {
-  //       handleRightClick(event, element);
-  //     });
-  //   });
-  //   //* Need to remove the event listeners before re-rendering the page.
-  //   //* Without doing this there will be errors
-  //   return () => {
-  //     messageElements.forEach((element) => {
-  //       element.removeEventListener("contextmenu", handleRightClick);
-  //     });
-  //   };
-  // }, [contextMenu, handleRightClick]);
+  useEffect(() => {
+    document.addEventListener("click", dismissContextMenu);
+    return () => {
+      document.removeEventListener("click", dismissContextMenu);
+    };
+  }, [dismissContextMenu]);
 
   return (
     <div className={show ? "show" : "hide"}>
-      {contextMenu.show ? <MessageContextMenu position={contextMenu} /> : null}
+      <MessageContextMenu position={contextMenu} show={contextMenuShow} />
 
       <div id="messageWrapper">
         {width < 575 ? (
@@ -103,38 +78,12 @@ export default function Messages({ messages, show, setShow }) {
               ) : (
                 messages.map((message, i) => {
                   return (
-                    <div
+                    <SingleMessage
                       key={i}
-                      className={`my-1 d-flex flex-column ${
-                        message.fromMe
-                          ? "align-self-end align-items-end"
-                          : "align-items-start"
-                      }`}
-                    >
-                      <div
-                        data-key={i}
-                        className={`message rounded px-2 py-1 ${
-                          message.fromMe
-                            ? "bg-primary text-white"
-                            : "bg-success"
-                        }`}
-                      >
-                        {message.content}
-                      </div>
-                      {
-                        <div
-                          className={`text-muted small ${
-                            message.fromMe ? "text-right" : ""
-                          }`}
-                        >
-                          {message.fromMe && !messages[i + 1]?.fromMe
-                            ? "You"
-                            : message.fromMe
-                            ? ""
-                            : message.senderName}
-                        </div>
-                      }
-                    </div>
+                      index={i}
+                      data={[message, messages]}
+                      handleRightClick={handleRightClick}
+                    />
                   );
                 })
               )}

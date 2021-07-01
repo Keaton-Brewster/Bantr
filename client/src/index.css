@@ -110,6 +110,8 @@ button {
 }
 
 #backButton {
+    position: fixed;
+    top: 30px;
     margin-top: 10px;
     height: 35px;
     width: 35px;
@@ -121,6 +123,21 @@ button {
     position: fixed;
     bottom: 0;
     padding: 1rem;
+}
+
+@media screen and (max-width: 575px) {
+    #chatBox {
+        width: 130vw;
+
+    }
+
+    #backButton {
+        top: 5px
+    }
+
+    #messages {
+        margin-top: 50px;
+    }
 }
 
 #chatInput {
@@ -159,6 +176,12 @@ button {
     white-space: pre-wrap;
 }
 
+@media screen and (max-width: 575px) {
+    .message {
+        max-width: 275px;
+    }
+}
+
 /* from login css */
 #form {
     margin: 4rem;
@@ -169,4 +192,12 @@ button {
     background-color: rgb(67, 66, 66);
     padding: 1rem;
     border-radius: 5px;
+}
+
+/* Message Context menu */
+#contextMenu {
+    position: fixed;
+    z-index: 10;
+    border-radius: 5px;
+    padding: 10px 20px 0px 0px;
 }
