@@ -1,14 +1,13 @@
 import { useRef, useState, useEffect } from "react";
 import { Navbar, Container, Row, Col, Spinner } from "react-bootstrap";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
-import { useConversations } from "../utils/ConvorsationProvider";
-import useLocalStorage from "../utils/useLocalStorage";
+import { useConversations } from "../utils/ConversationProvider";
+import useMobileLayout from "../utils/useMobileLayout";
 import useViewport from "../utils/useViewport";
 import MessageContextMenu from "./MessageContextMenu";
 
-export default function Messages() {
-  const { messageState, sendMessage, userID } = useConversations();
-  const [messages, setMessages] = messageState;
+export default function Messages({ messages }) {
+  const { sendMessage, userID } = useConversations();
   const [contextMenu, setContextMenu] = useState({
     xPos: "0px",
     yPos: "0px",
@@ -25,7 +24,8 @@ export default function Messages() {
   }, []);
 
   const textRef = useRef();
-  const { mobile, mobileView, setMobileView } = useViewport();
+  const width = useViewport();
+  const [show, setShow] = useMobileLayout();
 
   // //! I need to research useCallback.
   // //* I REALLY NEED TO JUST TRASH THIS WHOLE IDEA AND START FROM SCRATCH ON THE CONTEXT MENU IDEA
@@ -78,21 +78,18 @@ export default function Messages() {
   // }, [contextMenu, handleRightClick]);
 
   return (
-    <>
+    <div className={show.messages ? "show" : "hide"}>
       {contextMenu.show ? <MessageContextMenu position={contextMenu} /> : null}
 
-      <div
-        id="messageWrapper"
-        className={mobileView.messages ? "show" : "hide"}
-      >
-        {mobile ? (
+      <div id="messageWrapper">
+        {width < 575 ? (
           <Navbar>
             <button
               id="backButton"
               onClick={(e) => {
                 e.preventDefault();
-                setMobileView({
-                  conversations: true,
+                setShow({
+                  convos: true,
                   messages: false,
                 });
               }}
@@ -169,6 +166,6 @@ export default function Messages() {
           </Row>
         </Container>
       </div>
-    </>
+    </div>
   );
 }

@@ -1,26 +1,19 @@
 import { useRef } from "react";
 import { Row } from "react-bootstrap";
-import { useConversations } from "../utils/ConvorsationProvider";
-import API from "../utils/API";
+import { useConversations } from "../utils/ConversationProvider";
+import useMobileLayout from "../utils/useMobileLayout";
 import useViewport from "../utils/useViewport";
 
 export default function Conversations() {
-  const {
-    messageState,
-    conversationState,
-    selectConversationIndex,
-    loadingMessagesState,
-  } = useConversations();
-  const [messages, setMessages] = messageState;
-  const [conversations, setConversations] = conversationState;
-  const [loadingMessages, setLoadingMessages] = loadingMessagesState;
+  const { conversations, selectConversationIndex } = useConversations();
 
   const searchRef = useRef();
 
-  const { mobile, mobileView, setMobileView } = useViewport();
+  const width = useViewport();
+  const [show, setShow] = useMobileLayout();
 
   return (
-    <div className={mobileView.conversations ? "show" : "hide"}>
+    <div className={show.convos ? "show" : "hide"}>
       {/* <input
         id="searchConversationsInput"
         type="text"
@@ -36,18 +29,14 @@ export default function Conversations() {
             // className={selectedConversation._id === convo._id ? "selected" : "notSelected"}
             // Just another place where I am having to use a different "id"
             // onClick={(e) => selectConversation(e, convo._id)}
-            onClick={() => {
-              setLoadingMessages(true);
-              API.selectConversation(convo.id).then((messages) => {
-                if (mobile)
-                  setMobileView({
-                    conversations: false,
-                    messages: true,
-                  });
-                selectConversationIndex(index);
-                setMessages(messages);
-                setLoadingMessages(false);
-              });
+            onClick={(e) => {
+              e.preventDefault();
+              if (width < 575)
+                setShow({
+                  convos: false,
+                  messages: true,
+                });
+              selectConversationIndex(index);
             }}
           >
             {convo.name || "New Conversation"}
