@@ -18,6 +18,7 @@ router.post("/signup", (request, response) => {
     })
       .then((res) => {
         const user = {
+          name: res.name,
           email: res.email,
           _id: res._id,
         };
@@ -35,6 +36,7 @@ router.post("/signup", (request, response) => {
 
 router.post("/login", passport.authenticate("local"), (request, response) => {
   const user = {
+    name: request.user.name,
     email: request.user.email,
     _id: request.user._id,
   };

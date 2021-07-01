@@ -7,7 +7,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 
 function App() {
-  const [user, setUser] = useLocalStorage("user");
+  const [user, setUser] = useLocalStorage("user", 0);
 
   return (
     <Provider id={user._id}>

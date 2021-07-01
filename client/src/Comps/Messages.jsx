@@ -7,7 +7,7 @@ import useViewport from "../utils/useViewport";
 import MessageContextMenu from "./MessageContextMenu";
 
 export default function Messages({ messages }) {
-  const { sendMessage, userID } = useConversations();
+  const { sendMessage } = useConversations();
   const [contextMenu, setContextMenu] = useState({
     xPos: "0px",
     yPos: "0px",
@@ -16,7 +16,7 @@ export default function Messages({ messages }) {
   const bottomRef = useRef();
 
   function scrollToBottom() {
-    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+    bottomRef.current?.scrollIntoView();
   }
 
   useEffect(() => {
@@ -110,7 +110,7 @@ export default function Messages({ messages }) {
                     <div
                       key={i}
                       className={`my-1 d-flex flex-column ${
-                        message.sender_id === userID
+                        message.fromMe
                           ? "align-self-end align-items-end"
                           : "align-items-start"
                       }`}
@@ -118,25 +118,22 @@ export default function Messages({ messages }) {
                       <div
                         data-key={i}
                         className={`message rounded px-2 py-1 ${
-                          message.sender_id === userID
-                            ? "bg-primary text-white"
-                            : "border"
+                          message.fromMe ? "bg-primary text-white" : "border"
                         }`}
                       >
                         {message.content}
                       </div>
                       {
                         //? for some reason, this thing breaks when you tryi to select a new conversation? No idea why
-                        /* <div
-                    className={`text-muted small ${
-                      message.sender_id === userID ? "text-right" : ""
-                    }`}
-                  >
-                    {message.sender_id === userID &&
-                    messages[i - 1].sender_id === userID
-                      ? "You"
-                      : message.senderName}
-                  </div> */
+                        <div
+                          className={`text-muted small ${
+                            message.fromMe ? "text-right" : ""
+                          }`}
+                        >
+                          {message.fromMe && !messages[i + 1]?.fromMe
+                            ? "You"
+                            : message.senderName}
+                        </div>
                       }
                     </div>
                   );

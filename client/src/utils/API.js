@@ -23,9 +23,8 @@ const API = {
   },
   async sendMessage(conversation_id, sender_id, content) {
     const { data } = await axios.put("/api/messages/newMessage", {
+      message: { sender_id, content },
       conversation_id,
-      sender_id,
-      content,
     });
     return data;
   },

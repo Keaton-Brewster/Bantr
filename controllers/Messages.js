@@ -22,7 +22,11 @@ router.get("/:convo_id", (req, res) => {
 
 router.put("/newMessage", (req, res) => {
   try {
-    db.Message.create(req.body)
+    db.Conversation.findOneAndUpdate(
+      { _id: req.body.conversation_id },
+      { $push: { messages: req.body.message } },
+      { returnOriginal: false }
+    )
       .then((data) => {
         res.send(data);
       })

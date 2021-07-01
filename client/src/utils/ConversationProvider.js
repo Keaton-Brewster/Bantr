@@ -9,17 +9,26 @@ export function useConversations() {
 }
 
 export function Provider({ id, children }) {
-  const [loadingMessages, setLoadingMessages] = useState(false);
   const [conversations, setConversations] = useState([]);
   const [selectedConversationIndex, setSelectedConversationIndex] = useState(0);
 
+  function updateConversation(updatedConversation) {
+    const updatedConversations = conversations.map((conversation) => {
+      if (conversation._id === updatedConversation._id) {
+        return updatedConversation;
+      }
+      return conversation;
+    });
+    setConversations(updatedConversations);
+  }
+
   function sendMessage(text) {
     // Yet another place where I ran into id issues.. this is going to be a mess to fix later
-    const convo_id = conversations[selectedConversationIndex].id;
+    const convo_id = conversations[selectedConversationIndex]._id;
     // const convo_id = conversations[selectedConversationIndex]._id;
     API.sendMessage(convo_id, id, text)
-      .then((data) => {
-        console.log(data);
+      .then((updatedConversation) => {
+        updateConversation(updatedConversation);
       })
       .catch((e) => console.error(e));
   }
@@ -33,6 +42,16 @@ export function Provider({ id, children }) {
     [id]
   );
 
+  const formattedConversations = conversations.map((conversation) => {
+    const formattedMessages = conversation.messages.map((message) => {
+      message.fromMe = message.sender_id === id;
+      return message;
+    });
+    conversation.messages = formattedMessages;
+    console.log(conversation);
+    return conversation;
+  });
+
   useEffect(() => {
     if (!id) return;
     loadConversations((conversations) => {
@@ -41,12 +60,9 @@ export function Provider({ id, children }) {
   }, [id, loadConversations]);
 
   const value = {
-    conversations,
-    setConversations,
+    conversations: formattedConversations,
     selectedConversation: conversations[selectedConversationIndex],
-    loadingMessagesState: [loadingMessages, setLoadingMessages],
     sendMessage,
-    userID: id,
     selectConversationIndex: setSelectedConversationIndex,
   };
   return (
