@@ -8,10 +8,6 @@ import SingleMessage from "./SingleMessage";
 
 export default function Messages({ messages, show, setShow }) {
   const { sendMessage } = useConversations();
-  const [contextMenu, setContextMenu] = useState({
-    x: "0px",
-    y: "0px",
-  });
   const [contextMenuShow, setContextMenuShow] = useState(false);
 
   const bottomRef = useRef();
@@ -29,11 +25,6 @@ export default function Messages({ messages, show, setShow }) {
     if (contextMenuShow) return;
     event.preventDefault();
     // const messageIndex = element.getAttribute("data-key");
-
-    setContextMenu({
-      x: `${event.pageX}px`,
-      y: `${event.pageY}px`,
-    });
     setContextMenuShow(true);
   }
 
@@ -51,7 +42,7 @@ export default function Messages({ messages, show, setShow }) {
 
   return (
     <div className={show ? "show" : "hide"}>
-      <MessageContextMenu position={contextMenu} show={contextMenuShow} />
+      <MessageContextMenu show={contextMenuShow} />
 
       <div id="messageWrapper">
         {width < 575 ? (

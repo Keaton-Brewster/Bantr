@@ -4,6 +4,7 @@ export default function SingleMessage({ data, handleRightClick, index }) {
   const [message, messages] = data;
 
   useEffect(() => {
+    if (!message.fromMe) return;
     const thisElement = document.getElementById(`message_${index}`);
     thisElement.addEventListener("contextmenu", (e) => {
       handleRightClick(e, thisElement);
@@ -11,7 +12,7 @@ export default function SingleMessage({ data, handleRightClick, index }) {
 
     return () =>
       thisElement.removeEventListener("contextmenu", handleRightClick);
-  }, [handleRightClick, index]);
+  });
 
   return (
     <div

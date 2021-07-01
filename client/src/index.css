@@ -69,6 +69,7 @@ button {
 #messageBox {
     border-left: 1px solid grey !important;
     height: 100vh;
+    padding-left: 0;
 }
 
 #bottomOfConvos {
@@ -196,8 +197,19 @@ button {
 
 /* Message Context menu */
 #contextMenu {
+    background-color: rgb(48, 48, 48);
     position: fixed;
+    top: 0px;
     z-index: 10;
-    border-radius: 5px;
-    padding: 10px 20px 0px 0px;
+    width: 100%;
+    padding: 10px;
+}
+
+.deleteMessageButton {
+    fill: var(--light);
+    background-color: rgb(48, 48, 48);
+}
+
+.deleteMessageButton:hover {
+    fill: var(--danger);
 }
