@@ -8,7 +8,7 @@ export function useConversations() {
   return useContext(conversationContext);
 }
 
-export function Provider({ id, children }) {
+export function Provider({ user, children }) {
   const [conversations, setConversations] = useState([]);
   const [selectedConversationIndex, setSelectedConversationIndex] = useState(0);
 
@@ -23,10 +23,16 @@ export function Provider({ id, children }) {
   }
 
   function sendMessage(text) {
-    // Yet another place where I ran into id issues.. this is going to be a mess to fix later
-    const convo_id = conversations[selectedConversationIndex]._id;
-    // const convo_id = conversations[selectedConversationIndex]._id;
-    API.sendMessage(convo_id, id, text)
+    axios
+      .put("/api/messages/newMessage", {
+        message: {
+          sender_id: user._id,
+          content: text,
+          senderName: user.name,
+        },
+        conversation_id: conversations[selectedConversationIndex]._id,
+      })
+      .then((response) => response.data)
       .then((updatedConversation) => {
         updateConversation(updatedConversation);
       })
@@ -35,29 +41,28 @@ export function Provider({ id, children }) {
 
   const loadConversations = useCallback(
     (cb) => {
-      axios.get(`/api/conversations/${id}`).then((conversations) => {
+      axios.get(`/api/conversations/${user._id}`).then((conversations) => {
         cb(conversations.data);
       });
     },
-    [id]
+    [user._id]
   );
 
   const formattedConversations = conversations.map((conversation) => {
     const formattedMessages = conversation.messages.map((message) => {
-      message.fromMe = message.sender_id === id;
+      message.fromMe = message.sender_id === user._id;
       return message;
     });
     conversation.messages = formattedMessages;
-    console.log(conversation);
     return conversation;
   });
 
   useEffect(() => {
-    if (!id) return;
+    if (!user._id) return;
     loadConversations((conversations) => {
       setConversations(conversations);
     });
-  }, [id, loadConversations]);
+  }, [user._id, loadConversations]);
 
   const value = {
     conversations: formattedConversations,

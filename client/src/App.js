@@ -8,9 +8,10 @@ import "./index.css";
 
 function App() {
   const [user, setUser] = useLocalStorage("user", 0);
+  let mutableUser = typeof user === "string" ? JSON.parse(user) : user;
 
   return (
-    <Provider id={user._id}>
+    <Provider user={mutableUser}>
       <Router>
         <Switch>
           <Route exact path="/signup">
