@@ -8,24 +8,27 @@ export function useConversations() {
   return useContext(conversationContext);
 }
 
-export function Provider({ children }) {
+export function Provider({ id, children }) {
   const [isLoading, setIsLoading] = useState(true);
   const [loadingMessages, setLoadingMessages] = useState(false);
   const [conversations, setConversations] = useState([]);
-  const [selectedConversation, setSelectedConversation] = useState({});
+  const [selectedConversationIndex, setSelectedConversationIndex] = useState(0);
   const [messages, setMessages] = useState([]);
-  const [mobileView, setMobileView] = useState({
-    conversations: true,
-    messages: false,
-  });
-  const [user, setUser] = useState({
-    _id: "User1",
-  });
+  function sendMessage(text) {
+    // Yet another place where I ran into id issues.. this is going to be a mess to fix later
+    const convo_id = conversations[selectedConversationIndex].id;
+    // const convo_id = conversations[selectedConversationIndex]._id;
+    API.sendMessage(convo_id, id, text)
+      .then((data) => {
+        console.log(data);
+        setMessages([...messages, data]);
+      })
+      .catch((e) => console.error(e));
+  }
 
   useEffect(() => {
     API.init(([convos, topMessages]) => {
       setConversations(convos);
-      setSelectedConversation(convos[0]);
       setMessages(topMessages);
       setIsLoading(false);
     }).catch((e) => console.error(e));
@@ -34,11 +37,12 @@ export function Provider({ children }) {
   const value = {
     loadingState: [isLoading, setIsLoading],
     conversationState: [conversations, setConversations],
-    selectedConversationState: [selectedConversation, setSelectedConversation],
+    selectedConversation: conversations[selectedConversationIndex],
     messageState: [messages, setMessages],
-    userState: [user, setUser],
-    mobileViewState: [mobileView, setMobileView],
     loadingMessagesState: [loadingMessages, setLoadingMessages],
+    sendMessage,
+    userID: id,
+    selectConversationIndex: setSelectedConversationIndex,
   };
   return (
     <conversationContext.Provider value={value}>

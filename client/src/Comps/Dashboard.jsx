@@ -6,52 +6,23 @@ import useViewport from "../utils/useViewport";
 import Conversations from "./Conversations";
 import Messages from "./Messages";
 
-export default function Dashboard() {
-  const {
-    selectedConversationState,
-    userState,
-    messageState,
-    loadingMessagesState,
-    mobileViewState,
-  } = useConversations();
-  const [user, setUser] = userState;
-  const [selectedConversation, setSelectedConversation] =
-    selectedConversationState;
+export default function Dashboard({ user }) {
+  const { selectedConversation, messageState, loadingMessagesState } =
+    useConversations();
   const [messages, setMessages] = messageState;
   const [loadingMessages, setLoadingMessages] = loadingMessagesState;
-  const [mobileView, setMobileView] = mobileViewState;
-  const { width } = useViewport();
-
-  function sendMessage(text) {
-    // Yet another place where I ran into id issues.. this is going to be a mess to fix later
-    const convo_id = selectedConversation.id;
-    // const convo_id = selectedConversation._id;
-    API.sendMessage(convo_id, user._id, text)
-      .then((data) => {
-        console.log(data);
-        setMessages([...messages, data]);
-      })
-      .catch((e) => console.error(e));
-  }
-
-  useEffect(() => {
-    if (width <= 575) {
-      setMobileView({ conversations: true, messages: false });
-      return;
-    }
-    setMobileView({ conversations: true, messages: true });
-  }, [width, setSelectedConversation, setMobileView]);
+  const { mobile } = useViewport();
 
   return (
     <>
-      {width > 575 ? (
+      {!mobile ? (
         <Container fluid>
           <Row>
             <Col sm={3}>
               <Conversations />
             </Col>
             <Col sm={9} id="messageBox">
-              <Messages sendMessage={sendMessage} />
+              <Messages />
             </Col>
           </Row>
         </Container>
@@ -61,7 +32,7 @@ export default function Dashboard() {
           {loadingMessages ? (
             <Spinner id="spinner" animation="border" />
           ) : (
-            <Messages sendMessage={sendMessage} />
+            <Messages />
           )}
         </Container>
       )}

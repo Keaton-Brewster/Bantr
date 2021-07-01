@@ -34,7 +34,11 @@ router.post("/signup", (request, response) => {
 });
 
 router.post("/login", passport.authenticate("local"), (request, response) => {
-  response.send(request.user);
+  const user = {
+    email: request.user.email,
+    _id: request.user._id,
+  };
+  response.send(user);
 });
 
 module.exports = router;

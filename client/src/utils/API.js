@@ -7,7 +7,7 @@ const API = {
   login(userInfoObject) {
     return axios.post("/api/users/login", userInfoObject);
   },
-  // Decided to write this as a cb function so that it looks cleaner in home/index
+  // Decided to write this as a cb function so that it looks cleaner in Dashboard
   async init(cb) {
     const convoData = await axios.get("/api/conversations/");
     const convos = convoData.data;

@@ -35,7 +35,6 @@ button {
 .convoBox:hover {
     border-top: 1px solid grey !important;
     padding: 1rem;
-    padding-left: 0;
     cursor: pointer;
 }
 

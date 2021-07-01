@@ -10,10 +10,12 @@ function App() {
   const [user, setUser] = useLocalStorage("user", null);
 
   return (
-    <Provider>
+    <Provider id={user._id}>
       <Router>
         <Switch>
-          <Route exact path="/signup" component={Signup} />
+          <Route exact path="/signup">
+            <Signup setUser={setUser} />
+          </Route>
           <Route exact path="/">
             <Home localStorage={[user, setUser]} />
           </Route>

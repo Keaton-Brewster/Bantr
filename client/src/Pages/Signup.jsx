@@ -1,8 +1,7 @@
 import { useState, useRef } from "react";
 import { Container, Row, Form, Button } from "react-bootstrap";
 import PasswordValidator from "password-validator";
-import API from "../../utils/API";
-import "./signup.css";
+import API from "../utils/API";
 
 const schema = new PasswordValidator();
 
@@ -20,7 +19,7 @@ schema
   .not()
   .oneOf(["Passw0rd", "Password123"]);
 
-export default function Signup() {
+export default function Signup({ setUser }) {
   const [formValues, setFormValues] = useState({
     email: "",
     password: "",
@@ -52,7 +51,10 @@ export default function Signup() {
 
     API.signup(formValues)
       .then((response) => {
-        window.location.href = "/login";
+        const userToStore = JSON.stringify(response.data);
+        setUser(userToStore);
+        console.log(response);
+        window.location.href = "/";
       })
       .catch((error) => {
         alert("That user already exists");

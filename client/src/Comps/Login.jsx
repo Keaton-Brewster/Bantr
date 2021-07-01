@@ -22,7 +22,8 @@ export default function Login({ onLoginSubmit }) {
     e.preventDefault();
     API.login(formValues)
       .then((response) => {
-        console.log(response);
+        const userToStore = JSON.stringify(response.data);
+        onLoginSubmit(userToStore);
       })
       .catch((error) => {
         console.log(error);

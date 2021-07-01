@@ -8,20 +8,16 @@ export default function Conversations() {
   const {
     messageState,
     conversationState,
-    selectedConversationState,
-    mobileViewState,
+    selectConversationIndex,
     loadingMessagesState,
   } = useConversations();
   const [messages, setMessages] = messageState;
   const [conversations, setConversations] = conversationState;
-  const [selectedConversation, setSelectedConversation] =
-    selectedConversationState;
-  const [mobileView, setMobileView] = mobileViewState;
   const [loadingMessages, setLoadingMessages] = loadingMessagesState;
 
   const searchRef = useRef();
 
-  const { width } = useViewport();
+  const { mobile, mobileView, setMobileView } = useViewport();
 
   return (
     <div className={mobileView.conversations ? "show" : "hide"}>
@@ -32,10 +28,10 @@ export default function Conversations() {
         placeholder="search"
       /> */}
 
-      {conversations.map((convo, i) => {
+      {conversations.map((convo, index) => {
         return (
           <Row
-            key={i}
+            key={index}
             className="convoBox"
             // className={selectedConversation._id === convo._id ? "selected" : "notSelected"}
             // Just another place where I am having to use a different "id"
@@ -43,12 +39,12 @@ export default function Conversations() {
             onClick={() => {
               setLoadingMessages(true);
               API.selectConversation(convo.id).then((messages) => {
-                if (width <= 575)
+                if (mobile)
                   setMobileView({
                     conversations: false,
                     messages: true,
                   });
-                setSelectedConversation(convo);
+                selectConversationIndex(index);
                 setMessages(messages);
                 setLoadingMessages(false);
               });

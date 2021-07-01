@@ -2,14 +2,13 @@ import { useRef, useState, useEffect } from "react";
 import { Navbar, Container, Row, Col, Spinner } from "react-bootstrap";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { useConversations } from "../utils/ConvorsationProvider";
+import useLocalStorage from "../utils/useLocalStorage";
 import useViewport from "../utils/useViewport";
 import MessageContextMenu from "./MessageContextMenu";
 
-export default function Message({ sendMessage }) {
-  const { messageState, userState, mobileViewState } = useConversations();
+export default function Messages() {
+  const { messageState, sendMessage, userID } = useConversations();
   const [messages, setMessages] = messageState;
-  const [user, setUser] = userState;
-  const [mobileView, setMobileView] = mobileViewState;
   const [contextMenu, setContextMenu] = useState({
     xPos: "0px",
     yPos: "0px",
@@ -26,7 +25,7 @@ export default function Message({ sendMessage }) {
   }, []);
 
   const textRef = useRef();
-  const { width } = useViewport();
+  const { mobile, mobileView, setMobileView } = useViewport();
 
   // //! I need to research useCallback.
   // //* I REALLY NEED TO JUST TRASH THIS WHOLE IDEA AND START FROM SCRATCH ON THE CONTEXT MENU IDEA
@@ -86,7 +85,7 @@ export default function Message({ sendMessage }) {
         id="messageWrapper"
         className={mobileView.messages ? "show" : "hide"}
       >
-        {width <= 575 ? (
+        {mobile ? (
           <Navbar>
             <button
               id="backButton"
@@ -114,7 +113,7 @@ export default function Message({ sendMessage }) {
                     <div
                       key={i}
                       className={`my-1 d-flex flex-column ${
-                        message.sender_id === user._id
+                        message.sender_id === userID
                           ? "align-self-end align-items-end"
                           : "align-items-start"
                       }`}
@@ -122,7 +121,7 @@ export default function Message({ sendMessage }) {
                       <div
                         data-key={i}
                         className={`message rounded px-2 py-1 ${
-                          message.sender_id === user._id
+                          message.sender_id === userID
                             ? "bg-primary text-white"
                             : "border"
                         }`}
@@ -133,11 +132,11 @@ export default function Message({ sendMessage }) {
                         //? for some reason, this thing breaks when you tryi to select a new conversation? No idea why
                         /* <div
                     className={`text-muted small ${
-                      message.sender_id === user._id ? "text-right" : ""
+                      message.sender_id === userID ? "text-right" : ""
                     }`}
                   >
-                    {message.sender_id === user._id &&
-                    messages[i - 1].sender_id === user._id
+                    {message.sender_id === userID &&
+                    messages[i - 1].sender_id === userID
                       ? "You"
                       : message.senderName}
                   </div> */
