@@ -31,9 +31,6 @@ export default function Conversations() {
           <Row
             key={index}
             className="convoBox"
-            // className={selectedConversation._id === convo._id ? "selected" : "notSelected"}
-            // Just another place where I am having to use a different "id"
-            // onClick={(e) => selectConversation(e, convo._id)}
             onClick={(e) => {
               e.preventDefault();
               if (width < 575)
