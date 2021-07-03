@@ -1,8 +1,8 @@
 import React, { useRef, useState, useEffect, useCallback } from "react";
-import { Navbar, Container, Row, Col, Spinner } from "react-bootstrap";
+import { Navbar, Row, Col, Spinner } from "react-bootstrap";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { useConversations } from "../utils/ConversationProvider";
-import useViewport from "../utils/useViewport";
+import { useViewportContext } from "../utils/ViewportProvider";
 import MessageContextMenu from "./MessageContextMenu";
 import SingleMessage from "./SingleMessage";
 
@@ -19,7 +19,7 @@ export default function Messages({ messages, show, setShow }) {
   }, []);
 
   const textRef = useRef();
-  const width = useViewport();
+  const { mobileScreen } = useViewportContext();
 
   function handleRightClick(event, element) {
     if (contextMenuShow) return;
@@ -45,7 +45,7 @@ export default function Messages({ messages, show, setShow }) {
       <MessageContextMenu show={contextMenuShow} />
 
       <div id="messageWrapper">
-        {width < 575 ? (
+        {mobileScreen ? (
           <Navbar>
             <button
               id="backButton"

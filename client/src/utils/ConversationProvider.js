@@ -7,7 +7,7 @@ export function useConversations() {
   return useContext(conversationContext);
 }
 
-export function Provider({ user, children }) {
+export default function ConversationProvider({ user, children }) {
   const [conversations, setConversations] = useState([]);
   const [selectedConversationIndex, setSelectedConversationIndex] = useState(0);
 

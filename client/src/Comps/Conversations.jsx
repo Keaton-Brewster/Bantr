@@ -1,8 +1,8 @@
 import { useState, useRef } from "react";
-import { Row, ListGroup } from "react-bootstrap";
+import { ListGroup } from "react-bootstrap";
 import { BsChatSquareDots as Chat } from "react-icons/bs";
 import { useConversations } from "../utils/ConversationProvider";
-import useViewport from "../utils/useViewport";
+import { useViewportContext } from "../utils/ViewportProvider";
 import NewConversationModal from "./NewConversationModal";
 
 export default function Conversations({ show, setShow }) {
@@ -12,7 +12,7 @@ export default function Conversations({ show, setShow }) {
 
   const searchRef = useRef();
 
-  const width = useViewport();
+  const { mobileScreen } = useViewportContext();
 
   function createConversation(event) {}
 
@@ -30,14 +30,14 @@ export default function Conversations({ show, setShow }) {
             <ListGroup.Item
               key={index}
               className={`convoBox ${
-                convo._id === selectedConversation._id && width > 575
+                convo._id === selectedConversation._id && !mobileScreen
                   ? "activeConvo"
                   : ""
               }`}
               onClick={(event) => {
                 event.preventDefault();
                 selectConversationIndex(index);
-                if (width < 575)
+                if (mobileScreen)
                   setShow({
                     convos: false,
                     messages: true,

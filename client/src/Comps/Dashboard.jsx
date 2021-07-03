@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { Container, Row, Col, Spinner } from "react-bootstrap";
 import { useConversations } from "../utils/ConversationProvider";
-import useViewport from "../utils/useViewport";
+import { useViewportContext } from "../utils/ViewportProvider";
 import Conversations from "./Conversations";
 import Messages from "./Messages";
 
 export default function Dashboard() {
   const { selectedConversation } = useConversations();
-  const width = useViewport();
+  const { mobileScreen } = useViewportContext();
 
   // For mobile Layout
   const [show, setShow] = useState({
@@ -18,7 +18,7 @@ export default function Dashboard() {
   const Main = () => {
     return (
       <>
-        {width >= 575 ? (
+        {!mobileScreen ? (
           <Container fluid>
             <Row style={{ marginRight: "0px !important" }}>
               <Col sm={3} style={{ paddingRight: "0px" }}>
