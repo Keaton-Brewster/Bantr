@@ -82,6 +82,9 @@ export default function Messages({ messages, show, setShow }) {
             </div>
           </div>
         </div>
+
+        {/*  At some point in time it would be good to re visit this so that you can do CMD+Enter and have the message send. 
+        Obviously this would only work for computers, but it would be a good basic function to have */}
         <div id="chatBox">
           <Row>
             <Col xs={10}>
