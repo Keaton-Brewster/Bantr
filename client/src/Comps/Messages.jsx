@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect, useCallback } from "react";
-import { Navbar, Row, Col, Spinner } from "react-bootstrap";
+import { Navbar, Row, Col } from "react-bootstrap";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { useConversations } from "../utils/ConversationProvider";
 import { useViewportContext } from "../utils/ViewportProvider";

@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { ListGroup } from "react-bootstrap";
 import { BsChatSquareDots as Chat } from "react-icons/bs";
 import { useConversations } from "../utils/ConversationProvider";

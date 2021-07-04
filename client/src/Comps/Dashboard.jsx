@@ -1,14 +1,11 @@
 import { useState } from "react";
-import { Container, Row, Col, Spinner } from "react-bootstrap";
-import { useConversations } from "../utils/ConversationProvider";
+import { Container, Row, Col } from "react-bootstrap";
 import { useViewportContext } from "../utils/ViewportProvider";
 import Conversations from "./Conversations";
 import Messages from "./Messages";
 
 export default function Dashboard() {
-  const { selectedConversation } = useConversations();
   const { mobileScreen } = useViewportContext();
-
   // For mobile Layout
   const [show, setShow] = useState({
     convos: true,
