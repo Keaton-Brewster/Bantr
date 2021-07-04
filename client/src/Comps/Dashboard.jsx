@@ -15,43 +15,24 @@ export default function Dashboard() {
     messages: false,
   });
 
-  const Main = () => {
-    return (
-      <>
-        {!mobileScreen ? (
-          <Container fluid>
-            <Row style={{ marginRight: "0px !important" }}>
-              <Col sm={3} style={{ paddingRight: "0px" }}>
-                <Conversations show={true} />
-              </Col>
-              <Col sm={9} id="messageBox">
-                <Messages
-                  show={true}
-                  messages={selectedConversation.messages}
-                />
-              </Col>
-            </Row>
-          </Container>
-        ) : (
-          <Container fluid>
-            <Conversations setShow={setShow} show={show.convos} />
-            <Messages
-              show={show.messages}
-              setShow={setShow}
-              messages={selectedConversation.messages}
-            />
-          </Container>
-        )}
-      </>
-    );
-  };
-
   return (
     <>
-      {selectedConversation ? (
-        <Main />
+      {!mobileScreen ? (
+        <Container fluid>
+          <Row style={{ marginRight: "0px !important" }}>
+            <Col sm={3} style={{ paddingRight: "0px" }}>
+              <Conversations show={true} />
+            </Col>
+            <Col sm={9} id="messageBox">
+              <Messages show={true} />
+            </Col>
+          </Row>
+        </Container>
       ) : (
-        <Spinner id="spinner" animation="border" />
+        <Container fluid>
+          <Conversations setShow={setShow} show={show.convos} />
+          <Messages show={show.messages} setShow={setShow} />
+        </Container>
       )}
     </>
   );

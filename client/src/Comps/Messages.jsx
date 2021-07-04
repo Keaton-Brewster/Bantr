@@ -6,8 +6,8 @@ import { useViewportContext } from "../utils/ViewportProvider";
 import MessageContextMenu from "./MessageContextMenu";
 import SingleMessage from "./SingleMessage";
 
-export default function Messages({ messages, show, setShow }) {
-  const { sendMessage } = useConversations();
+export default function Messages({ show, setShow }) {
+  const { sendMessage, selectedConversation } = useConversations();
   const [contextMenuShow, setContextMenuShow] = useState(false);
 
   const bottomRef = useRef();
@@ -64,20 +64,16 @@ export default function Messages({ messages, show, setShow }) {
         <div className="d-flex flex-column flex-grow-1" id="messages">
           <div className="flex-grow-1 overflow-auto">
             <div className="d-flex flex-column align-items-start justify-content-end px-3">
-              {messages.length < 0 ? (
-                <Spinner id="spinner" animation="border" />
-              ) : (
-                messages.map((message, i) => {
-                  return (
-                    <SingleMessage
-                      key={i}
-                      index={i}
-                      data={[message, messages]}
-                      handleRightClick={handleRightClick}
-                    />
-                  );
-                })
-              )}
+              {selectedConversation?.messages?.map((message, i) => {
+                return (
+                  <SingleMessage
+                    key={i}
+                    index={i}
+                    data={[message, selectedConversation.messages]}
+                    handleRightClick={handleRightClick}
+                  />
+                );
+              })}
               <div ref={bottomRef}></div>
             </div>
           </div>

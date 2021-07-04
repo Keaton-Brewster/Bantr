@@ -25,7 +25,7 @@ export default function Conversations({ show, setShow }) {
         placeholder="search"
       /> */}
       <ListGroup variant="flush">
-        {conversations.map((convo, index) => {
+        {conversations?.map((convo, index) => {
           return (
             <ListGroup.Item
               key={index}
