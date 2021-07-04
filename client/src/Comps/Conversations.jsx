@@ -3,7 +3,7 @@ import { ListGroup } from "react-bootstrap";
 import { BsChatSquareDots as Chat } from "react-icons/bs";
 import { useConversations } from "../utils/ConversationProvider";
 import { useViewportContext } from "../utils/ViewportProvider";
-import NewConversationModal from "./NewConversationModal";
+import NewConversationModal from "./Modals/NewConversationModal";
 
 export default function Conversations({ show, setShow }) {
   const { conversations, selectedConversation, selectConversationIndex } =
