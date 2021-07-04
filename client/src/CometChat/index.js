@@ -2,6 +2,7 @@ import { CometChat } from "@cometchat-pro/chat";
 
 const appID = "1900766a2045e95f";
 const region = "us";
+const authKey = process.env.REACT_APP_COMET_AUTHKEY;
 const appSetting = new CometChat.AppSettingsBuilder()
   .subscribePresenceForAllUsers()
   .setRegion(region)
@@ -18,5 +19,18 @@ CometChat.init(appID, appSetting).then(
   }
 );
 
-export default CometChat;
-export const authKey = "9797b01a6199b41758a39d0db08d6d805e5f46a1";
+function createCometUser(id, name) {
+  const user = new CometChat.User(id);
+  user.setName(name);
+
+  CometChat.createUser(user, authKey).then(
+    (user) => {
+      console.log("user created", user);
+    },
+    (error) => {
+      console.log("error", error);
+    }
+  );
+}
+
+export { CometChat as default, authKey, createCometUser };
