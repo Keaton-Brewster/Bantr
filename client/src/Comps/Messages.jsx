@@ -9,6 +9,8 @@ import SingleMessage from "./SingleMessage";
 export default function Messages({ show, setShow }) {
   const { sendMessage, selectedConversation } = useConversations();
   const [contextMenuShow, setContextMenuShow] = useState(false);
+  const textRef = useRef();
+  const { mobileScreen } = useViewportContext();
 
   const bottomRef = useRef();
   function scrollToBottom() {
@@ -17,9 +19,6 @@ export default function Messages({ show, setShow }) {
   useEffect(() => {
     scrollToBottom();
   }, []);
-
-  const textRef = useRef();
-  const { mobileScreen } = useViewportContext();
 
   function handleRightClick(event, element) {
     if (contextMenuShow) return;
@@ -41,6 +40,7 @@ export default function Messages({ show, setShow }) {
   }, [dismissContextMenu]);
 
   return (
+    //This is only important for when you are viewing the Mobile app
     <div className={show ? "show" : "hide"}>
       <MessageContextMenu show={contextMenuShow} />
 
@@ -91,6 +91,7 @@ export default function Messages({ show, setShow }) {
                 id="sendButton"
                 onClick={(e) => {
                   e.preventDefault();
+                  scrollToBottom();
                   sendMessage(textRef.current.value);
                   textRef.current.value = "";
                 }}

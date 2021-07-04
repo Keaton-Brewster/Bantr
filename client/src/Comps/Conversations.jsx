@@ -10,20 +10,12 @@ export default function Conversations({ show, setShow }) {
     useConversations();
   const [newConvoModal, setNewConvoModal] = useState(false);
 
-  const searchRef = useRef();
-
   const { mobileScreen } = useViewportContext();
 
   function createConversation(event) {}
 
   return (
     <div className={show ? "show" : "hide"}>
-      {/* <input
-        id="searchConversationsInput"
-        type="text"
-        ref={searchRef}
-        placeholder="search"
-      /> */}
       <ListGroup variant="flush">
         {conversations?.map((convo, index) => {
           return (
