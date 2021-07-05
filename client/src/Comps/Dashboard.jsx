@@ -17,10 +17,10 @@ export default function Dashboard() {
       {!mobileScreen ? (
         <Container fluid>
           <Row style={{ marginRight: "0px !important" }}>
-            <Col sm={3} style={{ paddingRight: "0px" }}>
+            <Col sm={4} style={{ paddingRight: "0px" }}>
               <Conversations show={true} />
             </Col>
-            <Col sm={9} id="messageBox">
+            <Col sm={8} id="messageBox">
               <Messages show={true} />
             </Col>
           </Row>

@@ -1,12 +1,11 @@
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Signup from "./Pages/Signup";
 import Home from "./Pages/Home";
-import { CometChatUI } from "./CometChatWorkspace/src";
 import useLocalStorage from "./utils/useLocalStorage";
 import ConversationProvider from "./utils/ConversationProvider";
 import ViewportProvider from "./utils/ViewportProvider";
 import "bootstrap/dist/css/bootstrap.min.css";
-// import "./index.css";
+import "./index.css";
 
 function App() {
   const [user, setUser] = useLocalStorage("user", 0);
@@ -15,8 +14,7 @@ function App() {
   return (
     <ConversationProvider user={mutableUser}>
       <ViewportProvider>
-        <CometChatUI friendsOnly style={{ height: "100%" }} />
-        {/* <Router>
+        <Router>
           <Switch>
             <Route exact path="/signup">
               <Signup setUser={setUser} />
@@ -25,7 +23,7 @@ function App() {
               <Home localStorage={[user, setUser]} />
             </Route>
           </Switch>
-        </Router> */}
+        </Router>
       </ViewportProvider>
     </ConversationProvider>
   );
