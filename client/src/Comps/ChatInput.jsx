@@ -8,7 +8,8 @@ export default function ChatInput({ textRef, sendMessage, containerRef }) {
   const [chatboxWidth, setChatboxWidth] = useState({});
 
   useEffect(() => {
-    setChatboxWidth(`${containerRef.current.offsetWidth}px`);
+    if (width >= 575) setChatboxWidth(`${containerRef.current.offsetWidth}px`);
+    else setChatboxWidth("100%");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [width]);
 
