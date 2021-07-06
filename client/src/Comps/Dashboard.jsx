@@ -1,16 +1,11 @@
 import { useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { useViewportContext } from "../utils/ViewportProvider";
-import Conversations from "./Conversations";
+import Conversations from "./SideBar/Conversations";
 import Messages from "./Messages";
 
 export default function Dashboard() {
   const { mobileScreen } = useViewportContext();
-  // For mobile Layout
-  const [show, setShow] = useState({
-    convos: true,
-    messages: false,
-  });
 
   return (
     <>
@@ -18,17 +13,17 @@ export default function Dashboard() {
         <Container fluid>
           <Row style={{ marginRight: "0px !important" }}>
             <Col sm={4} style={{ paddingRight: "0px" }}>
-              <Conversations show={true} />
+              <Conversations />
             </Col>
             <Col sm={8} id="messageBox">
-              <Messages show={true} />
+              <Messages />
             </Col>
           </Row>
         </Container>
       ) : (
         <Container fluid>
-          <Conversations setShow={setShow} show={show.convos} />
-          <Messages show={show.messages} setShow={setShow} />
+          <Conversations />
+          <Messages />
         </Container>
       )}
     </>

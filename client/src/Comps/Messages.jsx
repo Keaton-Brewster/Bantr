@@ -6,11 +6,11 @@ import { useViewportContext } from "../utils/ViewportProvider";
 import MessageContextMenu from "./MessageContextMenu";
 import SingleMessage from "./SingleMessage";
 
-export default function Messages({ show, setShow }) {
+export default function Messages() {
   const { sendMessage, selectedConversation } = useConversations();
   const [contextMenuShow, setContextMenuShow] = useState(false);
   const textRef = useRef();
-  const { mobileScreen } = useViewportContext();
+  const { mobileScreen, show, setShow } = useViewportContext();
 
   const bottomRef = useRef();
   function scrollToBottom() {

@@ -1,11 +1,9 @@
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Signup from "./Pages/Signup";
-import Home from "./Pages/Home";
+import Signup from "./Comps/Signup";
+import Home from "./Comps/Home";
 import useLocalStorage from "./utils/useLocalStorage";
 import ConversationProvider from "./utils/ConversationProvider";
 import ViewportProvider from "./utils/ViewportProvider";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "./index.css";
 
 function App() {
   const [user, setUser] = useLocalStorage("user", 0);

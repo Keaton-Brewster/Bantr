@@ -8,6 +8,10 @@ export function useViewportContext() {
 
 export default function ViewportProvider({ children }) {
   const [width, setWidth] = useState(window.innerWidth);
+  const [show, setShow] = useState({
+    convos: true,
+    messages: false,
+  });
   const mobileScreen = width < 575;
 
   useEffect(() => {
@@ -16,9 +20,19 @@ export default function ViewportProvider({ children }) {
     return () => window.removeEventListener("resize", handleWindowResize);
   }, []);
 
+  useEffect(() => {
+    if (width < 575) return;
+    setShow({
+      convos: true,
+      messages: true,
+    });
+  }, [width]);
+
   const value = {
     width,
     mobileScreen,
+    show,
+    setShow,
   };
 
   return (
