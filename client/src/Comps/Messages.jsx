@@ -11,7 +11,10 @@ export default function Messages() {
   const { sendMessage, selectedConversation } = useConversations();
   const [contextMenuShow, setContextMenuShow] = useState(false);
   const textRef = useRef();
+  // Container ref is used to give refernce of width to the
+  // Chat input so that is always is 100% width of its parent
   const containerRef = useRef();
+
   const {
     mobileScreen,
     show,
