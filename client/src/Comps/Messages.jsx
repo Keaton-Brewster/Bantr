@@ -11,6 +11,7 @@ export default function Messages() {
   const { sendMessage, selectedConversation } = useConversations();
   const [contextMenuShow, setContextMenuShow] = useState(false);
   const textRef = useRef();
+  const containerRef = useRef();
   const {
     mobileScreen,
     show,
@@ -59,7 +60,7 @@ export default function Messages() {
     */
 
     //This is only important for when you are viewing the Mobile app
-    <div className={show.messages ? "show" : "hide"}>
+    <div className={show.messages ? "show" : "hide"} ref={containerRef}>
       <MessageContextMenu show={contextMenuShow} />
 
       <div id="messageWrapper">
@@ -97,7 +98,11 @@ export default function Messages() {
           </div>
         </div>
 
-        <ChatInput textRef={textRef} sendMessage={sendMessage} />
+        <ChatInput
+          textRef={textRef}
+          sendMessage={sendMessage}
+          containerRef={containerRef}
+        />
       </div>
     </div>
   );
