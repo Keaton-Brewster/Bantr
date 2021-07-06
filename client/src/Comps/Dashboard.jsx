@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { useViewportContext } from "../utils/ViewportProvider";
 import Conversations from "./SideBar/Conversations";

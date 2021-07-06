@@ -41,7 +41,7 @@ export default function Messages() {
 
   return (
     //This is only important for when you are viewing the Mobile app
-    <div className={show ? "show" : "hide"}>
+    <div className={show.messages ? "show" : "hide"}>
       <MessageContextMenu show={contextMenuShow} />
 
       <div id="messageWrapper">

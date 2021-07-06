@@ -15,7 +15,7 @@ export default function Conversations() {
   function createConversation(event) {}
 
   return (
-    <div className={show ? "show" : "hide"}>
+    <div className={show.convos ? "show" : "hide"}>
       <ListGroup variant="flush">
         {conversations?.map((convo, index) => {
           return (

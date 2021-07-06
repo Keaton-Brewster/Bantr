@@ -8,24 +8,36 @@ export function useViewportContext() {
 
 export default function ViewportProvider({ children }) {
   const [width, setWidth] = useState(window.innerWidth);
-  const [show, setShow] = useState({
-    convos: true,
-    messages: false,
+  const [show, setShow] = useState(() => {
+    if (width < 575) return { convos: true, messages: false };
+    return { convos: true, messages: true };
   });
   const mobileScreen = width < 575;
 
+  //
   useEffect(() => {
     const handleWindowResize = () => setWidth(window.innerWidth);
     window.addEventListener("resize", handleWindowResize);
     return () => window.removeEventListener("resize", handleWindowResize);
   }, []);
 
+  // This handles the changes between mobile layout and desktop layout
   useEffect(() => {
-    if (width < 575) return;
-    setShow({
-      convos: true,
-      messages: true,
-    });
+    const { convos, messages } = show;
+
+    if (width >= 575 && (!convos || !messages)) {
+      return setShow({
+        convos: true,
+        messages: true,
+      });
+    }
+    if (width < 575 && convos && messages) {
+      return setShow({
+        convos: true,
+        messages: false,
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [width]);
 
   const value = {
