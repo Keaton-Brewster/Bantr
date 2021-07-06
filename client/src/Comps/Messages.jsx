@@ -42,10 +42,12 @@ export default function Messages() {
 
   // When a new conversation is sleceted,
   // Scroll to the bottom right away
+  // Alternatively, if show is changed during mobile view
+  // Also want to run scroll to bottom
   useEffect(() => {
     scrollToBottomMessages();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedConversation]);
+  }, [selectedConversation, show]);
 
   return (
     //This is only important for when you are viewing the Mobile app
