@@ -50,6 +50,14 @@ export default function Messages() {
   }, [selectedConversation, show]);
 
   return (
+    /*
+?   Need to add a loading state for the message portion of this.
+?   OR I need to figure out a way to reverse load messages. 
+?   Reverse loading would be a better way in terms of UI/UX
+?   Having a loader would certainly interupt the expected flow 
+?   of a messaging app.
+    */
+
     //This is only important for when you are viewing the Mobile app
     <div className={show.messages ? "show" : "hide"}>
       <MessageContextMenu show={contextMenuShow} />
