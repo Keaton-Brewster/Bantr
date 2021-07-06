@@ -1,4 +1,4 @@
-import { useState, useEffect, createContext, useContext } from "react";
+import { useState, useEffect, createContext, useContext, useRef } from "react";
 
 const viewportContext = createContext();
 
@@ -13,8 +13,15 @@ export default function ViewportProvider({ children }) {
     return { convos: true, messages: true };
   });
   const mobileScreen = width < 575;
+  const bottomOfMessages = useRef();
 
-  //
+  // Setting up this function in the vieport provider
+  // So that we can call it from other events
+  function scrollToBottomMessages() {
+    bottomOfMessages.current?.scrollIntoView();
+  }
+
+  // This is just the hook that sets width on window resize
   useEffect(() => {
     const handleWindowResize = () => setWidth(window.innerWidth);
     window.addEventListener("resize", handleWindowResize);
@@ -45,6 +52,8 @@ export default function ViewportProvider({ children }) {
     mobileScreen,
     show,
     setShow,
+    bottomOfMessages,
+    scrollToBottomMessages,
   };
 
   return (

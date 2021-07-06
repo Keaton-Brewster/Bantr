@@ -1,8 +1,9 @@
 import React, { useRef, useState, useEffect, useCallback } from "react";
-import { Navbar, Row, Col } from "react-bootstrap";
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import { Navbar } from "react-bootstrap";
+import { FaArrowLeft } from "react-icons/fa";
 import { useConversations } from "../utils/ConversationProvider";
 import { useViewportContext } from "../utils/ViewportProvider";
+import ChatInput from "./ChatInput";
 import MessageContextMenu from "./MessageContextMenu";
 import SingleMessage from "./SingleMessage";
 
@@ -10,34 +11,41 @@ export default function Messages() {
   const { sendMessage, selectedConversation } = useConversations();
   const [contextMenuShow, setContextMenuShow] = useState(false);
   const textRef = useRef();
-  const { mobileScreen, show, setShow } = useViewportContext();
+  const {
+    mobileScreen,
+    show,
+    setShow,
+    bottomOfMessages,
+    scrollToBottomMessages,
+  } = useViewportContext();
 
-  const bottomRef = useRef();
-  function scrollToBottom() {
-    bottomRef.current?.scrollIntoView();
-  }
-  useEffect(() => {
-    scrollToBottom();
-  }, []);
-
+  // Handler function for message context menu
   function handleRightClick(event, element) {
     if (contextMenuShow) return;
     event.preventDefault();
-    // const messageIndex = element.getAttribute("data-key");
+    //? const messageIndex = element.getAttribute("data-key");
     setContextMenuShow(true);
   }
 
+  // Handler function for clicking away from the message context menu
   const dismissContextMenu = useCallback(() => {
     if (!contextMenuShow) return;
     setContextMenuShow(false);
   }, [contextMenuShow]);
-
+  // Hook to add the dismiss handler function
   useEffect(() => {
     document.addEventListener("click", dismissContextMenu);
     return () => {
       document.removeEventListener("click", dismissContextMenu);
     };
   }, [dismissContextMenu]);
+
+  // When a new conversation is sleceted,
+  // Scroll to the bottom right away
+  useEffect(() => {
+    scrollToBottomMessages();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedConversation]);
 
   return (
     //This is only important for when you are viewing the Mobile app
@@ -74,33 +82,12 @@ export default function Messages() {
                   />
                 );
               })}
-              <div ref={bottomRef}></div>
+              <div ref={bottomOfMessages}></div>
             </div>
           </div>
         </div>
 
-        {/*  At some point in time it would be good to re visit this so that you can do CMD+Enter and have the message send. 
-        Obviously this would only work for computers, but it would be a good basic function to have */}
-        <div id="chatBox">
-          <Row>
-            <Col xs={10}>
-              <textarea ref={textRef} rows="1" id="chatInput" type="text" />
-            </Col>
-            <Col xs={2}>
-              <button
-                id="sendButton"
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollToBottom();
-                  sendMessage(textRef.current.value);
-                  textRef.current.value = "";
-                }}
-              >
-                <FaArrowRight className="bg-primary sendButton" />
-              </button>
-            </Col>
-          </Row>
-        </div>
+        <ChatInput textRef={textRef} sendMessage={sendMessage} />
       </div>
     </div>
   );
