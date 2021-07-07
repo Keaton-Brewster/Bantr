@@ -26,6 +26,7 @@ export default function ChatInput({ textRef, sendMessage, containerRef }) {
             id="sendButton"
             onClick={(e) => {
               e.preventDefault();
+              if (!textRef.current.value) return;
               scrollToBottomMessages();
               sendMessage(textRef.current.value);
               textRef.current.value = "";
