@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ListGroup } from "react-bootstrap";
-import { BsChatSquareDots as Chat } from "react-icons/bs";
+import { AiFillPlusCircle } from "react-icons/ai";
 import { useConversations } from "../../utils/ConversationProvider";
 import { useViewport } from "../../utils/ViewportProvider";
 import NewConversationModal from "../Modals/NewConversationModal";
@@ -17,6 +17,15 @@ export default function Conversations() {
   return (
     <div className={show.convos ? "show" : "hide"}>
       <ListGroup variant="flush">
+        <ListGroup.Item
+          className="convoBox"
+          onClick={(e) => {
+            e.preventDefault();
+            setNewConvoModal(true);
+          }}
+        >
+          New Conversation <AiFillPlusCircle />
+        </ListGroup.Item>
         {conversations?.map((convo, index) => {
           return (
             <ListGroup.Item
@@ -41,15 +50,7 @@ export default function Conversations() {
           );
         })}
       </ListGroup>
-      <button
-        id="newConversationButton"
-        onClick={(e) => {
-          e.preventDefault();
-          setNewConvoModal(true);
-        }}
-      >
-        <Chat id="newChat" />
-      </button>
+
       <NewConversationModal
         show={newConvoModal}
         hide={() => setNewConvoModal(false)}

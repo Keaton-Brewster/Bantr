@@ -5,7 +5,7 @@ import { useViewport } from "../../../utils/ViewportProvider";
 
 export default function ChatInput({ textRef, sendMessage, containerRef }) {
   const { width, scrollToBottomMessages } = useViewport();
-  const [chatboxWidth, setChatboxWidth] = useState({});
+  const [chatboxWidth, setChatboxWidth] = useState("100%");
 
   useEffect(() => {
     if (width >= 575) setChatboxWidth(`${containerRef.current.offsetWidth}px`);

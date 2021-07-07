@@ -1,0 +1,19 @@
+#menuBar {
+    background-color: #404040;
+    margin-right: auto;
+    margin-left: auto;
+    position: fixed;
+    bottom: 0;
+}
+
+.menuIcons {
+    height: 25px;
+    width: 25px;
+    background: #202020;
+    background-color: #202020;
+    margin: 5px;
+}
+
+.activeMenuIcon {
+    fill: green;
+}

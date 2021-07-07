@@ -1,6 +1,6 @@
 import { Container, Row, Col } from "react-bootstrap";
 import { useViewport } from "../utils/ViewportProvider";
-import Conversations from "./Menu/Conversations";
+import Menu from "./Menu";
 import MainContent from "./MainContent";
 
 export default function Dashboard() {
@@ -12,7 +12,7 @@ export default function Dashboard() {
         <Container fluid>
           <Row style={{ marginRight: "0px !important" }}>
             <Col sm={4} style={{ paddingRight: "0px" }}>
-              <Conversations />
+              <Menu />
             </Col>
             <Col sm={8} id="messageBox">
               <MainContent />
@@ -21,7 +21,7 @@ export default function Dashboard() {
         </Container>
       ) : (
         <Container fluid>
-          <Conversations />
+          <Menu />
           <MainContent />
         </Container>
       )}
