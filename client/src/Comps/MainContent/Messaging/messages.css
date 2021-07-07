@@ -1,3 +1,9 @@
+#messageWrapper {
+    padding-bottom: 20px;
+    overflow-y: scroll;
+    height: 100vh;
+}
+
 #messages {
     overflow-y: scroll;
     white-space: nowrap;
@@ -29,12 +35,6 @@
     .message {
         max-width: 350px;
     }
-}
-
-#messageWrapper {
-    padding-bottom: 20px;
-    overflow-y: scroll;
-    height: 100vh;
 }
 
 @media screen and (min-width: 680px) {
