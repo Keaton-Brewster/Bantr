@@ -15,7 +15,7 @@ export default function Conversations() {
   function createConversation(event) {}
 
   return (
-    <div className={show.convos ? "show" : "hide"}>
+    <>
       <ListGroup variant="flush">
         <ListGroup.Item
           className="convoBox"
@@ -40,7 +40,7 @@ export default function Conversations() {
                 selectConversationIndex(index);
                 if (mobileScreen)
                   setShow({
-                    convos: false,
+                    menu: false,
                     mainContent: true,
                   });
               }}
@@ -56,6 +56,6 @@ export default function Conversations() {
         hide={() => setNewConvoModal(false)}
         createConversation={createConversation}
       />
-    </div>
+    </>
   );
 }

@@ -34,11 +34,11 @@ export default function MainContent() {
 
   return (
     <mainContentContext.Provider value={value}>
-      <MessagesTopMenu
-        conversationName={selectedConversation.name}
-        containerRef={containerRef}
-      />
       <div className={show.mainContent ? "show" : "hide"} ref={containerRef}>
+        <MessagesTopMenu
+          conversationName={selectedConversation.name}
+          containerRef={containerRef}
+        />
         {renderSwitch()}
       </div>
     </mainContentContext.Provider>

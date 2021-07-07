@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Nav } from "react-bootstrap";
-import { AiOutlineInfoCircle } from "react-icons/ai";
+import { BsThreeDotsVertical } from "react-icons/bs";
 import { FaArrowLeft } from "react-icons/fa";
 import { useMainContent } from "..";
 import { useViewport } from "../../../utils/ViewportProvider";
@@ -15,16 +15,21 @@ export default function MessagesTopMenu({ conversationName, containerRef }) {
   }
 
   function handleBackButton() {
+    console.log(activeContent);
     switch (activeContent) {
       case "messaging":
+        setShow({
+          menu: true,
+          mainContent: false,
+        });
         break;
       case "conversation info":
         setActiveContent("messaging");
         break;
       default:
         setShow({
-          convos: true,
-          messages: false,
+          menu: true,
+          mainContent: false,
         });
     }
   }
@@ -49,13 +54,15 @@ export default function MessagesTopMenu({ conversationName, containerRef }) {
       <Nav.Item
         id="conversationName"
         style={{
-          paddingLeft: `${activeContent === "messaging" ? "30px" : ""}`,
+          paddingLeft: `${
+            activeContent === "messaging" && width > 680 ? "30px" : ""
+          }`,
         }}
       >
         {conversationName ? conversationName : "Untitled Conversation"}
       </Nav.Item>
       <Nav.Item onClick={openConversationInfo}>
-        <AiOutlineInfoCircle id="messageInfoButton" />
+        <BsThreeDotsVertical id="conversationInfoButton" />
       </Nav.Item>
     </Nav>
   );

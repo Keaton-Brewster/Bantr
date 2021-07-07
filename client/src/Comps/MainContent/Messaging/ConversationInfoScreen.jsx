@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { ListGroup } from "react-bootstrap";
 import { useConversations } from "../../../utils/ConversationProvider";
 import axios from "axios";
 
@@ -7,8 +8,9 @@ export default function ConversationInfoScreen({ containerRef }) {
   const { selectedConversation } = useConversations();
 
   function removeBloatData(conversation) {
-    conversation.messages = [];
-    return conversation;
+    const mutatedConversation = { ...conversation };
+    mutatedConversation.messages = [];
+    return mutatedConversation;
   }
 
   async function getConversationInformation() {
@@ -21,8 +23,15 @@ export default function ConversationInfoScreen({ containerRef }) {
 
   useEffect(() => {
     getConversationInformation();
+    console.log(convoInfo);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return <div style={{ paddingTop: "50px" }}>Hello</div>;
+  return (
+    <div style={{ paddingTop: "auto" }}>
+      <ListGroup>
+        <ListGroup.Item></ListGroup.Item>
+      </ListGroup>
+    </div>
+  );
 }

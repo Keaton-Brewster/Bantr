@@ -3,10 +3,12 @@ import MenuBar from "./MenuBar";
 import Conversations from "./Conversations";
 import Contacts from "./Contacts";
 import Settings from "./Settings";
+import { useViewport } from "../../utils/ViewportProvider";
 
 export default function Sidebar() {
   const [activeMenu, setActiveMenu] = useState("conversations");
   const containerRef = useRef();
+  const { show } = useViewport();
 
   function renderSwitch() {
     switch (activeMenu) {
@@ -23,11 +25,13 @@ export default function Sidebar() {
 
   return (
     <div ref={containerRef}>
-      {renderSwitch()}
-      <MenuBar
-        containerRef={containerRef}
-        menuState={{ activeMenu, setActiveMenu }}
-      />
+      <div className={show.menu ? "show" : "hide"}>
+        {renderSwitch()}
+        <MenuBar
+          containerRef={containerRef}
+          menuState={{ activeMenu, setActiveMenu }}
+        />
+      </div>
     </div>
   );
 }

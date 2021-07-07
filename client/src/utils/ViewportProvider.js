@@ -9,8 +9,8 @@ export function useViewport() {
 export default function ViewportProvider({ children }) {
   const [width, setWidth] = useState(window.innerWidth);
   const [show, setShow] = useState(() => {
-    if (width < 680) return { convos: true, mainContent: false };
-    return { convos: true, mainContent: true };
+    if (width < 680) return { menu: true, mainContent: false };
+    return { menu: true, mainContent: true };
   });
   const mobileScreen = width < 680;
   const bottomOfMessages = useRef();
@@ -30,17 +30,17 @@ export default function ViewportProvider({ children }) {
 
   // This handles the changes between mobile layout and desktop layout
   useEffect(() => {
-    const { convos, mainContent } = show;
+    const { menu, mainContent } = show;
 
-    if (width >= 680 && (!convos || !mainContent)) {
+    if (width >= 680 && (!menu || !mainContent)) {
       return setShow({
-        convos: true,
+        menu: true,
         mainContent: true,
       });
     }
-    if (width < 680 && convos && mainContent) {
+    if (width < 680 && menu && mainContent) {
       return setShow({
-        convos: true,
+        menu: true,
         mainContent: false,
       });
     }

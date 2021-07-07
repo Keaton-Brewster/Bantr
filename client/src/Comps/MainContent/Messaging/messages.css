@@ -59,14 +59,14 @@
     If the name of the conversation in the top menu is really long
     it doesnt fuck with the buttons placement    
 */
-#messageInfoButton {
+#conversationInfoButton {
     margin-right: 10px;
-    height: 25px;
-    width: 25px;
+    height: 20px;
+    width: 20px;
     background-color: var(--secondary-background);
 }
 
-#messageInfoButton:hover {
+#conversationInfoButton:hover {
     cursor: pointer;
 }
 
