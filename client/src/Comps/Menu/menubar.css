@@ -11,7 +11,7 @@
     height: 30px;
     width: 30px;
     fill: #4A8D96;
-    background-color: #F1F0E6;
+    background-color: var(--main-background);
     margin: 5px;
 }
 

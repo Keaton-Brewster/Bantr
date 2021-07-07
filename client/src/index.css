@@ -1,11 +1,15 @@
+:root {
+    --main-background: #fbfffd;
+}
+
 html {
     scroll-behavior: smooth;
 }
 
 * {
-    background-color: #F1F0E6;
+    background-color: var(--main-background);
     color: #202020;
-    overflow-wrap: break-word !important;
+    overflow-wrap: break-word;
 }
 
 #spinner {
@@ -15,37 +19,31 @@ html {
 }
 
 button {
-    border: none !important;
-}
-
-#messageWrapper {
-    padding-bottom: 2rem;
-    overflow-y: scroll;
-    height: 100vh;
+    border: none;
 }
 
 .convoBox {
-    background-color: #F1F0E6 !important;
-    padding: 1rem !important;
+    background-color: var(--main-background);
+    padding: 1rem;
 }
 
 .convoBox:hover {
-    background-color: #C2B847 !important;
+    background-color: #C2B847;
     cursor: pointer;
 }
 
 .activeConvo {
-    background-color: #D6CF85 !important;
+    background-color: #D6CF85;
 }
 
 #messageBox {
-    border-left: 1px solid grey !important;
+    border-left: 1px solid grey;
     height: 100vh;
     padding: 0;
 }
 
 #bottomOfConvos {
-    border-top: 1px solid grey !important;
+    border-top: 1px solid grey;
     position: relative;
     right: 15px;
     width: 130%
@@ -97,7 +95,7 @@ button {
 
 #backButton:hover,
 #backButton:hover .backButton {
-    background-color: #9e3c39 !important;
+    background-color: #9e3c39;
 }
 
 #chatBox {
@@ -154,13 +152,7 @@ button {
 
 #sendButton:hover,
 #sendButton:hover .sendButton {
-    background-color: #D6CF85 !important;
-}
-
-#messages {
-    overflow-y: scroll;
-    white-space: nowrap;
-    margin-bottom: 3rem;
+    background-color: #D6CF85;
 }
 
 /* from login css */
@@ -173,25 +165,6 @@ button {
     background-color: rgb(67, 66, 66);
     padding: 1rem;
     border-radius: 5px;
-}
-
-/* Message Context menu */
-#contextMenu {
-    background-color: rgb(48, 48, 48);
-    position: fixed;
-    top: 0px;
-    z-index: 10;
-    width: 100%;
-    padding: 10px;
-}
-
-.deleteMessageButton {
-    fill: var(--light);
-    background-color: rgb(48, 48, 48);
-}
-
-.deleteMessageButton:hover {
-    fill: var(--danger);
 }
 
 /*  Chanign container padding */

@@ -4,8 +4,9 @@ import { FaArrowLeft } from "react-icons/fa";
 import { useConversations } from "../../../utils/ConversationProvider";
 import { useViewport } from "../../../utils/ViewportProvider";
 import ChatInput from "./ChatInput";
-import MessageContextMenu from "./MessageContextMenu";
 import SingleMessage from "./SingleMessage";
+import MessagesTopMenu from "./MessagesTopMenu";
+import MessageContextMenu from "./MessageContextMenu";
 import "./messages.css";
 
 export default function Messages({ containerRef }) {
@@ -62,6 +63,7 @@ export default function Messages({ containerRef }) {
 ?   of a messaging app.
     */
     <>
+      <MessagesTopMenu />
       <MessageContextMenu show={contextMenuShow} />
 
       <div id="messageWrapper">

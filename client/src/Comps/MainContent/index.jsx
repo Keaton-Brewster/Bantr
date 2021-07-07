@@ -1,7 +1,6 @@
-import { useState, useRef } from "react";
-import { useConversations } from "../../utils/ConversationProvider";
+import { useRef } from "react";
 import { useViewport } from "../../utils/ViewportProvider";
-import Messages from "./Messaging";
+import Messaging from "./Messaging";
 
 export default function MainContent() {
   // Container ref is used to give refernce of width to the
@@ -12,7 +11,7 @@ export default function MainContent() {
 
   return (
     <div className={show.mainContent ? "show" : "hide"} ref={containerRef}>
-      <Messages containerRef={containerRef} />
+      <Messaging containerRef={containerRef} />
     </div>
   );
 }
