@@ -2,17 +2,31 @@ import { useState, useEffect } from "react";
 import { Nav } from "react-bootstrap";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 import { FaArrowLeft } from "react-icons/fa";
-import { useConversations } from "../../../utils/ConversationProvider";
+import { useMainContent } from "..";
 import { useViewport } from "../../../utils/ViewportProvider";
 
 export default function MessagesTopMenu({ conversationName, containerRef }) {
-  const { selectedConversation } = useConversations();
   const { width, mobileScreen, setShow } = useViewport();
   const [menuBarWidth, setMenuBarWidth] = useState("100%");
+  const { activeContent, setActiveContent } = useMainContent();
 
-  function openConversationInfo(e) {
-    e.preventDefault();
-    console.log(selectedConversation);
+  function openConversationInfo() {
+    setActiveContent("conversation info");
+  }
+
+  function handleBackButton() {
+    switch (activeContent) {
+      case "messaging":
+        break;
+      case "conversation info":
+        setActiveContent("messaging");
+        break;
+      default:
+        setShow({
+          convos: true,
+          messages: false,
+        });
+    }
   }
 
   useEffect(() => {
@@ -27,19 +41,17 @@ export default function MessagesTopMenu({ conversationName, containerRef }) {
       className="flex-row justify-content-end"
       style={{ width: menuBarWidth }}
     >
-      {mobileScreen ? (
-        <Nav.Item
-          onClick={() => {
-            setShow({
-              convos: true,
-              messages: false,
-            });
-          }}
-        >
+      {mobileScreen || activeContent === "conversation info" ? (
+        <Nav.Item onClick={handleBackButton}>
           <FaArrowLeft className="backButton" />
         </Nav.Item>
       ) : null}
-      <Nav.Item id="conversationName">
+      <Nav.Item
+        id="conversationName"
+        style={{
+          paddingLeft: `${activeContent === "messaging" ? "30px" : ""}`,
+        }}
+      >
         {conversationName ? conversationName : "Untitled Conversation"}
       </Nav.Item>
       <Nav.Item onClick={openConversationInfo}>
