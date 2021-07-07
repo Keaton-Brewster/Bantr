@@ -3,8 +3,8 @@ html {
 }
 
 * {
-    color: white;
-    background-color: #202020;
+    background-color: #F1F0E6;
+    color: #202020;
     overflow-wrap: break-word !important;
 }
 
@@ -25,17 +25,17 @@ button {
 }
 
 .convoBox {
-    background-color: #202020 !important;
+    background-color: #F1F0E6 !important;
     padding: 1rem !important;
 }
 
 .convoBox:hover {
-    background-color: #404040 !important;
+    background-color: #C2B847 !important;
     cursor: pointer;
 }
 
 .activeConvo {
-    background-color: #404040 !important;
+    background-color: #D6CF85 !important;
 }
 
 #messageBox {
@@ -142,43 +142,25 @@ button {
 #sendButton {
     height: 35px;
     width: 35px;
-    background-color: var(--primary);
+    background-color: #C2B847;
     border-radius: 50px;
 }
 
 .sendButton {
+    background-color: #C2B847;
     position: relative;
     bottom: 1px;
 }
 
 #sendButton:hover,
 #sendButton:hover .sendButton {
-    background-color: #0068c2 !important;
+    background-color: #D6CF85 !important;
 }
 
 #messages {
     overflow-y: scroll;
     white-space: nowrap;
     margin-bottom: 3rem;
-}
-
-.message {
-    width: max-content;
-    max-width: 600px;
-    overflow-wrap: break-word;
-    white-space: pre-wrap;
-}
-
-@media screen and (max-width: 575px) {
-    .message {
-        max-width: 250px;
-    }
-}
-
-@media screen and (max-width: 1024px) and (min-width: 575px) {
-    .message {
-        max-width: 350px;
-    }
 }
 
 /* from login css */

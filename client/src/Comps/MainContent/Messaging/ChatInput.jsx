@@ -31,7 +31,7 @@ export default function ChatInput({ textRef, sendMessage, containerRef }) {
               textRef.current.value = "";
             }}
           >
-            <FaArrowRight className="bg-primary sendButton" />
+            <FaArrowRight className="sendButton" />
           </button>
         </Col>
       </Row>

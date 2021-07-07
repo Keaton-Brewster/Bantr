@@ -6,6 +6,7 @@ import { useViewport } from "../../../utils/ViewportProvider";
 import ChatInput from "./ChatInput";
 import MessageContextMenu from "./MessageContextMenu";
 import SingleMessage from "./SingleMessage";
+import "./messages.css";
 
 export default function Messages({ containerRef }) {
   const { sendMessage, selectedConversation } = useConversations();

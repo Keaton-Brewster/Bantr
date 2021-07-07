@@ -1,5 +1,5 @@
 #menuBar {
-    background-color: #404040;
+    background-color: white;
     margin-right: auto;
     margin-left: auto;
     position: fixed;
@@ -7,13 +7,15 @@
 }
 
 .menuIcons {
-    height: 25px;
-    width: 25px;
-    background: #202020;
-    background-color: #202020;
+    opacity: 50%;
+    height: 30px;
+    width: 30px;
+    fill: #4A8D96;
+    background-color: #F1F0E6;
     margin: 5px;
 }
 
 .activeMenuIcon {
-    fill: green;
+    opacity: 100% !important;
+    fill: #4A8D96;
 }

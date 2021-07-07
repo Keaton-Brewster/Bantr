@@ -24,7 +24,7 @@ export default function SingleMessage({ data, handleRightClick, index }) {
       <div
         // data-key={i}
         className={`message rounded px-2 py-1 ${
-          message.fromMe ? "bg-primary text-white" : "bg-success"
+          message.fromMe ? "messageFromMe" : "messageToMe"
         }`}
       >
         {message.content}

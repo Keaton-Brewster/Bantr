@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { Modal, Button } from "react-bootstrap";
 
 export default function NewConversationModal({
@@ -6,6 +6,10 @@ export default function NewConversationModal({
   hide,
   createConversation,
 }) {
+  const [recipient, setRecipients] = useState([]);
+
+  function createRecipientCard() {}
+
   return (
     <Modal
       show={show}
@@ -20,7 +24,14 @@ export default function NewConversationModal({
           <h4>Start a new conversation</h4>
         </Modal.Title>
       </Modal.Header>
-      <Modal.Body></Modal.Body>
+      <Modal.Body>
+        <small>recipients</small>
+        <div></div>
+        <form>
+          <label for="number"></label>
+          <input id="" placeholder="+1 000-000-0000" />
+        </form>
+      </Modal.Body>
       <Modal.Footer>
         <Button
           variant="success"

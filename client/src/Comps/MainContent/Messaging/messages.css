@@ -1,0 +1,26 @@
+.message {
+    width: max-content;
+    max-width: 600px;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+}
+
+.messageFromMe {
+    background-color: #BBD9DD;
+}
+
+.messageToMe {
+    background-color: #76B4BC;
+}
+
+@media screen and (max-width: 575px) {
+    .message {
+        max-width: 250px;
+    }
+}
+
+@media screen and (max-width: 1024px) and (min-width: 575px) {
+    .message {
+        max-width: 350px;
+    }
+}
