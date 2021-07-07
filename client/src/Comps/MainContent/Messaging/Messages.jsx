@@ -1,8 +1,8 @@
 import React, { useRef, useState, useEffect, useCallback } from "react";
 import { Navbar } from "react-bootstrap";
 import { FaArrowLeft } from "react-icons/fa";
-import { useConversations } from "../utils/ConversationProvider";
-import { useViewportContext } from "../utils/ViewportProvider";
+import { useConversations } from "../../../utils/ConversationProvider";
+import { useViewportContext } from "../../../utils/ViewportProvider";
 import ChatInput from "./ChatInput";
 import MessageContextMenu from "./MessageContextMenu";
 import SingleMessage from "./SingleMessage";

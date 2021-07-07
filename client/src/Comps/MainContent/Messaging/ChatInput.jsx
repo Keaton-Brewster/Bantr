@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Row, Col } from "react-bootstrap";
 import { FaArrowRight } from "react-icons/fa";
-import { useViewportContext } from "../utils/ViewportProvider";
+import { useViewportContext } from "../../../utils/ViewportProvider";
 
 export default function ChatInput({ textRef, sendMessage, containerRef }) {
   const { width, scrollToBottomMessages } = useViewportContext();

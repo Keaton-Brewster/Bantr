@@ -1,7 +1,6 @@
 import { useState, useRef } from "react";
 import { Container, Row, Form, Button } from "react-bootstrap";
 import PasswordValidator from "password-validator";
-import { createCometUser } from "../CometChat";
 import API from "../utils/API";
 
 const schema = new PasswordValidator();
@@ -52,9 +51,8 @@ export default function Signup({ setUser }) {
 
     API.signup(formValues)
       .then((response) => response.data)
-      .then(async (user) => {
+      .then((user) => {
         console.log(user);
-        await createCometUser(user._id, user.name);
         const userToStore = JSON.stringify(user);
         setUser(userToStore);
         window.location.href = "/";

@@ -1,7 +1,7 @@
 import { Container, Row, Col } from "react-bootstrap";
 import { useViewportContext } from "../utils/ViewportProvider";
 import Conversations from "./SideBar/Conversations";
-import Messages from "./Messages";
+import Messages from "./MainContent/Messaging/Messages";
 
 export default function Dashboard() {
   const { mobileScreen } = useViewportContext();

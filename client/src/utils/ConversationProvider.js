@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState, useCallback } from "react";
 import axios from "axios";
-import CometChat, { authKey } from "../CometChat";
 
 const conversationContext = React.createContext();
 
@@ -59,15 +58,6 @@ export default function ConversationProvider({ user, children }) {
 
   useEffect(() => {
     if (!user._id) return;
-
-    CometChat.login(user._id, authKey).then(
-      (user) => {
-        console.log("Login Successful:", { user });
-      },
-      (error) => {
-        console.log("Login failed with exception:", { error });
-      }
-    );
     loadConversations((conversations) => {
       setConversations(conversations);
     });
