@@ -49,10 +49,16 @@
 
 
 #messageInfoButton {
-    right: 15px;
+    margin-left: 62%;
     height: 25px;
     width: 25px;
     background-color: #D6CF85;
+}
+
+@media screen and (max-width: 575px) {
+    #messageInfoButton {
+        margin-left: 92%;
+    }
 }
 
 /* Message Context menu */

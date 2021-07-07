@@ -9,10 +9,10 @@ export function useViewport() {
 export default function ViewportProvider({ children }) {
   const [width, setWidth] = useState(window.innerWidth);
   const [show, setShow] = useState(() => {
-    if (width < 575) return { convos: true, mainContent: false };
+    if (width < 680) return { convos: true, mainContent: false };
     return { convos: true, mainContent: true };
   });
-  const mobileScreen = width < 575;
+  const mobileScreen = width < 680;
   const bottomOfMessages = useRef();
 
   // Setting up this function in the vieport provider
@@ -32,13 +32,13 @@ export default function ViewportProvider({ children }) {
   useEffect(() => {
     const { convos, mainContent } = show;
 
-    if (width >= 575 && (!convos || !mainContent)) {
+    if (width >= 680 && (!convos || !mainContent)) {
       return setShow({
         convos: true,
         mainContent: true,
       });
     }
-    if (width < 575 && convos && mainContent) {
+    if (width < 680 && convos && mainContent) {
       return setShow({
         convos: true,
         mainContent: false,

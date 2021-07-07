@@ -16,7 +16,7 @@ export default function MenuBar({ containerRef, menuState }) {
   }
 
   useEffect(() => {
-    if (width >= 575) setMenubarWidth(`${containerRef.current.offsetWidth}px`);
+    if (width >= 680) setMenubarWidth(`${containerRef.current.offsetWidth}px`);
     else setMenubarWidth("100%");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [width]);
