@@ -19,13 +19,13 @@
     background-color: #76B4BC;
 }
 
-@media screen and (max-width: 575px) {
+@media screen and (max-width: 57680px) {
     .message {
         max-width: 250px;
     }
 }
 
-@media screen and (max-width: 1024px) and (min-width: 575px) {
+@media screen and (max-width: 1024px) and (min-width: 680px) {
     .message {
         max-width: 350px;
     }

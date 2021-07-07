@@ -107,7 +107,7 @@ button {
     padding-left: 35px;
 }
 
-@media screen and (max-width: 575px) {
+@media screen and (max-width: 680px) {
     #chatBox {
         padding-left: 20px;
     }
