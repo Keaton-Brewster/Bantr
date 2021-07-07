@@ -47,18 +47,29 @@
     padding: 10px;
 }
 
-
+/* The positioning of this info button need to be fixed so that
+    If the name of the conversation in the top menu is really long
+    it doesnt fuck with the buttons placement    
+*/
 #messageInfoButton {
-    margin-left: 62%;
+    margin-left: 42%;
     height: 25px;
     width: 25px;
     background-color: #D6CF85;
 }
 
-@media screen and (max-width: 575px) {
+@media screen and (max-width: 680px) {
     #messageInfoButton {
-        margin-left: 92%;
+        margin-left: 65%;
     }
+}
+
+#messageInfoButton:hover {
+    cursor: pointer;
+}
+
+span {
+    background-color: #D6CF85;
 }
 
 /* Message Context menu */

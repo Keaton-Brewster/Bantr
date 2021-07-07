@@ -63,7 +63,7 @@ export default function Messages({ containerRef }) {
 ?   of a messaging app.
     */
     <>
-      <MessagesTopMenu />
+      <MessagesTopMenu conversationName={selectedConversation.name} />
       <MessageContextMenu show={contextMenuShow} />
 
       <div id="messageWrapper">

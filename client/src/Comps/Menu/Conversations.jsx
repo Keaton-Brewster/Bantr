@@ -45,7 +45,7 @@ export default function Conversations() {
                   });
               }}
             >
-              {convo.name || "New Conversation"}
+              {convo.name || "Untitled Conversation"}
             </ListGroup.Item>
           );
         })}
