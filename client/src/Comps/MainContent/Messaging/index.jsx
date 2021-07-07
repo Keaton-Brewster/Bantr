@@ -2,18 +2,17 @@ import React, { useRef, useState, useEffect, useCallback } from "react";
 import { Navbar } from "react-bootstrap";
 import { FaArrowLeft } from "react-icons/fa";
 import { useConversations } from "../../../utils/ConversationProvider";
-import { useViewportContext } from "../../../utils/ViewportProvider";
+import { useViewport } from "../../../utils/ViewportProvider";
 import ChatInput from "./ChatInput";
 import MessageContextMenu from "./MessageContextMenu";
 import SingleMessage from "./SingleMessage";
 
-export default function Messages() {
+export default function Messages({ containerRef }) {
   const { sendMessage, selectedConversation } = useConversations();
   const [contextMenuShow, setContextMenuShow] = useState(false);
   const textRef = useRef();
   // Container ref is used to give refernce of width to the
   // Chat input so that is always is 100% width of its parent
-  const containerRef = useRef();
 
   const {
     mobileScreen,
@@ -21,7 +20,7 @@ export default function Messages() {
     setShow,
     bottomOfMessages,
     scrollToBottomMessages,
-  } = useViewportContext();
+  } = useViewport();
 
   // Handler function for message context menu
   function handleRightClick(event, element) {
@@ -61,9 +60,7 @@ export default function Messages() {
 ?   Having a loader would certainly interupt the expected flow 
 ?   of a messaging app.
     */
-
-    //This is only important for when you are viewing the Mobile app
-    <div className={show.messages ? "show" : "hide"} ref={containerRef}>
+    <>
       <MessageContextMenu show={contextMenuShow} />
 
       <div id="messageWrapper">
@@ -107,6 +104,6 @@ export default function Messages() {
           containerRef={containerRef}
         />
       </div>
-    </div>
+    </>
   );
 }

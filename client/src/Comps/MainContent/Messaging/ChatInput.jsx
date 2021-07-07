@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Row, Col } from "react-bootstrap";
 import { FaArrowRight } from "react-icons/fa";
-import { useViewportContext } from "../../../utils/ViewportProvider";
+import { useViewport } from "../../../utils/ViewportProvider";
 
 export default function ChatInput({ textRef, sendMessage, containerRef }) {
-  const { width, scrollToBottomMessages } = useViewportContext();
+  const { width, scrollToBottomMessages } = useViewport();
   const [chatboxWidth, setChatboxWidth] = useState({});
 
   useEffect(() => {

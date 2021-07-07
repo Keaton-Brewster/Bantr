@@ -1,10 +1,10 @@
 import { Container, Row, Col } from "react-bootstrap";
-import { useViewportContext } from "../utils/ViewportProvider";
-import Conversations from "./SideBar/Conversations";
-import Messages from "./MainContent/Messaging/Messages";
+import { useViewport } from "../utils/ViewportProvider";
+import Conversations from "./Menu/Conversations";
+import MainContent from "./MainContent";
 
 export default function Dashboard() {
-  const { mobileScreen } = useViewportContext();
+  const { mobileScreen } = useViewport();
 
   return (
     <>
@@ -15,14 +15,14 @@ export default function Dashboard() {
               <Conversations />
             </Col>
             <Col sm={8} id="messageBox">
-              <Messages />
+              <MainContent />
             </Col>
           </Row>
         </Container>
       ) : (
         <Container fluid>
           <Conversations />
-          <Messages />
+          <MainContent />
         </Container>
       )}
     </>

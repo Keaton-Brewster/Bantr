@@ -2,15 +2,15 @@ import { useState, useEffect, createContext, useContext, useRef } from "react";
 
 const viewportContext = createContext();
 
-export function useViewportContext() {
+export function useViewport() {
   return useContext(viewportContext);
 }
 
 export default function ViewportProvider({ children }) {
   const [width, setWidth] = useState(window.innerWidth);
   const [show, setShow] = useState(() => {
-    if (width < 575) return { convos: true, messages: false };
-    return { convos: true, messages: true };
+    if (width < 575) return { convos: true, mainContent: false };
+    return { convos: true, mainContent: true };
   });
   const mobileScreen = width < 575;
   const bottomOfMessages = useRef();
@@ -30,18 +30,18 @@ export default function ViewportProvider({ children }) {
 
   // This handles the changes between mobile layout and desktop layout
   useEffect(() => {
-    const { convos, messages } = show;
+    const { convos, mainContent } = show;
 
-    if (width >= 575 && (!convos || !messages)) {
+    if (width >= 575 && (!convos || !mainContent)) {
       return setShow({
         convos: true,
-        messages: true,
+        mainContent: true,
       });
     }
-    if (width < 575 && convos && messages) {
+    if (width < 575 && convos && mainContent) {
       return setShow({
         convos: true,
-        messages: false,
+        mainContent: false,
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

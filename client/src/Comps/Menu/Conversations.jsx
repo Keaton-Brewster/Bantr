@@ -2,7 +2,7 @@ import { useState } from "react";
 import { ListGroup } from "react-bootstrap";
 import { BsChatSquareDots as Chat } from "react-icons/bs";
 import { useConversations } from "../../utils/ConversationProvider";
-import { useViewportContext } from "../../utils/ViewportProvider";
+import { useViewport } from "../../utils/ViewportProvider";
 import NewConversationModal from "../Modals/NewConversationModal";
 
 export default function Conversations() {
@@ -10,7 +10,7 @@ export default function Conversations() {
     useConversations();
   const [newConvoModal, setNewConvoModal] = useState(false);
 
-  const { mobileScreen, show, setShow } = useViewportContext();
+  const { mobileScreen, show, setShow } = useViewport();
 
   function createConversation(event) {}
 
@@ -32,7 +32,7 @@ export default function Conversations() {
                 if (mobileScreen)
                   setShow({
                     convos: false,
-                    messages: true,
+                    mainContent: true,
                   });
               }}
             >
