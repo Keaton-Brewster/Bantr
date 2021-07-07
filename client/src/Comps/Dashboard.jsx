@@ -1,14 +1,18 @@
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Spinner } from "react-bootstrap";
 import { useViewport } from "../utils/ViewportProvider";
 import Menu from "./Menu";
 import MainContent from "./MainContent";
+import { useConversations } from "../utils/ConversationProvider";
 
 export default function Dashboard() {
   const { mobileScreen } = useViewport();
+  const { selectedConversation } = useConversations();
 
   return (
     <>
-      {!mobileScreen ? (
+      {!selectedConversation ? (
+        <Spinner id="spinner" />
+      ) : !mobileScreen ? (
         <Container fluid>
           <Row style={{ marginRight: "0px !important" }}>
             <Col sm={4} style={{ paddingRight: "0px" }}>

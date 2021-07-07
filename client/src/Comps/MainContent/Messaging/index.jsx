@@ -1,6 +1,4 @@
 import React, { useRef, useState, useEffect, useCallback } from "react";
-import { Navbar } from "react-bootstrap";
-import { FaArrowLeft } from "react-icons/fa";
 import { useConversations } from "../../../utils/ConversationProvider";
 import { useViewport } from "../../../utils/ViewportProvider";
 import ChatInput from "./ChatInput";
@@ -10,19 +8,12 @@ import MessageContextMenu from "./MessageContextMenu";
 import "./messages.css";
 
 export default function Messages({ containerRef }) {
-  const { sendMessage, selectedConversation } = useConversations();
+  const { selectedConversation } = useConversations();
   const [contextMenuShow, setContextMenuShow] = useState(false);
-  const textRef = useRef();
   // Container ref is used to give refernce of width to the
   // Chat input so that is always is 100% width of its parent
 
-  const {
-    mobileScreen,
-    show,
-    setShow,
-    bottomOfMessages,
-    scrollToBottomMessages,
-  } = useViewport();
+  const { show, bottomOfMessages, scrollToBottomMessages } = useViewport();
 
   // Handler function for message context menu
   function handleRightClick(event, element) {
@@ -63,26 +54,13 @@ export default function Messages({ containerRef }) {
 ?   of a messaging app.
     */
     <>
-      <MessagesTopMenu conversationName={selectedConversation.name} />
+      <MessagesTopMenu
+        conversationName={selectedConversation.name}
+        containerRef={containerRef}
+      />
       <MessageContextMenu show={contextMenuShow} />
 
       <div id="messageWrapper">
-        {mobileScreen ? (
-          <Navbar>
-            <button
-              id="backButton"
-              onClick={() => {
-                setShow({
-                  convos: true,
-                  messages: false,
-                });
-              }}
-            >
-              <FaArrowLeft className="bg-danger backButton" />
-            </button>
-          </Navbar>
-        ) : null}
-
         <div className="d-flex flex-column flex-grow-1" id="messages">
           <div className="flex-grow-1 overflow-auto">
             <div className="d-flex flex-column align-items-start justify-content-end px-3">
@@ -101,11 +79,7 @@ export default function Messages({ containerRef }) {
           </div>
         </div>
 
-        <ChatInput
-          textRef={textRef}
-          sendMessage={sendMessage}
-          containerRef={containerRef}
-        />
+        <ChatInput containerRef={containerRef} />
       </div>
     </>
   );

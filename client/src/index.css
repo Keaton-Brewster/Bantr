@@ -1,5 +1,7 @@
 :root {
-    --main-background: #fbfffd;
+    --main-background: #FBFFFD;
+    --secondary-background: #D6CF85;
+    --active: #D6CF85;
 }
 
 html {
@@ -33,7 +35,7 @@ button {
 }
 
 .activeConvo {
-    background-color: #D6CF85;
+    background-color: var(--active);
 }
 
 #messageBox {
@@ -75,84 +77,6 @@ button {
 
 .hide {
     display: none !important;
-}
-
-#backButton {
-    position: fixed;
-    top: 30px;
-    margin-top: 10px;
-    height: 35px;
-    width: 35px;
-    background-color: var(--danger);
-    border-radius: 50px;
-}
-
-.backButton {
-    position: relative;
-    right: 1px;
-    bottom: 1px;
-}
-
-#backButton:hover,
-#backButton:hover .backButton {
-    background-color: #9e3c39;
-}
-
-#chatBox {
-    margin-right: auto;
-    margin-left: auto;
-    position: fixed;
-    bottom: 0;
-    padding: 1rem;
-    padding-left: 35px;
-}
-
-@media screen and (max-width: 680px) {
-    #chatBox {
-        padding-left: 20px;
-    }
-
-    #backButton {
-        top: 5px
-    }
-
-    #messages {
-        margin-top: 50px;
-    }
-}
-
-#chatInput {
-    padding: 5px;
-    padding-left: 20px;
-    width: 100%;
-    border: none;
-    border-radius: 25px;
-    border: 1px solid grey;
-    overflow-wrap: break-word;
-    resize: none;
-}
-
-#chatInput:focus {
-    outline: none;
-    box-shadow: 0 0 4px 0px var(--light);
-}
-
-#sendButton {
-    height: 35px;
-    width: 35px;
-    background-color: #C2B847;
-    border-radius: 50px;
-}
-
-.sendButton {
-    background-color: #C2B847;
-    position: relative;
-    bottom: 1px;
-}
-
-#sendButton:hover,
-#sendButton:hover .sendButton {
-    background-color: #D6CF85;
 }
 
 /* from login css */

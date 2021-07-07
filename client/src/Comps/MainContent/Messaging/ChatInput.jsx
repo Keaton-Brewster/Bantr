@@ -1,11 +1,15 @@
-import React, { useEffect, useState } from "react";
+import { useRef, useEffect, useState } from "react";
 import { Row, Col } from "react-bootstrap";
 import { FaArrowRight } from "react-icons/fa";
+import { useConversations } from "../../../utils/ConversationProvider";
 import { useViewport } from "../../../utils/ViewportProvider";
+import "./chatInput.css";
 
-export default function ChatInput({ textRef, sendMessage, containerRef }) {
+export default function ChatInput({ containerRef }) {
+  const { sendMessage } = useConversations();
   const { width, scrollToBottomMessages } = useViewport();
   const [chatboxWidth, setChatboxWidth] = useState("100%");
+  const textRef = useRef();
 
   useEffect(() => {
     if (width >= 680) setChatboxWidth(`${containerRef.current.offsetWidth}px`);
@@ -21,7 +25,7 @@ export default function ChatInput({ textRef, sendMessage, containerRef }) {
         <Col xs={10}>
           <textarea ref={textRef} rows="1" id="chatInput" type="text" />
         </Col>
-        <Col xs={2}>
+        <Col xs={2} className="text-center">
           <button
             id="sendButton"
             onClick={(e) => {

@@ -32,19 +32,27 @@
 }
 
 #messageWrapper {
-    padding-top: 50px;
-    padding-bottom: 2rem;
+    padding-bottom: 20px;
     overflow-y: scroll;
     height: 100vh;
 }
 
+@media screen and (min-width: 680px) {
+    #messageWrapper {
+        padding-top: 50px;
+    }
+}
+
 #messagesTopMenu {
-    background-color: #D6CF85;
     position: fixed;
     top: 0px;
-    z-index: 10;
-    width: 100%;
+    background-color: var(--secondary-background);
     padding: 10px;
+    z-index: 10;
+}
+
+#messagesTopMenu>* {
+    background-color: var(--secondary-background);
 }
 
 /* The positioning of this info button need to be fixed so that
@@ -52,21 +60,37 @@
     it doesnt fuck with the buttons placement    
 */
 #messageInfoButton {
-    margin-left: 42%;
+    margin-right: 10px;
     height: 25px;
     width: 25px;
-    background-color: #D6CF85;
-}
-
-@media screen and (max-width: 680px) {
-    #messageInfoButton {
-        margin-left: 65%;
-    }
+    background-color: var(--secondary-background);
 }
 
 #messageInfoButton:hover {
     cursor: pointer;
 }
+
+.backButton {
+    margin-left: 10px;
+    height: 20px;
+    width: 20px;
+    background-color: var(--secondary-background);
+    position: relative;
+    right: 1px;
+    bottom: 1px;
+}
+
+.backButton:hover {
+    cursor: pointer;
+}
+
+#conversationName {
+    margin-right: auto;
+    margin-left: auto;
+    float: left;
+}
+
+
 
 span {
     background-color: #D6CF85;
