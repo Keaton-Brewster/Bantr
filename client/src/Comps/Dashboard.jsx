@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Container, Row, Col, Spinner } from "react-bootstrap";
 import { BrowserView, MobileView } from "react-device-detect";
 import { useViewport } from "../utils/ViewportProvider";
@@ -14,6 +15,18 @@ export default function Dashboard() {
     if (mobileDisplay.menu) return <Menu />;
     if (mobileDisplay.mainContent) return <MainContent />;
   }
+
+  function cleanLocalStorage() {
+    localStorage.removeItem("epr_ru");
+  }
+
+  // apparently the emoji keyboard thing is storing things in local storage
+  // So to stop that from piling up, we will regularly clean it out
+  useEffect(() => {
+    return () => {
+      cleanLocalStorage();
+    };
+  });
 
   return (
     <ContentProvider>
