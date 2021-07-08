@@ -55,10 +55,11 @@
     background-color: var(--secondary-background);
 }
 
-/* The positioning of this info button need to be fixed so that
-    If the name of the conversation in the top menu is really long
-    it doesnt fuck with the buttons placement    
-*/
+.conversationInfoScreen {
+    padding: 25px;
+    padding-top: 55px;
+}
+
 #conversationInfoButton {
     margin-bottom: 3px;
     margin-right: 10px;

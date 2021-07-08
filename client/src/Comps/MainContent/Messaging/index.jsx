@@ -1,10 +1,10 @@
-import React, { useRef, useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useConversations } from "../../../utils/ConversationProvider";
 import { useViewport } from "../../../utils/ViewportProvider";
 import ChatInput from "./ChatInput";
 import SingleMessage from "./SingleMessage";
 import MessageContextMenu from "./MessageContextMenu";
-import "./messages.css";
+import "./messaging.css";
 
 export default function Messages({ containerRef }) {
   const { selectedConversation } = useConversations();

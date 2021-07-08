@@ -11,7 +11,7 @@ export default function UserCard({ member }) {
           fluid
           className="profilePicture"
         />
-        <h4>{member.name}</h4>
+        <p>{member.name}</p>
       </Row>
     </Item>
   );

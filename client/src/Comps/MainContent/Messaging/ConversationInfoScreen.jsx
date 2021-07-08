@@ -34,9 +34,10 @@ export default function ConversationInfoScreen({ containerRef }) {
       {loading ? (
         <Spinner animation="border" className="spinner" role="status" />
       ) : (
-        <div style={{ paddingTop: "40px" }}>
-          <ListGroup>
-            <h3>Members</h3>
+        <div className="conversationInfoScreen">
+          <ListGroup variant="flush">
+            <h4>Members</h4>
+            <ListGroup.Item />
             {convoInfo.members.map((member, index) => {
               return <UserCard member={member} key={index} />;
             })}
