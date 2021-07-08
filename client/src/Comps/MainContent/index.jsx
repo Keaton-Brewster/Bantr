@@ -1,7 +1,9 @@
+/* eslint-disable react/jsx-pascal-case */
 import { useRef } from "react";
 import { useViewport } from "../../utils/ViewportProvider";
 import { useConversations } from "../../utils/ConversationProvider";
 import { useContentContext } from "../../utils/ContentProvider";
+import Animated from "react-mount-animation";
 import MessagesTopMenu from "./Messaging/MessagesTopMenu";
 import Messaging from "./Messaging";
 import ConversationInfoScreen from "./Messaging/ConversationInfoScreen";
@@ -14,17 +16,6 @@ export default function MainContent() {
   const { selectedConversation } = useConversations();
   const { mobileDisplay } = useViewport();
 
-  function renderSwitch() {
-    switch (activeContent) {
-      case "conversation info":
-        return <ConversationInfoScreen containerRef={containerRef} />;
-      case "messaging":
-        return <Messaging containerRef={containerRef} />;
-      default:
-        return <Messaging containerRef={containerRef} />;
-    }
-  }
-
   return (
     <div
       className={mobileDisplay.mainContent ? "show" : "hide"}
@@ -34,7 +25,24 @@ export default function MainContent() {
         conversationName={selectedConversation.name}
         containerRef={containerRef}
       />
-      {renderSwitch()}
+      <Animated.div
+        show={activeContent.messaging}
+        mountAnim={` 
+        0% {opacity: 0}
+        100% {opacity: 1}
+    `}
+      >
+        <Messaging containerRef={containerRef} />
+      </Animated.div>
+      <Animated.div
+        show={activeContent.conversationInfo}
+        mountAnim={` 
+          0% {opacity: 0}
+          100% {opacity: 1}
+      `}
+      >
+        <ConversationInfoScreen containerRef={containerRef} />
+      </Animated.div>
     </div>
   );
 }

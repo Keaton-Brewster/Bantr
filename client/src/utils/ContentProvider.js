@@ -7,7 +7,10 @@ export function useContentContext() {
 }
 
 export default function ContentProvider({ children }) {
-  const [activeContent, setActiveContent] = useState("messaging");
+  const [activeContent, setActiveContent] = useState({
+    messaging: true,
+    conversationInfo: false,
+  });
   const [activeMenu, setActiveMenu] = useState("conversations");
 
   const value = { activeContent, setActiveContent, activeMenu, setActiveMenu };

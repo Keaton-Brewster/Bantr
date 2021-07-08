@@ -45,7 +45,9 @@ export default function Conversations() {
                     mainContent: true,
                   });
                 } else {
-                  setActiveContent("messaging");
+                  setActiveContent({
+                    messaging: true,
+                  });
                 }
               }}
             >

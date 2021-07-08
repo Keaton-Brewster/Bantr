@@ -11,28 +11,20 @@ export default function MessagesTopMenu({ conversationName, containerRef }) {
   const { activeContent, setActiveContent } = useContentContext();
 
   function openConversationInfo() {
-    setActiveContent("conversation info");
+    setActiveContent({
+      conversationInfo: true,
+    });
   }
 
   // To make the back button multipurpose, simply switch case the state of the current display
   // And then act accordingly
   function handleBackButton() {
-    switch (activeContent) {
-      case "messaging":
-        setMobileDisplay({
-          menu: true,
-          mainContent: false,
-        });
-        break;
-      case "conversation info":
-        setActiveContent("messaging");
-        break;
-      default:
-        setMobileDisplay({
-          menu: true,
-          mainContent: false,
-        });
-    }
+    if (activeContent.messaging)
+      return setMobileDisplay({
+        menu: true,
+        mainContent: false,
+      });
+    setActiveContent({ messaging: true });
   }
 
   useEffect(() => {
@@ -47,7 +39,7 @@ export default function MessagesTopMenu({ conversationName, containerRef }) {
       className="flex-row justify-content-end"
       style={{ width: menuBarWidth }}
     >
-      {isMobile || activeContent === "conversation info" ? (
+      {isMobile || activeContent.conversationInfo ? (
         <Nav.Item onClick={handleBackButton}>
           <FaArrowLeft className="backButton" />
         </Nav.Item>
@@ -55,9 +47,7 @@ export default function MessagesTopMenu({ conversationName, containerRef }) {
       <Nav.Item
         id="conversationName"
         style={{
-          paddingLeft: `${
-            activeContent === "messaging" && width > 680 ? "30px" : ""
-          }`,
+          paddingLeft: `${!isMobile && activeContent.messaging ? "30px" : ""}`,
         }}
       >
         {conversationName ? conversationName : "Untitled Conversation"}
