@@ -24,7 +24,7 @@ const userSchema = new Schema({
   picture: {
     type: String,
     default:
-      "https://moonvillageassociation.org/wp-content/uploads/2018/06/default-profile-picture1.jpg",
+      "https://www.personality-insights.com/wp-content/uploads/2017/12/default-profile-pic-e1513291410505.jpg",
   },
 });
 

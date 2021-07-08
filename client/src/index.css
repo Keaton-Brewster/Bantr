@@ -14,7 +14,7 @@ html {
     overflow-wrap: break-word;
 }
 
-#spinner {
+.spinner {
     position: absolute;
     left: 50%;
     top: 50%;

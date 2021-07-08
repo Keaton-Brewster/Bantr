@@ -6,7 +6,7 @@ import { useMainContent } from "../../../utils/MainContentProvider";
 import { useViewport } from "../../../utils/ViewportProvider";
 
 export default function MessagesTopMenu({ conversationName, containerRef }) {
-  const { width, mobileScreen, setShow } = useViewport();
+  const { width, isMobile, setMobileDisplay } = useViewport();
   const [menuBarWidth, setMenuBarWidth] = useState("100%");
   const { activeContent, setActiveContent } = useMainContent();
 
@@ -19,7 +19,7 @@ export default function MessagesTopMenu({ conversationName, containerRef }) {
   function handleBackButton() {
     switch (activeContent) {
       case "messaging":
-        setShow({
+        setMobileDisplay({
           menu: true,
           mainContent: false,
         });
@@ -28,7 +28,7 @@ export default function MessagesTopMenu({ conversationName, containerRef }) {
         setActiveContent("messaging");
         break;
       default:
-        setShow({
+        setMobileDisplay({
           menu: true,
           mainContent: false,
         });
@@ -47,7 +47,7 @@ export default function MessagesTopMenu({ conversationName, containerRef }) {
       className="flex-row justify-content-end"
       style={{ width: menuBarWidth }}
     >
-      {mobileScreen || activeContent === "conversation info" ? (
+      {isMobile || activeContent === "conversation info" ? (
         <Nav.Item onClick={handleBackButton}>
           <FaArrowLeft className="backButton" />
         </Nav.Item>

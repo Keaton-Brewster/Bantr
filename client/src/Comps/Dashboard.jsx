@@ -6,14 +6,14 @@ import Menu from "./Menu";
 import MainContent from "./MainContent";
 
 export default function Dashboard() {
-  const { mobileScreen } = useViewport();
+  const { isMobile } = useViewport();
   const { selectedConversation } = useConversations();
 
   return (
     <MainContentProvider>
       {!selectedConversation ? (
         <Spinner id="spinner" />
-      ) : !mobileScreen ? (
+      ) : !isMobile ? (
         <Container fluid>
           <Row style={{ marginRight: "0px !important" }}>
             <Col sm={4} style={{ paddingRight: "0px" }}>

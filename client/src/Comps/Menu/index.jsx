@@ -8,7 +8,7 @@ import { useViewport } from "../../utils/ViewportProvider";
 export default function Sidebar() {
   const [activeMenu, setActiveMenu] = useState("conversations");
   const containerRef = useRef();
-  const { show } = useViewport();
+  const { mobileDisplay } = useViewport();
 
   function renderSwitch() {
     switch (activeMenu) {
@@ -25,7 +25,7 @@ export default function Sidebar() {
 
   return (
     <div ref={containerRef}>
-      <div className={show.menu ? "show" : "hide"}>
+      <div className={mobileDisplay.menu ? "show" : "hide"}>
         {renderSwitch()}
         <MenuBar
           containerRef={containerRef}

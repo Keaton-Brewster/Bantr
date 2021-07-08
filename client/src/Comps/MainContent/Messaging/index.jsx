@@ -12,7 +12,8 @@ export default function Messages({ containerRef }) {
   // Container ref is used to give refernce of width to the
   // Chat input so that is always is 100% width of its parent
 
-  const { show, bottomOfMessages, scrollToBottomMessages } = useViewport();
+  const { mobileDisplay, bottomOfMessages, scrollToBottomMessages } =
+    useViewport();
 
   // Handler function for message context menu
   function handleRightClick(event, element) {
@@ -42,7 +43,7 @@ export default function Messages({ containerRef }) {
   useEffect(() => {
     scrollToBottomMessages();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedConversation, show]);
+  }, [selectedConversation, mobileDisplay]);
 
   return (
     /*

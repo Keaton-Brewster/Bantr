@@ -32,7 +32,7 @@ export default function ConversationInfoScreen({ containerRef }) {
   return (
     <>
       {loading ? (
-        <Spinner animation="border" id="spinner" />
+        <Spinner animation="border" className="spinner" role="status" />
       ) : (
         <div style={{ paddingTop: "40px" }}>
           <ListGroup>

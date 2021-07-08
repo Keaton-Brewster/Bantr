@@ -12,7 +12,7 @@ export default function MainContent() {
   // Chat input so that is always is 100% width of its parent
   const containerRef = useRef();
   const { selectedConversation } = useConversations();
-  const { show } = useViewport();
+  const { mobileDisplay } = useViewport();
 
   function renderSwitch() {
     switch (activeContent) {
@@ -26,7 +26,10 @@ export default function MainContent() {
   }
 
   return (
-    <div className={show.mainContent ? "show" : "hide"} ref={containerRef}>
+    <div
+      className={mobileDisplay.mainContent ? "show" : "hide"}
+      ref={containerRef}
+    >
       <MessagesTopMenu
         conversationName={selectedConversation.name}
         containerRef={containerRef}

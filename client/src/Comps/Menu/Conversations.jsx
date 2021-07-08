@@ -10,7 +10,7 @@ export default function Conversations() {
   const { setActiveContent } = useMainContent();
   const { conversations, selectedConversation, selectConversationIndex } =
     useConversations();
-  const { mobileScreen, setShow } = useViewport();
+  const { isMobile, setMobileDisplay } = useViewport();
   const [newConvoModal, setNewConvoModal] = useState(false);
 
   function createConversation(event) {}
@@ -32,15 +32,15 @@ export default function Conversations() {
             <ListGroup.Item
               key={index}
               className={`convoBox ${
-                convo._id === selectedConversation._id && !mobileScreen
+                convo._id === selectedConversation._id && !isMobile
                   ? "activeConvo"
                   : ""
               }`}
               onClick={(event) => {
                 event.preventDefault();
                 selectConversationIndex(index);
-                if (mobileScreen) {
-                  setShow({
+                if (isMobile) {
+                  setMobileDisplay({
                     menu: false,
                     mainContent: true,
                   });
