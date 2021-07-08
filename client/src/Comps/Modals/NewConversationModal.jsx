@@ -28,7 +28,7 @@ export default function NewConversationModal({
         <small>recipients</small>
         <div></div>
         <form>
-          <label for="number"></label>
+          <label htmlFor="number"></label>
           <input id="" placeholder="+1 000-000-0000" />
         </form>
       </Modal.Body>
