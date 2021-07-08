@@ -1,4 +1,5 @@
 import { useState, useEffect, createContext, useContext, useRef } from "react";
+import { isMobile as reactDeviceDetect } from "react-device-detect";
 
 const viewportContext = createContext();
 
@@ -8,11 +9,12 @@ export function useViewport() {
 
 export default function ViewportProvider({ children }) {
   const [width, setWidth] = useState(window.innerWidth);
+  const [height, setHeight] = useState(window.innerHeight);
+  const isMobile = reactDeviceDetect;
   const [mobileDisplay, setMobileDisplay] = useState(() => {
-    if (width < 680) return { menu: true, mainContent: false };
+    if (isMobile) return { menu: true, mainContent: false };
     return { menu: true, mainContent: true };
   });
-  const isMobile = width < 680;
   const bottomOfMessages = useRef();
 
   // Setting up this function in the vieport provider
@@ -23,7 +25,10 @@ export default function ViewportProvider({ children }) {
 
   // This is just the hook that sets width on window resize
   useEffect(() => {
-    const handleWindowResize = () => setWidth(window.innerWidth);
+    const handleWindowResize = () => {
+      setWidth(window.innerWidth);
+      setHeight(window.innerHeight);
+    };
     window.addEventListener("resize", handleWindowResize);
     return () => window.removeEventListener("resize", handleWindowResize);
   }, []);
@@ -32,20 +37,20 @@ export default function ViewportProvider({ children }) {
   useEffect(() => {
     const { menu, mainContent } = mobileDisplay;
 
-    if (width >= 680 && (!menu || !mainContent)) {
+    if (!isMobile && (!menu || !mainContent)) {
       return setMobileDisplay({
         menu: true,
         mainContent: true,
       });
     }
-    if (width < 680 && menu && mainContent) {
+    if (isMobile && menu && mainContent) {
       return setMobileDisplay({
         menu: true,
         mainContent: false,
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [width]);
+  }, [width, height]);
 
   const value = {
     width,

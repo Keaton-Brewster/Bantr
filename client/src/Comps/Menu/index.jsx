@@ -1,12 +1,13 @@
-import { useState, useRef } from "react";
+import { useRef } from "react";
 import MenuBar from "./MenuBar";
 import Conversations from "./Conversations";
 import Contacts from "./Contacts";
 import Settings from "./Settings";
 import { useViewport } from "../../utils/ViewportProvider";
+import { useContentContext } from "../../utils/ContentProvider";
 
 export default function Sidebar() {
-  const [activeMenu, setActiveMenu] = useState("conversations");
+  const { activeMenu } = useContentContext();
   const containerRef = useRef();
   const { mobileDisplay } = useViewport();
 
@@ -27,10 +28,7 @@ export default function Sidebar() {
     <div ref={containerRef}>
       <div className={mobileDisplay.menu ? "show" : "hide"}>
         {renderSwitch()}
-        <MenuBar
-          containerRef={containerRef}
-          menuState={{ activeMenu, setActiveMenu }}
-        />
+        <MenuBar containerRef={containerRef} />
       </div>
     </div>
   );

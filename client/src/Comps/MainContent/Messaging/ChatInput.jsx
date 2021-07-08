@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState } from "react";
 import { Row, Col } from "react-bootstrap";
-import { FaArrowRight } from "react-icons/fa";
+import { FaArrowUp } from "react-icons/fa";
 import { FaRegSmile } from "react-icons/fa";
 import { useConversations } from "../../../utils/ConversationProvider";
 import { useViewport } from "../../../utils/ViewportProvider";
@@ -8,7 +8,7 @@ import Picker from "emoji-picker-react";
 import "./chatInput.css";
 
 export default function ChatInput({ containerRef }) {
-  const [currentInput, setCurrentInput] = useState();
+  const [currentInput, setCurrentInput] = useState(null);
   const { sendMessage } = useConversations();
   const { width, scrollToBottomMessages } = useViewport();
   const [chatboxWidth, setChatboxWidth] = useState("100%");
@@ -17,7 +17,8 @@ export default function ChatInput({ containerRef }) {
 
   function messageSubmit(event) {
     event.preventDefault();
-    if (!textRef.current.value) return;
+    if (!currentInput) return;
+    setEmojiPickerShow(false);
     scrollToBottomMessages();
     sendMessage(currentInput);
     textRef.current.value = "";
@@ -43,6 +44,7 @@ export default function ChatInput({ containerRef }) {
   useEffect(() => {
     if (width >= 680) setChatboxWidth(`${containerRef.current.offsetWidth}px`);
     else setChatboxWidth("100%");
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [width]);
 
@@ -74,7 +76,7 @@ export default function ChatInput({ containerRef }) {
         </Col>
         <Col xs={1} className="text-center chatInputButton">
           <button id="sendButton" onClick={messageSubmit}>
-            <FaArrowRight className="sendButton" />
+            <FaArrowUp className="sendButton" />
           </button>
         </Col>
       </Row>

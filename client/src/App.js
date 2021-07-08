@@ -10,8 +10,8 @@ function App() {
   const mutableUser = typeof user === "string" ? JSON.parse(user) : user;
 
   return (
-    <ConversationProvider user={mutableUser}>
-      <ViewportProvider>
+    <ViewportProvider>
+      <ConversationProvider user={mutableUser}>
         <Router>
           <Switch>
             <Route exact path="/signup">
@@ -22,8 +22,8 @@ function App() {
             </Route>
           </Switch>
         </Router>
-      </ViewportProvider>
-    </ConversationProvider>
+      </ConversationProvider>
+    </ViewportProvider>
   );
 }
 

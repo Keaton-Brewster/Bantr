@@ -939,6 +939,13 @@ raw-body@2.4.0:
     iconv-lite "0.4.24"
     unpipe "1.0.0"
 
+react-device-detect@^1.17.0:
+  version "1.17.0"
+  resolved "https://registry.yarnpkg.com/react-device-detect/-/react-device-detect-1.17.0.tgz#a00b4fd6880cebfab3fd8a42a79dc0290cdddca9"
+  integrity sha512-bBblIStwpHmoS281JFIVqeimcN3LhpoP5YKDWzxQdBIUP8S2xPvHDgizLDhUq2ScguLfVPmwfF5y268EEQR60w==
+  dependencies:
+    ua-parser-js "^0.7.24"
+
 read-pkg@^5.2.0:
   version "5.2.0"
   resolved "https://registry.yarnpkg.com/read-pkg/-/read-pkg-5.2.0.tgz#7bf295438ca5a33e56cd30e053b34ee7250c93cc"
@@ -1235,6 +1242,11 @@ type-is@~1.6.17, type-is@~1.6.18:
   dependencies:
     media-typer "0.3.0"
     mime-types "~2.1.24"
+
+ua-parser-js@^0.7.24:
+  version "0.7.28"
+  resolved "https://registry.yarnpkg.com/ua-parser-js/-/ua-parser-js-0.7.28.tgz#8ba04e653f35ce210239c64661685bf9121dec31"
+  integrity sha512-6Gurc1n//gjp9eQNXjD9O3M/sMwVtN5S8Lv9bvOYBfKfDNiIIhqiyi01vMBO45u4zkDE420w/e0se7Vs+sIg+g==
 
 uid-safe@~2.1.5:
   version "2.1.5"

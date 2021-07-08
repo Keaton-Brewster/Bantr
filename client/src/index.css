@@ -2,7 +2,6 @@
     --main-background: #FBFFFD;
     --secondary-background: #D6CF85;
     --active: #D6CF85;
-    --button-border: #968b28;
     --darl: #202020;
 }
 
@@ -16,11 +15,7 @@ html {
     overflow-wrap: break-word;
 }
 
-button {
-    color: var(--dark) !important;
-    background-color: var(--secondary-background) !important;
-    border: 1px solid var(--button-border) !important;
-}
+
 
 
 .spinner {
