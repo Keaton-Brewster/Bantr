@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Nav } from "react-bootstrap";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { FaArrowLeft } from "react-icons/fa";
-import { useMainContent } from "..";
+import { useMainContent } from "../../../utils/MainContentProvider";
 import { useViewport } from "../../../utils/ViewportProvider";
 
 export default function MessagesTopMenu({ conversationName, containerRef }) {

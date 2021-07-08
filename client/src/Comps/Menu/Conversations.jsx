@@ -2,15 +2,16 @@ import { useState } from "react";
 import { ListGroup } from "react-bootstrap";
 import { AiFillPlusCircle } from "react-icons/ai";
 import { useConversations } from "../../utils/ConversationProvider";
+import { useMainContent } from "../../utils/MainContentProvider";
 import { useViewport } from "../../utils/ViewportProvider";
 import NewConversationModal from "../Modals/NewConversationModal";
 
 export default function Conversations() {
+  const { setActiveContent } = useMainContent();
   const { conversations, selectedConversation, selectConversationIndex } =
     useConversations();
+  const { mobileScreen, setShow } = useViewport();
   const [newConvoModal, setNewConvoModal] = useState(false);
-
-  const { mobileScreen, show, setShow } = useViewport();
 
   function createConversation(event) {}
 
@@ -38,11 +39,14 @@ export default function Conversations() {
               onClick={(event) => {
                 event.preventDefault();
                 selectConversationIndex(index);
-                if (mobileScreen)
+                if (mobileScreen) {
                   setShow({
                     menu: false,
                     mainContent: true,
                   });
+                } else {
+                  setActiveContent("messaging");
+                }
               }}
             >
               {convo.name || "Untitled Conversation"}

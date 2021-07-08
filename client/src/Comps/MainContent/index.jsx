@@ -1,18 +1,13 @@
-import { useState, useRef, createContext, useContext } from "react";
+import { useRef } from "react";
 import { useViewport } from "../../utils/ViewportProvider";
+import { useConversations } from "../../utils/ConversationProvider";
+import { useMainContent } from "../../utils/MainContentProvider";
 import MessagesTopMenu from "./Messaging/MessagesTopMenu";
 import Messaging from "./Messaging";
 import ConversationInfoScreen from "./Messaging/ConversationInfoScreen";
-import { useConversations } from "../../utils/ConversationProvider";
-
-const mainContentContext = createContext();
-
-export function useMainContent() {
-  return useContext(mainContentContext);
-}
 
 export default function MainContent() {
-  const [activeContent, setActiveContent] = useState("messaging");
+  const { activeContent } = useMainContent();
   // Container ref is used to give refernce of width to the
   // Chat input so that is always is 100% width of its parent
   const containerRef = useRef();
@@ -30,17 +25,13 @@ export default function MainContent() {
     }
   }
 
-  const value = { activeContent, setActiveContent };
-
   return (
-    <mainContentContext.Provider value={value}>
-      <div className={show.mainContent ? "show" : "hide"} ref={containerRef}>
-        <MessagesTopMenu
-          conversationName={selectedConversation.name}
-          containerRef={containerRef}
-        />
-        {renderSwitch()}
-      </div>
-    </mainContentContext.Provider>
+    <div className={show.mainContent ? "show" : "hide"} ref={containerRef}>
+      <MessagesTopMenu
+        conversationName={selectedConversation.name}
+        containerRef={containerRef}
+      />
+      {renderSwitch()}
+    </div>
   );
 }

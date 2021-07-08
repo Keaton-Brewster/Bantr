@@ -1,15 +1,16 @@
 import { Container, Row, Col, Spinner } from "react-bootstrap";
 import { useViewport } from "../utils/ViewportProvider";
+import { useConversations } from "../utils/ConversationProvider";
+import MainContentProvider from "../utils/MainContentProvider";
 import Menu from "./Menu";
 import MainContent from "./MainContent";
-import { useConversations } from "../utils/ConversationProvider";
 
 export default function Dashboard() {
   const { mobileScreen } = useViewport();
   const { selectedConversation } = useConversations();
 
   return (
-    <>
+    <MainContentProvider>
       {!selectedConversation ? (
         <Spinner id="spinner" />
       ) : !mobileScreen ? (
@@ -29,6 +30,6 @@ export default function Dashboard() {
           <MainContent />
         </Container>
       )}
-    </>
+    </MainContentProvider>
   );
 }
