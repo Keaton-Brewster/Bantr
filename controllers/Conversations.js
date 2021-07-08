@@ -41,6 +41,7 @@ router.get("/getInfo/:conversationInformation", async (req, res) => {
             email: user.email,
             name: user.name,
             phone: user.phone,
+            picture: user.picture,
           };
         });
       })

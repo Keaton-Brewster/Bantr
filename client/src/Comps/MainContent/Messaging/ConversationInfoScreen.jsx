@@ -36,13 +36,9 @@ export default function ConversationInfoScreen({ containerRef }) {
       ) : (
         <div style={{ paddingTop: "40px" }}>
           <ListGroup>
-            <ListGroup.Item>Hello</ListGroup.Item>
+            <h3>Members</h3>
             {convoInfo.members.map((member, index) => {
-              return (
-                <ListGroup.Item key={index}>
-                  <UserCard member={member} />
-                </ListGroup.Item>
-              );
+              return <UserCard member={member} key={index} />;
             })}
           </ListGroup>
         </div>
