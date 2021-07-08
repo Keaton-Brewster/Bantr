@@ -44,19 +44,19 @@
 #sendButton {
     height: 35px;
     width: 35px;
-    background-color: #C2B847;
+    background-color: #C2B847 !important;
     border-radius: 50px;
 }
 
 .sendButton {
-    background-color: #C2B847;
+    background-color: #C2B847 !important;
     position: relative;
     bottom: 1px;
 }
 
 #sendButton:hover,
 #sendButton:hover .sendButton {
-    background-color: #D6CF85;
+    background-color: #D6CF85 !important;
 }
 
 #openEmojisButton {

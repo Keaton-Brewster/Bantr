@@ -2,6 +2,8 @@
     --main-background: #FBFFFD;
     --secondary-background: #D6CF85;
     --active: #D6CF85;
+    --button-border: #968b28;
+    --darl: #202020;
 }
 
 html {
@@ -13,6 +15,13 @@ html {
     color: #202020;
     overflow-wrap: break-word;
 }
+
+button {
+    color: var(--dark) !important;
+    background-color: var(--secondary-background) !important;
+    border: 1px solid var(--button-border) !important;
+}
+
 
 .spinner {
     position: absolute;
@@ -85,11 +94,18 @@ button {
     min-width: 15rem;
 }
 
-#signupLink {
-    background-color: rgb(67, 66, 66);
+#loginLink {
+    background-color: var(--secondary-background);
     padding: 1rem;
     border-radius: 5px;
 }
+
+#signupLink {
+    background-color: var(--secondary-background);
+    padding: 1rem;
+    border-radius: 5px;
+}
+
 
 /*  Chanign container padding */
 /* Sometimes Bootstrap makes this really difficult */

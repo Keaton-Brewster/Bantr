@@ -66,7 +66,7 @@ export default function Signup({ setUser }) {
   return (
     <Container>
       <Row className="justify-content-center">
-        <Form id="form" onSubmit={signup}>
+        <Form id="form" onSubmit={signup} className="text-center">
           <h2>Sign up here to get started</h2>
           <Form.Group className="mb-3" controlId="formBasicName">
             <Form.Label>Name</Form.Label>
@@ -113,6 +113,12 @@ export default function Signup({ setUser }) {
             Submit
           </Button>
         </Form>
+      </Row>
+      <Row className="justify-content-center">
+        <span id="loginLink" className="text-center">
+          Already have an account?
+          <br /> Login <a href="/">here</a>!
+        </span>
       </Row>
     </Container>
   );

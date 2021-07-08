@@ -33,7 +33,7 @@ export default function Login({ onLoginSubmit }) {
   return (
     <Container id="login">
       <Row className="justify-content-center">
-        <Form id="form" onSubmit={login}>
+        <Form id="form" onSubmit={login} className="text-center">
           <h2>Login</h2>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>

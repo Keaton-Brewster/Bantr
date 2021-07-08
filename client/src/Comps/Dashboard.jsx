@@ -12,7 +12,7 @@ export default function Dashboard() {
   return (
     <MainContentProvider>
       {!selectedConversation ? (
-        <Spinner id="spinner" />
+        <Spinner className="spinner" animation="border" />
       ) : !isMobile ? (
         <Container fluid>
           <Row style={{ marginRight: "0px !important" }}>
