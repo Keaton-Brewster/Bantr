@@ -3,8 +3,7 @@
     margin-left: auto;
     position: fixed;
     bottom: 0;
-    padding: 1rem;
-    padding-left: 35px;
+    padding: 15px;
 }
 
 @media screen and (max-width: 680px) {
@@ -37,6 +36,11 @@
     box-shadow: 0 0 4px 0px var(--light);
 }
 
+
+.chatInputButton {
+    padding-left: 0px !important;
+}
+
 #sendButton {
     height: 35px;
     width: 35px;
@@ -53,4 +57,14 @@
 #sendButton:hover,
 #sendButton:hover .sendButton {
     background-color: #D6CF85;
+}
+
+#openEmojisButton {
+    width: 35px;
+    height: 35px;
+}
+
+#openEmojisButton:hover {
+    cursor: pointer;
+    fill: #0f8392;
 }
