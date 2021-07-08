@@ -60,6 +60,7 @@
     it doesnt fuck with the buttons placement    
 */
 #conversationInfoButton {
+    margin-bottom: 3px;
     margin-right: 10px;
     height: 20px;
     width: 20px;

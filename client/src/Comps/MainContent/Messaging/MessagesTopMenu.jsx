@@ -14,8 +14,9 @@ export default function MessagesTopMenu({ conversationName, containerRef }) {
     setActiveContent("conversation info");
   }
 
+  // To make the back button multipurpose, simply switch case the state of the current display
+  // And then act accordingly
   function handleBackButton() {
-    console.log(activeContent);
     switch (activeContent) {
       case "messaging":
         setShow({
