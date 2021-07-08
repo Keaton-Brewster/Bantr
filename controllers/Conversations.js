@@ -9,7 +9,7 @@ router.get("/:id", (req, res) => {
   // More breaks just to try and get things to work
   // const userId = process.env.NODE_ENV === "production" ? req.user._id : "User1";
   try {
-    db.Conversation.find({ participants: { $in: userId } })
+    db.Conversation.find({ members: { $in: userId } })
       .then((convos) => {
         res.send(convos);
       })
@@ -28,10 +28,10 @@ router.get("/getInfo/:conversationInformation", async (req, res) => {
     const conversationInformation = JSON.parse(
       req.params.conversationInformation
     );
-    const reformattedIds = conversationInformation.participants.map((id) =>
+    const reformattedIds = conversationInformation.members.map((id) =>
       ObjectId(id)
     );
-    const participantsInformation = await db.User.find({
+    const membersInformation = await db.User.find({
       _id: { $in: reformattedIds },
     })
       .then((users) => {
@@ -49,7 +49,7 @@ router.get("/getInfo/:conversationInformation", async (req, res) => {
         res.sendStatus(404);
       });
 
-    conversationInformation.participants = participantsInformation;
+    conversationInformation.members = membersInformation;
     res.send(conversationInformation);
   } catch (error) {
     console.error(

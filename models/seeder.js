@@ -57,7 +57,7 @@ const userSeed = [
 const conversationSeed = [
   {
     id: "Convo1",
-    participants: [
+    members: [
       ObjectId("60dd2b58eeda4429a8f4ca91"),
       ObjectId("60a532c9266a4f2cc69925f6"),
     ],
@@ -86,7 +86,7 @@ const conversationSeed = [
   },
   {
     id: "Convo2",
-    participants: [
+    members: [
       ObjectId("60dd2b58eeda4429a8f4ca91"),
       ObjectId("60a533d0266a4f2cc69925fa"),
     ],
@@ -105,16 +105,16 @@ const conversationSeed = [
   },
 ];
 
-// db.User.deleteMany({})
-//   .then(() => db.User.collection.insertMany(userSeed))
-//   .then((data) => {
-//     console.log(data);
-//     console.log(`${data.result.n}  'user records inserted!'`);
-//   })
-//   .catch((err) => {
-//     console.error(err);
-//     process.exit(1);
-//   });
+db.User.deleteMany({})
+  .then(() => db.User.collection.insertMany(userSeed))
+  .then((data) => {
+    console.log(data);
+    console.log(`${data.result.n}  'user records inserted!'`);
+  })
+  .catch((err) => {
+    console.error(err);
+    process.exit(1);
+  });
 
 db.Conversation.deleteMany({})
   .then(() => db.Conversation.collection.insertMany(conversationSeed))

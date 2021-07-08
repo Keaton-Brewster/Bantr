@@ -3,8 +3,8 @@ const { Schema } = mongoose;
 
 const ConversationSchema = new Schema({
   name: String,
-  // participants: [{ type: String, ref: "User" }],
-  participants: [{ type: Schema.Types.ObjectId, ref: "User" }],
+
+  members: [{ type: Schema.Types.ObjectId, ref: "User" }],
   messages: [
     {
       // to: { type: Schema.Types.ObjectId, ref: "Conversation" },

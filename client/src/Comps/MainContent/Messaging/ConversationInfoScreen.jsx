@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Spinner, ListGroup } from "react-bootstrap";
 import { useConversations } from "../../../utils/ConversationProvider";
+import UserCard from "../../UserCard";
 import axios from "axios";
 
 export default function ConversationInfoScreen({ containerRef }) {
@@ -35,9 +36,14 @@ export default function ConversationInfoScreen({ containerRef }) {
       ) : (
         <div style={{ paddingTop: "40px" }}>
           <ListGroup>
-            <ListGroup.Item>
-              Hello, {convoInfo.participants[0].name}
-            </ListGroup.Item>
+            <ListGroup.Item>Hello</ListGroup.Item>
+            {convoInfo.members.map((member, index) => {
+              return (
+                <ListGroup.Item key={index}>
+                  <UserCard member={member} />
+                </ListGroup.Item>
+              );
+            })}
           </ListGroup>
         </div>
       )}

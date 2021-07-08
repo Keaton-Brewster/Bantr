@@ -21,6 +21,11 @@ const userSchema = new Schema({
     type: String,
     unique: true,
   },
+  picture: {
+    type: String,
+    default:
+      "https://moonvillageassociation.org/wp-content/uploads/2018/06/default-profile-picture1.jpg",
+  },
 });
 
 const User = mongoose.model("User", userSchema);
