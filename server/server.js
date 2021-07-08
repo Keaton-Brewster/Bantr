@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const http = require("http");
 const socket = require("socket.io");
 const session = require("express-session");
@@ -17,6 +18,7 @@ app.use(
   })
 );
 app.use(express.json());
+app.use(cors());
 // We need to use sessions to keep track of our user's login status
 app.use(
   session({
