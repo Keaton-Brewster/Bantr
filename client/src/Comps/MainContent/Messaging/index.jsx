@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-pascal-case */
 import React, { useState, useEffect, useCallback } from "react";
 import { useConversations } from "../../../utils/ConversationProvider";
 import { useViewport } from "../../../utils/ViewportProvider";
@@ -5,6 +6,10 @@ import ChatInput from "./ChatInput";
 import SingleMessage from "./SingleMessage";
 import MessageContextMenu from "./MessageContextMenu";
 import "./messaging.css";
+
+import Animated from "react-mount-animation";
+import ConversationInfoScreen from "./ConversationInfoScreen";
+import { useContentContext } from "../../../utils/ContentProvider";
 
 export default function Messages({ containerRef }) {
   const { selectedConversation } = useConversations();
@@ -46,6 +51,16 @@ export default function Messages({ containerRef }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedConversation, mobileDisplay]);
 
+  const { activeContent } = useContentContext();
+  const mountConvoInfo = ` 
+  0% {
+    -webkit-transform: translateX(100%);
+  }
+  100% {
+    -webkit-transform: translateX(0%);
+  }
+  `;
+
   return (
     /*
 ?   Need to add a loading state for the message portion of this.
@@ -56,6 +71,14 @@ export default function Messages({ containerRef }) {
     */
     <>
       <MessageContextMenu show={contextMenuShow} />
+
+      <Animated.div
+        id="convoInfoWrapper"
+        show={activeContent.conversationInfo}
+        mountAnim={mountConvoInfo}
+      >
+        <ConversationInfoScreen containerRef={containerRef} />
+      </Animated.div>
 
       <div id="messageWrapper">
         <div className="d-flex flex-column flex-grow-1" id="messages">

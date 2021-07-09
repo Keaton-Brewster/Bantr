@@ -31,14 +31,7 @@ export default function MainContent() {
         containerRef={containerRef}
       />
 
-      {activeContent.messaging && <Messaging containerRef={containerRef} />}
-
-      <Animated.div
-        show={activeContent.conversationInfo}
-        mountAnim={mountConvoInfo}
-      >
-        <ConversationInfoScreen containerRef={containerRef} />
-      </Animated.div>
+      <Messaging containerRef={containerRef} />
     </div>
   );
 }
