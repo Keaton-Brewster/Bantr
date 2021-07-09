@@ -16,6 +16,11 @@ export default function MainContent() {
   const { selectedConversation } = useConversations();
   const { mobileDisplay } = useViewport();
 
+  const mountConvoInfo = ` 
+  0% {opacity:0;}
+  100% {opacity:1;}
+  `;
+
   return (
     <div
       className={mobileDisplay.mainContent ? "show" : "hide"}
@@ -25,21 +30,12 @@ export default function MainContent() {
         conversationName={selectedConversation.name}
         containerRef={containerRef}
       />
-      <Animated.div
-        show={activeContent.messaging}
-        mountAnim={` 
-        0% {opacity: 0}
-        100% {opacity: 1}
-    `}
-      >
-        <Messaging containerRef={containerRef} />
-      </Animated.div>
+
+      {activeContent.messaging && <Messaging containerRef={containerRef} />}
+
       <Animated.div
         show={activeContent.conversationInfo}
-        mountAnim={` 
-          0% {opacity: 0}
-          100% {opacity: 1}
-      `}
+        mountAnim={mountConvoInfo}
       >
         <ConversationInfoScreen containerRef={containerRef} />
       </Animated.div>

@@ -41,7 +41,8 @@ export default function Messages({ containerRef }) {
   // Alternatively, if show is changed during mobile view
   // Also want to run scroll to bottom
   useEffect(() => {
-    scrollToBottomMessages();
+    // scrollToBottomMessages();
+    document.getElementById("messageWrapper").scrollTop = 1000000;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedConversation, mobileDisplay]);
 
@@ -70,7 +71,7 @@ export default function Messages({ containerRef }) {
                   />
                 );
               })}
-              <div ref={bottomOfMessages}></div>
+              <div id="bottomOfMessages" ref={bottomOfMessages}></div>
             </div>
           </div>
         </div>

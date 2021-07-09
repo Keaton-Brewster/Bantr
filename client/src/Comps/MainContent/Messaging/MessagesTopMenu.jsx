@@ -11,6 +11,7 @@ export default function MessagesTopMenu({ conversationName, containerRef }) {
   const { activeContent, setActiveContent } = useContentContext();
 
   function openConversationInfo() {
+    if (activeContent.conversationInfo) return handleBackButton();
     setActiveContent({
       conversationInfo: true,
     });
@@ -24,7 +25,12 @@ export default function MessagesTopMenu({ conversationName, containerRef }) {
         menu: true,
         mainContent: false,
       });
-    setActiveContent({ messaging: true });
+
+    // Set timeout to allow convo info animtaion to take it offscreen before messages come back
+    setActiveContent({ conversationInfo: false });
+    setTimeout(() => {
+      setActiveContent({ messaging: true });
+    }, 590);
   }
 
   useEffect(() => {
@@ -39,7 +45,7 @@ export default function MessagesTopMenu({ conversationName, containerRef }) {
       className="flex-row justify-content-end"
       style={{ width: menuBarWidth }}
     >
-      {isMobile || activeContent.conversationInfo ? (
+      {isMobile || !activeContent.messaging ? (
         <Nav.Item onClick={handleBackButton}>
           <FaArrowLeft className="backButton" />
         </Nav.Item>
