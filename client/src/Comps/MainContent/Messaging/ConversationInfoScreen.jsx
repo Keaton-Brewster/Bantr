@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { Spinner, ListGroup } from "react-bootstrap";
+import { Spinner, ListGroup, Container, Col, Row } from "react-bootstrap";
+import { FiEdit } from "react-icons/fi";
 import { useConversations } from "../../../utils/ConversationProvider";
 import UserCard from "../../UserCard";
 import axios from "axios";
@@ -35,6 +36,16 @@ export default function ConversationInfoScreen({ containerRef }) {
         <Spinner animation="border" className="spinner" role="status" />
       ) : (
         <div className="conversationInfoScreen">
+          <Container>
+            <Col>
+              <Row xs={9}>
+                <p>{selectedConversation.name || "Untitled Conversation"}</p>
+                <FiEdit className="float-right ml-auto" />
+              </Row>
+              <Row xs={3}></Row>
+            </Col>
+          </Container>
+
           <ListGroup variant="flush">
             <h4>Members</h4>
             <ListGroup.Item />
