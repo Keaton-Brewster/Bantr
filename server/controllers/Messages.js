@@ -25,7 +25,7 @@ router.put("/newMessage", (req, res) => {
     db.Conversation.findOneAndUpdate(
       { _id: req.body.conversation_id },
       { $push: { messages: req.body.message } },
-      { returnOriginal: false }
+      { new: true }
     )
       .then((data) => {
         res.send(data);

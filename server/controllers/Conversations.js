@@ -64,7 +64,11 @@ router.get("/getInfo/:conversationInformation", async (req, res) => {
 router.put("/updateConvoName", (req, res) => {
   try {
     const { _id, newName } = req.body;
-    db.Conversation.findOneAndUpdate({ _id: _id }, { name: newName })
+    db.Conversation.findOneAndUpdate(
+      { _id: _id },
+      { name: newName },
+      { new: true }
+    )
       .then((updatedConversation) => res.send(updatedConversation))
       .catch(() => res.sendStatus(404));
   } catch (error) {

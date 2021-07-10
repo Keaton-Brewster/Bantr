@@ -55,6 +55,7 @@ export default function ConversationInfoScreen({ containerRef }) {
       "/api/conversations/updateConvoName/",
       updatedConversation
     );
+    console.log(response.data);
     updateConversation(response.data);
   }
 
