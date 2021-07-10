@@ -13,9 +13,8 @@ export default function ConversationProvider({ user, children }) {
 
   function updateConversation(updatedConversation) {
     const updatedConversations = conversations.map((conversation) => {
-      if (conversation._id === updatedConversation._id) {
+      if (conversation._id === updatedConversation._id)
         return updatedConversation;
-      }
       return conversation;
     });
     setConversations(updatedConversations);
@@ -68,6 +67,7 @@ export default function ConversationProvider({ user, children }) {
     selectedConversation: conversations[selectedConversationIndex],
     sendMessage,
     selectConversationIndex: setSelectedConversationIndex,
+    updateConversation,
   };
   return (
     <conversationContext.Provider value={value}>

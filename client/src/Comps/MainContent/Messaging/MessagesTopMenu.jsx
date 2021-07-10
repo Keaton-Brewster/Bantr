@@ -3,11 +3,13 @@ import { Nav } from "react-bootstrap";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { FaArrowLeft } from "react-icons/fa";
 import { useContentContext } from "../../../utils/ContentProvider";
+import { useConversations } from "../../../utils/ConversationProvider";
 import { useViewport } from "../../../utils/ViewportProvider";
 
-export default function MessagesTopMenu({ conversationName, containerRef }) {
-  const { width, isMobile, setMobileDisplay } = useViewport();
+export default function MessagesTopMenu({ containerRef }) {
   const [menuBarWidth, setMenuBarWidth] = useState("100%");
+  const { width, isMobile, setMobileDisplay } = useViewport();
+  const { selectedConversation } = useConversations();
   const { activeContent, setActiveContent } = useContentContext();
 
   function openConversationInfo() {
@@ -56,7 +58,7 @@ export default function MessagesTopMenu({ conversationName, containerRef }) {
           paddingLeft: `${!isMobile && activeContent.messaging ? "30px" : ""}`,
         }}
       >
-        {conversationName ? conversationName : "Untitled Conversation"}
+        {selectedConversation.name || "Untitled Conversation"}
       </Nav.Item>
       <Nav.Item onClick={openConversationInfo}>
         <BsThreeDotsVertical id="conversationInfoButton" />

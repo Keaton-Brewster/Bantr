@@ -7,7 +7,7 @@ import UserCard from "../../UserCard";
 import axios from "axios";
 
 export default function ConversationInfoScreen({ containerRef }) {
-  const { selectedConversation } = useConversations();
+  const { selectedConversation, updateConversation } = useConversations();
   const [convoInfo, setConvoInfo] = useState();
   const [editingConvoName, setEditingConvoName] = useState(false);
   const [conversationName, setConversationName] = useState(
@@ -44,18 +44,18 @@ export default function ConversationInfoScreen({ containerRef }) {
     }, 5);
   }
 
-  async function updateConvoName(event) {
+  async function saveEditedConvoName(event) {
     event.preventDefault();
     console.log(editConvoNameInput.current.value);
     const updatedConversation = {
       _id: selectedConversation._id,
       newName: editConvoNameInput.current.value,
     };
-    const conversationInformation = await axios.put(
+    const response = await axios.put(
       "/api/conversations/updateConvoName/",
       updatedConversation
     );
-    console.log(conversationInformation.data);
+    updateConversation(response.data);
   }
 
   useEffect(() => {
@@ -79,7 +79,7 @@ export default function ConversationInfoScreen({ containerRef }) {
             )}
             {editingConvoName ? (
               <BiSave
-                onClick={updateConvoName}
+                onClick={saveEditedConvoName}
                 className="float-right ml-auto"
               />
             ) : (
