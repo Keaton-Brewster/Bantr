@@ -1,14 +1,20 @@
-import { useState, useEffect } from "react";
-import { Spinner, ListGroup, Container, Col, Row } from "react-bootstrap";
+import { useState, useEffect, useRef } from "react";
+import { Spinner, ListGroup } from "react-bootstrap";
 import { FiEdit } from "react-icons/fi";
+import { BiSave } from "react-icons/bi";
 import { useConversations } from "../../../utils/ConversationProvider";
 import UserCard from "../../UserCard";
 import axios from "axios";
 
 export default function ConversationInfoScreen({ containerRef }) {
-  const [convoInfo, setConvoInfo] = useState();
   const { selectedConversation } = useConversations();
+  const [convoInfo, setConvoInfo] = useState();
+  const [editingConvoName, setEditingConvoName] = useState(false);
+  const [conversationName, setConversationName] = useState(
+    selectedConversation.name
+  );
   const [loading, setLoading] = useState(true);
+  const editConvoNameInput = useRef();
 
   function trimMessages(conversation) {
     const mutatedConversation = { ...conversation };
@@ -25,6 +31,33 @@ export default function ConversationInfoScreen({ containerRef }) {
     setLoading(false);
   }
 
+  function editConvoName(event) {
+    event.preventDefault();
+    setEditingConvoName(true);
+    // Have to just make sure that the input has time to render
+    // Sincei it is rendered conditionally, and we need to reference it.
+    setTimeout(() => {
+      editConvoNameInput.current.value = `${
+        selectedConversation.name || "Untitled Conversation"
+      }`;
+      document.getElementById("editConvoNameInput").focus();
+    }, 5);
+  }
+
+  async function updateConvoName(event) {
+    event.preventDefault();
+    console.log(editConvoNameInput.current.value);
+    const updatedConversation = {
+      _id: selectedConversation._id,
+      newName: editConvoNameInput.current.value,
+    };
+    const conversationInformation = await axios.put(
+      "/api/conversations/updateConvoName/",
+      updatedConversation
+    );
+    console.log(conversationInformation.data);
+  }
+
   useEffect(() => {
     getConversationInformation();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -36,15 +69,25 @@ export default function ConversationInfoScreen({ containerRef }) {
         <Spinner animation="border" className="spinner" role="status" />
       ) : (
         <div className="conversationInfoScreen">
-          <Container>
-            <Col>
-              <Row xs={9}>
-                <p>{selectedConversation.name || "Untitled Conversation"}</p>
-                <FiEdit className="float-right ml-auto" />
-              </Row>
-              <Row xs={3}></Row>
-            </Col>
-          </Container>
+          <div className="mb-3">
+            {editingConvoName ? (
+              <input id="editConvoNameInput" ref={editConvoNameInput} />
+            ) : (
+              <span>
+                {selectedConversation.name || "Untitled Conversation"}
+              </span>
+            )}
+            {editingConvoName ? (
+              <BiSave
+                onClick={updateConvoName}
+                className="float-right ml-auto"
+              />
+            ) : (
+              <FiEdit onClick={editConvoName} className="float-right ml-auto" />
+            )}
+          </div>
+
+          {/* <input id="editConvoNameInput" ref={editConvoNameInput} /> */}
 
           <ListGroup variant="flush">
             <h4>Members</h4>

@@ -101,12 +101,6 @@
     float: left;
 }
 
-
-
-span {
-    background-color: #D6CF85;
-}
-
 /* Message Context menu */
 #contextMenu {}
 
@@ -117,4 +111,8 @@ span {
 
 .deleteMessageButton:hover {
     fill: var(--danger);
+}
+
+#editConvoNameInput {
+    border: none;
 }

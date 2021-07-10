@@ -61,4 +61,19 @@ router.get("/getInfo/:conversationInformation", async (req, res) => {
   }
 });
 
+router.put("/updateConvoName", (req, res) => {
+  try {
+    const { _id, newName } = req.body;
+    db.Conversation.findOneAndUpdate({ _id: _id }, { name: newName })
+      .then((updatedConversation) => res.send(updatedConversation))
+      .catch(() => res.sendStatus(404));
+  } catch (error) {
+    console.error(
+      "Error updating conversation name :: controllers/Conversations line 71",
+      error
+    );
+    res.sendStatus(500);
+  }
+});
+
 module.exports = router;
