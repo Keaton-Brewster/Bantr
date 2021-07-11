@@ -36,9 +36,10 @@ export default function MessagesTopMenu({ containerRef }) {
   }
 
   useEffect(() => {
-    // if (!isMobile)
-    setMenuBarWidth(`${containerRef.current.offsetWidth}px`);
-    // else setMenuBarWidth("100%");
+    // Have to set timeout because of transition animation for mobile
+
+    return setMenuBarWidth(`${containerRef.current.offsetWidth}px`);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [width]);
 

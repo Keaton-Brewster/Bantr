@@ -6,6 +6,7 @@ import { useConversations } from "../utils/ConversationProvider";
 import ContentProvider from "../utils/ContentProvider";
 import Menu from "./Menu";
 import MainContent from "./MainContent";
+import "./animations.css";
 
 export default function Dashboard() {
   const { mobileDisplay } = useViewport();

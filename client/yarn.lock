@@ -9206,13 +9206,6 @@ react-lifecycles-compat@^3.0.4:
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
 
-react-mount-animation@^0.0.9:
-  version "0.0.9"
-  resolved "https://registry.yarnpkg.com/react-mount-animation/-/react-mount-animation-0.0.9.tgz#f78cf3147fe21ac233d517c9a4fa84a93742846c"
-  integrity sha512-4CR+vtLDzhAyDGcns+9C7V1l7IMQIAn5sjznV0WCR1LJs9pMwm6FGAmLC73VOXVHU9kc1KJPxezcclIbpWw9RQ==
-  dependencies:
-    react "^17.0.1"
-
 react-overlays@^5.0.1:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/react-overlays/-/react-overlays-5.0.1.tgz#7e2c3cd3c0538048b0b7451d203b1289c561b7f2"
@@ -9337,7 +9330,7 @@ react-transition-group@^4.4.1:
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
 
-react@^17.0.1, react@^17.0.2:
+react@^17.0.2:
   version "17.0.2"
   resolved "https://registry.yarnpkg.com/react/-/react-17.0.2.tgz#d0b5cc516d29eb3eee383f75b62864cfb6800037"
   integrity sha512-gnhPt75i/dq/z3/6q/0asP78D0u592D5L1pd7M8P+dck6Fu/jJeL6iVVK23fptSUZj8Vjf++7wXA8UNclGQcbA==

@@ -5,6 +5,7 @@ import { BiSave } from "react-icons/bi";
 import { useConversations } from "../../../utils/ConversationProvider";
 import UserCard from "../../UserCard";
 import axios from "axios";
+import MessagesTopMenu from "./MessagesTopMenu";
 
 export default function ConversationInfoScreen({ containerRef }) {
   const { selectedConversation, updateConversation } = useConversations();
@@ -63,46 +64,47 @@ export default function ConversationInfoScreen({ containerRef }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  if (loading)
+    return <Spinner animation="border" className="spinner" role="status" />;
+
   return (
     <>
-      {loading ? (
-        <Spinner animation="border" className="spinner" role="status" />
-      ) : (
-        <div className="conversationInfoScreen">
-          <ListGroup variant="flush">
-            <ListGroup.Item>
-              <div className="mb-3">
-                <h4>Group Name</h4>
-                {editingConvoName ? (
-                  <input id="editConvoNameInput" ref={editConvoNameInput} />
-                ) : (
-                  <span>
-                    {selectedConversation.name || "Untitled Conversation"}
-                  </span>
-                )}
-                {editingConvoName ? (
-                  <BiSave
-                    onClick={saveEditedConvoName}
-                    className="float-right ml-auto"
-                  />
-                ) : (
-                  <FiEdit
-                    onClick={editConvoName}
-                    className="float-right ml-auto"
-                  />
-                )}
-              </div>
-            </ListGroup.Item>
+      <MessagesTopMenu containerRef={containerRef} />
 
-            <ListGroup.Item>
-              <h4>Members</h4>
-              {convoInfo.members.map((member, index) => {
-                return <UserCard member={member} key={index} />;
-              })}
-            </ListGroup.Item>
-          </ListGroup>
-        </div>
-      )}
+      <div className="conversationInfoScreen">
+        <ListGroup variant="flush">
+          <ListGroup.Item>
+            <div className="mb-3">
+              <h4>Group Name</h4>
+              {editingConvoName ? (
+                <input id="editConvoNameInput" ref={editConvoNameInput} />
+              ) : (
+                <span>
+                  {selectedConversation.name || "Untitled Conversation"}
+                </span>
+              )}
+              {editingConvoName ? (
+                <BiSave
+                  onClick={saveEditedConvoName}
+                  className="float-right ml-auto"
+                />
+              ) : (
+                <FiEdit
+                  onClick={editConvoName}
+                  className="float-right ml-auto"
+                />
+              )}
+            </div>
+          </ListGroup.Item>
+
+          <ListGroup.Item>
+            <h4>Members</h4>
+            {convoInfo.members.map((member, index) => {
+              return <UserCard member={member} key={index} />;
+            })}
+          </ListGroup.Item>
+        </ListGroup>
+      </div>
     </>
   );
 }

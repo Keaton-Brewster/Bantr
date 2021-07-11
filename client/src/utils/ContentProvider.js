@@ -9,7 +9,6 @@ export function useContentContext() {
 export default function ContentProvider({ children }) {
   const [activeContent, setActiveContent] = useState({
     messaging: true,
-    conversationInfo: false,
   });
   const [activeMenu, setActiveMenu] = useState("conversations");
 

@@ -5,20 +5,16 @@ import { useViewport } from "../../../utils/ViewportProvider";
 import ChatInput from "./ChatInput";
 import SingleMessage from "./SingleMessage";
 import MessageContextMenu from "./MessageContextMenu";
-import "./messaging.css";
-
-import Animated from "react-mount-animation";
 import ConversationInfoScreen from "./ConversationInfoScreen";
 import { useContentContext } from "../../../utils/ContentProvider";
+import MessagesTopMenu from "./MessagesTopMenu";
+import "./messaging.css";
 
 export default function Messages({ containerRef }) {
+  const { activeContent } = useContentContext();
   const { selectedConversation } = useConversations();
   const [contextMenuShow, setContextMenuShow] = useState(false);
-  // Container ref is used to give refernce of width to the
-  // Chat input so that is always is 100% width of its parent
-
-  const { mobileDisplay, bottomOfMessages, scrollToBottomMessages } =
-    useViewport();
+  const { mobileDisplay, bottomOfMessages } = useViewport();
 
   // Handler function for message context menu
   function handleRightClick(event, element) {
@@ -51,15 +47,15 @@ export default function Messages({ containerRef }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedConversation, mobileDisplay]);
 
-  const { activeContent } = useContentContext();
-  const mountConvoInfo = ` 
-  0% {
-    -webkit-transform: translateX(100%);
-  }
-  100% {
-    -webkit-transform: translateX(0%);
-  }
-  `;
+  const mountedStyle = {
+    display: "block",
+    animation: "inAnimationConvoInfo 600ms ease-in",
+  };
+  const unmountedStyle = {
+    display: "none",
+    animation: "outAnimationConvoInfo 600ms ease-out",
+    animationFillMode: "forwards",
+  };
 
   return (
     /*
@@ -70,21 +66,14 @@ export default function Messages({ containerRef }) {
 ?   of a messaging app.
     */
     <>
+      <MessagesTopMenu containerRef={containerRef} />
       <MessageContextMenu show={contextMenuShow} />
-
-      <Animated.div
-        id="convoInfoWrapper"
-        show={activeContent.conversationInfo}
-        mountAnim={mountConvoInfo}
-      >
-        <ConversationInfoScreen containerRef={containerRef} />
-      </Animated.div>
 
       <div id="messageWrapper">
         <div className="d-flex flex-column flex-grow-1" id="messages">
           <div className="flex-grow-1 overflow-auto">
             <div className="d-flex flex-column align-items-start justify-content-end px-3">
-              {selectedConversation?.messages?.map((message, i) => {
+              {selectedConversation.messages.map((message, i) => {
                 return (
                   <SingleMessage
                     key={i}
@@ -99,7 +88,7 @@ export default function Messages({ containerRef }) {
           </div>
         </div>
 
-        <ChatInput containerRef={containerRef} />
+        {activeContent.messaging && <ChatInput containerRef={containerRef} />}
       </div>
     </>
   );
