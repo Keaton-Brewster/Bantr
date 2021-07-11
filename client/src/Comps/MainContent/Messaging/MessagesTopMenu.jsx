@@ -36,15 +36,16 @@ export default function MessagesTopMenu({ containerRef }) {
   }
 
   useEffect(() => {
-    if (width >= 680) setMenuBarWidth(`${containerRef.current.offsetWidth}px`);
-    else setMenuBarWidth("100%");
+    // if (!isMobile)
+    setMenuBarWidth(`${containerRef.current.offsetWidth}px`);
+    // else setMenuBarWidth("100%");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [width]);
 
   return (
     <Nav
       id="messagesTopMenu"
-      className="flex-row justify-content-end"
+      className="flex-row justify-content-center"
       style={{ width: menuBarWidth }}
     >
       {isMobile || !activeContent.messaging ? (
