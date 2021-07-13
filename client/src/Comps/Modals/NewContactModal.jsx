@@ -13,14 +13,13 @@ export default function NewContactModal({ show, hide, addContact }) {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          <h4>Add a new contact</h4>
-          <p className="small">
-            (Reminder: if the user you are trying to add does not have a Banter
-            account, they will not recieve any messages
-          </p>
+          <h4>Add a new contact by phone or email address</h4>
         </Modal.Title>
       </Modal.Header>
-      <Modal.Body></Modal.Body>
+      <Modal.Body>
+        <input placeholder="Name" />
+        <input placeholder="phone or email address" />
+      </Modal.Body>
       <Modal.Footer>
         <Button variant="success" onClick={() => {}}>
           Add
