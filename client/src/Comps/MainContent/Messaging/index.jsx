@@ -11,10 +11,10 @@ import MessagesTopMenu from "./MessagesTopMenu";
 import "./messaging.css";
 
 export default function Messages({ containerRef }) {
-  const { activeContent } = useContentContext();
+  const { display, activeContent } = useContentContext();
   const { selectedConversation } = useConversations();
   const [contextMenuShow, setContextMenuShow] = useState(false);
-  const { mobileDisplay, bottomOfMessages } = useViewport();
+  const { bottomOfMessages } = useViewport();
 
   // Handler function for message context menu
   function handleRightClick(event, element) {
@@ -45,7 +45,7 @@ export default function Messages({ containerRef }) {
     // scrollToBottomMessages();
     document.getElementById("messageWrapper").scrollTop = 1000000;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedConversation, mobileDisplay]);
+  }, [selectedConversation, display]);
 
   const mountedStyle = {
     display: "block",

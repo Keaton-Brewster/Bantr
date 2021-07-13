@@ -7,10 +7,10 @@ import { useViewport } from "../../utils/ViewportProvider";
 import NewConversationModal from "../Modals/NewConversationModal";
 
 export default function Conversations() {
-  const { setActiveContent } = useContentContext();
+  const { setActiveContent, setDisplay } = useContentContext();
   const { conversations, selectedConversation, selectConversationIndex } =
     useConversations();
-  const { isMobile, setMobileDisplay } = useViewport();
+  const { isMobile } = useViewport();
   const [newConvoModal, setNewConvoModal] = useState(false);
 
   function createConversation(event) {}
@@ -40,7 +40,7 @@ export default function Conversations() {
                 event.preventDefault();
                 selectConversationIndex(index);
                 if (isMobile) {
-                  setMobileDisplay({
+                  setDisplay({
                     menu: false,
                     mainContent: true,
                   });

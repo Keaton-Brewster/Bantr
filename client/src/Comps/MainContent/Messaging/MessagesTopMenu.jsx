@@ -8,9 +8,9 @@ import { useViewport } from "../../../utils/ViewportProvider";
 
 export default function MessagesTopMenu({ containerRef }) {
   const [menuBarWidth, setMenuBarWidth] = useState("100%");
-  const { width, isMobile, setMobileDisplay } = useViewport();
+  const { width, isMobile } = useViewport();
   const { selectedConversation } = useConversations();
-  const { activeContent, setActiveContent } = useContentContext();
+  const { activeContent, setActiveContent, setDisplay } = useContentContext();
 
   function openConversationInfo() {
     if (activeContent.conversationInfo) return handleBackButton();
@@ -23,7 +23,7 @@ export default function MessagesTopMenu({ containerRef }) {
   // And then act accordingly
   function handleBackButton() {
     if (activeContent.messaging)
-      return setMobileDisplay({
+      return setDisplay({
         menu: true,
         mainContent: false,
       });

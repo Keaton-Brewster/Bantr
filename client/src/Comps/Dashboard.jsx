@@ -1,20 +1,19 @@
 import { useEffect } from "react";
 import { Container, Row, Col, Spinner } from "react-bootstrap";
 import { BrowserView, MobileView } from "react-device-detect";
-import { useViewport } from "../utils/ViewportProvider";
 import { useConversations } from "../utils/ConversationProvider";
-import ContentProvider from "../utils/ContentProvider";
+import { useContentContext } from "../utils/ContentProvider";
 import Menu from "./Menu";
 import MainContent from "./MainContent";
 import "./animations.css";
 
 export default function Dashboard() {
-  const { mobileDisplay } = useViewport();
+  const { display } = useContentContext();
   const { selectedConversation } = useConversations();
 
   function renderMobile() {
-    if (mobileDisplay.menu) return <Menu />;
-    if (mobileDisplay.mainContent) return <MainContent />;
+    if (display.menu) return <Menu />;
+    if (display.mainContent) return <MainContent />;
   }
 
   function cleanLocalStorage() {
@@ -30,7 +29,7 @@ export default function Dashboard() {
   });
 
   return (
-    <ContentProvider>
+    <>
       {!selectedConversation ? (
         <Spinner className="spinner" animation="border" />
       ) : (
@@ -53,6 +52,6 @@ export default function Dashboard() {
           </MobileView>
         </>
       )}
-    </ContentProvider>
+    </>
   );
 }

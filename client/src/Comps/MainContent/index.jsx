@@ -1,6 +1,5 @@
 import { useRef } from "react";
 import { useContentContext } from "../../utils/ContentProvider";
-import { useViewport } from "../../utils/ViewportProvider";
 import Messaging from "./Messaging";
 import ConversationInfoScreen from "./Messaging/ConversationInfoScreen";
 
@@ -8,7 +7,7 @@ export default function MainContent() {
   // Container ref is used to give refernce of width to the
   // Chat input so that is always is 100% width of its parent
   const containerRef = useRef();
-  const { mobileDisplay } = useViewport();
+  const { display } = useContentContext();
   const { activeContent } = useContentContext();
 
   function renderSwitch() {
@@ -20,7 +19,7 @@ export default function MainContent() {
 
   return (
     <div
-      className={mobileDisplay.mainContent ? "show" : "hide"}
+      className={display.mainContent ? "show" : "hide"}
       ref={containerRef}
       style={{ overflow: "hidden !important" }}
     >
