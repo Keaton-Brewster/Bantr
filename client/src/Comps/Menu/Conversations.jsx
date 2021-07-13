@@ -19,19 +19,20 @@ export default function Conversations() {
     <>
       <ListGroup variant="flush">
         <ListGroup.Item
-          className="convoBox"
+          className="LGItem"
           onClick={(e) => {
             e.preventDefault();
             setNewConvoModal(true);
           }}
         >
-          New Conversation <AiFillPlusCircle />
+          <AiFillPlusCircle id="addButton" />
+          New Conversation
         </ListGroup.Item>
-        {conversations?.map((convo, index) => {
+        {conversations.map((convo, index) => {
           return (
             <ListGroup.Item
               key={index}
-              className={`convoBox ${
+              className={`LGItem ${
                 convo._id === selectedConversation._id && !isMobile
                   ? "activeConvo"
                   : ""

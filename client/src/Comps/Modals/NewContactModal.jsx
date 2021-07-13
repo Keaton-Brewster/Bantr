@@ -1,7 +1,7 @@
 import React from "react";
 import { Modal, Button } from "react-bootstrap";
 
-export default function NewContactModal({ show, hide }) {
+export default function NewContactModal({ show, hide, addContact }) {
   return (
     <Modal
       show={show}

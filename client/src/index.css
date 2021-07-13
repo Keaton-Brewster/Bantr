@@ -26,12 +26,13 @@ button {
     border: none;
 }
 
-.convoBox {
+.LGItem {
     background-color: var(--main-background);
     padding: 1rem;
 }
 
-.convoBox:hover {
+.LGItem:hover,
+.LGItem:hover>#addButton {
     background-color: #C2B847;
     cursor: pointer;
 }
@@ -108,4 +109,13 @@ button {
 
 .row {
     margin-right: 0px !important;
+}
+
+/* Buttons */
+
+#addButton {
+    height: 25px;
+    width: 25px;
+    fill: green;
+    margin: 10px;
 }

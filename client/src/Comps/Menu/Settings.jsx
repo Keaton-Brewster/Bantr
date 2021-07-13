@@ -1,4 +1,4 @@
-import { Button } from "react-bootstrap";
+import { Button, ListGroup } from "react-bootstrap";
 import useLocalStorage from "../../utils/useLocalStorage";
 
 export default function Settings() {
@@ -11,8 +11,12 @@ export default function Settings() {
   }
 
   return (
-    <div>
-      <Button onClick={logout}>Logout</Button>
-    </div>
+    <>
+      <ListGroup>
+        <ListGroup.Item className="text-center">
+          <Button onClick={logout}>Logout</Button>
+        </ListGroup.Item>
+      </ListGroup>
+    </>
   );
 }

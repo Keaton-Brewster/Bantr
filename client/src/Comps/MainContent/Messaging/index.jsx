@@ -39,23 +39,9 @@ export default function Messages({ containerRef }) {
 
   // When a new conversation is sleceted,
   // Scroll to the bottom right away
-  // Alternatively, if show is changed during mobile view
-  // Also want to run scroll to bottom
   useEffect(() => {
-    // scrollToBottomMessages();
     document.getElementById("messageWrapper").scrollTop = 1000000;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedConversation, display]);
-
-  const mountedStyle = {
-    display: "block",
-    animation: "inAnimationConvoInfo 600ms ease-in",
-  };
-  const unmountedStyle = {
-    display: "none",
-    animation: "outAnimationConvoInfo 600ms ease-out",
-    animationFillMode: "forwards",
-  };
 
   return (
     /*
