@@ -7,8 +7,6 @@ const ConversationSchema = new Schema({
   members: [{ type: Schema.Types.ObjectId, ref: "User" }],
   messages: [
     {
-      // to: { type: Schema.Types.ObjectId, ref: "Conversation" },
-      // sender_id: { type: String, ref: "User" },
       sender_id: { type: Schema.Types.ObjectId, ref: "User" },
       content: String,
       sent_at: {
