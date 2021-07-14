@@ -11,16 +11,9 @@ export default function Sidebar() {
   const containerRef = useRef();
 
   function renderSwitch() {
-    switch (activeMenu) {
-      case "conversations":
-        return <Conversations />;
-      case "contacts":
-        return <Contacts />;
-      case "settings":
-        return <Settings />;
-      default:
-        return <Conversations />;
-    }
+    if (activeMenu.conversations) return <Conversations />;
+    if (activeMenu.contacts) return <Contacts />;
+    if (activeMenu.settings) return <Settings />;
   }
 
   return (

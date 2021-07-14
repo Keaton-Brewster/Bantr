@@ -29,7 +29,7 @@ export default function NewConversationModal({
         <div></div>
         <form>
           <label htmlFor="number"></label>
-          <input id="" placeholder="+1 000-000-0000" />
+          <input id="" placeholder="(000) 000-0000" />
         </form>
       </Modal.Body>
       <Modal.Footer>

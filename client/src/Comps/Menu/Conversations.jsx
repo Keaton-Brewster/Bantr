@@ -47,7 +47,7 @@ export default function Conversations() {
                   });
                 } else {
                   setActiveContent({
-                    messaging: true,
+                    conversations: true,
                   });
                 }
               }}

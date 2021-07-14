@@ -15,9 +15,11 @@ export default function ContentProvider({ children }) {
     return { menu: true, mainContent: true };
   });
   const [activeContent, setActiveContent] = useState({
-    messaging: true,
+    conversations: true,
   });
-  const [activeMenu, setActiveMenu] = useState("conversations");
+  const [activeMenu, setActiveMenu] = useState({
+    conversations: true,
+  });
 
   // This handles the changes between mobile layout and desktop layout
   useEffect(() => {

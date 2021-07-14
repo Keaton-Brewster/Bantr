@@ -22,7 +22,7 @@ export default function MessagesTopMenu({ containerRef }) {
   // To make the back button multipurpose, simply switch case the state of the current display
   // And then act accordingly
   function handleBackButton() {
-    if (activeContent.messaging)
+    if (activeContent.conversations)
       return setDisplay({
         menu: true,
         mainContent: false,
@@ -46,7 +46,7 @@ export default function MessagesTopMenu({ containerRef }) {
       className="flex-row justify-content-center"
       style={{ width: menuBarWidth }}
     >
-      {isMobile || !activeContent.messaging ? (
+      {isMobile || !activeContent.conversations ? (
         <Nav.Item onClick={handleBackButton}>
           <FaArrowLeft className="backButton" />
         </Nav.Item>
@@ -54,7 +54,9 @@ export default function MessagesTopMenu({ containerRef }) {
       <Nav.Item
         id="conversationName"
         style={{
-          paddingLeft: `${!isMobile && activeContent.messaging ? "30px" : ""}`,
+          paddingLeft: `${
+            !isMobile && activeContent.conversations ? "30px" : ""
+          }`,
         }}
       >
         {selectedConversation.name || "Untitled Conversation"}

@@ -8,12 +8,13 @@ import "./menubar.css";
 
 export default function MenuBar({ containerRef }) {
   const [menubarWidth, setMenubarWidth] = useState("100%");
-  const { activeMenu, setActiveMenu } = useContentContext();
+  const { activeMenu, setActiveMenu, setActiveContent } = useContentContext();
   const { width } = useViewport();
 
   function handleMenuChange(event, menuSelection) {
     event.preventDefault();
     setActiveMenu(menuSelection);
+    setActiveContent(menuSelection);
   }
 
   useEffect(() => {
@@ -28,11 +29,11 @@ export default function MenuBar({ containerRef }) {
         <Nav.Item>
           <Nav.Link
             id="conversations"
-            onClick={(e) => handleMenuChange(e, "conversations")}
+            onClick={(e) => handleMenuChange(e, { conversations: true })}
           >
             <BiConversation
               className={`menuIcons ${
-                activeMenu === "conversations" ? "activeMenuIcon" : ""
+                activeMenu.conversations ? "activeMenuIcon" : ""
               }`}
             />
           </Nav.Link>
@@ -40,11 +41,11 @@ export default function MenuBar({ containerRef }) {
         <Nav.Item>
           <Nav.Link
             id="contacts"
-            onClick={(e) => handleMenuChange(e, "contacts")}
+            onClick={(e) => handleMenuChange(e, { contacts: true })}
           >
             <BiGroup
               className={`menuIcons ${
-                activeMenu === "contacts" ? "activeMenuIcon" : ""
+                activeMenu.contacts ? "activeMenuIcon" : ""
               }`}
             />
           </Nav.Link>
@@ -52,11 +53,11 @@ export default function MenuBar({ containerRef }) {
         <Nav.Item>
           <Nav.Link
             id="settings"
-            onClick={(e) => handleMenuChange(e, "settings")}
+            onClick={(e) => handleMenuChange(e, { settings: true })}
           >
             <IoSettingsSharp
               className={`menuIcons ${
-                activeMenu === "settings" ? "activeMenuIcon" : ""
+                activeMenu.settings ? "activeMenuIcon" : ""
               }`}
             />
           </Nav.Link>

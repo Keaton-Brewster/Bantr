@@ -74,7 +74,9 @@ export default function Messages({ containerRef }) {
           </div>
         </div>
 
-        {activeContent.messaging && <ChatInput containerRef={containerRef} />}
+        {activeContent.conversations && (
+          <ChatInput containerRef={containerRef} />
+        )}
       </div>
     </>
   );
