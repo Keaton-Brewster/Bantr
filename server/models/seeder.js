@@ -18,6 +18,8 @@ const userSeed = [
     phone: "7859698002",
     // Password is passw0rd
     password: "$2a$10$UINwiFDx8K4.BLcmswPZzOxdm/qzxUoyjBPcCxnFrqKeHWNLxuc/6",
+    picture:
+      "https://www.personality-insights.com/wp-content/uploads/2017/12/default-profile-pic-e1513291410505.jpg",
     __v: 0,
   },
   {
@@ -26,6 +28,8 @@ const userSeed = [
     name: "Timmeree",
     phone: "9136369994",
     password: "$2a$10$QSxpvRPve2WG7xL2/LoM4eGiFWo345Fi7ckwgjIECLihO2NJJpTVq",
+    picture:
+      "https://www.personality-insights.com/wp-content/uploads/2017/12/default-profile-pic-e1513291410505.jpg",
     __v: 0,
   },
   {
@@ -34,6 +38,8 @@ const userSeed = [
     name: "Brandy",
     phone: "7856961110",
     password: "$2a$10$QSxpvRPve2WG7xL2/LoM4eGiFWo345Fi7ckwgjIECLihO2NJJpTVq",
+    picture:
+      "https://www.personality-insights.com/wp-content/uploads/2017/12/default-profile-pic-e1513291410505.jpg",
     __v: 0,
   },
   {
@@ -42,6 +48,8 @@ const userSeed = [
     name: "Brenna",
     phone: "3931110444",
     password: "$2a$10$/YLBRz8HtKmosuFpSXPhPeOHraXN8R6xN9H7NB/H4h/vnPh3GxFwa",
+    picture:
+      "https://www.personality-insights.com/wp-content/uploads/2017/12/default-profile-pic-e1513291410505.jpg",
     __v: 0,
   },
   {
@@ -50,6 +58,8 @@ const userSeed = [
     name: "Kolton",
     phone: "4841110499",
     password: "$2a$10$wwufUMA88PNQlCyvA4lj2eJPTfRrBVDAAnTwtJWThTStFkq6phGCm",
+    picture:
+      "https://www.personality-insights.com/wp-content/uploads/2017/12/default-profile-pic-e1513291410505.jpg",
     __v: 0,
   },
 ];
@@ -57,10 +67,7 @@ const userSeed = [
 const conversationSeed = [
   {
     id: "Convo1",
-    members: [
-      ObjectId("60dd2b58eeda4429a8f4ca91"),
-      ObjectId("60a532c9266a4f2cc69925f6"),
-    ],
+    members: ["60dd2b58eeda4429a8f4ca91", "60a532c9266a4f2cc69925f6"],
     messages: [
       {
         sender_id: ObjectId("60a532c9266a4f2cc69925f6"),
@@ -86,10 +93,7 @@ const conversationSeed = [
   },
   {
     id: "Convo2",
-    members: [
-      ObjectId("60dd2b58eeda4429a8f4ca91"),
-      ObjectId("60a533d0266a4f2cc69925fa"),
-    ],
+    members: ["60dd2b58eeda4429a8f4ca91", "60a533d0266a4f2cc69925fa"],
     messages: [
       {
         sender_id: ObjectId("60dd2b58eeda4429a8f4ca91"),

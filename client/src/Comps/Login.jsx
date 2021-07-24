@@ -1,4 +1,5 @@
 import { useState, useRef } from "react";
+import GoogleLogin from "react-google-login";
 import { Container, Row, Form, Button } from "react-bootstrap";
 import API from "../utils/API";
 
@@ -29,6 +30,21 @@ export default function Login({ onLoginSubmit }) {
         console.log(error);
       });
   }
+
+  const responseGoogle = (response) => {
+    console.log(response);
+  };
+
+  if (true)
+    return (
+      <GoogleLogin
+        clientId="957666672016-3850ch4mr24gvr89bmt514bn7u359mb4.apps.googleusercontent.com"
+        buttonText="Login"
+        onSuccess={responseGoogle}
+        onFailure={responseGoogle}
+        cookiePolicy={"single_host_origin"}
+      />
+    );
 
   return (
     <Container id="login">

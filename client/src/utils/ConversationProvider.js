@@ -39,9 +39,11 @@ export default function ConversationProvider({ user, children }) {
 
   const loadConversations = useCallback(
     (cb) => {
-      axios.get(`/api/conversations/${user._id}`).then((conversations) => {
-        cb(conversations.data);
-      });
+      axios
+        .get(`http://localhost:5001/api/conversations/${user._id}`)
+        .then((conversations) => {
+          cb(conversations.data);
+        });
     },
     [user._id]
   );
@@ -58,6 +60,7 @@ export default function ConversationProvider({ user, children }) {
   useEffect(() => {
     if (!user._id) return;
     loadConversations((conversations) => {
+      console.log(conversations);
       setConversations(conversations);
     });
   }, [user._id, loadConversations]);

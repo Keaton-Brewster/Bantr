@@ -17,17 +17,19 @@ export default function ConversationInfoScreen({ containerRef }) {
   const [loading, setLoading] = useState(true);
   const editConvoNameInput = useRef();
 
-  function trimMessages(conversation) {
-    const mutatedConversation = { ...conversation };
-    mutatedConversation.messages = [];
-    return mutatedConversation;
-  }
+  // function trimMessages(conversation) {
+  //   const mutatedConversation = { ...conversation };
+  //   mutatedConversation.messages = [];
+  //   return mutatedConversation;
+  // }
 
   async function getConversationInformation() {
-    const filteredConversation = trimMessages(selectedConversation);
     const conversationInformation = await axios.get(
-      `api/conversations/getInfo/${JSON.stringify(filteredConversation)}`
+      `http://localhost:5001/api/conversations/getInfo/${selectedConversation._id}`
     );
+
+    console.log(conversationInformation.data);
+
     setConvoInfo(conversationInformation.data);
     setLoading(false);
   }
@@ -52,7 +54,7 @@ export default function ConversationInfoScreen({ containerRef }) {
       newName: editConvoNameInput.current.value,
     };
     const response = await axios.put(
-      "/api/conversations/updateConvoName/",
+      "http://localhost:5001/api/conversations/updateConvoName/",
       updatedConversation
     );
     updateConversation(response.data);
