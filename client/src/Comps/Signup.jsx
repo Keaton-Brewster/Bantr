@@ -1,7 +1,11 @@
 import { useState, useRef } from "react";
-import { Container, Row, Form, Button } from "react-bootstrap";
+import GoogleLogin from "react-google-login";
+import { Container, Row, Form } from "react-bootstrap";
 import PasswordValidator from "password-validator";
 import API from "../utils/API";
+
+// Not working
+//! import "./signupLoginBackground.css";
 
 const schema = new PasswordValidator();
 
@@ -63,12 +67,24 @@ export default function Signup({ setUser }) {
       });
   }
 
+  const responseGoogle = (response) => {
+    const { tokenObj, profileObj } = response;
+    const { email, familyName, givenName, imageUrl } = profileObj;
+    const id = tokenObj.id_token.slice(0, 50);
+    console.log(email, familyName, givenName, imageUrl);
+  };
+
   return (
     <Container>
       <Row className="justify-content-center">
         <Form id="form" onSubmit={signup} className="text-center">
           <h2>Sign up here to get started</h2>
-          <Form.Group className="mb-3" controlId="formBasicName">
+          <h5>
+            {/* Need to make this font not bold */}
+            Because we want to keep your information as safe as possible, please
+            use your Google account to sign up
+          </h5>
+          {/* <Form.Group className="mb-3" controlId="formBasicName">
             <Form.Label>Name</Form.Label>
             <Form.Control
               onChange={handleChange}
@@ -111,7 +127,14 @@ export default function Signup({ setUser }) {
           </Form.Group>
           <Button variant="primary" type="submit" className="float-right">
             Submit
-          </Button>
+          </Button> */}
+          <GoogleLogin
+            clientId="957666672016-3850ch4mr24gvr89bmt514bn7u359mb4.apps.googleusercontent.com"
+            buttonText="Login"
+            onSuccess={responseGoogle}
+            onFailure={responseGoogle}
+            cookiePolicy={"single_host_origin"}
+          />
         </Form>
       </Row>
       <Row className="justify-content-center">

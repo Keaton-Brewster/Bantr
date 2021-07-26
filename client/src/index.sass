@@ -1,0 +1,97 @@
+$main-background: #FBFFFD
+$secondary-background: #D6CF85
+$active: #D6CF85
+$dark: #202020
+$light: #FBFFFD
+
+html
+    scroll-behavior: smooth
+
+*
+    background-color: $main-background
+    color: #202020
+    overflow-wrap: break-word
+
+.spinner
+    position: absolute
+    left: 50%
+    top: 50%
+
+button
+    border: none
+
+.LGItem
+    background-color: $main-background
+    padding: 1rem
+
+.LGItem:hover,
+.LGItem:hover>#addButton
+    background-color: #C2B847
+    cursor: pointer
+
+.activeConvo
+    background-color: $active
+
+#messageBox
+    border-left: 1px solid grey
+    height: 100vh
+    padding: 0
+
+#bottomOfConvos
+    border-top: 1px solid grey
+    position: relative
+    right: 15px
+    width: 130%
+
+#selected
+    background-color: var(--primary)
+
+#searchConversationsInput
+    padding: 5px
+    padding-left: 20px
+    width: 100%
+    border: none
+    border-radius: 25px
+    border: 1px solid grey
+    margin: 15px 5px
+
+    &:focus
+        outline: none !important
+        box-shadow: 0 0 5px 1px $light
+
+.show
+    display: block !important
+
+.hide
+    display: none !important
+
+/* from login css */
+#form
+    margin: 4rem
+    min-width: 15rem
+
+#loginLink
+    background-color: $secondary-background
+    padding: 1rem
+    border-radius: 5px
+
+#signupLink
+    background-color: $secondary-background
+    padding: 1rem
+    border-radius: 5px
+
+/*  Chanign container padding */
+/* Sometimes Bootstrap makes this really difficult */
+.container-fluid
+    padding: 0px !important
+
+.row
+    margin-right: 0px !important
+
+/* Buttons */
+
+#addButton
+    height: 25px
+    width: 25px
+    fill: green
+    margin: 10px
