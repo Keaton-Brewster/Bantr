@@ -74,11 +74,14 @@ export default function Signup({ setUser }) {
     };
     API.signup(
       newUser,
+      // CB for the newly created user
       (user) => {
         if (!user) return;
         const storableUser = JSON.stringify(user);
         setUser(storableUser);
+        window.location = "/";
       },
+      // CB for error handling / debugging
       (error) => {
         if (error) console.error(error);
         if (error.toString().includes("code 500"))
