@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { Container, Row, Col, Spinner } from "react-bootstrap";
 import { BrowserView, MobileView } from "react-device-detect";
-import { useConversations } from "../utils/ConversationProvider";
 import { useContentContext } from "../utils/ContentProvider";
 import Menu from "./Menu";
 import MainContent from "./MainContent";
@@ -9,7 +8,6 @@ import "./animations.sass";
 
 export default function Dashboard() {
   const { display } = useContentContext();
-  const { selectedConversation } = useConversations();
   const [loading, setLoading] = useState(true);
 
   function renderMobile() {
