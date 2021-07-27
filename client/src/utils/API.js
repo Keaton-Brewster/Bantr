@@ -11,10 +11,10 @@ const API = {
       return err(error);
     }
   },
-  async login(key = "string", cb = () => {}, err = () => {}) {
+  async login(key = {}, cb = () => {}, err = () => {}) {
     try {
       const { data } = await axios
-        .get(`http://localhost:5001/api/users/login/${key}`)
+        .post(`http://localhost:5001/api/users/login`, key)
         .catch((error) => err(error));
       cb(data);
     } catch (error) {

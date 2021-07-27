@@ -20,8 +20,10 @@ export default function Login({ setUser }) {
   }
 
   const googleLogin = (response) => {
-    const key = response.tokenObj.id_token.slice(0, 40);
-
+    const key = {
+      y: response.profileObj.email,
+      z: response.profileObj.googleId,
+    };
     handleLogin(key);
   };
 

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Container, Row, Col, Spinner } from "react-bootstrap";
 import { BrowserView, MobileView } from "react-device-detect";
 import { useConversations } from "../utils/ConversationProvider";
@@ -10,6 +10,7 @@ import "./animations.sass";
 export default function Dashboard() {
   const { display } = useContentContext();
   const { selectedConversation } = useConversations();
+  const [loading, setLoading] = useState(true);
 
   function renderMobile() {
     if (display.menu) return <Menu />;
@@ -19,6 +20,12 @@ export default function Dashboard() {
   function cleanLocalStorage() {
     localStorage.removeItem("epr_ru");
   }
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 50);
+  }, []);
 
   // apparently the emoji keyboard thing is storing things in local storage
   // So to stop that from piling up, we will regularly clean it out
@@ -34,7 +41,7 @@ export default function Dashboard() {
         //!   THERE HAS TO BE A BETTER WAY TO RENDER THE HOME SCREEN BEFORE ANY CONVERSATIONS HAVE STARTED.
         //!   THIS WILL BE INTEGRAL FOR USER EXPERIENCE
       }
-      {!selectedConversation ? (
+      {loading ? (
         <Spinner className="spinner" animation="border" />
       ) : (
         <>

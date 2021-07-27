@@ -52,15 +52,16 @@ export default function Signup({ setUser }) {
   const googleSignup = (response) => {
     if (response.error) return;
 
-    const { tokenObj, profileObj } = response;
-    const { email, familyName, givenName, imageUrl } = profileObj;
+    const { profileObj } = response;
+    const { email, familyName, givenName, imageUrl, googleId } = profileObj;
+
     const newUser = {
       email,
       familyName,
       givenName,
       imageUrl,
       phoneNum: phoneNum,
-      key: tokenObj.id_token.slice(0, 40),
+      g_id: googleId,
     };
 
     handleSignup(newUser);
