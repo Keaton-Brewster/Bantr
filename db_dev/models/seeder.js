@@ -77,7 +77,10 @@ const userSeed = [
 
 const conversationSeed = [
   new Conversation(
-    ["60dd2b58eeda4429a8f4ca91", "60a532c9266a4f2cc69925f6"],
+    [
+      ObjectId("60dd2b58eeda4429a8f4ca91"),
+      ObjectId("60a532c9266a4f2cc69925f6"),
+    ],
     [
       new Message(
         ObjectId("60a532c9266a4f2cc69925f6"),
@@ -91,7 +94,10 @@ const conversationSeed = [
     ]
   ),
   new Conversation(
-    ["60dd2b58eeda4429a8f4ca91", "60a533d0266a4f2cc69925fa"],
+    [
+      ObjectId("60dd2b58eeda4429a8f4ca91"),
+      ObjectId("60a533d0266a4f2cc69925fa"),
+    ],
     [
       new Message(ObjectId("60dd2b58eeda4429a8f4ca91"), "What's up?"),
       new Message(ObjectId("60a533d0266a4f2cc69925fa"), "Not much!"),
