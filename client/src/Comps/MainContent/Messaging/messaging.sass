@@ -1,3 +1,5 @@
+@import "src/globals"
+
 #messageWrapper
     padding-bottom: 20px
     overflow-y: scroll
@@ -21,14 +23,12 @@
     max-width: 600px
     overflow-wrap: break-word
     white-space: pre-wrap
-
     &FromMe
         background-color: #BBD9DD
-
     &ToMe
         background-color: #76B4BC
 
-@media screen and (max-width: 57680px)
+@media screen and (max-width: 680px)
     .message
         max-width: 250px
 
@@ -43,12 +43,11 @@
 #messagesTopMenu
     position: fixed
     top: 0px
-    background-color: var(--secondary-background)
+    background-color: $secondary-background
     padding: 10px
     z-index: 20
-
     &>*
-        background-color: var(--secondary-background)
+        background-color: $secondary-background
 
 .conversationInfoScreen
     padding: 25px
@@ -59,8 +58,7 @@
     margin-right: 10px
     height: 20px
     width: 20px
-    background-color: var(--secondary-background)
-
+    background-color: $secondary-background
     &:hover
         cursor: pointer
 
@@ -68,11 +66,10 @@
     margin-left: 10px
     height: 20px
     width: 20px
-    background-color: var(--secondary-background)
+    background-color: $secondary-background
     position: relative
     right: 1px
     bottom: 1px
-
     &:hover
         cursor: pointer
 
@@ -82,11 +79,11 @@
     float: left
 
 .deleteMessageButton
-    fill: var(--light)
+    fill: $light
     background-color: rgb(48, 48, 48)
 
     &:hover
-        fill: var(--danger)
+        fill: $danger
 
 #editConvoNameInput
     border: none
