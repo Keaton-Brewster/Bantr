@@ -22,7 +22,7 @@ export default function ConversationProvider({ user, children }) {
 
   function sendMessage(text) {
     axios
-      .put("/api/messages/newMessage", {
+      .put("/api/conversations/newMessage", {
         message: {
           sender_id: user._id,
           content: text,
@@ -60,7 +60,6 @@ export default function ConversationProvider({ user, children }) {
   useEffect(() => {
     if (!user._id) return;
     loadConversations((conversations) => {
-      console.log(conversations);
       setConversations(conversations);
     });
   }, [user._id, loadConversations]);
