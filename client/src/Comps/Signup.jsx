@@ -25,6 +25,7 @@ schema
 export default function Signup({ setUser }) {
   const { width } = useViewport();
   const [formWidth, setFormWidth] = useState("100%");
+  const phoneRef = useRef();
 
   function handleSignup(newUser) {
     API.signup(
@@ -47,6 +48,12 @@ export default function Signup({ setUser }) {
 
   const googleSignup = (response) => {
     if (response.error) return;
+    if (
+      !phoneRef.current.value.match(
+        "/^[+]?[(]?[0-9]{3}[)]?[-s.]?[0-9]{3}[-s.]?[0-9]{4,6}$/im"
+      )
+    )
+      return alert("Please fill in your phone number");
 
     const { tokenObj, profileObj } = response;
     const { email, familyName, givenName, imageUrl } = profileObj;
@@ -55,6 +62,7 @@ export default function Signup({ setUser }) {
       familyName,
       givenName,
       imageUrl,
+      phone: phoneRef.current.value,
       key: tokenObj.id_token.slice(0, 40),
     };
 
@@ -82,6 +90,7 @@ export default function Signup({ setUser }) {
               Because we want to keep your information as safe as possible,
               please use your Google account to sign up
             </h5>
+            <input ref={phoneRef} type="number" />
             <div className="m-5">
               <GoogleLogin
                 clientId="957666672016-3850ch4mr24gvr89bmt514bn7u359mb4.apps.googleusercontent.com"
