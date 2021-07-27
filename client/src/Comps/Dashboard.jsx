@@ -30,6 +30,10 @@ export default function Dashboard() {
 
   return (
     <>
+      {
+        //!   THERE HAS TO BE A BETTER WAY TO RENDER THE HOME SCREEN BEFORE ANY CONVERSATIONS HAVE STARTED.
+        //!   THIS WILL BE INTEGRAL FOR USER EXPERIENCE
+      }
       {!selectedConversation ? (
         <Spinner className="spinner" animation="border" />
       ) : (

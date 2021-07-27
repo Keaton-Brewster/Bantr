@@ -5,6 +5,8 @@ import PasswordValidator from "password-validator";
 import Header from "./Header";
 import { useViewport } from "../utils/ViewportProvider";
 import API from "../utils/API";
+import PhoneInput from "react-phone-number-input";
+import "react-phone-number-input/style.css";
 
 const schema = new PasswordValidator();
 
@@ -25,7 +27,8 @@ schema
 export default function Signup({ setUser }) {
   const { width } = useViewport();
   const [formWidth, setFormWidth] = useState("100%");
-  const phoneRef = useRef();
+  const [phoneNum, setPhoneNum] = useState();
+  const [buttonDisabled, setButtonDisabled] = useState(true);
 
   function handleSignup(newUser) {
     API.signup(
@@ -48,12 +51,6 @@ export default function Signup({ setUser }) {
 
   const googleSignup = (response) => {
     if (response.error) return;
-    if (
-      !phoneRef.current.value.match(
-        "/^[+]?[(]?[0-9]{3}[)]?[-s.]?[0-9]{3}[-s.]?[0-9]{4,6}$/im"
-      )
-    )
-      return alert("Please fill in your phone number");
 
     const { tokenObj, profileObj } = response;
     const { email, familyName, givenName, imageUrl } = profileObj;
@@ -62,7 +59,7 @@ export default function Signup({ setUser }) {
       familyName,
       givenName,
       imageUrl,
-      phone: phoneRef.current.value,
+      phoneNum: phoneNum,
       key: tokenObj.id_token.slice(0, 40),
     };
 
@@ -77,6 +74,15 @@ export default function Signup({ setUser }) {
     };
   }, [width]);
 
+  useEffect(() => {
+    console.log(phoneNum);
+    if (phoneNum === undefined || phoneNum === null) return;
+    let mutablePN = phoneNum.replace(/[+]/g, "");
+
+    if (mutablePN.match(/\d/g).length === 11) setButtonDisabled(false);
+    else setButtonDisabled(true);
+  }, [phoneNum]);
+
   return (
     <>
       <Header />
@@ -85,12 +91,19 @@ export default function Signup({ setUser }) {
         <Row className="justify-content-center">
           <Form id="form" className="text-center">
             <h2>Sign up here to get started</h2>
-            <h5>
+            <h5 className="mb-3 font-light">
               {/* Need to make this font not bold */}
-              Because we want to keep your information as safe as possible,
-              please use your Google account to sign up
+              Because we want to keep your information as safe as possible, just
+              fill in your phone number, and then please use your Google account
+              to sign up.
             </h5>
-            <input ref={phoneRef} type="number" />
+            <PhoneInput
+              id="phoneInput"
+              country="US"
+              placeholder="+0 000 000 0000"
+              value={phoneNum}
+              onChange={setPhoneNum}
+            />
             <div className="m-5">
               <GoogleLogin
                 clientId="957666672016-3850ch4mr24gvr89bmt514bn7u359mb4.apps.googleusercontent.com"
@@ -98,6 +111,7 @@ export default function Signup({ setUser }) {
                 onSuccess={googleSignup}
                 onFailure={googleSignup}
                 cookiePolicy={"single_host_origin"}
+                disabled={buttonDisabled}
               />
             </div>
           </Form>
