@@ -5,7 +5,7 @@ import { useConversations } from "../utils/ConversationProvider";
 import { useContentContext } from "../utils/ContentProvider";
 import Menu from "./Menu";
 import MainContent from "./MainContent";
-import "./animations.css";
+import "./animations.sass";
 
 export default function Dashboard() {
   const { display } = useContentContext();

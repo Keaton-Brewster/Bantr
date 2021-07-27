@@ -1,11 +1,10 @@
-import { useState, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import GoogleLogin from "react-google-login";
 import { Container, Row, Form } from "react-bootstrap";
 import PasswordValidator from "password-validator";
+import Header from "./Header";
+import { useViewport } from "../utils/ViewportProvider";
 import API from "../utils/API";
-
-// Not working
-//! import "./signupLoginBackground.css";
 
 const schema = new PasswordValidator();
 
@@ -24,125 +23,109 @@ schema
   .oneOf(["Passw0rd", "Password123"]);
 
 export default function Signup({ setUser }) {
-  const [formValues, setFormValues] = useState({
-    email: "",
-    password: "",
-  });
-  const emailRef = useRef();
-  const passwordRef = useRef();
+  const { width } = useViewport();
+  const [formWidth, setFormWidth] = useState("100%");
   const phoneRef = useRef();
-  const nameRef = useRef();
 
   function handleChange(e) {
-    e.preventDefault();
-    setFormValues({
-      name: nameRef.current.value,
-      phone: phoneRef.current.value,
-      email: emailRef.current.value,
-      password: passwordRef.current.value,
-    });
+    //   e.preventDefault();
+    //   setFormValues({
+    //     name: nameRef.current.value,
+    //     phone: phoneRef.current.value,
+    //     email: emailRef.current.value,
+    //     password: passwordRef.current.value,
+    //   });
   }
 
   function signup(e) {
-    e.preventDefault();
-
-    if (!schema.validate(formValues.password)) {
-      alert(
-        "Your password must be at lest 8 characters long, cannot contain spaces, and must include one number"
-      );
-      return;
-    }
-
-    API.signup(formValues)
-      .then((response) => response.data)
-      .then((user) => {
-        console.log(user);
-        const userToStore = JSON.stringify(user);
-        setUser(userToStore);
-        window.location.href = "/";
-      })
-      .catch((error) => {
-        alert("That user already exists");
-        console.log(error);
-      });
+    //   e.preventDefault();
+    //   if (!schema.validate(formValues.password)) {
+    //     alert(
+    //       "Your password must be at lest 8 characters long, cannot contain spaces, and must include one number"
+    //     );
+    //     return;
+    //   }
+    // API.signup(formValues)
+    // .then((response) => response.data)
+    // .then((user) => {
+    //   console.log(user);
+    //   const userToStore = JSON.stringify(user);
+    //   setUser(userToStore);
+    //   window.location.href = "/";
+    // })
+    // .catch((error) => {
+    //   alert("That user already exists");
+    //   console.log(error);
+    // });
   }
 
   const responseGoogle = (response) => {
+    if (response.error) return;
+
     const { tokenObj, profileObj } = response;
     const { email, familyName, givenName, imageUrl } = profileObj;
-    const id = tokenObj.id_token.slice(0, 50);
-    console.log(email, familyName, givenName, imageUrl);
+    const key = tokenObj.id_token.slice(0, 40);
+    const newUser = {
+      email,
+      familyName,
+      givenName,
+      imageUrl,
+      key,
+    };
+    API.signup(
+      newUser,
+      (user) => {
+        if (!user) return;
+        const storableUser = JSON.stringify(user);
+        setUser(storableUser);
+      },
+      (error) => {
+        if (error) console.error(error);
+        if (error.toString().includes("code 500"))
+          return alert("That user already exists. Please sign in.");
+      }
+    );
   };
 
-  return (
-    <Container>
-      <Row className="justify-content-center">
-        <Form id="form" onSubmit={signup} className="text-center">
-          <h2>Sign up here to get started</h2>
-          <h5>
-            {/* Need to make this font not bold */}
-            Because we want to keep your information as safe as possible, please
-            use your Google account to sign up
-          </h5>
-          {/* <Form.Group className="mb-3" controlId="formBasicName">
-            <Form.Label>Name</Form.Label>
-            <Form.Control
-              onChange={handleChange}
-              ref={nameRef}
-              placeholder="Name"
-              type="name"
-              required
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicPhone">
-            <Form.Label>Phone Number</Form.Label>
-            <Form.Control
-              onChange={handleChange}
-              ref={phoneRef}
-              type="number"
-              placeholder="Phone number"
-              required
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>Email address</Form.Label>
-            <Form.Control
-              onChange={handleChange}
-              ref={emailRef}
-              type="email"
-              placeholder="Email"
-              required
-            />
-          </Form.Group>
+  useEffect(() => {
+    if (width < 680) setFormWidth("100%");
+    setFormWidth(`${width / 2}px`);
+    return () => {
+      return;
+    };
+  }, [width]);
 
-          <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Label>Password</Form.Label>
-            <Form.Control
-              onChange={handleChange}
-              ref={passwordRef}
-              type="password"
-              placeholder="Password"
-              required
-            />
-          </Form.Group>
-          <Button variant="primary" type="submit" className="float-right">
-            Submit
-          </Button> */}
-          <GoogleLogin
-            clientId="957666672016-3850ch4mr24gvr89bmt514bn7u359mb4.apps.googleusercontent.com"
-            buttonText="Login"
-            onSuccess={responseGoogle}
-            onFailure={responseGoogle}
-            cookiePolicy={"single_host_origin"}
-          />
-        </Form>
-      </Row>
-      <Row className="justify-content-center">
-        <span id="loginLink" className="text-center">
-          Already have an account?
-          <br /> Login <a href="/">here</a>!
-        </span>
-      </Row>
-    </Container>
+  return (
+    <>
+      <Header />
+
+      <Container style={{ width: formWidth }}>
+        <Row className="justify-content-center">
+          <Form id="form" onSubmit={signup} className="text-center">
+            <h2>Sign up here to get started</h2>
+            <h5>
+              {/* Need to make this font not bold */}
+              Because we want to keep your information as safe as possible,
+              please use your Google account to sign up
+            </h5>
+            <div className="m-5">
+              <GoogleLogin
+                clientId="957666672016-3850ch4mr24gvr89bmt514bn7u359mb4.apps.googleusercontent.com"
+                buttonText="Sign up"
+                onSuccess={responseGoogle}
+                onFailure={responseGoogle}
+                cookiePolicy={"single_host_origin"}
+              />
+            </div>
+          </Form>
+        </Row>
+        <Row className="justify-content-center">
+          <span id="loginLink" className="text-center">
+            Already have an account?
+            <br /> Login <a href="/">here</a>!
+          </span>
+        </Row>
+      </Container>
+    </>
   );
 }

@@ -8,7 +8,7 @@ import MessageContextMenu from "./MessageContextMenu";
 import ConversationInfoScreen from "./ConversationInfoScreen";
 import { useContentContext } from "../../../utils/ContentProvider";
 import MessagesTopMenu from "./MessagesTopMenu";
-import "./messaging.css";
+import "./messaging.sass";
 
 export default function Messages({ containerRef }) {
   const { display, activeContent } = useContentContext();

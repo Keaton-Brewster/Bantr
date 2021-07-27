@@ -5,7 +5,7 @@ import { FaRegSmile } from "react-icons/fa";
 import { useConversations } from "../../../utils/ConversationProvider";
 import { useViewport } from "../../../utils/ViewportProvider";
 import Picker from "emoji-picker-react";
-import "./chatInput.css";
+import "./chatInput.sass";
 
 export default function ChatInput({ containerRef }) {
   const [currentInput, setCurrentInput] = useState(null);
