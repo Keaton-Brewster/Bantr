@@ -10,18 +10,20 @@ mongoose.connect("mongodb://localhost:27017/msging", {
 });
 
 class User {
-  constructor(_id, givenName, familyName, email) {
-    this.GivenName = givenName || "First name";
-    this.FamilyName = familyName || "Last name";
-    this.Email = email || "Email address";
-    this.ImageUrl =
+  constructor(_id, givenName, familyName, email, key) {
+    this._id = _id;
+    this.givenName = givenName || "First name";
+    this.familyName = familyName || "Last name";
+    this.email = email || "Email address";
+    this.key = key || null;
+    this.imageUrl =
       "https://www.personality-insights.com/wp-content/uploads/2017/12/default-profile-pic-e1513291410505.jpg";
   }
 }
 
 class Conversation {
   constructor(members, messages) {
-    this.memberes = members;
+    this.members = members;
     this.messages = messages;
   }
 }
@@ -38,7 +40,8 @@ const userSeed = [
     ObjectId("60dd2b58eeda4429a8f4ca91"),
     "Keaton",
     "Brewster",
-    "keaton@mail.com"
+    "keaton.brewster@gmail.com",
+    "eyJhbGciOiJSUzI1NiIsImtpZCI6IjNkZjBhODMx"
   ),
   new User(
     ObjectId("60a532c9266a4f2cc69925f6"),
