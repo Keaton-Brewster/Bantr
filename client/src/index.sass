@@ -3,6 +3,10 @@ $secondary-background: #D6CF85
 $active: #D6CF85
 $dark: #202020
 $light: #FBFFFD
+$p-green: #0f8392
+
+@mixin bg-green
+    background-color: $p-green
 
 html
     scroll-behavior: smooth
@@ -95,3 +99,9 @@ button
     width: 25px
     fill: green
     margin: 10px
+
+// Number input thing
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button
+    -webkit-appearance: none
+    margin: 0
