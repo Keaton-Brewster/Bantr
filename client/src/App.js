@@ -1,3 +1,4 @@
+import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Signup from "./Comps/Signup";
 import Home from "./Comps/Home";
