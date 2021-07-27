@@ -25,53 +25,8 @@ schema
 export default function Signup({ setUser }) {
   const { width } = useViewport();
   const [formWidth, setFormWidth] = useState("100%");
-  const phoneRef = useRef();
 
-  function handleChange(e) {
-    //   e.preventDefault();
-    //   setFormValues({
-    //     name: nameRef.current.value,
-    //     phone: phoneRef.current.value,
-    //     email: emailRef.current.value,
-    //     password: passwordRef.current.value,
-    //   });
-  }
-
-  function signup(e) {
-    //   e.preventDefault();
-    //   if (!schema.validate(formValues.password)) {
-    //     alert(
-    //       "Your password must be at lest 8 characters long, cannot contain spaces, and must include one number"
-    //     );
-    //     return;
-    //   }
-    // API.signup(formValues)
-    // .then((response) => response.data)
-    // .then((user) => {
-    //   console.log(user);
-    //   const userToStore = JSON.stringify(user);
-    //   setUser(userToStore);
-    //   window.location.href = "/";
-    // })
-    // .catch((error) => {
-    //   alert("That user already exists");
-    //   console.log(error);
-    // });
-  }
-
-  const responseGoogle = (response) => {
-    if (response.error) return;
-
-    const { tokenObj, profileObj } = response;
-    const { email, familyName, givenName, imageUrl } = profileObj;
-    const key = tokenObj.id_token.slice(0, 40);
-    const newUser = {
-      email,
-      familyName,
-      givenName,
-      imageUrl,
-      key,
-    };
+  function handleSignup(newUser) {
     API.signup(
       newUser,
       // CB for the newly created user
@@ -79,7 +34,7 @@ export default function Signup({ setUser }) {
         if (!user) return;
         const storableUser = JSON.stringify(user);
         setUser(storableUser);
-        window.location = "/";
+        window.location.href = "/";
       },
       // CB for error handling / debugging
       (error) => {
@@ -88,6 +43,22 @@ export default function Signup({ setUser }) {
           return alert("That user already exists. Please sign in.");
       }
     );
+  }
+
+  const googleSignup = (response) => {
+    if (response.error) return;
+
+    const { tokenObj, profileObj } = response;
+    const { email, familyName, givenName, imageUrl } = profileObj;
+    const newUser = {
+      email,
+      familyName,
+      givenName,
+      imageUrl,
+      key: tokenObj.id_token.slice(0, 40),
+    };
+
+    handleSignup(newUser);
   };
 
   useEffect(() => {
@@ -104,7 +75,7 @@ export default function Signup({ setUser }) {
 
       <Container style={{ width: formWidth }}>
         <Row className="justify-content-center">
-          <Form id="form" onSubmit={signup} className="text-center">
+          <Form id="form" className="text-center">
             <h2>Sign up here to get started</h2>
             <h5>
               {/* Need to make this font not bold */}
@@ -115,8 +86,8 @@ export default function Signup({ setUser }) {
               <GoogleLogin
                 clientId="957666672016-3850ch4mr24gvr89bmt514bn7u359mb4.apps.googleusercontent.com"
                 buttonText="Sign up"
-                onSuccess={responseGoogle}
-                onFailure={responseGoogle}
+                onSuccess={googleSignup}
+                onFailure={googleSignup}
                 cookiePolicy={"single_host_origin"}
               />
             </div>

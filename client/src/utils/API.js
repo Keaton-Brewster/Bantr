@@ -1,18 +1,26 @@
 import axios from "axios";
 
 const API = {
-  async signup(userInfoObject, cb, err) {
+  async signup(userInfoObject = {}, cb = () => {}, err = () => {}) {
     try {
-      const data = await axios
+      const { data } = await axios
         .post("http://localhost:5001/api/users/signup", userInfoObject)
         .catch((error) => err(error));
       cb(data);
     } catch (error) {
-      console.error(error);
+      return err(error);
     }
   },
-  login(userInfoObject) {
-    return axios.post("http://localhost:5001/api/users/login", userInfoObject);
+  async login(key = "string", cb = () => {}, err = () => {}) {
+    try {
+      const { data } = await axios
+        .get(`http://localhost:5001/api/users/login/${key}`)
+        .catch((error) => err(error));
+      cb(data);
+    } catch (error) {
+      console.error(error);
+      return err(error);
+    }
   },
 };
 export default API;

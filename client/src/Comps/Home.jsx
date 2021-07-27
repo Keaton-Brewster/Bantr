@@ -4,7 +4,5 @@ import Login from "../Comps/Login";
 
 export default function Home({ localStorage }) {
   const [user, setUser] = localStorage;
-  return (
-    <> {user ? <Dashboard user={user} /> : <Login onLoginSubmit={setUser} />}</>
-  );
+  return <> {user ? <Dashboard user={user} /> : <Login setUser={setUser} />}</>;
 }

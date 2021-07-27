@@ -58,12 +58,11 @@ export default function ConversationProvider({ user, children }) {
   });
 
   useEffect(() => {
-    if (!user._id) return;
+    if (!user.key) return;
     loadConversations((conversations) => {
-      console.log(conversations);
       setConversations(conversations);
     });
-  }, [user._id, loadConversations]);
+  }, [user.key, loadConversations]);
 
   const value = {
     conversations: formattedConversations,
