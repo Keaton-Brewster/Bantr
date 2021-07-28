@@ -22,17 +22,18 @@ export default function MessagesTopMenu({ containerRef }) {
   // To make the back button multipurpose, simply switch case the state of the current display
   // And then act accordingly
   function handleBackButton() {
-    if (activeContent.conversations)
+    if (isMobile && activeContent.conversations)
       return setDisplay({
         menu: true,
         mainContent: false,
       });
 
+    setActiveContent({ messaging: true });
     // Set timeout to allow convo info animtaion to take it offscreen before messages come back
-    setActiveContent({ conversationInfo: false });
-    setTimeout(() => {
-      setActiveContent({ messaging: true });
-    }, 590);
+    // setActiveContent({ conversationInfo: false });
+    // setTimeout(() => {
+    //   setActiveContent({ messaging: true });
+    // }, 590);
   }
 
   useEffect(() => {

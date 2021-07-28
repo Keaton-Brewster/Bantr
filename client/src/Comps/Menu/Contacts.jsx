@@ -11,7 +11,12 @@ export default function Contacts() {
     setNewContactModal(true);
   }
 
-  function addContact() {}
+  function addContact(newContact) {
+    if (!newContact.phoneNum)
+      return alert("please provide a valid phone number");
+
+    console.log(newContact);
+  }
 
   return (
     <>
