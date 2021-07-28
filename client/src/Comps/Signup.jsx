@@ -1,7 +1,6 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import GoogleLogin from "react-google-login";
 import { Container, Row, Form } from "react-bootstrap";
-import PasswordValidator from "password-validator";
 import Header from "./Header";
 import { useViewport } from "../utils/ViewportProvider";
 import API from "../utils/API";
@@ -44,7 +43,7 @@ export default function Signup({ setUser }) {
       familyName,
       givenName,
       imageUrl,
-      phoneNum: phoneNum,
+      phoneNum,
       g_id: googleId,
     };
 
