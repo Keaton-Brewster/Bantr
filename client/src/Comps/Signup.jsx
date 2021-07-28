@@ -8,22 +8,6 @@ import API from "../utils/API";
 import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 
-const schema = new PasswordValidator();
-
-schema
-  .is()
-  .min(8) // Minimum length 8
-  .is()
-  .max(100) // Maximum length 100
-  .has()
-  .digits(1) // Must have at least 2 digits
-  .has()
-  .not()
-  .spaces() // Should not have spaces
-  .is()
-  .not()
-  .oneOf(["Passw0rd", "Password123"]);
-
 export default function Signup({ setUser }) {
   const { width } = useViewport();
   const [formWidth, setFormWidth] = useState("100%");
@@ -76,7 +60,6 @@ export default function Signup({ setUser }) {
   }, [width]);
 
   useEffect(() => {
-    console.log(phoneNum);
     if (phoneNum === undefined || phoneNum === null) return;
     let mutablePN = phoneNum.replace(/[+]/g, "");
 
@@ -101,6 +84,7 @@ export default function Signup({ setUser }) {
             <PhoneInput
               id="phoneInput"
               country="US"
+              defaultCountry="US"
               placeholder="+0 000 000 0000"
               value={phoneNum}
               onChange={setPhoneNum}
