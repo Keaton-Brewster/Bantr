@@ -69,6 +69,11 @@ export default function ChatInput({ containerRef }) {
         </div>
       </Row>
       <Row>
+        {
+          //? THIS WILL WORK FOR NOW, IN TERMS OF PROOF OF CONTECPT,
+          //? BUT I WILL NEED TO MAKE THIS WORK WITH FIREBASE IF I WANT
+          //? A PRODUCTION QUALITY APP
+        }
         <ImageUploading
           multiple
           value={images}
