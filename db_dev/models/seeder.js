@@ -19,6 +19,7 @@ class User {
     this.g_id = GID || null;
     this.imageUrl =
       "https://www.personality-insights.com/wp-content/uploads/2017/12/default-profile-pic-e1513291410505.jpg";
+    this.createdAt = Date.now();
   }
 }
 
