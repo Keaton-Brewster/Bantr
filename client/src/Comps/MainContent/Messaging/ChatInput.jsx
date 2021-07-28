@@ -4,6 +4,7 @@ import { FaArrowUp } from "react-icons/fa";
 import { FaRegSmile } from "react-icons/fa";
 import { useConversations } from "../../../utils/ConversationProvider";
 import { useViewport } from "../../../utils/ViewportProvider";
+import ImageUploading from "react-images-uploading";
 import Picker from "emoji-picker-react";
 import "./chatInput.sass";
 
@@ -13,6 +14,7 @@ export default function ChatInput({ containerRef }) {
   const { width, scrollToBottomMessages } = useViewport();
   const [chatboxWidth, setChatboxWidth] = useState("100%");
   const [emojiPickerShow, setEmojiPickerShow] = useState(false);
+  const [images, setImages] = useState([]);
   const textRef = useRef();
 
   function messageSubmit(event) {
@@ -41,6 +43,11 @@ export default function ChatInput({ containerRef }) {
     textRef.current.value = messagePlusEmoji;
   }
 
+  function handleImageLoaderChange(imageList, addUpdateIndex) {
+    console.log(imageList, addUpdateIndex);
+    setImages(imageList);
+  }
+
   useEffect(() => {
     if (width >= 680) setChatboxWidth(`${containerRef.current.offsetWidth}px`);
     else setChatboxWidth("100%");
@@ -60,6 +67,47 @@ export default function ChatInput({ containerRef }) {
             pickerStyle={{ width: "100%" }}
           />
         </div>
+      </Row>
+      <Row>
+        <ImageUploading
+          multiple
+          value={images}
+          onChange={handleImageLoaderChange}
+          maxNumber={10}
+          dataURLKey="data_url"
+        >
+          {({
+            imageList,
+            onImageUpload,
+            onImageRemoveAll,
+            onImageUpdate,
+            onImageRemove,
+            isDragging,
+            dragProps,
+          }) => (
+            // write your building UI
+            <div className="upload__image-wrapper">
+              <button
+                style={isDragging ? { color: "red" } : undefined}
+                onClick={onImageUpload}
+                {...dragProps}
+              >
+                Click or Drop here
+              </button>
+              &nbsp;
+              <button onClick={onImageRemoveAll}>Remove all images</button>
+              {imageList.map((image, index) => (
+                <div key={index} className="image-item">
+                  <img src={image["data_url"]} alt="" width="100" />
+                  <div className="image-item__btn-wrapper">
+                    <button onClick={() => onImageUpdate(index)}>Update</button>
+                    <button onClick={() => onImageRemove(index)}>Remove</button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </ImageUploading>
       </Row>
       <Row>
         <Col xs={9}>
