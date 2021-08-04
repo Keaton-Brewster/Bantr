@@ -5,16 +5,17 @@ import API from "../utils/API";
 import Header from "./Header";
 
 export default function Login({ setUser }) {
+  //
   function handleLogin(key) {
     API.login(
       key,
       (user) => {
-        if (!user) return;
         const storableUser = JSON.stringify(user);
         setUser(storableUser);
       },
       (error) => {
-        if (error) console.error(error);
+        alert("No user could be found. Please sign up!");
+        console.error(error);
       }
     );
   }
