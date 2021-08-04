@@ -17,10 +17,11 @@ const API = {
   // How to make that happen
   async login(key, cb = () => {}, err = () => {}) {
     try {
-      const data = await axios
-        .get(`http://localhost:5001/api/users/login/${key}`)
+      const res = await axios
+        .put("http://localhost:5001/api/users/login", key)
         .catch((error) => err(error));
-      cb(data);
+      if (res.status === 200) return cb(res.data);
+      else return err(res);
     } catch (error) {
       console.error(error);
       return err(error);
