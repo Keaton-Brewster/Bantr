@@ -19,8 +19,8 @@ export default function Signup({ setUser }) {
       // CB for the newly created user
       (user) => {
         if (!user) return;
-        const storableUser = JSON.stringify(user);
-        setUser(storableUser);
+        const stringifiedUser = JSON.stringify(user);
+        setUser(stringifiedUser);
         window.location.href = "/";
       },
       // CB for error handling / debugging
