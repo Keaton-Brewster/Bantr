@@ -11,10 +11,14 @@ const API = {
       return err(error);
     }
   },
-  async login(key = {}, cb = () => {}, err = () => {}) {
+
+  // I think the fact that this is a  post is messing things up.
+  // This should be written as a get, so I need to figure out how
+  // How to make that happen
+  async login(key, cb = () => {}, err = () => {}) {
     try {
-      const { data } = await axios
-        .post(`http://localhost:5001/api/users/login`, key)
+      const data = await axios
+        .get(`http://localhost:5001/api/users/login/${key}`)
         .catch((error) => err(error));
       cb(data);
     } catch (error) {
