@@ -6,9 +6,9 @@ import Header from "./Header";
 
 export default function Login({ setUser }) {
   //
-  function handleLogin(key) {
+  function handleLogin(response) {
     API.login(
-      key,
+      response.profileObj,
       (user) => {
         const storableUser = JSON.stringify(user);
         setUser(storableUser);
@@ -20,20 +20,9 @@ export default function Login({ setUser }) {
     );
   }
 
-  const googleLogin = (response) => {
-    const key = {
-      y: response.profileObj.email,
-      z: response.profileObj.googleId,
-    };
-    handleLogin(key);
-  };
-
-  // In order to set this up properly I am going to need to be sure to take care of all possible
-  /* Ways a user can interact with the google signin form:
-        ? Signing in Successfully
-        ? Closing the sign in window, and it's error response
-        ? Trying to sign in but getting the password to your account wrong?
-    */
+  function handleFailure() {
+    alert("whoops, something went wrong!");
+  }
 
   return (
     <>
@@ -44,13 +33,13 @@ export default function Login({ setUser }) {
             <h2>Login</h2>
             <h5>
               {/* Need to make this font not bold */}
-              Use the Google profile associated with your account
+              Use your Google account to sign in
             </h5>
             <GoogleLogin
               clientId="957666672016-3850ch4mr24gvr89bmt514bn7u359mb4.apps.googleusercontent.com"
               buttonText="Login"
-              onSuccess={googleLogin}
-              onFailure={googleLogin}
+              onSuccess={handleLogin}
+              onFailure={handleFailure}
               cookiePolicy={"single_host_origin"}
             />
           </Form>

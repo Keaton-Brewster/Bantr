@@ -28,8 +28,6 @@ export default function ConversationInfoScreen({ containerRef }) {
       `http://localhost:5001/api/conversations/getInfo/${selectedConversation._id}`
     );
 
-    console.log(conversationInformation.data);
-
     setConvoInfo(conversationInformation.data);
     setLoading(false);
   }

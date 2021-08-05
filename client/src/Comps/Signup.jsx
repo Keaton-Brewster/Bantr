@@ -8,6 +8,7 @@ import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 
 export default function Signup({ setUser }) {
+  //
   const { width } = useViewport();
   const [formWidth, setFormWidth] = useState("100%");
   const [phoneNum, setPhoneNum] = useState();
@@ -16,18 +17,14 @@ export default function Signup({ setUser }) {
   function handleSignup(newUser) {
     API.signup(
       newUser,
-      // CB for the newly created user
       (user) => {
-        if (!user) return;
         const stringifiedUser = JSON.stringify(user);
         setUser(stringifiedUser);
         window.location.href = "/";
       },
-      // CB for error handling / debugging
       (error) => {
-        if (error) console.error(error);
-        if (error.toString().includes("code 500"))
-          return alert("That user already exists. Please sign in.");
+        alert("That user already exists. Please sign in.");
+        console.error(error);
       }
     );
   }
