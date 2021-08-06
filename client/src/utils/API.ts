@@ -1,7 +1,14 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import User from "./Types/User";
 import ProfileObject from "./Types/ProfileObject";
 
+type Error = {
+  status: number;
+  statusText: string;
+  data: any;
+  headers: object;
+  config: any;
+};
 type UserCallback = (user: User) => User;
 type ErrorCallback = (error: Error) => Error;
 
@@ -11,7 +18,7 @@ const API = {
     callback: UserCallback,
     error: ErrorCallback
   ) {
-    const res: any = await axios
+    const res: AxiosResponse = await axios
       .post("http://localhost:5001/api/users/signup", userInfoObject)
       .catch((err) => error(err));
     if (res.status === 200) return callback(res.data);
@@ -22,7 +29,7 @@ const API = {
     callback: UserCallback,
     error: ErrorCallback
   ) {
-    const res: any = await axios
+    const res: AxiosResponse = await axios
       .put("http://localhost:5001/api/users/login", loginObject)
       .catch((err) => error(err));
     if (res.status === 200) return callback(res.data);
