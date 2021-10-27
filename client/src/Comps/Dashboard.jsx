@@ -44,7 +44,7 @@ export default function Dashboard() {
         //!   THIS WILL BE INTEGRAL FOR USER EXPERIENCE
       }
       {loading ? (
-        <Spinner className="spinner" animation="border" />
+        <Spinner className="absoluteCenter" animation="border" />
       ) : (
         <>
           <BrowserView>

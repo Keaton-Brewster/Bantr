@@ -33,6 +33,7 @@ export default function ContentProvider({ children }) {
   //! what page theyre on, etc, and what better way to get around this than by using local storage.
 
   const { width, height } = useViewport();
+
   const [display, setDisplay] = useState(() => {
     if (isMobile) return { menu: true, mainContent: false };
     return { menu: true, mainContent: true };
@@ -43,11 +44,14 @@ export default function ContentProvider({ children }) {
       ? { conversations: true }
       : contentState.storedActiveContent
   );
+
   const [activeMenu, setActiveMenu] = useState(
     contentState === "default"
       ? { conversations: true }
       : contentState.storedActiveMenu
   );
+
+  const [selectedContact, setSelectedContact] = useState("+17859698002");
 
   // This handles the changes between mobile layout and desktop layout
   useEffect(() => {
@@ -74,6 +78,8 @@ export default function ContentProvider({ children }) {
     setActiveMenu,
     display,
     setDisplay,
+    selectedContact,
+    setSelectedContact,
   };
 
   // useEffect(() => {

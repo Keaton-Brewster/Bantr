@@ -54,7 +54,7 @@ export default function Messages({ containerRef }) {
 
   return isLoading ? (
     <>
-      <Spinner className="spinner" animation="border" />
+      <Spinner className="absoluteCenter" animation="border" />
     </>
   ) : (
     /*

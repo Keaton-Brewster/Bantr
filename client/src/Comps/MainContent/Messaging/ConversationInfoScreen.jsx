@@ -65,7 +65,9 @@ export default function ConversationInfoScreen({ containerRef }) {
   }, []);
 
   if (loading)
-    return <Spinner animation="border" className="spinner" role="status" />;
+    return (
+      <Spinner animation="border" className="absoluteCenter" role="status" />
+    );
 
   return (
     <>
