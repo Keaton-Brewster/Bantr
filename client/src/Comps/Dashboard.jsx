@@ -6,12 +6,14 @@ import Menu from "./Menu";
 import MainContent from "./MainContent";
 import "./animations.sass";
 import { useAppRendering } from "../utils/Reducer";
+import { useConversations } from "../utils/ConversationProvider";
 
 export default function Dashboard() {
   const { display } = useContentContext();
   const [loading, setLoading] = useState(true);
   const [state, dispatch] = useAppRendering();
   const dashboard = state.mainContent;
+  const { selectedConversation } = useConversations();
 
   function renderMobile() {
     if (display.menu) return <Menu />;
@@ -23,10 +25,9 @@ export default function Dashboard() {
   }
 
   useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 50);
-  }, []);
+    if (!selectedConversation) return;
+    setLoading(false);
+  }, [selectedConversation]);
 
   // apparently the emoji keyboard thing is storing things in local storage
   // So to stop that from piling up, we will regularly clean it out
