@@ -3,30 +3,8 @@ import { Modal, Button } from "react-bootstrap";
 import PhoneInput from "react-phone-number-input";
 
 export default function NewContactModal({ show, hide, addContact }) {
-  const [newContact, setNewContact] = useState({
-    phoneNum: "",
-    givenName: "",
-    familyName: "",
-  });
   const [phoneNum, setPhoneNum] = useState();
-  const [givenName, setGivenName] = useState("");
-  const [familyName, setFamilyName] = useState("");
   const [buttonDisabled, setButtonDisabled] = useState(true);
-  const givenNameRef = useRef();
-  const familyNameRef = useRef();
-
-  function handleChange() {
-    setGivenName(givenNameRef.current.value);
-    setFamilyName(familyNameRef.current.value);
-  }
-
-  useEffect(() => {
-    setNewContact({
-      phoneNum,
-      givenName,
-      familyName,
-    });
-  }, [phoneNum, givenName, familyName]);
 
   useEffect(() => {
     if (phoneNum === undefined || phoneNum === null) return;
@@ -51,18 +29,6 @@ export default function NewContactModal({ show, hide, addContact }) {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <input
-          ref={givenNameRef}
-          onChange={handleChange}
-          type="text"
-          placeholder="First name"
-        />
-        <input
-          ref={familyNameRef}
-          onChange={handleChange}
-          type="text"
-          placeholder="Last name"
-        />
         <PhoneInput
           id="phoneInput"
           country="US"
@@ -76,7 +42,7 @@ export default function NewContactModal({ show, hide, addContact }) {
         <Button
           disabled={buttonDisabled}
           variant="success"
-          onClick={() => addContact(newContact)}
+          onClick={() => addContact(phoneNum)}
         >
           Add
         </Button>
