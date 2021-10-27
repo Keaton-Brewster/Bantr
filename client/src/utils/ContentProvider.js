@@ -1,6 +1,13 @@
-import { useEffect, useState, createContext, useContext } from "react";
+import {
+  useEffect,
+  useState,
+  createContext,
+  useContext,
+  useReducer,
+} from "react";
 import { isMobile } from "react-device-detect";
 import { useViewport } from "./ViewportProvider";
+import reducer, { initialState } from "./Reducer";
 
 const mainContentContext = createContext();
 
@@ -9,6 +16,11 @@ export function useContentContext() {
 }
 
 export default function ContentProvider({ children }) {
+  //
+  //* I know what I need to do to the state!
+  // The thing to do is to set up a reducer that imports all the
+  // components and renders them conditionally in their respective
+  // places
   const { width, height } = useViewport();
   const [display, setDisplay] = useState(() => {
     if (isMobile) return { menu: true, mainContent: false };
@@ -48,6 +60,7 @@ export default function ContentProvider({ children }) {
     display,
     setDisplay,
   };
+  // const value = useReducer(reducer, initialState);
   return (
     <mainContentContext.Provider value={value}>
       {children}

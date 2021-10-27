@@ -1,12 +1,13 @@
 import React from "react";
 import GoogleLogin from "react-google-login";
 import { Container, Row, Form } from "react-bootstrap";
-import API from "../utils/API";
+import API from "../utils/API.js";
 import Header from "./Header";
 
 export default function Login({ setUser }) {
   //
   function handleLogin(response) {
+    console.log(response);
     API.login(
       response.profileObj,
       (user) => {

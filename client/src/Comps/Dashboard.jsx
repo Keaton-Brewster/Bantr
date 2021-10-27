@@ -5,10 +5,13 @@ import { useContentContext } from "../utils/ContentProvider";
 import Menu from "./Menu";
 import MainContent from "./MainContent";
 import "./animations.sass";
+import { useAppRendering } from "../utils/Reducer";
 
 export default function Dashboard() {
   const { display } = useContentContext();
   const [loading, setLoading] = useState(true);
+  const [state, dispatch] = useAppRendering();
+  const dashboard = state.mainContent;
 
   function renderMobile() {
     if (display.menu) return <Menu />;
@@ -58,6 +61,7 @@ export default function Dashboard() {
 
           <MobileView>
             <Container fluid>{renderMobile()}</Container>
+            {/* <Container fluid>{dashboard}</Container> */}
           </MobileView>
         </>
       )}
