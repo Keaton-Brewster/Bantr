@@ -13,7 +13,7 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true);
   const [state, dispatch] = useAppRendering();
   const dashboard = state.mainContent;
-  const { selectedConversation } = useConversations();
+  const { conversations } = useConversations();
 
   function renderMobile() {
     if (display.menu) return <Menu />;
@@ -25,9 +25,9 @@ export default function Dashboard() {
   }
 
   useEffect(() => {
-    if (!selectedConversation) return;
+    if (!conversations) return;
     setLoading(false);
-  }, [selectedConversation]);
+  }, [conversations]);
 
   // apparently the emoji keyboard thing is storing things in local storage
   // So to stop that from piling up, we will regularly clean it out
