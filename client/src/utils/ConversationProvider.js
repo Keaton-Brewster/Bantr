@@ -41,8 +41,8 @@ export default function ConversationProvider({ user, children }) {
     (cb) => {
       axios
         .get(`http://localhost:5001/api/conversations/${user._id}`)
-        .then((conversations) => {
-          cb(conversations.data);
+        .then(({ data }) => {
+          cb(data);
         });
     },
     [user._id]
