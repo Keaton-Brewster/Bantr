@@ -53,9 +53,7 @@ export default function Messages({ containerRef }) {
   }, [selectedConversation]);
 
   return isLoading ? (
-    <>
-      <Spinner className="absoluteCenter" animation="border" />
-    </>
+    <Spinner className="absoluteCenter" animation="border" />
   ) : (
     /*
 ?   Need to add a loading state for the message portion of this.
