@@ -12,17 +12,20 @@ export default function Contacts() {
       selectedContact,
       (contact) => {
         console.log(contact);
-        setIsLoading(false);
       },
       (error) => {
         console.error(error);
       }
-    );
+    ).then(() => {
+      setIsLoading(false);
+    });
   }, [selectedContact]);
 
   return isLoading ? (
     <Spinner className="absoluteCenter" animation="border" />
+  ) : selectedContact ? (
+    <div>{selectedContact}</div>
   ) : (
-    <div className="absoluteCenter">{selectedContact}</div>
+    <div className="absoluteCenter">Select A Contact</div>
   );
 }
