@@ -33,7 +33,7 @@ export default function NewContactModal({ show, hide, addContact }) {
           id="phoneInput"
           country="US"
           defaultCountry="US"
-          placeholder="+0 000 000 0000"
+          placeholder="(___) ___-____ "
           value={phoneNum}
           onChange={setPhoneNum}
         />
