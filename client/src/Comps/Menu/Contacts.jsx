@@ -12,9 +12,6 @@ export default function Contacts() {
   }
 
   function addContact(newContact) {
-    if (!newContact.phoneNum)
-      return alert("please provide a valid phone number");
-
     console.log(newContact);
   }
 
