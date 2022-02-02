@@ -13,15 +13,13 @@ export default function Contacts() {
   }
 
   function addContact(phoneNum) {
-    console.log(`phoneNumber: ${phoneNum}`);
     API.getContact(
       phoneNum,
       (contact) => {
-        if (!contact) return;
         console.log(contact);
       },
       (error) => {
-        if (error) console.log(error);
+        console.log(error);
       }
     );
   }
