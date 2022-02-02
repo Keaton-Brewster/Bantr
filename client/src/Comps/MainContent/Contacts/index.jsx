@@ -22,10 +22,13 @@ export default function Contacts() {
   }, [selectedContact]);
 
   return isLoading ? (
+    // If loading, return loader
     <Spinner className="absoluteCenter" animation="border" />
-  ) : selectedContact ? (
+  ) : // Otherwise return the content: The selected contact if applicable
+  selectedContact ? (
     <div>{selectedContact}</div>
   ) : (
+    // otherwise it will just tell you to select a contact
     <div className="absoluteCenter">Select A Contact</div>
   );
 }
