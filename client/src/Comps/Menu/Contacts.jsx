@@ -13,7 +13,7 @@ export default function Contacts() {
   }
 
   function addContact(phoneNum) {
-    API.getContact(
+    API.addContact(
       phoneNum,
       (contact) => {
         console.log(contact);

@@ -23,11 +23,20 @@ const API = {
   },
 
   async getContact(phoneNum, callback, error) {
-    const res = await axios
+    const response = await axios
       .get(`http://localhost:5001/api/users/${phoneNum}`)
       .catch((err) => error(err));
-    if (res.status === 200) return callback(res.data);
-    else return error(res);
+    if (response.status === 200) return callback(response.data);
+    else return error(response);
+  },
+  async addContact(currentUser, phoneNum, callback, error) {
+    const response = await axios
+      .post(
+        `http://localhost:5001/api/user/addContact/${currentUser}/${phoneNum}`
+      )
+      .catch((err) => error(err));
+    if (response.status === 200) return callback(response.data);
+    else return error(response);
   },
 };
 export default API;
