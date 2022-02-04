@@ -9,7 +9,7 @@ import ProfileObject from "./Types/ProfileObject";
 //     error: ErrorCallback
 //   ) {
 //     const res: AxiosResponse = await axios
-//       .post("http://localhost:5001/api/users/signup", userInfoObject)
+//       .post("http://localhost:3001/api/users/signup", userInfoObject)
 //       .catch((err) => error(err));
 //     if (res.status === 200) return callback(res.data);
 //     else return error(res);
@@ -34,7 +34,7 @@ const API = {
     error: ErrorCallback
   ) {
     const res: AxiosResponse = await axios
-      .post("http://localhost:5001/api/users/signup", userInfoObject)
+      .post("http://localhost:3001/api/users/signup", userInfoObject)
       .catch((err) => error(err));
     if (res.status === 200) return callback(res.data);
     else return error(res);
@@ -45,7 +45,7 @@ const API = {
     error: ErrorCallback
   ) {
     const res: AxiosResponse = await axios
-      .put("http://localhost:5001/api/users/login", loginObject)
+      .put("http://localhost:3001/api/users/login", loginObject)
       .catch((err) => error(err));
     if (res.status === 200) return callback(res.data);
     else return error(res);

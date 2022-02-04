@@ -40,7 +40,7 @@ export default function ConversationProvider({ user, children }) {
   const loadConversations = useCallback(
     (cb) => {
       axios
-        .get(`http://localhost:5001/api/conversations/${user._id}`)
+        .get(`http://localhost:3001/api/conversations/${user._id}`)
         .then(({ data }) => {
           cb(data);
         });

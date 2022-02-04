@@ -25,7 +25,7 @@ export default function ConversationInfoScreen({ containerRef }) {
 
   async function getConversationInformation() {
     const conversationInformation = await axios.get(
-      `http://localhost:5001/api/conversations/getInfo/${selectedConversation._id}`
+      `http://localhost:3001/api/conversations/getInfo/${selectedConversation._id}`
     );
 
     setConvoInfo(conversationInformation.data);
@@ -52,7 +52,7 @@ export default function ConversationInfoScreen({ containerRef }) {
       newName: editConvoNameInput.current.value,
     };
     const response = await axios.put(
-      "http://localhost:5001/api/conversations/updateConvoName/",
+      "http://localhost:3001/api/conversations/updateConvoName/",
       updatedConversation
     );
     updateConversation(response.data);
