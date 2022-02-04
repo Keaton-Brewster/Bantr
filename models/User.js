@@ -2,6 +2,9 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const userSchema = new Schema({
+  g_id: {
+    type: String
+  },
   email: {
     type: String,
     required: true,
@@ -12,16 +15,20 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
-  date: {
+  createdAt: {
     type: Date,
     default: Date.now,
   },
-  name: String,
-  phone: {
+  updatedAt: {
+    type: Date
+  },
+  givenName: String,
+  familyName: String,
+  phonNum: {
     type: String,
     unique: true,
   },
-  picture: {
+  imageUrl: {
     type: String,
     default:
       "https://www.personality-insights.com/wp-content/uploads/2017/12/default-profile-pic-e1513291410505.jpg",
