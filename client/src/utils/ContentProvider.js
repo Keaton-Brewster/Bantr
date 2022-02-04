@@ -23,14 +23,9 @@ export default function ContentProvider({ children }) {
     "default"
   );
 
-  //* I know what I need to do to the state!
-  // The thing to do is to set up a reducer that imports all the
-  // components and renders them conditionally in their respective
-  // places
-  //
-  //! I just had what I think might be the best way to handle contect state management.
-  //! USE LOCAL STORAGE YOU DUMMY. You need to be able to keep track of what is going on for the user, what converstaion theyre on,
-  //! what page theyre on, etc, and what better way to get around this than by using local storage.
+  // I just had what I think might be the best way to handle contect state management.
+  // USE LOCAL STORAGE YOU DUMMY. You need to be able to keep track of what is going on for the user, what converstaion theyre on,
+  // what page theyre on, etc, and what better way to get around this than by using local storage.
 
   const { width, height } = useViewport();
 
