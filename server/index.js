@@ -12,25 +12,27 @@ const router = require("../controllers");
 const PORT = process.env.PORT || 3001;
 const app = express();
 
+
+
 app.use(
   express.urlencoded({
     extended: true,
   })
 );
 app.use(express.json());
-// We need to use sessions to keep track of our user's login status
-app.use(
-  session({
-    secret: "keyboard cat",
-    resave: true,
-    saveUninitialized: true,
-  })
-);
-app.use(passport.initialize());
-app.use(passport.session());
-// Going for the router methods with express, makes for slightly easier to read code
-app.use(cors);
+app.use(cors());
 app.use(router);
+
+// We need to use sessions to keep track of our user's login status
+// app.use(
+//   session({
+//     secret: "keyboard cat",
+//     resave: true,
+//     saveUninitialized: true,
+//   })
+// );
+// app.use(passport.initialize());
+// app.use(passport.session());
 
 if (process.env.NODE_ENV === "production") {
   // If no API routes are hit, send the React app
@@ -41,6 +43,8 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
+
+
 // Connect to the Mongo DB
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/msging", {
   useNewUrlParser: true,
@@ -49,11 +53,16 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/msging", {
   useCreateIndex: true,
 });
 
+
+
 // Set up for initializing socket as a part of our server
 // const server = http.createServer(app);
 // const io = socket(server);
 // require("./socket")(io);
 
+
+
+//* MAIN
 try {
   app.listen(PORT, () => {
     console.log("Server online", PORT);
