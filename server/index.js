@@ -5,6 +5,7 @@ const session = require("express-session");
 const path = require("path");
 const passport = require("passport");
 const mongoose = require("mongoose");
+const cors = require('cors');
 require("dotenv").config();
 
 const router = require("../controllers");
@@ -28,10 +29,9 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 // Going for the router methods with express, makes for slightly easier to read code
-app.get("/api/hello", (req, res) => {
-  res.sendStatus(200);
-});
+app.use(cors);
 app.use(router);
+
 if (process.env.NODE_ENV === "production") {
   // If no API routes are hit, send the React app
   const root = path.join(__dirname, "../client", "build");
@@ -56,7 +56,7 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/msging", {
 
 try {
   app.listen(PORT, () => {
-    console.log("Server online");
+    console.log("Server online", PORT);
   });
 } catch (error) {
   throw new Error(
