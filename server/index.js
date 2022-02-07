@@ -46,7 +46,7 @@ if (process.env.NODE_ENV === "production") {
 
 
 // Connect to the Mongo DB
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/msging", {
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/messaging", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useFindAndModify: false,

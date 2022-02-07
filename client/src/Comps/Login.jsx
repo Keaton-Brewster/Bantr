@@ -7,9 +7,8 @@ import Header from "./Header";
 export default function Login({ setUser }) {
   //
   function handleLogin(response) {
+    // Working on a better was to handle authentication
     const { profileObj } = response;
-    //! I need to figure out a better way to handle authentication.
-
     API.login(
       profileObj,
       (user) => {

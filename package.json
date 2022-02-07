@@ -7,7 +7,7 @@
     "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
     "start:prod": "node server/index.js",
     "start:dev": "concurrently \"nodemon server/index.js\" \"npm run client\"",
-    "seed": "node seeders/seed.js",
+    "seed": "node server/models/seeder.js",
     "client": "cd ./client && yarn start",
     "install": "cd ./client && yarn install",
     "build": "cd ./client && yarn build",

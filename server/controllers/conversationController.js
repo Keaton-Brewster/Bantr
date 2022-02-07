@@ -1,21 +1,17 @@
 const router = require('express').Router()
 const db = require('../models')
-const { ObjectID } = require("mongodb")
-const conversations = db.Conversation;
+const ObjectId = require('mongodb').ObjectId;
 
-router.get("/:user_id", (request, response) => {
-    const { user_id } = request.params;
-
-    console.log(`User id (conversationsController.js) ${ObjectID(user_id)}`)
-
+router.get("/:_id", (request, response) => {
+    const { _id } = request.params;
     try {
         // This does not work yet
-        conversations.find({ members: { $in: ObjectID(user_id) } })
-            .then(doc => {
-                console.log(doc)
+        db.Conversation.find({ members: { $in: _id } })
+            .then((doc) => {
+
                 response.send(doc).status(200);
             })
-            .catch(err => {
+            .catch((err) => {
                 console.log(err)
                 response.send(err).status(404)
             });

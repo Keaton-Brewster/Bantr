@@ -6,6 +6,10 @@ const db = require("./models");
 passport.use(
     "local",
     new LocalStrategy(
+        {
+            usernameField: "email",
+            passwordField: "password"
+        },
         /// I wonder if I can implement some form of double authentication for this
         /// The way most modern apps handle authentication
         (email, id, done) => {
