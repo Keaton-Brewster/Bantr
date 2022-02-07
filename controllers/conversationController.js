@@ -2,23 +2,27 @@ const router = require('express').Router()
 const db = require('../models')
 const conversations = db.Conversation;
 
-router.get((request, response) => {
-    const user_id = request;
-    response.send(user_id);
+router.get("/:user_id", (request, response) => {
+    const {user_id} = request.params;
+
+    console.log(user_id)
+    
     try {
-        // I am just now redoing this controller, and ran out of time to test. Will get back to this.
-        conversations.findOne({_id: user_id})
+        // This does not work yet
+        conversations.find({members: {$in: user_id}})
         .then(doc => {
-            response.send(doc);
+            console.log(doc)
+            response.send(doc).status(200);
         })
         .catch(err => {
-            response.send(err)
+            console.log(err)
+            response.send(err).status(404)
         });
 
     }
     catch (err) {
         console.log(err)
-        response.send(err)
+        response.sendStatus(500)
     }
 })
 

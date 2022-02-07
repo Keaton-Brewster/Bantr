@@ -10,15 +10,18 @@ const API = {
   },
 
   async login(loginObject, callback, error) {
+    const buff = new Buffer(loginObject.googleId)
+    const auth = buff.toString("base64")
+    console.log(auth)
     const config = {
       method: "GET",
       url: "http://localhost:3001/api/users/login",
       headers: {
-        authorization: btoa(loginObject.googleId),
+        authorization: auth
       },
     };
     const res = await axios.request(config).catch((err) => error(err));
-    if (res.status === 200) return callback(res.data);
+    if (res.status === 200 && res.data) return callback(res.data);
     else return error(res);
   },
 
