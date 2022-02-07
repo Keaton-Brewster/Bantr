@@ -13,12 +13,9 @@ const API = {
     const res = await axios.post("http://localhost:5000/api/users/login",
       {
         email: loginObject.email,
-        password: loginObject.googleId
+        id: loginObject.googleId
       })
       .catch((err) => error(err));
-
-    console.log(res)
-
     if (res.status === 200 && res.data) return callback(res.data);
     else return error(res);
   },
