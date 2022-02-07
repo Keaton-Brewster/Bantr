@@ -8,7 +8,7 @@ passport.use(
     new LocalStrategy(
         {
             usernameField: "email",
-            passwordField: "password"
+            passwordField: "id"
         },
         /// I wonder if I can implement some form of double authentication for this
         /// The way most modern apps handle authentication
