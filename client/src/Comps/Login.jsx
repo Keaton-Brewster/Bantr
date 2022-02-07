@@ -7,7 +7,6 @@ import Header from "./Header";
 export default function Login({ setUser }) {
   //
   function handleLogin(response) {
-    console.log(response);
     API.login(
       response.profileObj,
       (user) => {
