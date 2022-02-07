@@ -1,15 +1,18 @@
 const passport = require("passport");
-const bcrypt = require("bcryptjs");
+// const bcrypt = require("bcryptjs");
 const LocalStrategy = require("passport-local").Strategy;
-const db = require("../models");
+const db = require("./models");
 
 passport.use(
     "local",
     new LocalStrategy(
         {
             usernameField: "email",
-        }, // When a user tries to sign in this code runs
-        (email, password, done) => {
+        },
+        /// I wonder if I can implement some form of double authentication for this
+        /// The way most modern apps handle authentication
+        (email, id, done) => {
+            console.log("enter into passport function")
             db.User.findOne({
                 email,
             }).then((user) => {
@@ -20,14 +23,15 @@ passport.use(
                     });
                 }
                 // checking the users password in db with the entered password
-                if (!bcrypt.compareSync(password, user.password)) {
+                if (user.g_id !== id) {
                     return done(null, false, {
-                        message: "Incorrect password.",
+                        message: "Error authenticating",
                     });
                 }
                 // If none of the above, return the user
                 return done(null, user);
             });
+            return console.log("End of passport function")
         }
     )
 );
