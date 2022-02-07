@@ -6,13 +6,9 @@ const db = require("./models");
 passport.use(
     "local",
     new LocalStrategy(
-        {
-            usernameField: "email",
-        },
         /// I wonder if I can implement some form of double authentication for this
         /// The way most modern apps handle authentication
         (email, id, done) => {
-            console.log("enter into passport function")
             db.User.findOne({
                 email,
             }).then((user) => {
@@ -31,7 +27,6 @@ passport.use(
                 // If none of the above, return the user
                 return done(null, user);
             });
-            return console.log("End of passport function")
         }
     )
 );

@@ -25,7 +25,7 @@ export default function ConversationInfoScreen({ containerRef }) {
 
   async function getConversationInformation() {
     const conversationInformation = await axios.get(
-      `http://localhost:3001/api/conversations/getInfo/${selectedConversation._id}`
+      `http://localhost:5000/api/conversations/getInfo/${selectedConversation._id}`
     );
 
     setConvoInfo(conversationInformation.data);
@@ -38,9 +38,8 @@ export default function ConversationInfoScreen({ containerRef }) {
     // Have to just make sure that the input has time to render
     // Sincei it is rendered conditionally, and we need to reference it.
     setTimeout(() => {
-      editConvoNameInput.current.value = `${
-        selectedConversation.name || "Untitled Conversation"
-      }`;
+      editConvoNameInput.current.value = `${selectedConversation.name || "Untitled Conversation"
+        }`;
       document.getElementById("editConvoNameInput").focus();
     }, 5);
   }
@@ -52,7 +51,7 @@ export default function ConversationInfoScreen({ containerRef }) {
       newName: editConvoNameInput.current.value,
     };
     const response = await axios.put(
-      "http://localhost:3001/api/conversations/updateConvoName/",
+      "http://localhost:5000/api/conversations/updateConvoName/",
       updatedConversation
     );
     updateConversation(response.data);

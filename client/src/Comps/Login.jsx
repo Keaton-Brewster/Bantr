@@ -8,7 +8,6 @@ export default function Login({ setUser }) {
   //
   function handleLogin(response) {
     const { profileObj } = response;
-    console.log(profileObj);
     //! I need to figure out a better way to handle authentication.
 
     API.login(
