@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const db = require(".");
 const ObjectId = require("mongodb").ObjectID;
 
-mongoose.connect("mongodb://localhost:27017/msging", {
+mongoose.connect("mongodb://localhost:27017/messaging", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useFindAndModify: false,
