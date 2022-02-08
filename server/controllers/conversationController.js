@@ -1,15 +1,14 @@
 const router = require("express").Router();
 const db = require("../models");
-const ObjectId = require("mongoose").Types.ObjectId;
+const mongoose = require("mongoose")
+const { ObjectId } = mongoose.Types
 
 //todo I WILL NEED TO COME IN AT SOMEPOINT AND MAKE SURE THAT ALL CONVERSATIONS ARE BEING SENT BACK IN REVERSE CHRONILOGICAL ORDER
 
 router.get("/:id", (req, res) => {
     const userId = req.params.id;
-    // More breaks just to try and get things to work
-    // const userId = process.env.NODE_ENV === "production" ? req.user._id : "User1";
     try {
-        db.Conversation.find({ members: { $in: userId } })
+        db.Conversation.find({ "members": { $in: [ObjectId(userId)] } })
             .then((convos) => {
                 res.send(convos);
             })
