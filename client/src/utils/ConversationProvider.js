@@ -26,7 +26,6 @@ export default function ConversationProvider({ user, children }) {
         message: {
           sender_id: user._id,
           content: text,
-          senderName: user.name,
         },
         conversation_id: conversations[selectedConversationIndex]._id,
       })
