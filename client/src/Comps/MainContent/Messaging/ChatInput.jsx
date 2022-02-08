@@ -59,7 +59,7 @@ export default function ChatInput({ containerRef }) {
     /*  At some point in time it would be good to re visit this so that you can do CMD+Enter and have the message send. 
         Obviously this would only work for computers, but it would be a good basic function to have */
     <div id="chatBox" style={{ width: chatboxWidth }}>
-      <Row>
+      {/* <Row>
         <div className={`${emojiPickerShow ? "show" : "hide"}`}>
           <Picker
             disableSkinTonePicker={true}
@@ -67,7 +67,7 @@ export default function ChatInput({ containerRef }) {
             pickerStyle={{ width: "100%" }}
           />
         </div>
-      </Row>
+      </Row> */}
       <Row>
         {
           //? THIS WILL WORK FOR NOW, IN TERMS OF PROOF OF CONTECPT,

@@ -20,12 +20,12 @@ export default function ConversationProvider({ user, children }) {
     setConversations(updatedConversations);
   }
 
-  function sendMessage(text) {
+  function sendMessage(string) {
     axios
       .put("/api/conversations/newMessage", {
-        message: {
+        message_info: {
           sender_id: user._id,
-          content: text,
+          content: string,
         },
         conversation_id: conversations[selectedConversationIndex]._id,
       })
@@ -41,7 +41,6 @@ export default function ConversationProvider({ user, children }) {
       axios
         .get(`http://localhost:5000/api/conversations/${user._id}`)
         .then(({ data }) => {
-          console.log(data)
           cb(data);
         });
     },
@@ -61,6 +60,7 @@ export default function ConversationProvider({ user, children }) {
     if (!user._id) return;
     loadConversations((conversations) => {
       setConversations(conversations);
+      console.log("conversation provider ::::", conversations)
     });
   }, [user._id, loadConversations]);
 

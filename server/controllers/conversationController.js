@@ -62,14 +62,17 @@ router.get("/getInfo/:convo_id", async (req, res) => {
 
 router.put("/newMessage", (request, response) => {
     const { message, conversation_id } = request.body
-    console.log(message, conversation_id);
 
     db.Conversation.findOneAndUpdate(
-        { _id: conversation_id },
+        { _id: ObjectId(conversation_id) },
         { messages: { $push: message } },
         { new: true }
     )
-        .then(result => { console.log("result:", result) })
+        // db.Conversation.findOne({ _id: ObjectId(conversation_id) })
+        .then(result => {
+            console.log(result);
+            response.send(result).status(200)
+        })
         .catch(err => { console.error(err) });
 })
 

@@ -27,6 +27,7 @@ class Conversation {
   constructor(members, messages) {
     this.members = members;
     this.messages = messages;
+    this.created_at = Date.now;
   }
 }
 
@@ -34,6 +35,7 @@ class Message {
   constructor(sender_id, content) {
     this.sender_id = sender_id;
     this.content = content;
+    this.sent_at = Date.now;
   }
 }
 
@@ -107,24 +109,37 @@ const conversationSeed = [
   ),
 ];
 
-db.User.deleteMany({})
-  .then(() => db.User.collection.insertMany(userSeed))
-  .then((data) => {
-    console.log(data);
-    console.log(`${data.result.n}  'user records inserted!'`);
-  })
-  .catch((err) => {
-    console.error(err);
-    process.exit(1);
-  });
 
-db.Conversation.deleteMany({})
-  .then(() => db.Conversation.collection.insertMany(conversationSeed))
-  .then((data) => {
-    console.log(data);
-    console.log(`${data.result.n}  'conversation records inserted!'`);
-  })
-  .catch((err) => {
-    console.error(err);
-    process.exit(1);
-  });
+
+const seedUsers = () => {
+  db.User.deleteMany({})
+    .then(() => db.User.collection.insertMany(userSeed))
+    .then((data) => {
+      console.log(data);
+      console.log(`${data.result.n}  'user records inserted!'`);
+    })
+    .catch((err) => {
+      console.error(err);
+      process.exit(1);
+    });
+}
+
+const seedConversations = () => {
+  db.Conversation.deleteMany({})
+    .then(() => db.Conversation.collection.insertMany(conversationSeed))
+    .then((data) => {
+      console.log(data);
+      console.log(`${data.result.n}  'conversation records inserted!'`);
+    })
+    .catch((err) => {
+      console.error(err);
+      process.exit(1);
+    });
+};
+
+const Main = (func1, func2) => {
+  func1();
+  func2();
+};
+
+Main(seedUsers, seedConversations);
