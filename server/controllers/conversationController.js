@@ -65,7 +65,7 @@ router.put("/newMessage", (request, response) => {
 
     db.Conversation.findOneAndUpdate(
         { _id: ObjectId(conversation_id) },
-        { messages: { $push: message } },
+        { $push: { messages: message } },
         { new: true }
     )
         // db.Conversation.findOne({ _id: ObjectId(conversation_id) })
