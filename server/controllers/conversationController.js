@@ -22,16 +22,16 @@ router.get("/:id", (req, res) => {
     }
 });
 
-router.get("/getInfo/:conversationInformation", async (req, res) => {
+router.get("/getInfo/:convo_id", async (req, res) => {
+    console.log(req.params)
     try {
-        const conversationInformation = JSON.parse(
-            req.params.conversationInformation
-        );
-        const reformattedIds = conversationInformation.members.map((id) =>
-            ObjectId(id)
-        );
+        const { convo_id } = req.params;
+
+        const conversationInformation = await db.Conversation.findOne({ _id: convo_id })
+        const memberIds = conversationInformation.members.map(id => ObjectId(id))
+
         const membersInformation = await db.User.find({
-            _id: { $in: reformattedIds },
+            _id: { $in: memberIds },
         })
             .then((users) => {
                 return users.map((user) => {
@@ -59,6 +59,19 @@ router.get("/getInfo/:conversationInformation", async (req, res) => {
         res.sendStatus(500);
     }
 });
+
+router.put("/newMessage", (request, response) => {
+    const { message, conversation_id } = request.body
+    console.log(message, conversation_id);
+
+    db.Conversation.findOneAndUpdate(
+        { _id: conversation_id },
+        { messages: { $push: message } },
+        { new: true }
+    )
+        .then(result => { console.log("result:", result) })
+        .catch(err => { console.error(err) });
+})
 
 router.put("/updateConvoName", (req, res) => {
     try {
