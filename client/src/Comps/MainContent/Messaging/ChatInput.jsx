@@ -23,6 +23,7 @@ export default function ChatInput({ containerRef }) {
     setEmojiPickerShow(false);
     scrollToBottomMessages();
     sendMessage(currentInput);
+    setCurrentInput(null);
     textRef.current.value = "";
   }
 
@@ -55,6 +56,7 @@ export default function ChatInput({ containerRef }) {
   }, [width]);
 
   const testForCMD = (event) => {
+    if (document.activeElement !== textRef.current) return;
     if (event.key === "Enter" && event.metaKey) {
       messageSubmit(event);
     }
