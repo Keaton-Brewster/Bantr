@@ -43,23 +43,37 @@ export default function ChatInput({ containerRef }) {
     textRef.current.value = messagePlusEmoji;
   }
 
-  function handleImageLoaderChange(imageList, addUpdateIndex) {
-    console.log(imageList, addUpdateIndex);
-    setImages(imageList);
-  }
+  // function handleImageLoaderChange(imageList, addUpdateIndex) {
+  //   console.log(imageList, addUpdateIndex);
+  //   setImages(imageList);
+  // }
 
   useEffect(() => {
     if (width >= 680) setChatboxWidth(`${containerRef.current.offsetWidth}px`);
     else setChatboxWidth("100%");
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [width]);
+
+  const testForCMD = (event) => {
+    if (event.key === "Enter" && event.metaKey) {
+      messageSubmit(event);
+    }
+  };
+
+  //Mount effect
+  useEffect(() => {
+    document.addEventListener("keydown", testForCMD, false);
+
+    return () => {
+      document.removeEventListener("keydown", testForCMD, false);
+    };
+  });
 
   return (
     /*  At some point in time it would be good to re visit this so that you can do CMD+Enter and have the message send. 
         Obviously this would only work for computers, but it would be a good basic function to have */
     <div id="chatBox" style={{ width: chatboxWidth }}>
-      {/* <Row>
+      <Row>
         <div className={`${emojiPickerShow ? "show" : "hide"}`}>
           <Picker
             disableSkinTonePicker={true}
@@ -67,7 +81,7 @@ export default function ChatInput({ containerRef }) {
             pickerStyle={{ width: "100%" }}
           />
         </div>
-      </Row> */}
+      </Row>
       <Row>
         {
           //* THIS WILL WORK FOR NOW, IN TERMS OF PROOF OF CONTECPT,
