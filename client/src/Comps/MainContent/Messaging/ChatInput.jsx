@@ -70,9 +70,12 @@ export default function ChatInput({ containerRef }) {
       </Row> */}
       <Row>
         {
-          //? THIS WILL WORK FOR NOW, IN TERMS OF PROOF OF CONTECPT,
-          //? BUT I WILL NEED TO MAKE THIS WORK WITH FIREBASE IF I WANT
-          //? A PRODUCTION QUALITY APP
+          //* THIS WILL WORK FOR NOW, IN TERMS OF PROOF OF CONTECPT,
+          //* BUT I WILL NEED TO MAKE THIS WORK WITH FIREBASE IF I WANT
+          //* A PRODUCTION QUALITY APP
+          //*
+          //* Until I can do that ^^^ I am disabling this image uploader. It's
+          //* Not needed for MVP      KB 2.8.22
         }
         {/* <ImageUploading
           multiple
