@@ -71,13 +71,19 @@ router.put("/newMessage", (request, response) => {
       sender_id: ObjectId(message_info.sender_id),
     };
 
-    db.Conversation.findOneAndUpdate(
-      { id: conversation_id },
-      { $push: { messages: message } }
-    )
-      .then((result) => {
-        console.log(result);
-        response.send(result).status(200);
+    // db.Conversation.findOneAndUpdate(
+    //   { id: conversation_id },
+    //   { $push: { messages: message } }
+    // )
+    db.Conversation.findOne({ _id: conversation_id })
+      .then((doc) => {
+        if (doc) {
+          doc.messages.push(message);
+          doc.save().then((doc) => response.send(doc).status(200));
+        } else {
+          response.sendStatus(404);
+        }
+        // response.send(result).status(200);
       })
       .catch((err) => {
         console.error(err);

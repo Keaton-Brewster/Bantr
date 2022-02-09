@@ -29,7 +29,7 @@ export default function ConversationProvider({ user, children }) {
         },
         conversation_id: conversations[selectedConversationIndex]._id,
       })
-      // .then((response) => response.data)
+      .then((response) => response.data)
       .then((updatedConversation) => {
         updateConversation(updatedConversation);
       })
