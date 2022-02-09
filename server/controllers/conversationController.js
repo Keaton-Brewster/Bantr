@@ -63,20 +63,30 @@ router.get("/getInfo/:convo_id", async (req, res) => {
 });
 
 router.put("/newMessage", (request, response) => {
-  const { message, conversation_id } = request.body;
+  const { message_info, conversation_id } = request.body;
 
-  db.Conversation.findOneAndUpdate(
-    { id: ObjectId(conversation_id) },
-    { $push: { messages: message } },
-    { new: true }
-  )
-    .then((result) => {
-      response.send(result).status(200);
-    })
-    .catch((err) => {
-      console.error(err);
-      response.send(err).status(400);
-    });
+  try {
+    const message = {
+      content: message_info.content,
+      sender_id: ObjectId(message_info.sender_id),
+    };
+
+    db.Conversation.findOneAndUpdate(
+      { id: conversation_id },
+      { $push: { messages: message } }
+    )
+      .then((result) => {
+        console.log(result);
+        response.send(result).status(200);
+      })
+      .catch((err) => {
+        console.error(err);
+        response.send(err).status(400);
+      });
+  } catch (e) {
+    console.error(e);
+    response.sendStatus(400);
+  }
 });
 
 router.put("/updateConvoName", (req, res) => {

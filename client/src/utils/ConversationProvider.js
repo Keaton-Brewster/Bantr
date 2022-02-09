@@ -23,13 +23,13 @@ export default function ConversationProvider({ user, children }) {
   function sendMessage(string) {
     axios
       .put("/api/conversations/newMessage", {
-        message: {
+        message_info: {
           sender_id: user._id,
           content: string,
         },
         conversation_id: conversations[selectedConversationIndex]._id,
       })
-      .then((response) => response.data)
+      // .then((response) => response.data)
       .then((updatedConversation) => {
         updateConversation(updatedConversation);
       })
