@@ -10,10 +10,10 @@ const API = {
   },
 
   async login(loginObject, callback, error) {
-    const res = await axios.post("http://localhost:5000/api/users/login",
-      {
+    const res = await axios
+      .post("http://localhost:5000/api/users/login", {
         email: loginObject.email,
-        id: loginObject.googleId
+        id: loginObject.googleId,
       })
       .catch((err) => error(err));
     if (res.status === 200 && res.data) return callback(res.data);
