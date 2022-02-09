@@ -74,7 +74,7 @@ export default function ChatInput({ containerRef }) {
           //? BUT I WILL NEED TO MAKE THIS WORK WITH FIREBASE IF I WANT
           //? A PRODUCTION QUALITY APP
         }
-        <ImageUploading
+        {/* <ImageUploading
           multiple
           value={images}
           onChange={handleImageLoaderChange}
@@ -112,7 +112,7 @@ export default function ChatInput({ containerRef }) {
               ))}
             </div>
           )}
-        </ImageUploading>
+        </ImageUploading> */}
       </Row>
       <Row>
         <Col xs={9}>
