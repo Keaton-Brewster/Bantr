@@ -23,38 +23,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "eslintConfig": {
-    "extends": [
-      "prettier"
-    ],
-    "plugins": [
-      "prettier"
-    ],
-    "root": true,
-    "rules": {
-      "react/prop-types": "off",
-      "no-underscore-dangle": "off",
-      "no-unused-vars": "off",
-      "no-console": "off",
-      "import/no-named-as-default-member": "off",
-      "consistent-return": "off",
-      "no-case-declarations": "off",
-      "no-restricted-globals": "off",
-      "prettier/prettier": [
-        "error"
-      ]
-    },
-    "parser": "babel-eslint",
-    "parserOptions": {
-      "sourceType": "module",
-      "allowImportExportEverywhere": true
-    }
-  },
-  "prettier": "@imaginary-cloud/prettier-config",
-  "bugs": {
-    "url": "https://github.com/brandyquinlan/devlr/issues"
-  },
-  "homepage": "https://github.com/brandyquinlan/devlr#readme",
+  "homepage": "https://github.com/keatonbrewster/Bantr",
   "dependencies": {
     "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",
@@ -70,6 +39,7 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "concurrently": "^6.0.2"
+    "concurrently": "^6.0.2",
+    "prettier": "^2.5.1"
   }
 }

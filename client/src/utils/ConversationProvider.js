@@ -23,7 +23,7 @@ export default function ConversationProvider({ user, children }) {
   function sendMessage(string) {
     axios
       .put("/api/conversations/newMessage", {
-        message_info: {
+        message: {
           sender_id: user._id,
           content: string,
         },
@@ -60,7 +60,7 @@ export default function ConversationProvider({ user, children }) {
     if (!user._id) return;
     loadConversations((conversations) => {
       setConversations(conversations);
-      console.log("conversation provider ::::", conversations)
+      console.log("conversation provider ::::", conversations);
     });
   }, [user._id, loadConversations]);
 
