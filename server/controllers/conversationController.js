@@ -71,10 +71,6 @@ router.put("/newMessage", (request, response) => {
       sender_id: ObjectId(message_info.sender_id),
     };
 
-    // db.Conversation.findOneAndUpdate(
-    //   { id: conversation_id },
-    //   { $push: { messages: message } }
-    // )
     db.Conversation.findOne({ _id: conversation_id })
       .then((doc) => {
         if (doc) {
