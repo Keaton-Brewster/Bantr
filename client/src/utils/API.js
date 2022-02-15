@@ -35,6 +35,7 @@ const API = {
       })
       .catch((err) => error(err));
     if (response.status === 200) return callback(response.data);
+    else if (response.status === 304) return error(304);
     else return error(response);
   },
 };
