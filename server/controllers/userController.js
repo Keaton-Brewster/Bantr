@@ -1,6 +1,8 @@
 const router = require("express").Router();
+const mongoose = require("mongoose");
 const passport = require("../Passport");
 const db = require("../models");
+const { ObjectId } = mongoose.Types;
 
 router.get("/:phoneNumber", (request, response) => {
   const { phoneNumber } = request.params;
@@ -15,18 +17,38 @@ router.post("/login", passport.authenticate("local"), (request, response) => {
 router.post("/addContact", (request, response) => {
   const { phoneNum, user_id } = request.body;
 
+  const checkForContact = (user, contact_id) => {
+    let bool = false;
+    if (!user.contacts) return false;
+    else {
+      user.contacts.forEach((contact) => {
+        console.log("contact", contact);
+
+        if (contact.toString() === contact_id.toString()) return (bool = true);
+      });
+    }
+    return bool;
+  };
+
   try {
     db.User.findOne({ phoneNum })
       .then(async (contact) => {
-        console.log("contact to add", contact);
         const user = await db.User.findOne({ _id: user_id });
+        const { _id } = contact;
 
-        console.log("user", user);
-        // db.User.findOneAndUpdate(
-        //   { _id: user_id },
-        //   { contacts: { $push: contact } }
-        // );
-        response.sendStatus(200);
+        const contactExists = checkForContact(user, ObjectId(_id));
+
+        if (!contactExists) {
+          db.User.findOneAndUpdate(
+            { _id: user_id },
+            { $push: { contacts: ObjectId(_id) } },
+            { new: true }
+          ).then((result) => {
+            response.send(result).status(202);
+          });
+        } else {
+          response.sendStatus(304);
+        }
       })
       .catch((err) => {
         console.error(err);
