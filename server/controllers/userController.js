@@ -14,12 +14,18 @@ router.post("/login", passport.authenticate("local"), (request, response) => {
 
 router.post("/addContact", (request, response) => {
   const { phoneNum, user_id } = request.body;
-  console.log(request.user);
 
   try {
-    db.User.findOne({ _id: user_id })
-      .then((doc) => {
-        console.log(doc);
+    db.User.findOne({ phoneNum })
+      .then(async (contact) => {
+        console.log("contact to add", contact);
+        const user = await db.User.findOne({ _id: user_id });
+
+        console.log("user", user);
+        // db.User.findOneAndUpdate(
+        //   { _id: user_id },
+        //   { contacts: { $push: contact } }
+        // );
         response.sendStatus(200);
       })
       .catch((err) => {
@@ -27,7 +33,9 @@ router.post("/addContact", (request, response) => {
         response.sendStatus(404);
       });
   } catch (err) {
-    console.error(err);
+    console.error(
+      `ERROR userController.js ::: Error adding contact ::: ${err}`
+    );
     response.sendStatus(400);
   }
 });
