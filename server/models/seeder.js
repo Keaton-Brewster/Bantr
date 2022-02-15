@@ -46,8 +46,7 @@ const userSeed = [
     "Brewster",
     "keaton.brewster@gmail.com",
     "+17859698002",
-    "108306498626918685024",
-    ["+19136369994"]
+    "108306498626918685024"
   ),
   new User(
     ObjectId("60a532c9266a4f2cc69925f6"),
@@ -109,8 +108,6 @@ const conversationSeed = [
   ),
 ];
 
-
-
 const seedUsers = () => {
   db.User.deleteMany({})
     .then(() => db.User.collection.insertMany(userSeed))
@@ -122,7 +119,7 @@ const seedUsers = () => {
       console.error(err);
       process.exit(1);
     });
-}
+};
 
 const seedConversations = () => {
   db.Conversation.deleteMany({})
