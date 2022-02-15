@@ -33,7 +33,7 @@ const userSchema = new Schema({
     default:
       "https://www.personality-insights.com/wp-content/uploads/2017/12/default-profile-pic-e1513291410505.jpg",
   },
-  contacts: [{ type: Schema.Types.ObjectId, ref: "User" }],
+  contacts: [],
 });
 
 const User = mongoose.model("User", userSchema);
