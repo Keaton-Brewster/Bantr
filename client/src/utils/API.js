@@ -27,11 +27,12 @@ const API = {
     if (response.status === 200) return callback(response.data);
     else return error(response);
   },
-  async addContact(currentUser, phoneNum, callback, error) {
+  async addContact(user_id, phoneNum, callback, error) {
     const response = await axios
-      .post(
-        `http://localhost:3001/api/user/addContact/${currentUser}/${phoneNum}`
-      )
+      .post(`http://localhost:3001/api/users/addContact`, {
+        phoneNum,
+        user_id,
+      })
       .catch((err) => error(err));
     if (response.status === 200) return callback(response.data);
     else return error(response);

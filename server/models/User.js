@@ -3,7 +3,7 @@ const { Schema } = mongoose;
 
 const userSchema = new Schema({
   g_id: {
-    type: String
+    type: String,
   },
   email: {
     type: String,
@@ -20,7 +20,7 @@ const userSchema = new Schema({
     default: Date.now,
   },
   updatedAt: {
-    type: Date
+    type: Date,
   },
   givenName: String,
   familyName: String,
@@ -33,15 +33,7 @@ const userSchema = new Schema({
     default:
       "https://www.personality-insights.com/wp-content/uploads/2017/12/default-profile-pic-e1513291410505.jpg",
   },
-  contacts: [
-    {
-      contact_id: { type: Schema.Types.ObjectId, ref: "User" },
-      email: String,
-      name: String,
-      phone: String,
-      picture: String,
-    },
-  ],
+  contacts: [{}],
 });
 
 const User = mongoose.model("User", userSchema);

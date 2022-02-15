@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { ListGroup } from "react-bootstrap";
 import { AiFillPlusCircle } from "react-icons/ai";
+import { useConversations } from "../../utils/ConversationProvider";
 import API from "../../utils/API";
 import NewContactModal from "../Modals/NewContactModal";
 
 export default function Contacts() {
   const [newContactModal, setNewContactModal] = useState(false);
+  const { user } = useConversations();
 
   function showNewContactModal(event) {
     event.preventDefault();
@@ -14,12 +16,13 @@ export default function Contacts() {
 
   function addContact(phoneNum) {
     API.addContact(
+      user._id,
       phoneNum,
       (contact) => {
         console.log(contact);
       },
-      (error) => {
-        console.log(error);
+      (err) => {
+        console.error(err);
       }
     );
   }

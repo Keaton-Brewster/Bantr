@@ -69,6 +69,7 @@ export default function ConversationProvider({ user, children }) {
     sendMessage,
     selectConversationIndex: setSelectedConversationIndex,
     updateConversation,
+    user,
   };
   return (
     <conversationContext.Provider value={value}>
