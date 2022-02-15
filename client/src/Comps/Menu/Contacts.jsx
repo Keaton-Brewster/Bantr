@@ -22,6 +22,11 @@ export default function Contacts() {
         console.log(contact);
       },
       (err) => {
+        if (err === 304) {
+          // handle what to do when you try to add a contact that
+          // is already in your system
+          return alert("contact already exists");
+        }
         console.error(err);
       }
     );
