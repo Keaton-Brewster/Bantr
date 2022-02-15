@@ -5,14 +5,12 @@ const session = require("express-session");
 const path = require("path");
 const passport = require("passport");
 const mongoose = require("mongoose");
-const cors = require('cors');
+const cors = require("cors");
 require("dotenv").config();
 
 const router = require("./controllers");
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3001;
 const app = express();
-
-
 
 app.use(
   express.urlencoded({
@@ -43,8 +41,6 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-
-
 // Connect to the Mongo DB
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/messaging", {
   useNewUrlParser: true,
@@ -53,14 +49,10 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/messaging", {
   useCreateIndex: true,
 });
 
-
-
 // Set up for initializing socket as a part of our server
 // const server = http.createServer(app);
 // const io = socket(server);
 // require("./socket")(io);
-
-
 
 //* MAIN
 try {
