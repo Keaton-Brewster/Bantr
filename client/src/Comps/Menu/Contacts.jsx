@@ -43,10 +43,13 @@ export default function Contacts() {
         </ListGroup.Item>
         {contacts
           ? contacts.map((contact) => {
-              return <ListGroup.Item>Hello</ListGroup.Item>;
+              return (
+                <ListGroup.Item>
+                  <p>hello</p>
+                </ListGroup.Item>
+              );
             })
           : null}
-        ;
       </ListGroup>
     </>
   );

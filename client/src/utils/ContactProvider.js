@@ -21,11 +21,15 @@ export function useContactContext() {
 export default function ContactProvider({ user, children }) {
   const [sortedContacts, setSortedContacts] = useState();
   const { contacts } = user;
+
+  //! This function does not work the way I was hoping that it would.
+  //! which is fine I will just need to sink some extra time into it.
   const getContactInformation = async (cb) => {
-    const allContacts = await contacts.map((_id) => {
-      return API.getContact(
+    const allContacts = await contacts.forEach((_id) => {
+      API.getContact(
         _id,
         (contact) => {
+          console.log(contact);
           return contact;
         },
         (err) => {
@@ -36,11 +40,20 @@ export default function ContactProvider({ user, children }) {
     cb(allContacts);
   };
 
+
+  //! For some reason the function is not activiating within the mount
+  //! even though the mount itself is taking place and the console statement 
+  //! is coming through
   useEffect(() => {
+    console.log("contact provider mounted");
     getContactInformation((contacts) => {
       setSortedContacts(contacts);
     });
-  });
+
+    return () => {
+      console.log("contact provider unmounted");
+    };
+  }, []);
 
   const value = {
     contacts: sortedContacts,
