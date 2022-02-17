@@ -77,11 +77,12 @@ export default function ChatInput({ containerRef }) {
     <div id="chatBox" style={{ width: chatboxWidth }}>
       <Row>
         <div className={`${emojiPickerShow ? "show" : "hide"}`}>
-          <Picker
+          {/* This thing is not working right now, I think due to be outdated...
+           <Picker
             disableSkinTonePicker={true}
             onEmojiClick={addEmoji}
             pickerStyle={{ width: "100%" }}
-          />
+          /> */}
         </div>
       </Row>
       <Row>
