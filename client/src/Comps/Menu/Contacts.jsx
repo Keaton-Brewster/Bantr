@@ -7,6 +7,7 @@ import NewContactModal from "../Modals/NewContactModal";
 
 export default function Contacts() {
   const [newContactModal, setNewContactModal] = useState(false);
+  const [contacts, setContacts] = useState();
   const { user } = useConversations();
 
   function showNewContactModal(event) {
@@ -22,11 +23,6 @@ export default function Contacts() {
         console.log(contact);
       },
       (err) => {
-        if (err === 304) {
-          // handle what to do when you try to add a contact that
-          // is already in your system
-          return alert("contact already exists");
-        }
         console.error(err);
       }
     );
@@ -45,6 +41,12 @@ export default function Contacts() {
           <AiFillPlusCircle id="addButton" />
           Add Contact
         </ListGroup.Item>
+        {contacts
+          ? contacts.map((contact) => {
+              return <ListGroup.Item>Hello</ListGroup.Item>;
+            })
+          : null}
+        ;
       </ListGroup>
     </>
   );

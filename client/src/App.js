@@ -6,6 +6,7 @@ import useLocalStorage from "./utils/useLocalStorage";
 import ConversationProvider from "./utils/ConversationProvider";
 import ViewportProvider from "./utils/ViewportProvider";
 import ContentProvider from "./utils/ContentProvider";
+import ContactProvider from "./utils/ContactProvider";
 
 function App() {
   const [user, setUser] = useLocalStorage("user", 0);
@@ -29,16 +30,18 @@ function App() {
     <ViewportProvider>
       <ContentProvider>
         <ConversationProvider user={mutableUser}>
-          <Router>
-            <Switch>
-              <Route exact path="/signup">
-                <Signup setUser={setUser} />
-              </Route>
-              <Route exact path="/">
-                <Home localStorage={[user, setUser]} />
-              </Route>
-            </Switch>
-          </Router>
+          <ContactProvider user={mutableUser}>
+            <Router>
+              <Switch>
+                <Route exact path="/signup">
+                  <Signup setUser={setUser} />
+                </Route>
+                <Route exact path="/">
+                  <Home localStorage={[user, setUser]} />
+                </Route>
+              </Switch>
+            </Router>
+          </ContactProvider>
         </ConversationProvider>
       </ContentProvider>
     </ViewportProvider>

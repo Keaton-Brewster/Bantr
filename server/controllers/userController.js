@@ -4,9 +4,9 @@ const passport = require("../Passport");
 const db = require("../models");
 const { ObjectId } = mongoose.Types;
 
-router.get("/:phoneNumber", (request, response) => {
-  const { phoneNumber } = request.params;
-  console.log(phoneNumber);
+router.get("/:_id", (request, response) => {
+  const { _id } = request.params;
+  //! set up return for contact information
 });
 
 router.post("/login", passport.authenticate("local"), (request, response) => {
@@ -47,7 +47,7 @@ router.post("/addContact", (request, response) => {
             response.send(result).status(202);
           });
         } else {
-          response.sendStatus(304);
+          response.send("You already have that contact, ya bozo").status(200);
         }
       })
       .catch((err) => {

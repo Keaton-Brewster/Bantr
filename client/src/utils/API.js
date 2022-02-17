@@ -20,9 +20,9 @@ const API = {
     else return error(res);
   },
 
-  async getContact(phoneNum, callback, error) {
+  async getContact(_id, callback, error) {
     const response = await axios
-      .get(`http://localhost:3001/api/users/${phoneNum}`)
+      .get(`http://localhost:3001/api/users/${_id}`)
       .catch((err) => error(err));
     if (response.status === 200) return callback(response.data);
     else return error(response);
