@@ -7,6 +7,7 @@ export default function Contacts() {
   const { selectedContact } = useContentContext();
   const [isLoading, setIsLoading] = useState(true);
 
+  //! No shot this is set up correctly
   const contactFetch = useCallback(() => {
     API.getContact(
       selectedContact,
