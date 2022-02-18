@@ -9,6 +9,30 @@ router.get("/:_id", (request, response) => {
   //! set up return for contact information
 });
 
+// Route for returning all contact information for all users that are in a
+// Persons contact list. using put because of complex data
+router.put("/getContacts", (request, response) => {
+  const { id_array } = request.body;
+
+  try {
+    db.User.find({ _id: { $in: id_array } })
+      .then((result) => {
+        response.send(result).status(200);
+      })
+      .catch((err) => {
+        response.sendStatus(400);
+        console.error(
+          "Error in gathering contact information ::: ROUTE: 'api/users/getContacts' ::: userController.js"
+        );
+      });
+  } catch (err) {
+    response.sendStatus(400);
+    console.error(
+      "Error in gathering contact information ::: ROUTE: 'api/users/getContacts' ::: userController.js"
+    );
+  }
+});
+
 router.post("/login", passport.authenticate("local"), (request, response) => {
   const { user } = request;
   response.send(user).status(200);
