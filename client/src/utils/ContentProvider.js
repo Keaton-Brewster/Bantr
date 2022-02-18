@@ -46,10 +46,6 @@ export default function ContentProvider({ children }) {
       : contentState.storedActiveMenu
   );
 
-  // State set up for selectef contact. At some point it may be good to rethink the way that I am organizing the content state for this app.
-  const [selectedContact, setSelectedContact] = useState();
-  // const [selectedContact, setSelectedContact] = useState("+17859698002");
-
   // This handles the changes between mobile layout and desktop layout
   useEffect(() => {
     const { menu, mainContent } = display;
@@ -75,8 +71,6 @@ export default function ContentProvider({ children }) {
     setActiveMenu,
     display,
     setDisplay,
-    selectedContact,
-    setSelectedContact,
   };
 
   // useEffect(() => {

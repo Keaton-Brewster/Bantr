@@ -20,6 +20,7 @@ export function useContactContext() {
 
 export default function ContactProvider({ user, children }) {
   const [sortedContacts, setSortedContacts] = useState();
+  const [selectedContact, setSelectedContact] = useState();
   const { contacts } = user;
 
   const getContactInformation = (cb) => {
@@ -46,6 +47,8 @@ export default function ContactProvider({ user, children }) {
   const value = {
     contacts: sortedContacts,
     setContacts: setSortedContacts,
+    selectedContact,
+    setSelectedContact,
   };
 
   return (
