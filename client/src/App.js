@@ -14,8 +14,12 @@ function App() {
 
   const checkForESC = (event) => {
     if (event.key !== "Escape") return;
+    event.preventDefault();
     document.activeElement.blur();
   };
+
+  //? On an application level I need to be checking if the users data has been updated in the data base everytime the app loads
+  //? I also probably need to implement a better way to update the user
 
   // Basic functionality of like "hit esc - kill focus"
   useEffect(() => {
