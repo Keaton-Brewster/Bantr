@@ -1,10 +1,10 @@
 import { useState, useEffect, useCallback } from "react";
-import { useContentContext } from "../../../utils/ContentProvider";
+import { useContactContext } from "../../../utils/ContactProvider";
 import { Spinner } from "react-bootstrap";
 import API from "../../../utils/API";
 
 export default function Contacts() {
-  const { selectedContact } = useContentContext();
+  const { selectedContact } = useContactContext();
   const [isLoading, setIsLoading] = useState(true);
 
   //! No shot this is set up correctly
