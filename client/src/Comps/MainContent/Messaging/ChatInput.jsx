@@ -25,6 +25,9 @@ export default function ChatInput({ containerRef }) {
     sendMessage(currentInput);
     setCurrentInput(null);
     textRef.current.value = "";
+
+    // On desktop this is effective, but I may want to adjust this when it comes to mobile interaction
+    document.activeElement.blur();
   }
 
   function handleInputChange(event) {
