@@ -20,13 +20,16 @@ const API = {
     else return error(res);
   },
 
-  async getContact(_id, callback, error) {
+  async getContacts(id_array, callback, error) {
     const response = await axios
-      .get(`http://localhost:3001/api/users/${_id}`)
+      .put(`http://localhost:3001/api/users/getContacts`, {
+        id_array,
+      })
       .catch((err) => error(err));
     if (response.status === 200) return callback(response.data);
     else return error(response);
   },
+  
   async addContact(user_id, phoneNum, callback, error) {
     const response = await axios
       .post(`http://localhost:3001/api/users/addContact`, {
@@ -38,5 +41,17 @@ const API = {
     else if (response.status === 304) return error(304);
     else return error(response);
   },
+
+  //* This method was not suitable for the purpose I originally meant it
+  //* I may come back later and repurpose it, so for now I am only
+  //* going to comment it out
+
+  // async getContact(_id, callback, error) {
+  //   const response = await axios
+  //     .get(`http://localhost:3001/api/users/${_id}`)
+  //     .catch((err) => error(err));
+  //   if (response.status === 200) return callback(response.data);
+  //   else return error(response);
+  // },
 };
 export default API;
