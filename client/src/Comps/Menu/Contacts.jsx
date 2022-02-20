@@ -8,7 +8,7 @@ import { useUserContext } from "../../utils/UserProvider";
 
 export default function Contacts() {
   const [newContactModal, setNewContactModal] = useState(false);
-  const { contacts, selectedContact } = useContactContext();
+  const { contacts, setSelectedContact } = useContactContext();
   const { user, setUser } = useUserContext();
   const [loading, setLoading] = useState(true);
 
@@ -19,6 +19,7 @@ export default function Contacts() {
 
   const selectContact = (contact) => {
     console.log(contact);
+    setSelectedContact(contact);
   };
 
   function addContact(phoneNum) {
