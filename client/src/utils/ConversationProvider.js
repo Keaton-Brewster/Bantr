@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState, useCallback } from "react";
 import axios from "axios";
+import { useUserContext } from "../utils/UserProvider";
 
 const conversationContext = React.createContext();
 
@@ -7,10 +8,10 @@ export function useConversations() {
   return useContext(conversationContext);
 }
 
-export default function ConversationProvider({ user, children }) {
+export default function ConversationProvider({ children }) {
   const [conversations, setConversations] = useState([]);
   const [selectedConversationIndex, setSelectedConversationIndex] = useState(0);
-
+  const { user } = useUserContext();
   function updateConversation(updatedConversation) {
     const updatedConversations = conversations.map((conversation) => {
       if (conversation._id === updatedConversation._id)
@@ -69,7 +70,6 @@ export default function ConversationProvider({ user, children }) {
     sendMessage,
     selectConversationIndex: setSelectedConversationIndex,
     updateConversation,
-    user,
   };
   return (
     <conversationContext.Provider value={value}>
