@@ -1,5 +1,5 @@
 import { useState, useEffect, createContext, useContext, useRef } from "react";
-import { isMobile as reactDeviceDetect } from "react-device-detect";
+import { isMobile } from "react-device-detect";
 
 const viewportContext = createContext();
 
@@ -10,7 +10,6 @@ export function useViewport() {
 export default function ViewportProvider({ children }) {
   const [width, setWidth] = useState(window.innerWidth);
   const [height, setHeight] = useState(window.innerHeight);
-  const isMobile = reactDeviceDetect;
 
   const bottomOfMessages = useRef();
 
