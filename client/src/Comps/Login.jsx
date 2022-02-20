@@ -3,9 +3,11 @@ import GoogleLogin from "react-google-login";
 import { Container, Row, Form } from "react-bootstrap";
 import API from "../utils/API.js";
 import Header from "./Header";
+import { useUserContext } from "../utils/UserProvider.js";
 
-export default function Login({ setUser }) {
-  //
+export default function Login() {
+  const { setUser } = useUserContext();
+
   function handleLogin(response) {
     // Working on a better was to handle authentication
     const { profileObj } = response;
