@@ -6,14 +6,14 @@ import ChatInput from "./ChatInput";
 import SingleMessage from "./SingleMessage";
 import MessageContextMenu from "./MessageContextMenu";
 import ConversationInfoScreen from "./ConversationInfoScreen";
-import { useContentContext } from "../../../utils/ContentProvider";
+import { useUIContext } from "../../../utils/UIProvider";
 import MessagesTopMenu from "./MessagesTopMenu";
 import "./messaging.sass";
 import { Spinner } from "react-bootstrap";
 
 export default function Messages({ containerRef }) {
   const [isLoading, setIsLoading] = useState(true);
-  const { display, activeContent } = useContentContext();
+  const { display, activeContent } = useUIContext();
   const { selectedConversation } = useConversations();
   const [contextMenuShow, setContextMenuShow] = useState(false);
   const { bottomOfMessages } = useViewport();

@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { useContentContext } from "../../utils/ContentProvider";
+import { useUIContext } from "../../utils/UIProvider";
 import Messaging from "./Messaging";
 import ConversationInfoScreen from "./Messaging/ConversationInfoScreen";
 import Contacts from "./Contacts";
@@ -11,8 +11,8 @@ export default function MainContent() {
   // Container ref is used to give refernce of width to the
   // Chat input so that is always is 100% width of its parent
   const containerRef = useRef();
-  const { display } = useContentContext();
-  const { activeContent } = useContentContext();
+  const { display, activeContent } = useUIContext();
+
 
   function renderSwitch() {
     if (!selectedConversation) return <NoContent />;

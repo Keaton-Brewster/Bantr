@@ -3,10 +3,10 @@ import MenuBar from "./MenuBar";
 import Conversations from "./Conversations";
 import Contacts from "./Contacts";
 import Settings from "./Settings";
-import { useContentContext } from "../../utils/ContentProvider";
+import { useUIContext } from "../../utils/UIProvider";
 
 export default function Sidebar() {
-  const { activeMenu, display } = useContentContext();
+  const { activeMenu, display } = useUIContext();
   const containerRef = useRef();
 
   function renderSwitch() {

@@ -2,13 +2,13 @@ import { useState, useEffect } from "react";
 import { Nav } from "react-bootstrap";
 import { BiConversation, BiGroup } from "react-icons/bi";
 import { IoSettingsSharp } from "react-icons/io5";
-import { useContentContext } from "../../utils/ContentProvider";
+import { useUIContext } from "../../utils/UIProvider";
 import { useViewport } from "../../utils/ViewportProvider";
 import "./menubar.sass";
 
 export default function MenuBar({ containerRef }) {
   const [menubarWidth, setMenubarWidth] = useState("100%");
-  const { activeMenu, setActiveMenu, setActiveContent } = useContentContext();
+  const { activeMenu, setActiveMenu, setActiveContent } = useUIContext();
   const { width } = useViewport();
 
   function handleMenuChange(event, menuSelection) {

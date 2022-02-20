@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Container, Row, Col, Spinner } from "react-bootstrap";
 import { BrowserView, MobileView } from "react-device-detect";
-import { useContentContext } from "../utils/ContentProvider";
+import { useUIContext } from "../utils/UIProvider";
 import Menu from "./Menu";
 import MainContent from "./MainContent";
 import "./animations.sass";
@@ -9,7 +9,7 @@ import { useAppRendering } from "../utils/Reducer";
 import { useConversations } from "../utils/ConversationProvider";
 
 export default function Dashboard() {
-  const { display } = useContentContext();
+  const { display } = useUIContext();
   const [loading, setLoading] = useState(true);
   const [state, dispatch] = useAppRendering();
   const dashboard = state.mainContent;

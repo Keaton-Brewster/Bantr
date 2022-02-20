@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Nav } from "react-bootstrap";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { FaArrowLeft } from "react-icons/fa";
-import { useContentContext } from "../../../utils/ContentProvider";
+import { useUIContext } from "../../../utils/UIProvider";
 import { useConversations } from "../../../utils/ConversationProvider";
 import { useViewport } from "../../../utils/ViewportProvider";
 
@@ -10,7 +10,7 @@ export default function MessagesTopMenu({ containerRef }) {
   const [menuBarWidth, setMenuBarWidth] = useState("100%");
   const { width, isMobile } = useViewport();
   const { selectedConversation } = useConversations();
-  const { activeContent, setActiveContent, setDisplay } = useContentContext();
+  const { activeContent, setActiveContent, setDisplay } = useUIContext();
 
   function openConversationInfo() {
     if (activeContent.conversationInfo) return handleBackButton();

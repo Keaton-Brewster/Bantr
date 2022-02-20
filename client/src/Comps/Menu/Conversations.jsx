@@ -2,12 +2,12 @@ import { useState } from "react";
 import { ListGroup } from "react-bootstrap";
 import { AiFillPlusCircle } from "react-icons/ai";
 import { useConversations } from "../../utils/ConversationProvider";
-import { useContentContext } from "../../utils/ContentProvider";
+import { useUIContext } from "../../utils/UIProvider";
 import { useViewport } from "../../utils/ViewportProvider";
 import NewConversationModal from "../Modals/NewConversationModal";
 
 export default function Conversations() {
-  const { setActiveContent, setDisplay } = useContentContext();
+  const { setActiveContent, setDisplay } = useUIContext();
   const { conversations, selectedConversation, selectConversationIndex } =
     useConversations();
   const { isMobile } = useViewport();

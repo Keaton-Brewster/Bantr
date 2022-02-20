@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import { ListGroup, Spinner } from "react-bootstrap";
 import { AiFillPlusCircle } from "react-icons/ai";
-import { useConversations } from "../../utils/ConversationProvider";
-import API from "../../utils/API";
 import NewContactModal from "../Modals/NewContactModal";
+import API from "../../utils/API";
 import { useContactContext } from "../../utils/ContactProvider";
+import { useUserContext } from "../../utils/UserProvider";
 
 export default function Contacts() {
   const [newContactModal, setNewContactModal] = useState(false);
-  const { contacts } = useContactContext();
-  const { user } = useConversations();
+  const { contacts, selectedContact } = useContactContext();
+  const { user, setUser } = useUserContext();
   const [loading, setLoading] = useState(true);
 
   function showNewContactModal(event) {
@@ -23,11 +23,13 @@ export default function Contacts() {
     API.addContact(
       user._id,
       phoneNum,
-      (contact) => {
-        console.log(contact);
+      (updatedUser) => {
+        // need to call to update the user in the local storage
+        setUser(updatedUser);
+        setNewContactModal(false);
       },
       (err) => {
-        console.error(err);
+        console.log("contacts.jsx", err);
       }
     );
   }
