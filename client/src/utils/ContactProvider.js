@@ -1,16 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import {
-  useEffect,
-  useState,
-  createContext,
-  useContext,
-  useReducer,
-} from "react";
-import { isMobile } from "react-device-detect";
-import { useViewport } from "./ViewportProvider";
-import reducer, { initialState } from "./Reducer";
-import useLocalStorage from "./useLocalStorage";
+import { useEffect, useState, createContext, useContext } from "react";
 import API from "./API";
+import { useUserContext } from "../utils/UserProvider";
 
 const contactContext = createContext();
 
@@ -18,13 +9,13 @@ export function useContactContext() {
   return useContext(contactContext);
 }
 
-export default function ContactProvider({ user, children }) {
+export default function ContactProvider({ children }) {
+  const { user, setUser } = useUserContext();
   const [sortedContacts, setSortedContacts] = useState();
   const [selectedContact, setSelectedContact] = useState();
-  const { contacts } = user;
 
   const getContactInformation = (cb) => {
-    const id_array = contacts;
+    const id_array = user.contacts;
     API.getContacts(
       id_array,
       (contacts) => {
@@ -49,6 +40,7 @@ export default function ContactProvider({ user, children }) {
     setContacts: setSortedContacts,
     selectedContact,
     setSelectedContact,
+    setUser,
   };
 
   return (
