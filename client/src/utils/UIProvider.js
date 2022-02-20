@@ -1,23 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import {
-  useEffect,
-  useState,
-  createContext,
-  useContext,
-  useReducer,
-} from "react";
+import { useEffect, useState, createContext, useContext } from "react";
 import { isMobile } from "react-device-detect";
 import { useViewport } from "./ViewportProvider";
-import reducer, { initialState } from "./Reducer";
 import useLocalStorage from "./useLocalStorage";
 
-const mainContentContext = createContext();
+const UIContext = createContext();
 
-export function useContentContext() {
-  return useContext(mainContentContext);
+export function useUIContext() {
+  return useContext(UIContext);
 }
 
-export default function ContentProvider({ children }) {
+export default function UIProvider({ children }) {
   const [contentState, setContentState] = useLocalStorage(
     "content_state",
     "default"
@@ -81,9 +74,5 @@ export default function ContentProvider({ children }) {
   //   setContentState(storableContentState);
   // }, [activeContent, activeMenu]);
 
-  return (
-    <mainContentContext.Provider value={value}>
-      {children}
-    </mainContentContext.Provider>
-  );
+  return <UIContext.Provider value={value}>{children}</UIContext.Provider>;
 }
