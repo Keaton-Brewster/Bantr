@@ -3,14 +3,14 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Signup from "./Comps/Signup";
 import Home from "./Comps/Home";
 import useLocalStorage from "./utils/useLocalStorage";
-import ConversationProvider from "./utils/ConversationProvider";
 import ViewportProvider from "./utils/ViewportProvider";
-import ContentProvider from "./utils/ContentProvider";
+import UserProvider from "./utils/UserProvider";
+import ConversationProvider from "./utils/ConversationProvider";
 import ContactProvider from "./utils/ContactProvider";
+import UIProvider from "./utils/UIProvider";
 
 function App() {
   const [user, setUser] = useLocalStorage("user", 0);
-  const mutableUser = typeof user === "string" ? JSON.parse(user) : user;
 
   const checkForESC = (event) => {
     if (event.key !== "Escape") return;
@@ -31,24 +31,26 @@ function App() {
   });
 
   return (
-    <ViewportProvider>
-      <ContentProvider>
-        <ConversationProvider user={mutableUser}>
-          <ContactProvider user={mutableUser}>
-            <Router>
-              <Switch>
-                <Route exact path="/signup">
-                  <Signup setUser={setUser} />
-                </Route>
-                <Route exact path="/">
-                  <Home localStorage={[user, setUser]} />
-                </Route>
-              </Switch>
-            </Router>
-          </ContactProvider>
-        </ConversationProvider>
-      </ContentProvider>
-    </ViewportProvider>
+    <UserProvider user={user} setUser={setUser}>
+      <ViewportProvider>
+        <UIProvider>
+          <ConversationProvider>
+            <ContactProvider>
+              <Router>
+                <Switch>
+                  <Route exact path="/signup">
+                    <Signup/>
+                  </Route>
+                  <Route exact path="/">
+                    <Home/>
+                  </Route>
+                </Switch>
+              </Router>
+            </ContactProvider>
+          </ConversationProvider>
+        </UIProvider>
+      </ViewportProvider>
+    </UserProvider>
   );
 }
 
