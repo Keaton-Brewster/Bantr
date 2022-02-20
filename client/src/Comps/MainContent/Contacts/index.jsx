@@ -7,27 +7,29 @@ export default function Contacts() {
   const { selectedContact } = useContactContext();
   const [isLoading, setIsLoading] = useState(true);
 
-  //! No shot this is set up correctly
-  const contactFetch = useCallback(() => {
-    API.getContact(
-      selectedContact,
-      (contact) => {
-        console.log(contact);
-      },
-      (error) => {
-        console.error(error);
-      }
-    ).then(() => {
-      setIsLoading(false);
-    });
-  }, [selectedContact]);
+  // //! No shot this is set up correctly
+  // ! I think actually i dont need any of this, as I am getting
+  // ! the data for the contacts through the menu
+  // const contactFetch = useCallback(() => {
+  //   API.getContact(
+  //     selectedContact,
+  //     (contact) => {
+  //       console.log(contact);
+  //     },
+  //     (error) => {
+  //       console.error(error);
+  //     }
+  //   ).then(() => {
+  //     setIsLoading(false);
+  //   });
+  // }, [selectedContact]);
 
-  // Always be checking to see if the selected contact has been changed
-  // So that the display can update accordingly
-  useEffect(() => {
-    if (!selectedContact) return setIsLoading(false);
-    else contactFetch();
-  }, [selectedContact, contactFetch]);
+  // // Always be checking to see if the selected contact has been changed
+  // // So that the display can update accordingly
+  // useEffect(() => {
+  //   if (!selectedContact) return setIsLoading(false);
+  //   else contactFetch();
+  // }, [selectedContact, contactFetch]);
 
   return isLoading ? (
     // If loading, return loader
