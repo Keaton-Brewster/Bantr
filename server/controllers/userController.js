@@ -46,8 +46,6 @@ router.post("/addContact", (request, response) => {
     if (!user.contacts) return false;
     else {
       user.contacts.forEach((contact) => {
-        console.log("contact", contact);
-
         if (contact.toString() === contact_id.toString()) return (bool = true);
       });
     }
@@ -62,7 +60,9 @@ router.post("/addContact", (request, response) => {
 
         const contactExists = checkForContact(user, ObjectId(_id));
 
-        if (!contactExists) {
+        if (contactExists) {
+          response.send("You already have that contact, ya bozo").status(200);
+        } else {
           db.User.findOneAndUpdate(
             { _id: user_id },
             { $push: { contacts: ObjectId(_id) } },
@@ -70,8 +70,6 @@ router.post("/addContact", (request, response) => {
           ).then((result) => {
             response.send(result).status(202);
           });
-        } else {
-          response.send("You already have that contact, ya bozo").status(200);
         }
       })
       .catch((err) => {

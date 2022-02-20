@@ -23,7 +23,6 @@ router.get("/:id", (req, res) => {
 });
 
 router.get("/getInfo/:convo_id", async (req, res) => {
-  console.log(req.params);
   try {
     const { convo_id } = req.params;
 
