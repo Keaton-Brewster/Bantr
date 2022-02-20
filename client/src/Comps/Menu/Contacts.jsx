@@ -17,7 +17,9 @@ export default function Contacts() {
     setNewContactModal(true);
   }
 
-  const selectContact = () => {};
+  const selectContact = (contact) => {
+    console.log(contact);
+  };
 
   function addContact(phoneNum) {
     API.addContact(
@@ -55,17 +57,30 @@ export default function Contacts() {
           Add Contact
         </ListGroup.Item>
         {contacts ? (
-          contacts.map((contact, index) => {
-            return (
-              <ListGroup.Item
-                className="LGItem"
-                onClick={selectContact(contact)}
-                key={index}
-              >
-                {contact.givenName + " " + contact.familyName}
-              </ListGroup.Item>
-            );
-          })
+          contacts
+            .sort((a, b) => {
+              if (a.familyName < b.familyName) {
+                return -1;
+              }
+              if (a.familyName > b.familyName) {
+                return 1;
+              }
+              return 0;
+            })
+            .map((contact, index) => {
+              return (
+                <ListGroup.Item
+                  className="LGItem"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    selectContact(contact);
+                  }}
+                  key={index}
+                >
+                  {contact.givenName + " " + contact.familyName}
+                </ListGroup.Item>
+              );
+            })
         ) : (
           <div>
             <p>No Contacts here!</p>
