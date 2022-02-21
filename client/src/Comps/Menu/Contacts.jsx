@@ -18,7 +18,6 @@ export default function Contacts() {
   }
 
   const selectContact = (contact) => {
-    console.log(contact);
     setSelectedContact(contact);
   };
 
