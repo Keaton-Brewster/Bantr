@@ -13,14 +13,13 @@ export default function MainContent() {
   const containerRef = useRef();
   const { display, activeContent } = useUIContext();
 
-
   function renderSwitch() {
     if (!selectedConversation) return <NoContent />;
     if (activeContent.conversations)
       return <Messaging containerRef={containerRef} />;
     if (activeContent.conversationInfo)
       return <ConversationInfoScreen containerRef={containerRef} />;
-    if (activeContent.contacts) return <Contacts />;
+    if (activeContent.contacts) return <Contacts containerRef={containerRef} />;
   }
 
   return (
