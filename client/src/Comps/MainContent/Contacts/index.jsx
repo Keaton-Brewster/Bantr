@@ -28,6 +28,8 @@ export default function Contacts({ containerRef }) {
                 <div className="mb-3">
                   <Image
                     style={{ width: "40%", marginLeft: '25%' }}
+                    // This is not wokring right now. For some reason the source of the image responds with a 
+                    // 403 "forbidden" code. Probably going to need to find a new source for default profile pictures 
                     src={selectedContact.imageUrl}
                     fluid
                     roundedCircle
