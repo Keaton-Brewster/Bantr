@@ -6,7 +6,10 @@ import { useUIContext } from "../../../utils/UIProvider";
 import { useContactContext } from "../../../utils/ContactProvider";
 import { useViewport } from "../../../utils/ViewportProvider";
 
-export default function MessagesTopMenu({ containerRef }) {
+export default function MessagesTopMenu({
+  containerRef,
+  setContactRemovalModal,
+}) {
   const [menuBarWidth, setMenuBarWidth] = useState("100%");
   const { width, isMobile } = useViewport();
   const { selectedContact } = useContactContext();
@@ -23,10 +26,23 @@ export default function MessagesTopMenu({ containerRef }) {
 
   const goToConversation = () => {
     console.log("ContactTopMenu :: executed goToConversation()");
+    /* 
+    Tasks this function should perform: 
+      Change state of content to Messaging
+      Create a new conversation if a conversation with the selected contact does not already exists
+      OR
+      Set selected conversation to match the contact on which you selected
+      if possible, highlight the text box in the messaging screen
+    */
   };
 
   const removeContact = () => {
     console.log("ContactTopMenu :: executed removeContact()");
+    setContactRemovalModal(true);
+    /* 
+    Tasks this function needs to perform:
+      Actiave a modal that asks you to confirm the removal of the selected contact
+    */
   };
 
   // To make the back button multipurpose, simply switch case the state of the current display
