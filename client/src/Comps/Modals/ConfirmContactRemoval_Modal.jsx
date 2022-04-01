@@ -2,14 +2,14 @@ import React, { useState, useRef, useEffect } from "react";
 import { Modal, Button } from "react-bootstrap";
 import PhoneInput from "react-phone-number-input";
 
-export default function NewContactModal({ show, hide }) {
-  //   useEffect(() => {
-  //     if (phoneNum === undefined || phoneNum === null) return;
-  //     let mutablePN = phoneNum.replace(/[+]/g, "");
-
-  //     if (mutablePN.match(/\d/g).length === 11) setButtonDisabled(false);
-  //     else setButtonDisabled(true);
-  //   }, [phoneNum]);
+export default function ConfirmContactRemovalModal({ show, hide }) {
+  const removeContact = () => {
+    console.log("confirm removal of contact");
+    /*
+    This will probably not actually be where this function lives,
+    but for now as a proof, I will just make it here
+    */
+  };
 
   return (
     <Modal
@@ -26,8 +26,8 @@ export default function NewContactModal({ show, hide }) {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Button>Yes</Button>
-        <Button>No</Button>
+        <Button onClick={removeContact}>Yes</Button>
+        <Button onClick={hide}>No</Button>
       </Modal.Body>
       <Modal.Footer></Modal.Footer>
     </Modal>
