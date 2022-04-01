@@ -21,6 +21,14 @@ export default function MessagesTopMenu({ containerRef }) {
 
   const openContactOptions = () => {};
 
+  const goToConversation = () => {
+    console.log("ContactTopMenu :: executed goToConversation()");
+  };
+
+  const removeContact = () => {
+    console.log("ContactTopMenu :: executed removeContact()");
+  };
+
   // To make the back button multipurpose, simply switch case the state of the current display
   // And then act accordingly
   //   function handleBackButton() {
@@ -66,9 +74,9 @@ export default function MessagesTopMenu({ containerRef }) {
       </Nav.Item>
       <Nav.Item onClick={openContactOptions}>
         {/* <BsThreeDotsVertical id="conversationInfoButton" /> */}
-        <DropdownButton align={{ lg: "start" }} title="">
-          <Dropdown.Item eventKey="1">Send Message</Dropdown.Item>
-          <Dropdown.Item eventKey="2">Delete Contact</Dropdown.Item>
+        <DropdownButton align={{ lg: "start" }} title="" key="secondary">
+          <Dropdown.Item onClick={goToConversation}>Send Message</Dropdown.Item>
+          <Dropdown.Item onClick={removeContact}>Remove Contact</Dropdown.Item>
         </DropdownButton>
       </Nav.Item>
     </Nav>
