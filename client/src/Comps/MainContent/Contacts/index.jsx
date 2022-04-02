@@ -1,28 +1,61 @@
 import { useState, useEffect, useCallback } from "react";
 import { Spinner, ListGroup, Image } from "react-bootstrap";
 import { useContactContext } from "../../../utils/ContactProvider";
+import { useUIContext } from "../../../utils/UIProvider";
+import { useConversations } from "../../../utils/ConversationProvider";
 import ContactTopMenu from "./ContactTopMenu";
 import ConfrimContactRemovalModal from "../../Modals/ConfirmContactRemoval_Modal";
+import NewMessageModal from "../../Modals/NewMessageModal";
 import "./contacts.sass";
 
 export default function Contacts({ containerRef }) {
+  // STATE
+  //================================================================================
   const { selectedContact } = useContactContext();
   const [contactRemovalModalVisible, setContactRemovalModalVisible] =
     useState(false);
+  const [newMessageModalVisible, setNewMessageModalVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const { setConversationFromContact } = useConversations();
+  const { setActiveContent, setActiveMenu } = useUIContext();
 
+  // FUNCTIONS
+  //================================================================================
+  const goToConversation = (_id) => {
+    console.log("ContactTopMenu :: executed goToConversation()");
+    console.log(selectedContact);
+    setConversationFromContact(_id);
+    setActiveContent({ conversations: true });
+    setActiveMenu({ conversations: true });
+
+    //! Actually I think what would be really cool is if this opened a modal
+    //! that you could use to send a message, and then after the message
+    //! is sent, it would take you to the conversation
+
+    /* 
+    ? Tasks this function should perform: 
+      Change state of content to Messaging
+      Create a new conversation if a conversation with the selected contact does not already exists
+      OR
+      Set selected conversation to match the contact on which you selected
+      if possible, highlight the text box in the messaging screen
+    */
+  };
+
+  // EFFECTS
+  //================================================================================
   useEffect(() => {
     setIsLoading(false);
   }, [selectedContact]);
 
+  // COMPONENT
+  //================================================================================
   return (
     <>
       <ConfrimContactRemovalModal
         show={contactRemovalModalVisible}
         hide={() => setContactRemovalModalVisible(false)}
       />
-
-
 
       {isLoading ? (
         // If loading, return loader
@@ -34,6 +67,9 @@ export default function Contacts({ containerRef }) {
             containerRef={containerRef}
             setContactRemovalModal={setContactRemovalModalVisible}
             _id={selectedContact._id}
+            showNewMessageModal={() => {
+              setNewMessageModalVisible(true);
+            }}
           />
           <div className="conversationInfoScreen">
             <ListGroup variant="flush">
@@ -58,6 +94,13 @@ export default function Contacts({ containerRef }) {
               </ListGroup.Item>
             </ListGroup>
           </div>
+
+          <NewMessageModal
+            show={newMessageModalVisible}
+            hide={() => setNewMessageModalVisible(false)}
+            containerRef={containerRef}
+            selectedContact={selectedContact}
+          />
         </>
       ) : (
         // otherwise it will just tell you to select a contact
