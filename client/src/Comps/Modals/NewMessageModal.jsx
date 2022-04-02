@@ -1,10 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Modal, Button } from "react-bootstrap";
-import PhoneInput from "react-phone-number-input";
+import ChatInput from "../MainContent/Messaging/ChatInput";
 
-export default function NewMessageModal({ show, hide }) {
-  function sendMessage() {}
-  
+export default function NewMessageModal({ show, hide, containerRef }) {
   return (
     <Modal
       show={show}
@@ -19,9 +17,10 @@ export default function NewMessageModal({ show, hide }) {
           <h4>New Message With "Insert variable here"</h4>
         </Modal.Title>
       </Modal.Header>
-      <Modal.Body></Modal.Body>
+      <Modal.Body>
+        <ChatInput containerRef={containerRef} />
+      </Modal.Body>
       <Modal.Footer>
-        <Button onClick={sendMessage}>Send</Button>
         <Button onClick={hide}>Close</Button>
       </Modal.Footer>
     </Modal>
