@@ -5,14 +5,17 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import { useUIContext } from "../../../utils/UIProvider";
 import { useContactContext } from "../../../utils/ContactProvider";
 import { useViewport } from "../../../utils/ViewportProvider";
+import { useConversations } from "../../../utils/ConversationProvider";
 
 export default function MessagesTopMenu({
   containerRef,
   setContactRemovalModal,
+  _id,
 }) {
   const [menuBarWidth, setMenuBarWidth] = useState("100%");
   const { width, isMobile } = useViewport();
   const { selectedContact } = useContactContext();
+  const { setConversationFromContact } = useConversations();
   const { activeContent, setActiveContent, setDisplay, setActiveMenu } =
     useUIContext();
 
@@ -27,10 +30,17 @@ export default function MessagesTopMenu({
 
   const goToConversation = () => {
     console.log("ContactTopMenu :: executed goToConversation()");
+    console.log(selectedContact);
+    setConversationFromContact(_id);
     setActiveContent({ conversations: true });
     setActiveMenu({ conversations: true });
+
+    //! Actually I think what would be really cool is if this opened a modal
+    //! that you could use to send a message, and then after the message
+    //! is sent, it would take you to the conversation
+
     /* 
-    Tasks this function should perform: 
+    ? Tasks this function should perform: 
       Change state of content to Messaging
       Create a new conversation if a conversation with the selected contact does not already exists
       OR
@@ -48,6 +58,9 @@ export default function MessagesTopMenu({
     */
   };
 
+  //======================================================================
+  //! this portion of code is because this Component was copied from another
+  //! Going to leave for now, but it ismostly irrelevant
   // To make the back button multipurpose, simply switch case the state of the current display
   // And then act accordingly
   //   function handleBackButton() {
@@ -64,6 +77,7 @@ export default function MessagesTopMenu({
   //       setActiveContent({ conversations: true });
   //     }, 590);
   //   }
+  //======================================================================
 
   useEffect(() => {
     return setMenuBarWidth(`${containerRef.current.offsetWidth}px`);
