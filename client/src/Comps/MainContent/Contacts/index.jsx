@@ -5,7 +5,7 @@ import { useUIContext } from "../../../utils/UIProvider";
 import { useConversations } from "../../../utils/ConversationProvider";
 import ContactTopMenu from "./ContactTopMenu";
 import ConfrimContactRemovalModal from "../../Modals/ConfirmContactRemoval_Modal";
-import NewMessageModal from "../../Modals/NewMessageModal";
+import NewMessageModal from "../../Modals/NewMessage/NewMessageModal";
 import "./contacts.sass";
 
 export default function Contacts({ containerRef }) {
@@ -52,11 +52,6 @@ export default function Contacts({ containerRef }) {
   //================================================================================
   return (
     <>
-      <ConfrimContactRemovalModal
-        show={contactRemovalModalVisible}
-        hide={() => setContactRemovalModalVisible(false)}
-      />
-
       {isLoading ? (
         // If loading, return loader
         <Spinner className="absoluteCenter" animation="border" />
@@ -71,6 +66,7 @@ export default function Contacts({ containerRef }) {
               setNewMessageModalVisible(true);
             }}
           />
+
           <div className="conversationInfoScreen">
             <ListGroup variant="flush">
               <ListGroup.Item>
@@ -98,8 +94,12 @@ export default function Contacts({ containerRef }) {
           <NewMessageModal
             show={newMessageModalVisible}
             hide={() => setNewMessageModalVisible(false)}
-            containerRef={containerRef}
             selectedContact={selectedContact}
+          />
+
+          <ConfrimContactRemovalModal
+            show={contactRemovalModalVisible}
+            hide={() => setContactRemovalModalVisible(false)}
           />
         </>
       ) : (
