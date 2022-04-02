@@ -24,7 +24,7 @@ export default function ChatInput({ containerRef }) {
     scrollToBottomMessages();
     sendMessage(currentInput);
     setCurrentInput(null);
-    textRef.current.value = "";
+    textRef.current.textContent = "";
 
     // On desktop this is effective, but I may want to adjust this when it comes to mobile interaction
     document.activeElement.blur();
@@ -32,7 +32,7 @@ export default function ChatInput({ containerRef }) {
 
   function handleInputChange(event) {
     event.preventDefault();
-    setCurrentInput(textRef.current.value);
+    setCurrentInput(textRef.current.textContent);
   }
 
   function toggleEmojiMenu(event) {
@@ -80,8 +80,7 @@ export default function ChatInput({ containerRef }) {
     <div id="chatBox" style={{ width: chatboxWidth }}>
       <Row>
         <div className={`${emojiPickerShow ? "show" : "hide"}`}>
-          {/* This thing is not working right now, I think due to be outdated...
-           <Picker
+          {/* <Picker
             disableSkinTonePicker={true}
             onEmojiClick={addEmoji}
             pickerStyle={{ width: "100%" }}
@@ -139,12 +138,14 @@ export default function ChatInput({ containerRef }) {
       </Row>
       <Row>
         <Col xs={9}>
-          <textarea
-            ref={textRef}
-            rows="1"
+          <span
             id="chatInput"
-            type="text"
-            onChange={handleInputChange}
+            className="textarea"
+            role="textbox"
+            contentEditable
+            onInput={handleInputChange}
+            onBlur={handleInputChange}
+            ref={textRef}
           />
         </Col>
         <Col xs={2} className="text-center chatInputButton">
