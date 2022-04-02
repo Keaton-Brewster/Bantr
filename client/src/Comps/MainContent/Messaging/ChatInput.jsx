@@ -9,6 +9,8 @@ import Picker from "emoji-picker-react";
 import "./chatInput.sass";
 
 export default function ChatInput({ containerRef }) {
+  //STATE
+  //================================================================================
   const [currentInput, setCurrentInput] = useState(null);
   const { sendMessage } = useConversations();
   const { width, scrollToBottomMessages } = useViewport();
@@ -17,6 +19,8 @@ export default function ChatInput({ containerRef }) {
   const [images, setImages] = useState([]);
   const textRef = useRef();
 
+  //FUNCTIONS
+  //================================================================================
   function messageSubmit(event) {
     event.preventDefault();
     if (!currentInput) return;
@@ -47,25 +51,27 @@ export default function ChatInput({ containerRef }) {
     textRef.current.value = messagePlusEmoji;
   }
 
+  function testForCMD(event) {
+    if (document.activeElement !== textRef.current) return;
+    if (!currentInput) return;
+    if (event.key === "Enter" && event.metaKey) {
+      messageSubmit(event);
+    }
+  }
+
   // function handleImageLoaderChange(imageList, addUpdateIndex) {
   //   console.log(imageList, addUpdateIndex);
   //   setImages(imageList);
   // }
 
+  //EFFECTS
+  //================================================================================
   useEffect(() => {
     if (width >= 680) setChatboxWidth(`${containerRef.current.offsetWidth}px`);
     else setChatboxWidth("100%");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [width]);
 
-  const testForCMD = (event) => {
-    if (document.activeElement !== textRef.current) return;
-    if (event.key === "Enter" && event.metaKey) {
-      messageSubmit(event);
-    }
-  };
-
-  //Mount effect
   useEffect(() => {
     document.addEventListener("keydown", testForCMD, false);
 
@@ -74,6 +80,8 @@ export default function ChatInput({ containerRef }) {
     };
   });
 
+  //COMPONENT
+  //================================================================================
   return (
     /*  At some point in time it would be good to re visit this so that you can do CMD+Enter and have the message send. 
         Obviously this would only work for computers, but it would be a good basic function to have */
