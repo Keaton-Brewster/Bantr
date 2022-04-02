@@ -13,7 +13,8 @@ export default function MessagesTopMenu({
   const [menuBarWidth, setMenuBarWidth] = useState("100%");
   const { width, isMobile } = useViewport();
   const { selectedContact } = useContactContext();
-  const { activeContent, setActiveContent, setDisplay } = useUIContext();
+  const { activeContent, setActiveContent, setDisplay, setActiveMenu } =
+    useUIContext();
 
   //   function openConversationInfo() {
   //     if (activeContent.conversationInfo) return handleBackButton();
@@ -26,6 +27,8 @@ export default function MessagesTopMenu({
 
   const goToConversation = () => {
     console.log("ContactTopMenu :: executed goToConversation()");
+    setActiveContent({ conversations: true });
+    setActiveMenu({ conversations: true });
     /* 
     Tasks this function should perform: 
       Change state of content to Messaging
