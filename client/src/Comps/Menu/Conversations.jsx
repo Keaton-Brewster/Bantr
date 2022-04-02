@@ -7,14 +7,20 @@ import { useViewport } from "../../utils/ViewportProvider";
 import NewConversationModal from "../Modals/NewConversationModal";
 
 export default function Conversations() {
+  //STATE
+  //================================================================================
   const { setActiveContent, setDisplay } = useUIContext();
   const { conversations, selectedConversation, selectConversationIndex } =
     useConversations();
   const { isMobile } = useViewport();
   const [newConvoModal, setNewConvoModal] = useState(false);
 
+  //FUNCTIONS
+  //================================================================================
   function createConversation(event) {}
 
+  //COMPONENT
+  //================================================================================
   return (
     <>
       <ListGroup variant="flush">
