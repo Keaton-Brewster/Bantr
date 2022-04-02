@@ -11,10 +11,23 @@ export default function ContactsTopMenu({
   _id,
   showNewMessageModal,
 }) {
+  //STATE
+  //================================================================================
   const [menuBarWidth, setMenuBarWidth] = useState("100%");
   const { width, isMobile } = useViewport();
   const { selectedContact } = useContactContext();
   const { activeContent } = useUIContext();
+
+  //FUNCTIONS
+  //================================================================================
+  function removeContact() {
+    console.log("ContactTopMenu :: executed removeContact()");
+    setContactRemovalModal(true);
+    /* 
+    Tasks this function needs to perform:
+      Actiave a modal that asks you to confirm the removal of the selected contact
+    */
+  }
 
   //   function openConversationInfo() {
   //     if (activeContent.conversationInfo) return handleBackButton();
@@ -22,21 +35,10 @@ export default function ContactsTopMenu({
   //       conversationInfo: true,
   //     });
   //   }
-
-  const openContactOptions = () => {};
-
-  const removeContact = () => {
-    console.log("ContactTopMenu :: executed removeContact()");
-    setContactRemovalModal(true);
-    /* 
-    Tasks this function needs to perform:
-      Actiave a modal that asks you to confirm the removal of the selected contact
-    */
-  };
-
-  //======================================================================
+  
   //! this portion of code is because this Component was copied from another
   //! Going to leave for now, but it ismostly irrelevant
+  //!======================================================================
   // To make the back button multipurpose, simply switch case the state of the current display
   // And then act accordingly
   //   function handleBackButton() {
@@ -53,13 +55,17 @@ export default function ContactsTopMenu({
   //       setActiveContent({ conversations: true });
   //     }, 590);
   //   }
-  //======================================================================
+  //!======================================================================
 
+  //EFFECTS
+  //================================================================================
   useEffect(() => {
     return setMenuBarWidth(`${containerRef.current.offsetWidth}px`);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [width]);
 
+  //COMPONENT
+  //================================================================================
   return selectedContact ? (
     <Nav
       id="contactTopMenu"
@@ -81,7 +87,7 @@ export default function ContactsTopMenu({
       >
         {`${selectedContact.givenName} ${selectedContact.familyName}`}
       </Nav.Item>
-      <Nav.Item onClick={openContactOptions}>
+      <Nav.Item>
         {/* <BsThreeDotsVertical id="conversationInfoButton" /> */}
         <DropdownButton align={{ lg: "start" }} title="" key="secondary">
           <Dropdown.Item onClick={showNewMessageModal}>
