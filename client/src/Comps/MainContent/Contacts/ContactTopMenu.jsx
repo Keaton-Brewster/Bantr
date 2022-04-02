@@ -6,6 +6,8 @@ import { useContactContext } from "../../../utils/ContactProvider";
 import { useViewport } from "../../../utils/ViewportProvider";
 
 export default function ContactsTopMenu({
+  //PROPS
+  //================================================================================
   containerRef,
   setContactRemovalModal,
   _id,
@@ -35,7 +37,7 @@ export default function ContactsTopMenu({
   //       conversationInfo: true,
   //     });
   //   }
-  
+
   //! this portion of code is because this Component was copied from another
   //! Going to leave for now, but it ismostly irrelevant
   //!======================================================================
