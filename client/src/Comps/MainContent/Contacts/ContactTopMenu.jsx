@@ -1,23 +1,20 @@
 import { useState, useEffect } from "react";
 import { Nav, Dropdown, DropdownButton } from "react-bootstrap";
-import { BsThreeDotsVertical } from "react-icons/bs";
 
 import { useUIContext } from "../../../utils/UIProvider";
 import { useContactContext } from "../../../utils/ContactProvider";
 import { useViewport } from "../../../utils/ViewportProvider";
-import { useConversations } from "../../../utils/ConversationProvider";
 
-export default function MessagesTopMenu({
+export default function ContactsTopMenu({
   containerRef,
   setContactRemovalModal,
   _id,
+  showNewMessageModal,
 }) {
   const [menuBarWidth, setMenuBarWidth] = useState("100%");
   const { width, isMobile } = useViewport();
   const { selectedContact } = useContactContext();
-  const { setConversationFromContact } = useConversations();
-  const { activeContent, setActiveContent, setDisplay, setActiveMenu } =
-    useUIContext();
+  const { activeContent } = useUIContext();
 
   //   function openConversationInfo() {
   //     if (activeContent.conversationInfo) return handleBackButton();
@@ -27,27 +24,6 @@ export default function MessagesTopMenu({
   //   }
 
   const openContactOptions = () => {};
-
-  const goToConversation = () => {
-    console.log("ContactTopMenu :: executed goToConversation()");
-    console.log(selectedContact);
-    setConversationFromContact(_id);
-    setActiveContent({ conversations: true });
-    setActiveMenu({ conversations: true });
-
-    //! Actually I think what would be really cool is if this opened a modal
-    //! that you could use to send a message, and then after the message
-    //! is sent, it would take you to the conversation
-
-    /* 
-    ? Tasks this function should perform: 
-      Change state of content to Messaging
-      Create a new conversation if a conversation with the selected contact does not already exists
-      OR
-      Set selected conversation to match the contact on which you selected
-      if possible, highlight the text box in the messaging screen
-    */
-  };
 
   const removeContact = () => {
     console.log("ContactTopMenu :: executed removeContact()");
@@ -108,7 +84,9 @@ export default function MessagesTopMenu({
       <Nav.Item onClick={openContactOptions}>
         {/* <BsThreeDotsVertical id="conversationInfoButton" /> */}
         <DropdownButton align={{ lg: "start" }} title="" key="secondary">
-          <Dropdown.Item onClick={goToConversation}>Send Message</Dropdown.Item>
+          <Dropdown.Item onClick={showNewMessageModal}>
+            Send Message
+          </Dropdown.Item>
           <Dropdown.Item onClick={removeContact}>Remove Contact</Dropdown.Item>
         </DropdownButton>
       </Nav.Item>
