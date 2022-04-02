@@ -5,14 +5,16 @@ import { FaRegSmile } from "react-icons/fa";
 // import Picker from "emoji-picker-react";
 
 export default function ModalTextInput({
+  //PROPS
+  //====================================================================
   textRef,
-  inputState,
+  setCurrentInput,
   emojiPickerState,
 }) {
   //STATE
   //====================================================================
-  const [setCurrentInput] = inputState;
   const [emojiPickerShow, setEmojiPickerShow] = emojiPickerState;
+
   //FUNCTIONS
   //====================================================================
   function handleInputChange(event) {
