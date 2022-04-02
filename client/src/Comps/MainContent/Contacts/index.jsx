@@ -22,6 +22,8 @@ export default function Contacts({ containerRef }) {
         hide={() => setContactRemovalModalVisible(false)}
       />
 
+
+
       {isLoading ? (
         // If loading, return loader
         <Spinner className="absoluteCenter" animation="border" />
