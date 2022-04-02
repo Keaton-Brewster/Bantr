@@ -17,9 +17,6 @@ export default function Contacts({ containerRef }) {
 
   return (
     <>
-      <ContactTopMenu containerRef={containerRef} 
-        setContactRemovalModal={setContactRemovalModalVisible}
-      />
       <ConfrimContactRemovalModal
         show={contactRemovalModalVisible}
         hide={() => setContactRemovalModalVisible(false)}
@@ -31,6 +28,11 @@ export default function Contacts({ containerRef }) {
       ) : // Otherwise return the content: The selected contact if applicable
       selectedContact ? (
         <>
+          <ContactTopMenu
+            containerRef={containerRef}
+            setContactRemovalModal={setContactRemovalModalVisible}
+            _id={selectedContact._id}
+          />
           <div className="conversationInfoScreen">
             <ListGroup variant="flush">
               <ListGroup.Item>
