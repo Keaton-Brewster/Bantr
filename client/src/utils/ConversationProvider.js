@@ -12,6 +12,7 @@ export default function ConversationProvider({ children }) {
   const [conversations, setConversations] = useState([]);
   const [selectedConversationIndex, setSelectedConversationIndex] = useState(0);
   const { user } = useUserContext();
+
   function updateConversation(updatedConversation) {
     const updatedConversations = conversations.map((conversation) => {
       if (conversation._id === updatedConversation._id)
@@ -35,6 +36,19 @@ export default function ConversationProvider({ children }) {
         updateConversation(updatedConversation);
       })
       .catch((e) => console.error(e));
+  }
+
+  function findConversationByUserID(_id) {
+    let index = null;
+    conversations.forEach((convo, i) => {
+      if (convo.members.includes(_id) && convo.members.length === 2) index = i;
+    });
+    return index;
+  }
+
+  function setConversationFromContact(_id) {
+    const index = findConversationByUserID(_id);
+    setSelectedConversationIndex(index);
   }
 
   const loadConversations = useCallback(
@@ -80,6 +94,7 @@ export default function ConversationProvider({ children }) {
     sendMessage,
     selectConversationIndex: setSelectedConversationIndex,
     updateConversation,
+    setConversationFromContact,
   };
   return (
     <conversationContext.Provider value={value}>
