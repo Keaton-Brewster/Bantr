@@ -48,14 +48,24 @@ export default function ConversationProvider({ children }) {
     [user._id]
   );
 
-  const formattedConversations = conversations.map((conversation) => {
-    const formattedMessages = conversation.messages.map((message) => {
-      message.fromMe = message.sender_id === user._id;
-      return message;
+  const formattedConversations = conversations
+    .sort((a, b) => {
+      if (a.familyName < b.familyName) {
+        return -1;
+      }
+      if (a.familyName > b.familyName) {
+        return 1;
+      }
+      return 0;
+    })
+    .map((conversation) => {
+      const formattedMessages = conversation.messages.map((message) => {
+        message.fromMe = message.sender_id === user._id;
+        return message;
+      });
+      conversation.messages = formattedMessages;
+      return conversation;
     });
-    conversation.messages = formattedMessages;
-    return conversation;
-  });
 
   useEffect(() => {
     if (!user._id) return;
