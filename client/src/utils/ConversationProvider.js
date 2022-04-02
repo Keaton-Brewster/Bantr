@@ -9,10 +9,15 @@ export function useConversations() {
 }
 
 export default function ConversationProvider({ children }) {
+  //STATE
+  //================================================================================
   const [conversations, setConversations] = useState([]);
   const [selectedConversationIndex, setSelectedConversationIndex] = useState(0);
+  const [pendingText, setPendingText] = useState(null);
   const { user } = useUserContext();
 
+  //FUNCTIONS
+  //================================================================================
   function updateConversation(updatedConversation) {
     const updatedConversations = conversations.map((conversation) => {
       if (conversation._id === updatedConversation._id)
@@ -23,6 +28,7 @@ export default function ConversationProvider({ children }) {
   }
 
   function sendMessage(string) {
+    console.log(string, selectedConversationIndex);
     axios
       .put("/api/conversations/newMessage", {
         message_info: {
@@ -46,10 +52,17 @@ export default function ConversationProvider({ children }) {
     return index;
   }
 
-  function setConversationFromContact(_id) {
-    const index = findConversationByUserID(_id);
-    setSelectedConversationIndex(index);
-  }
+  const setConversationFromContact = (_id) => {
+    return new Promise((resolve, reject) => {
+      try {
+        const index = findConversationByUserID(_id);
+        setSelectedConversationIndex(index);
+        resolve();
+      } catch (error) {
+        reject(error);
+      }
+    });
+  };
 
   const loadConversations = useCallback(
     (cb) => {
@@ -81,6 +94,8 @@ export default function ConversationProvider({ children }) {
       return conversation;
     });
 
+  //EFFECTS
+  //================================================================================
   useEffect(() => {
     if (!user._id) return;
     loadConversations((conversations) => {
@@ -88,6 +103,17 @@ export default function ConversationProvider({ children }) {
     });
   }, [user._id, loadConversations]);
 
+  useEffect(() => {
+    // This effect handles the state delay that occurs when sending a message from the
+    // Contact screen and the transitioning to the conversation screen.
+    if (!pendingText) return;
+    sendMessage(pendingText);
+    setPendingText(null);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedConversationIndex]);
+
+  //PROVIDER VALUE
+  //================================================================================
   const value = {
     conversations: formattedConversations,
     selectedConversation: conversations[selectedConversationIndex],
@@ -95,7 +121,11 @@ export default function ConversationProvider({ children }) {
     selectConversationIndex: setSelectedConversationIndex,
     updateConversation,
     setConversationFromContact,
+    setPendingText,
   };
+
+  //COMPONENT
+  //================================================================================
   return (
     <conversationContext.Provider value={value}>
       {children}
