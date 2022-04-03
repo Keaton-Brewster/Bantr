@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect } from "react";
 import { Row, Col } from "react-bootstrap";
 import { FaRegSmile } from "react-icons/fa";
 // import ImageUploading from "react-images-uploading";
@@ -41,7 +41,10 @@ export default function ModalTextInput({
 
   //EFFECTS
   //====================================================================
-  //
+  useEffect(() => {
+    textRef.current.focus();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     /*  At some point in time it would be good to re visit this so that you can do CMD+Enter and have the message send. 
