@@ -6,7 +6,6 @@ import { useConversations } from "../../../utils/ConversationProvider";
 import { useViewport } from "../../../utils/ViewportProvider";
 import ImageUploading from "react-images-uploading";
 import Picker from "emoji-picker-react";
-import "./chatInput.sass";
 
 export default function ChatInput({ containerRef }) {
   //STATE
