@@ -9,9 +9,8 @@ import { useUserContext } from "../../utils/UserProvider";
 export default function Contacts() {
   //STATE
   //================================================================================
-  const { contacts, setSelectedContact, searchContacts } = useContactContext();
+  const { contacts, setSelectedContact } = useContactContext();
   const { user, setUser } = useUserContext();
-  const [searchedContacts, setSearchedContacts] = useState(contacts);
   const [newContactModal, setNewContactModal] = useState(false);
   const [loading, setLoading] = useState(true);
 
