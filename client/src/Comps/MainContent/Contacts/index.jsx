@@ -1,9 +1,8 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { Spinner, ListGroup, Image } from "react-bootstrap";
 import { useContactContext } from "../../../utils/ContactProvider";
 import { useUIContext } from "../../../utils/UIProvider";
 import { useConversations } from "../../../utils/ConversationProvider";
-import { useViewport } from "../../../utils/ViewportProvider";
 import ContactTopMenu from "./ContactTopMenu";
 import ConfrimContactRemovalModal from "../../Modals/ConfirmContactRemoval_Modal";
 import NewMessageModal from "../../Modals/NewMessage/NewMessageModal";
@@ -29,19 +28,6 @@ export default function Contacts({ containerRef }) {
         setActiveMenu({ conversations: true });
       })
       .catch((error) => console.error(error));
-
-    //! Actually I think what would be really cool is if this opened a modal
-    //! that you could use to send a message, and then after the message
-    //! is sent, it would take you to the conversation
-
-    /* 
-    ? Tasks this function should perform: 
-      Change state of content to Messaging
-      Create a new conversation if a conversation with the selected contact does not already exists
-      OR
-      Set selected conversation to match the contact on which you selected
-      if possible, highlight the text box in the messaging screen
-    */
   }
 
   function messageSubmit(text) {
