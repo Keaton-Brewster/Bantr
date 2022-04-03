@@ -61,7 +61,7 @@ router.post("/addContact", (request, response) => {
         const contactExists = checkForContact(user, ObjectId(_id));
 
         if (contactExists) {
-          response.send("You already have that contact, ya bozo").status(200);
+          response.send(null).status(200);
         } else {
           db.User.findOneAndUpdate(
             { _id: user_id },
