@@ -27,6 +27,7 @@ export default function Contacts() {
       phoneNum,
       (updatedUser) => {
         // need to call to update the user in the local storage
+        if (!updatedUser) return alert("You already have that contact!");
         setUser(updatedUser);
         setNewContactModal(false);
       },
