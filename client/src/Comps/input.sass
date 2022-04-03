@@ -1,0 +1,80 @@
+#chatBox
+    margin-right: auto
+    margin-left: auto
+    position: fixed
+    bottom: 0
+    padding: 15px
+    padding-right: 30px
+
+@media screen and (max-width: 680px)
+    #chatBox
+        padding-left: 20px
+
+    #backButton
+        top: 5px
+
+    #messages
+        margin-top: 50px
+
+#chatInput
+    padding: 5px
+    padding-left: 20px
+    width: 100%
+    border: none
+    border-radius: 25px
+    border: 1px solid grey
+    overflow-wrap: break-word
+    resize: none
+    &:focus
+        outline: none
+        box-shadow: 0 0 4px 0px var(--light)
+
+#searchBox
+    padding: 5px
+    padding-left: 20px
+    width: 100%
+    border: none
+    border: 1px solid grey
+    overflow-wrap: break-word
+    resize: none
+    &:focus
+        outline: none
+        box-shadow: 0 0 4px 0px var(--light)
+
+.textarea
+    display: block
+    width: 100%
+    overflow: hidden
+    resize: both
+    min-height: 40px
+    line-height: 20px
+
+.textarea[contenteditable]:empty::before
+    content: "New Message"
+    color: gray
+
+.chatInputButton
+    padding-left: 0px !important
+
+#sendButton
+    height: 35px
+    width: 35px
+    background-color: #C2B847 !important
+    border-radius: 50px
+
+.sendButton
+    background-color: #C2B847 !important
+    position: relative
+    bottom: 1px
+
+#sendButton:hover,
+#sendButton:hover .sendButton
+    background-color: #D6CF85 !important
+
+#openEmojisButton
+    width: 35px
+    height: 35px
+
+    &:hover
+        cursor: pointer
+        fill: #0f8392
