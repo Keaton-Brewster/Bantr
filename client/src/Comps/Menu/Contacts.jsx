@@ -7,19 +7,24 @@ import { useContactContext } from "../../utils/ContactProvider";
 import { useUserContext } from "../../utils/UserProvider";
 
 export default function Contacts() {
-  const [newContactModal, setNewContactModal] = useState(false);
-  const { contacts, setSelectedContact } = useContactContext();
+  //STATE
+  //================================================================================
+  const { contacts, setSelectedContact, searchContacts } = useContactContext();
   const { user, setUser } = useUserContext();
+  const [searchedContacts, setSearchedContacts] = useState(contacts);
+  const [newContactModal, setNewContactModal] = useState(false);
   const [loading, setLoading] = useState(true);
 
+  //FUNCTIONS
+  //================================================================================
   function showNewContactModal(event) {
     event.preventDefault();
     setNewContactModal(true);
   }
 
-  const selectContact = (contact) => {
+  function selectContact(contact) {
     setSelectedContact(contact);
-  };
+  }
 
   function addContact(phoneNum) {
     API.addContact(
@@ -37,11 +42,15 @@ export default function Contacts() {
     );
   }
 
+  //EFFECTS
+  //================================================================================
   useEffect(() => {
     if (!contacts) return;
     setLoading(false);
   }, [contacts]);
 
+  //COMPONENT
+  //================================================================================
   return loading ? (
     <Spinner className="absoluteCenter" animation="border" />
   ) : (
@@ -58,30 +67,20 @@ export default function Contacts() {
           Add Contact
         </ListGroup.Item>
         {contacts ? (
-          contacts
-            .sort((a, b) => {
-              if (a.familyName < b.familyName) {
-                return -1;
-              }
-              if (a.familyName > b.familyName) {
-                return 1;
-              }
-              return 0;
-            })
-            .map((contact, index) => {
-              return (
-                <ListGroup.Item
-                  className="LGItem"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    selectContact(contact);
-                  }}
-                  key={index}
-                >
-                  {contact.givenName + " " + contact.familyName}
-                </ListGroup.Item>
-              );
-            })
+          contacts.map((contact, index) => {
+            return (
+              <ListGroup.Item
+                className="LGItem"
+                onClick={(e) => {
+                  e.preventDefault();
+                  selectContact(contact);
+                }}
+                key={index}
+              >
+                {contact.givenName + " " + contact.familyName}
+              </ListGroup.Item>
+            );
+          })
         ) : (
           <div>
             <p>No Contacts here!</p>
