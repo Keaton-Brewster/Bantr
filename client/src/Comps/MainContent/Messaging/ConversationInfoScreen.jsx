@@ -3,11 +3,13 @@ import { Spinner, ListGroup } from "react-bootstrap";
 import { FiEdit } from "react-icons/fi";
 import { BiSave } from "react-icons/bi";
 import { useConversations } from "../../../utils/ConversationProvider";
-import UserCard from "../../UserCard";
+import UserCardSM from "../../UserCards/UserCardSM";
 import axios from "axios";
 import MessagesTopMenu from "./MessagesTopMenu";
 
 export default function ConversationInfoScreen({ containerRef }) {
+  //STATE
+  //================================================================================
   const { selectedConversation, updateConversation } = useConversations();
   const [convoInfo, setConvoInfo] = useState();
   const [editingConvoName, setEditingConvoName] = useState(false);
@@ -17,17 +19,12 @@ export default function ConversationInfoScreen({ containerRef }) {
   const [loading, setLoading] = useState(true);
   const editConvoNameInput = useRef();
 
-  // function trimMessages(conversation) {
-  //   const mutatedConversation = { ...conversation };
-  //   mutatedConversation.messages = [];
-  //   return mutatedConversation;
-  // }
-
+  //FUNCTIONS
+  //================================================================================
   async function getConversationInformation() {
     const conversationInformation = await axios.get(
       `http://localhost:3001/api/conversations/getInfo/${selectedConversation._id}`
     );
-
     setConvoInfo(conversationInformation.data);
     setLoading(false);
   }
@@ -59,11 +56,15 @@ export default function ConversationInfoScreen({ containerRef }) {
     setEditingConvoName(false);
   }
 
+  //EFFECTS
+  //================================================================================
   useEffect(() => {
     getConversationInformation();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  //COMPONENT
+  //================================================================================
   if (loading)
     return (
       <Spinner animation="border" className="absoluteCenter" role="status" />
@@ -101,8 +102,8 @@ export default function ConversationInfoScreen({ containerRef }) {
 
           <ListGroup.Item>
             <h4>Members</h4>
-            {convoInfo.members.map((member, index) => {
-              return <UserCard member={member} key={index} />;
+            {convoInfo.map((user, index) => {
+              return <UserCardSM user={user} key={index} />;
             })}
           </ListGroup.Item>
         </ListGroup>
