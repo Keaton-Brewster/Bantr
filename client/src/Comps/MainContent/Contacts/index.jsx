@@ -65,12 +65,10 @@ export default function Contacts({ containerRef }) {
               <ListGroup.Item>
                 <div className="mb-3">
                   <Image
-                    style={{ width: "40%", marginLeft: "25%" }}
-                    // This is not wokring right now. For some reason the source of the image responds with a
-                    // 403 "forbidden" code. Probably going to need to find a new source for default profile pictures
+                    style={{ width: "40%", marginLeft: "25%", }}
                     src={selectedContact.imageUrl}
                     fluid
-                    roundedCircle
+                    thumbnail
                   />
                 </div>
               </ListGroup.Item>
