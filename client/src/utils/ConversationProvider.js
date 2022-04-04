@@ -11,10 +11,10 @@ export function useConversations() {
 export default function ConversationProvider({ children }) {
   //STATE
   //================================================================================
-  const [conversations, setConversations] = useState([]);
-  const [selectedConversationIndex, setSelectedConversationIndex] = useState(0);
-  const [pendingText, setPendingText] = useState(null);
   const { user } = useUserContext();
+  const [selectedConversationIndex, setSelectedConversationIndex] = useState(0);
+  const [conversations, setConversations] = useState([]);
+  const [pendingText, setPendingText] = useState(null);
 
   //FUNCTIONS
   //================================================================================
