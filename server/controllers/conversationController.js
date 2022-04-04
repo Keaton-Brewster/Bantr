@@ -26,7 +26,7 @@ router.get("/getInfo/:convo_id", async (req, res) => {
   try {
     const { convo_id } = req.params;
 
-    const conversationInformation = await db.Conversation.findOne({
+    let conversationInformation = await db.Conversation.findOne({
       _id: convo_id,
     });
     const memberIds = conversationInformation.members.map((id) => ObjectId(id));
@@ -39,9 +39,10 @@ router.get("/getInfo/:convo_id", async (req, res) => {
           return {
             _id: user._id,
             email: user.email,
-            name: user.name,
-            phone: user.phone,
-            picture: user.picture,
+            givenName: user.givenName,
+            familyName: user.familyName,
+            phoneNum: user.phoneNum,
+            imageUrl: user.imageUrl,
           };
         });
       })
@@ -50,8 +51,7 @@ router.get("/getInfo/:convo_id", async (req, res) => {
         res.sendStatus(404);
       });
 
-    conversationInformation.members = membersInformation;
-    res.send(conversationInformation);
+    res.send(membersInformation);
   } catch (error) {
     console.error(
       "Error getting conversation information :: controllers/Conversations line50",
