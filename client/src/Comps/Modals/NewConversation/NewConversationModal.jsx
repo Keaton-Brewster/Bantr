@@ -1,29 +1,34 @@
 import { useEffect, useState, useRef } from "react";
 import { Modal, Button, ListGroup } from "react-bootstrap";
-import { useContactContext } from "../../utils/ContactProvider";
+import { useContactContext } from "../../../utils/ContactProvider";
+import Recipient from "./Recipient";
 
 export default function NewConversationModal({
   //PROPS
   //================================================================================
   show,
   hide,
-  createConversation,
+  setNewConversationRecipients,
 }) {
-  //STATE
+  //STATES
   //================================================================================
-  const [recipient, setRecipients] = useState([]);
-  const { contacts, setSelectedContact, setSearchValue } = useContactContext();
-  const [searchedContacts, setSearchedContacts] = useState(contacts);
+  const { contacts, setSearchValue } = useContactContext();
+  // Added a contact for development
+  const [recipients, setRecipients] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  //REFS
+  //================================================================================
   const searchRef = useRef();
 
   //FUNCTIONS
   //================================================================================
-  function createRecipientCard() {}
-
-  function selectContact(event) {
-    event.preventDefault();
-    console.log("selectContact() :: ");
+  function selectContact(contact) {
+    setRecipients((recipients) => {
+      return recipients.includes(contact)
+        ? recipients
+        : [...recipients, contact];
+    });
   }
 
   function handleInputChange(event) {
@@ -31,6 +36,18 @@ export default function NewConversationModal({
     setSearchValue(searchRef.current.textContent);
   }
 
+  function removeRecipient(userInfo) {
+    setRecipients((recipients) => {
+      return recipients.filter((recipient) => recipient._id !== userInfo._id);
+    });
+  }
+
+  function passUpConversationMembers(event) {
+    event.preventDefault();
+    setNewConversationRecipients(recipients);
+    setRecipients([]);
+    hide();
+  }
   //EFFECTS
   //================================================================================
   useEffect(() => {
@@ -43,7 +60,10 @@ export default function NewConversationModal({
   return (
     <Modal
       show={show}
-      onHide={hide}
+      onHide={() => {
+        setRecipients([]);
+        hide();
+      }}
       centered
       backdrop="static"
       aria-labelledby="contained-modal-title-vcenter"
@@ -55,7 +75,20 @@ export default function NewConversationModal({
         </Modal.Title>
       </Modal.Header>
       <Modal.Header>
-        <small>Recipients:</small>
+        <p>Recipients:</p>
+        {recipients ? (
+          <>
+            {recipients.map((userInfo, i) => {
+              return (
+                <Recipient
+                  userInfo={userInfo}
+                  key={i}
+                  removeRecipient={() => removeRecipient(userInfo)}
+                />
+              );
+            })}
+          </>
+        ) : null}
       </Modal.Header>
       <Modal.Body>
         <ListGroup.Item
@@ -71,7 +104,7 @@ export default function NewConversationModal({
               return (
                 <ListGroup.Item
                   className="LGItem"
-                  onClick={selectContact}
+                  onClick={() => selectContact(contact)}
                   key={index}
                 >
                   {contact.givenName + " " + contact.familyName}
@@ -86,12 +119,7 @@ export default function NewConversationModal({
         </ListGroup>
       </Modal.Body>
       <Modal.Footer>
-        <Button
-          variant="success"
-          onClick={() => {
-            createConversation();
-          }}
-        >
+        <Button variant="success" onClick={passUpConversationMembers}>
           Start Conversation
         </Button>
       </Modal.Footer>
