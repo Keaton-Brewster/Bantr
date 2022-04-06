@@ -29,15 +29,6 @@ export default function Conversations() {
 
   //FUNCTIONS
   //================================================================================
-  // function goToConversation() {
-  //   setConversationFromContact(selectedContact._id)
-  //     .then(() => {
-  //       setActiveContent({ conversations: true });
-  //       setActiveMenu({ conversations: true });
-  //     })
-  //     .catch((error) => console.error(error));
-  // }
-
   function writeConversationName(recipients) {
     let names = [];
     recipients.forEach((user, i) => {
@@ -54,24 +45,30 @@ export default function Conversations() {
     return members;
   }
 
-  function createConversation() {
+  function startOrGoToConversation(started, goTo) {
     API.createConversation(
       {
         members: mapConversationMembers(newConversationRecipients),
         name: writeConversationName(newConversationRecipients),
       },
-      (created) => console.log("created: ", created),
-      (alreadyExists) => {
-        console.log("alreadyExists: ", alreadyExists);
-      },
+      (newConversation) => started(newConversation),
+      (existingConversation) => goTo(existingConversation),
       (error) => console.error(error)
     );
   }
 
   function messageSubmit(text) {
-    // setPendingText(text);
-    createConversation();
-    // goToConversation();
+    setPendingText(text);
+    startOrGoToConversation(
+      (newConversation) => {
+        // Handle adding, and going to the newly created conversation
+        console.log(newConversation);
+      },
+      (existingConversation) => {
+        // Handle going to the existing conversation
+        console.log(existingConversation);
+      }
+    );
   }
 
   //EFFECTS
@@ -94,7 +91,7 @@ export default function Conversations() {
           }}
         >
           <AiFillPlusCircle id="addButton" />
-          New Conversation
+          Start A New Message
         </ListGroup.Item>
         {conversations.map((convo, index) => {
           return (
