@@ -102,7 +102,45 @@ router.put("/updateConvoName", (req, res) => {
       .catch(() => res.sendStatus(404));
   } catch (error) {
     console.error(
-      "Error updating conversation name :: controllers/Conversations line 71",
+      "Error updating conversation name :: controllers/Conversations :: route=/updateConvoName ::",
+      error
+    );
+    res.sendStatus(500);
+  }
+});
+
+router.post("/newConversation", (req, res) => {
+  try {
+    const newConversation = req.body;
+
+    db.Conversation.exists(
+      { members: { $all: newConversation.members } },
+      (err, exists) => {
+        if (exists) {
+          console.log("exists");
+          db.Conversation.findOne({
+            members: { $all: newConversation.members },
+          })
+            .then((doc) => {
+              res.status(202).send(doc);
+            })
+            .catch((err) => res.send(err).status(500));
+        } else if (!exists) {
+          console.log("does not exist");
+          db.Conversation.create(newConversation)
+            .then((response) => {
+              res.status(200).send(response)
+            })
+            .catch((error) => {
+              res.send(500);
+              console.error(error);
+            });
+        } else res.send(err).status(500);
+      }
+    );
+  } catch (error) {
+    console.error(
+      "Error creating conversation :: controllers/Conversation :: route=/newConversation ::",
       error
     );
     res.sendStatus(500);

@@ -1,23 +1,85 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ListGroup } from "react-bootstrap";
 import { AiFillPlusCircle } from "react-icons/ai";
 import { useConversations } from "../../utils/ConversationProvider";
 import { useUIContext } from "../../utils/UIProvider";
 import { useViewport } from "../../utils/ViewportProvider";
-import NewConversationModal from "../Modals/NewConversationModal";
+import { useContactContext } from "../../utils/ContactProvider";
+import NewConversationModal from "../Modals/NewConversation/NewConversationModal";
+import NewMessageModal from "../Modals/NewMessage/NewMessageModal";
+import API from "../../utils/API";
+import { useUserContext } from "../../utils/UserProvider";
 
 export default function Conversations() {
   //STATE
   //================================================================================
+  const { user } = useUserContext();
   const { setActiveContent, setDisplay } = useUIContext();
-  const { conversations, selectedConversation, selectConversationIndex } =
-    useConversations();
+  const {
+    conversations,
+    setPendingText,
+    selectedConversation,
+    selectConversationIndex,
+  } = useConversations();
   const { isMobile } = useViewport();
-  const [newConvoModal, setNewConvoModal] = useState(false);
+  const [newConvoModalVisible, setNewConvoModalVisible] = useState(false);
+  const [newMessageModalVisible, setNewMessageModalVisible] = useState(false);
+  const [newConversationRecipients, setNewConversationRecipients] =
+    useState(null);
 
   //FUNCTIONS
   //================================================================================
-  function createConversation(event) {}
+  // function goToConversation() {
+  //   setConversationFromContact(selectedContact._id)
+  //     .then(() => {
+  //       setActiveContent({ conversations: true });
+  //       setActiveMenu({ conversations: true });
+  //     })
+  //     .catch((error) => console.error(error));
+  // }
+
+  function writeConversationName(recipients) {
+    let names = [];
+    recipients.forEach((user, i) => {
+      if (recipients[recipients.length - 1] === user)
+        names.push(`${user.givenName} ${user.familyName}`);
+      else names.push(`${user.givenName} ${user.familyName},`);
+    });
+    return names.join(" ").toString();
+  }
+
+  function mapConversationMembers(recipients) {
+    let members = [user._id];
+    recipients.forEach((recipient) => members.push(recipient._id));
+    return members;
+  }
+
+  function createConversation() {
+    API.createConversation(
+      {
+        members: mapConversationMembers(newConversationRecipients),
+        name: writeConversationName(newConversationRecipients),
+      },
+      (created) => console.log("created: ", created),
+      (alreadyExists) => {
+        console.log("alreadyExists: ", alreadyExists);
+      },
+      (error) => console.error(error)
+    );
+  }
+
+  function messageSubmit(text) {
+    // setPendingText(text);
+    createConversation();
+    // goToConversation();
+  }
+
+  //EFFECTS
+  //================================================================================
+  useEffect(() => {
+    if (!newConversationRecipients) return;
+    setNewMessageModalVisible(true);
+  }, [newConversationRecipients]);
 
   //COMPONENT
   //================================================================================
@@ -28,7 +90,7 @@ export default function Conversations() {
           className="LGItem"
           onClick={(e) => {
             e.preventDefault();
-            setNewConvoModal(true);
+            setNewConvoModalVisible(true);
           }}
         >
           <AiFillPlusCircle id="addButton" />
@@ -65,9 +127,15 @@ export default function Conversations() {
       </ListGroup>
 
       <NewConversationModal
-        show={newConvoModal}
-        hide={() => setNewConvoModal(false)}
-        createConversation={createConversation}
+        show={newConvoModalVisible}
+        hide={() => setNewConvoModalVisible(false)}
+        setNewConversationRecipients={setNewConversationRecipients}
+      />
+
+      <NewMessageModal
+        show={newMessageModalVisible}
+        hide={() => setNewMessageModalVisible(false)}
+        messageSubmit={messageSubmit}
       />
     </>
   );

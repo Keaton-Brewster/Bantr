@@ -29,7 +29,7 @@ const API = {
     if (response.status === 200) return callback(response.data);
     else return error(response);
   },
-  
+
   async addContact(user_id, phoneNum, callback, error) {
     const response = await axios
       .post(`http://localhost:3001/api/users/addContact`, {
@@ -39,6 +39,18 @@ const API = {
       .catch((err) => error(err));
     if (response.status === 200) return callback(response.data);
     else if (response.status === 304) return error(304);
+    else return error(response);
+  },
+
+  async createConversation(newConversation, created, alreadyExists, error) {
+    const response = await axios
+      .post(
+        "http://localhost:3001/api/conversations/newConversation",
+        newConversation
+      )
+      .catch((err) => error(err));
+    if (response.status === 200) return created(response.data);
+    else if (response.status === 202) return alreadyExists(response.data);
     else return error(response);
   },
 
