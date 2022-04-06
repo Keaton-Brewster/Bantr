@@ -114,7 +114,12 @@ router.post("/newConversation", (req, res) => {
     const newConversation = req.body;
 
     db.Conversation.exists(
-      { members: { $all: newConversation.members } },
+      {
+        members: {
+          $size: newConversation.members.length,
+          $all: newConversation.members,
+        },
+      },
       (err, exists) => {
         if (exists) {
           console.log("exists");
@@ -129,7 +134,7 @@ router.post("/newConversation", (req, res) => {
           console.log("does not exist");
           db.Conversation.create(newConversation)
             .then((response) => {
-              res.status(200).send(response)
+              res.status(200).send(response);
             })
             .catch((error) => {
               res.send(500);
