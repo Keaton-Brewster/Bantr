@@ -124,7 +124,10 @@ router.post("/newConversation", (req, res) => {
         if (exists) {
           console.log("exists");
           db.Conversation.findOne({
-            members: { $all: newConversation.members },
+            members: {
+              $size: newConversation.members.length,
+              $all: newConversation.members,
+            },
           })
             .then((doc) => {
               res.status(202).send(doc);
