@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Modal, Button } from "react-bootstrap";
+import { useContactContext } from "../../../utils/ContactProvider";
 import ModalTextInput from "./ModalTextInput";
 
 export default function NewMessageModal({
@@ -7,7 +8,6 @@ export default function NewMessageModal({
   //================================================================================
   show,
   hide,
-  selectedContact,
   messageSubmit,
 }) {
   //STATE
@@ -57,7 +57,7 @@ export default function NewMessageModal({
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          <h4>New Message to {selectedContact.givenName}</h4>
+          <h4>New Message</h4>
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
