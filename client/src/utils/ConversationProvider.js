@@ -131,14 +131,13 @@ export default function ConversationProvider({ children }) {
   }, [user._id, loadConversations]);
 
   useEffect(() => {
-    if (!convoStateReady) return;
     // This effect handles the state delay that occurs when sending a message from the
     // Contact screen and the transitioning to the conversation screen.
-    if (!pendingText) return;
-    sendMessage(pendingText);
-    setPendingText(null);
+    if (!pendingText || !convoStateReady) return;
+    sendPendingText();
+    setConvoStateReady(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [convoStateReady]);
+  }, [pendingText, convoStateReady]);
 
   //PROVIDER VALUE
   //================================================================================
