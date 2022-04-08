@@ -29,6 +29,10 @@
         outline: none
         box-shadow: 0 0 4px 0px var(--light)
 
+#chatInput[contenteditable]:empty::before
+    content: "New Message"
+    color: gray
+
 #searchBox
     padding: 5px
     padding-left: 20px
@@ -41,6 +45,10 @@
         outline: none
         box-shadow: 0 0 4px 0px var(--light)
 
+#searchBox[contenteditable]:empty::before
+    content: "Search Contacts"
+    color: gray
+
 .textarea
     display: block
     width: 100%
@@ -48,10 +56,6 @@
     resize: both
     min-height: 40px
     line-height: 20px
-
-.textarea[contenteditable]:empty::before
-    content: "New Message"
-    color: gray
 
 .chatInputButton
     padding-left: 0px !important
