@@ -30,6 +30,14 @@ const API = {
     else return error(response);
   },
 
+  async getConversations(user_id, proceed, error) {
+    const response = await axios.get(
+      `http://localhost:3001/api/conversations/${user_id}`
+    );
+    if (response.status === 200) proceed(response.data);
+    else error(response);
+  },
+
   async addContact(user_id, phoneNum, callback, error) {
     const response = await axios
       .post(`http://localhost:3001/api/users/addContact`, {
@@ -42,7 +50,23 @@ const API = {
     else return error(response);
   },
 
-  async createConversation(newConversation, created, alreadyExists, error) {
+  async sendMessage(message_info, conversation_id, proceed, error) {
+    const response = await axios
+      .put("/api/conversations/newMessage", {
+        message_info,
+        conversation_id,
+      })
+      .catch((err) => error(err));
+    if (response.status === 200) proceed(response.data);
+    else error(response);
+  },
+
+  async startOrGoTOConversation(
+    newConversation,
+    created,
+    alreadyExists,
+    error
+  ) {
     const response = await axios
       .post(
         "http://localhost:3001/api/conversations/newConversation",

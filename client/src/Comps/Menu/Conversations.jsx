@@ -20,13 +20,16 @@ export default function Conversations() {
     setPendingText,
     selectedConversation,
     selectConversationIndex,
+    addNewConversation,
+    setConvoStateReady,
   } = useConversations();
   const { isMobile } = useViewport();
   const [newConvoModalVisible, setNewConvoModalVisible] = useState(false);
   const [newMessageModalVisible, setNewMessageModalVisible] = useState(false);
   const [newConversationRecipients, setNewConversationRecipients] =
     useState(null);
-
+  const [conversationAdded, setConversationAdded] = useState(false);
+  const [newConversation_id, setNewConversation_id] = useState(null);
   //FUNCTIONS
   //================================================================================
   function writeConversationName(recipients) {
@@ -46,27 +49,39 @@ export default function Conversations() {
   }
 
   function startOrGoToConversation(started, goTo) {
-    API.createConversation(
+    API.startOrGoTOConversation(
       {
         members: mapConversationMembers(newConversationRecipients),
         name: writeConversationName(newConversationRecipients),
       },
       (newConversation) => started(newConversation),
       (existingConversation) => goTo(existingConversation),
-      (error) => console.error(error)
+      (error) =>
+        console.error("conversations.jsx:startOrGoToConversation():: ", error)
     );
+  }
+
+  function goToConversation() {
+    setConvoStateReady(true);
+    setNewMessageModalVisible(false);
   }
 
   function messageSubmit(text) {
     setPendingText(text);
     startOrGoToConversation(
       (newConversation) => {
-        // Handle adding, and going to the newly created conversation
-        console.log(newConversation);
+        addNewConversation(newConversation).then(() => {
+          setNewConversation_id(newConversation._id);
+          setConversationAdded(true);
+        });
       },
       (existingConversation) => {
-        // Handle going to the existing conversation
-        console.log(existingConversation);
+        selectConversationIndex(
+          conversations.findIndex(
+            (convo) => convo._id === existingConversation._id
+          )
+        );
+        goToConversation();
       }
     );
   }
@@ -77,6 +92,19 @@ export default function Conversations() {
     if (!newConversationRecipients) return;
     setNewMessageModalVisible(true);
   }, [newConversationRecipients]);
+
+  // This effect handles the loading of a newly created conversation
+  // Took some manipulation but I think it's good to go.
+  useEffect(() => {
+    if (!conversationAdded) return;
+    selectConversationIndex(
+      conversations.findIndex((convo) => convo._id === newConversation_id)
+    );
+    goToConversation();
+    setNewConversation_id(null);
+    setConversationAdded(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [conversations]);
 
   //COMPONENT
   //================================================================================

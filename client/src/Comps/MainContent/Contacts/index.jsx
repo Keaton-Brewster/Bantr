@@ -12,11 +12,12 @@ export default function Contacts({ containerRef }) {
   // STATE
   //================================================================================
   const { selectedContact } = useContactContext();
+  const { setConversationFromContact, setPendingText, setConvoStateReady } =
+    useConversations();
   const [contactRemovalModalVisible, setContactRemovalModalVisible] =
     useState(false);
   const [newMessageModalVisible, setNewMessageModalVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const { setConversationFromContact, setPendingText } = useConversations();
   const { setActiveContent, setActiveMenu } = useUIContext();
 
   // FUNCTIONS
@@ -26,6 +27,7 @@ export default function Contacts({ containerRef }) {
       .then(() => {
         setActiveContent({ conversations: true });
         setActiveMenu({ conversations: true });
+        setConvoStateReady(true);
       })
       .catch((error) => console.error(error));
   }
@@ -65,7 +67,7 @@ export default function Contacts({ containerRef }) {
               <ListGroup.Item>
                 <div className="mb-3">
                   <Image
-                    style={{ width: "40%", marginLeft: "25%", }}
+                    style={{ width: "40%", marginLeft: "25%" }}
                     src={selectedContact.imageUrl}
                     fluid
                     thumbnail

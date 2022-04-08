@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import { useUserContext } from "../utils/UserProvider";
+import API from "./API";
 
 const conversationContext = React.createContext();
 
@@ -15,6 +16,7 @@ export default function ConversationProvider({ children }) {
   const [selectedConversationIndex, setSelectedConversationIndex] = useState(0);
   const [conversations, setConversations] = useState([]);
   const [pendingText, setPendingText] = useState(null);
+  const [convoStateReady, setConvoStateReady] = useState(false);
 
   //FUNCTIONS
   //================================================================================
@@ -28,20 +30,22 @@ export default function ConversationProvider({ children }) {
   }
 
   function sendMessage(string) {
-    console.log(string, selectedConversationIndex);
-    axios
-      .put("/api/conversations/newMessage", {
-        message_info: {
-          sender_id: user._id,
-          content: string,
-        },
-        conversation_id: conversations[selectedConversationIndex]._id,
-      })
-      .then((response) => response.data)
-      .then((updatedConversation) => {
+    const message_info = {
+        sender_id: user._id,
+        content: string,
+      },
+      conversation_id = conversations[selectedConversationIndex]._id;
+
+    API.sendMessage(
+      message_info,
+      conversation_id,
+      (updatedConversation) => {
         updateConversation(updatedConversation);
-      })
-      .catch((e) => console.error(e));
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
   }
 
   function findConversationByUserID(_id) {
@@ -66,16 +70,39 @@ export default function ConversationProvider({ children }) {
 
   const loadConversations = useCallback(
     (cb) => {
-      axios
-        .get(`http://localhost:3001/api/conversations/${user._id}`)
-        .then(({ data }) => {
-          cb(data);
-        });
+      API.getConversations(
+        user._id,
+        (conversations) => cb(conversations),
+        (error) =>
+          console.error("conversationProvider.js:loadConversation():: ", error)
+      );
     },
     [user._id]
   );
 
+  function addNewConversation(newConversation) {
+    return new Promise((resolve, reject) => {
+      try {
+        setConversations([...conversations, newConversation]);
+        resolve();
+      } catch (error) {
+        reject(
+          "ConversationProvider::addNewConversation():: Promise Rejected",
+          error
+        );
+      }
+    });
+  }
+
+  function sendPendingText() {
+    sendMessage(pendingText);
+    setPendingText(null);
+  }
+
+  //VARIABLES FOR VALUE
+  //================================================================================
   const formattedConversations = conversations
+    //This should actually sort conversations by last 'updatedAt' value
     .sort((a, b) => {
       if (a.familyName < b.familyName) {
         return -1;
@@ -104,13 +131,14 @@ export default function ConversationProvider({ children }) {
   }, [user._id, loadConversations]);
 
   useEffect(() => {
+    if (!convoStateReady) return;
     // This effect handles the state delay that occurs when sending a message from the
     // Contact screen and the transitioning to the conversation screen.
     if (!pendingText) return;
     sendMessage(pendingText);
     setPendingText(null);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedConversationIndex]);
+  }, [convoStateReady]);
 
   //PROVIDER VALUE
   //================================================================================
@@ -122,6 +150,8 @@ export default function ConversationProvider({ children }) {
     updateConversation,
     setConversationFromContact,
     setPendingText,
+    addNewConversation,
+    setConvoStateReady,
   };
 
   //COMPONENT
