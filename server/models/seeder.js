@@ -139,7 +139,7 @@ const conversationSeed = [
 ];
 
 const seedUsers = () => {
-  db.User.deleteMany({})
+  db.User.remove({})
     .then(() => db.User.collection.insertMany(userSeed))
     .then((data) => {
       console.log(data);
@@ -152,7 +152,7 @@ const seedUsers = () => {
 };
 
 const seedConversations = () => {
-  db.Conversation.deleteMany({})
+  db.Conversation.remove({})
     .then(() => db.Conversation.collection.insertMany(conversationSeed))
     .then((data) => {
       console.log(data);
@@ -165,6 +165,7 @@ const seedConversations = () => {
 };
 
 const Main = (func1, func2) => {
+  mongoose.connection.dropDatabase()
   func1();
   func2();
 };
