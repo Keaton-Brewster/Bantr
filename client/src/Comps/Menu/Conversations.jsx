@@ -30,12 +30,13 @@ export default function Conversations() {
     useState(null);
   const [conversationAdded, setConversationAdded] = useState(false);
   const [newConversation_id, setNewConversation_id] = useState(null);
+
   //FUNCTIONS
   //================================================================================
   function writeConversationName(recipients) {
     let names = [];
-    recipients.forEach((user, i) => {
-      if (recipients[recipients.length - 1] === user)
+    recipients.forEach((user, index) => {
+      if (recipients.length - 1 === index)
         names.push(`${user.givenName} ${user.familyName}`);
       else names.push(`${user.givenName} ${user.familyName},`);
     });
@@ -68,6 +69,7 @@ export default function Conversations() {
 
   function messageSubmit(text) {
     setPendingText(text);
+
     startOrGoToConversation(
       (newConversation) => {
         addNewConversation(newConversation).then(() => {
@@ -75,6 +77,7 @@ export default function Conversations() {
           setConversationAdded(true);
         });
       },
+
       (existingConversation) => {
         selectConversationIndex(
           conversations.findIndex(
