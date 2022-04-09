@@ -9,12 +9,16 @@ import { useAppRendering } from "../utils/Reducer";
 import { useConversations } from "../utils/ConversationProvider";
 
 export default function Dashboard() {
+  //STATE
+  //================================================================================
   const { display } = useUIContext();
   const [loading, setLoading] = useState(true);
   const [state, dispatch] = useAppRendering();
   const dashboard = state.mainContent;
   const { conversations } = useConversations();
 
+  //FUNCTIONS
+  //================================================================================
   function renderMobile() {
     if (display.menu) return <Menu />;
     if (display.mainContent) return <MainContent />;
@@ -23,6 +27,12 @@ export default function Dashboard() {
   function cleanLocalStorage() {
     localStorage.removeItem("epr_ru");
   }
+
+  //EFFECTS
+  //================================================================================
+  // useEffect(() => {
+    
+  // }, [store.profile]);
 
   useEffect(() => {
     if (!conversations) return;
@@ -37,6 +47,8 @@ export default function Dashboard() {
     };
   });
 
+  //COMPONENT
+  //================================================================================
   return (
     <>
       {
