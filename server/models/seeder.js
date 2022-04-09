@@ -54,9 +54,10 @@ class User {
 }
 
 class Conversation {
-  constructor(members, messages) {
+  constructor(members, messages, name) {
     this.members = members;
     this.messages = messages;
+    this.name = name;
     this.created_at = Date.now;
   }
 }
@@ -124,7 +125,8 @@ const conversationSeed = [
         "sure if that's what you want to call it.."
       ),
       new Message(ObjectId("60dd2b58eeda4429a8f4ca91"), "I'm trying at least!"),
-    ]
+    ],
+    "Timmeree Estes"
   ),
   new Conversation(
     [
@@ -134,7 +136,8 @@ const conversationSeed = [
     [
       new Message(ObjectId("60dd2b58eeda4429a8f4ca91"), "What's up?"),
       new Message(ObjectId("60a533d0266a4f2cc69925fa"), "Not much!"),
-    ]
+    ],
+    "Brendon Cupertino"
   ),
 ];
 
@@ -165,7 +168,7 @@ const seedConversations = () => {
 };
 
 const Main = (func1, func2) => {
-  mongoose.connection.dropDatabase()
+  mongoose.connection.dropDatabase();
   func1();
   func2();
 };
