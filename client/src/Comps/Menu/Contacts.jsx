@@ -28,10 +28,10 @@ export default function Contacts() {
   }
 
   function addContact(phoneNum) {
-    // I will need to make sure to add a case here that will prevent
-    // a user from adding themselves as a contact. This would just
-    // be to avoid any weird errors that could occur by having your
-    // id appear in two places throughout the application
+    if (phoneNum === user.phoneNum) {
+      setNewContactModal(false);
+      return alert("you cannot add yourself as a contact");
+    }
     API.addContact(
       user._id,
       phoneNum,
