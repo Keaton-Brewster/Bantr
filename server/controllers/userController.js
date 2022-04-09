@@ -15,7 +15,7 @@ router.put("/getContacts", (request, response) => {
   const { id_array } = request.body;
 
   try {
-    db.User.find({ _id: { $in: id_array } })
+    db.User.find({ _id: {$in: id_array } })
       .then((result) => {
         response.send(result).status(200);
       })
