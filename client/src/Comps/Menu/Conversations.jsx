@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { ListGroup } from "react-bootstrap";
 import { AiFillPlusCircle } from "react-icons/ai";
 import { useConversations } from "../../utils/ConversationProvider";
@@ -62,10 +62,10 @@ export default function Conversations() {
     );
   }
 
-  function goToConversation() {
+  const goToConversation = useCallback(() => {
     setConvoStateReady(true);
     setNewMessageModalVisible(false);
-  }
+  }, [setConvoStateReady]);
 
   function messageSubmit(text) {
     setPendingText(text);
@@ -135,7 +135,7 @@ export default function Conversations() {
               key={index}
               className={`LGItem ${
                 convo._id === selectedConversation._id && !isMobile
-                  ? "activeConvo"
+                  ? "LGActive"
                   : ""
               }`}
               onClick={(event) => {
