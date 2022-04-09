@@ -106,8 +106,13 @@ export default function Conversations() {
     goToConversation();
     setNewConversation_id(null);
     setConversationAdded(false);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [conversations]);
+  }, [
+    conversationAdded,
+    conversations,
+    goToConversation,
+    newConversation_id,
+    selectConversationIndex,
+  ]);
 
   //COMPONENT
   //================================================================================
