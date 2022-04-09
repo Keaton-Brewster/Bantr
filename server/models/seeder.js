@@ -50,6 +50,7 @@ class User {
     this.phoneNum = phoneNum;
     this.g_id = GID || null;
     this.imageUrl = `https://avatars.dicebear.com/api/identicon/${generateSeed()}`;
+    this.contacts = contacts;
   }
 }
 
@@ -77,7 +78,11 @@ const userSeed = [
     "Brewster",
     "keaton.brewster@gmail.com",
     "+17859698002",
-    "108306498626918685024"
+    "108306498626918685024",
+    [
+      ObjectId("60a532c9266a4f2cc69925f6"),
+      ObjectId("60a5344d266a4f2cc69925fc")
+    ]
   ),
   new User(
     ObjectId("60a532c9266a4f2cc69925f6"),
