@@ -5,12 +5,14 @@ import NewContactModal from "../Modals/NewContactModal";
 import API from "../../utils/API";
 import { useContactContext } from "../../utils/ContactProvider";
 import { useUserContext } from "../../utils/UserProvider";
+import { useUIContext } from "../../utils/UIProvider";
 
 export default function Contacts() {
   //STATE
   //================================================================================
-  const { contacts, setSelectedContact } = useContactContext();
+  const { contacts, selectedContact, setSelectedContact } = useContactContext();
   const { user, setUser } = useUserContext();
+  const { isMobile } = useUIContext();
   const [newContactModal, setNewContactModal] = useState(false);
   const [loading, setLoading] = useState(true);
 
@@ -52,6 +54,13 @@ export default function Contacts() {
     setLoading(false);
   }, [contacts]);
 
+  useEffect(() => {
+    return () => {
+      setSelectedContact(null);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   //COMPONENT
   //================================================================================
   return loading ? (
@@ -73,7 +82,13 @@ export default function Contacts() {
           contacts.map((contact, index) => {
             return (
               <ListGroup.Item
-                className="LGItem"
+                className={`LGItem ${
+                  selectedContact
+                    ? contact._id === selectedContact._id && !isMobile
+                      ? "LGActive"
+                      : ""
+                    : ""
+                }`}
                 onClick={(e) => {
                   e.preventDefault();
                   selectContact(contact);
