@@ -1,4 +1,4 @@
-@import "src/globals"
+@import "../../../globals.scss"
 
 #messageWrapper
     padding-bottom: 20px
@@ -24,10 +24,11 @@
     overflow-wrap: break-word
     white-space: pre-wrap
     &FromMe
-        background-color: $message-from-me
-        color: $light
+        background-color: var(--message-from-me)
+        color: var(--light)
     &ToMe
-        background-color: $message-to-me
+        background-color: var(--message-to-me)
+        color: var(--dark) !important
 
 @media screen and (max-width: 680px)
     .message
@@ -44,11 +45,11 @@
 #messagesTopMenu
     position: fixed
     top: 0px
-    background-color: $secondary-background
+    background-color: var(--secondary-background)
     padding: 10px
     z-index: 20
     &>*
-        background-color: $secondary-background
+        background-color: var(--secondary-background)
 
 .conversationInfoScreen
     padding: 25px
@@ -59,7 +60,7 @@
     margin-right: 10px
     height: 20px
     width: 20px
-    background-color: $secondary-background
+    background-color: var(--secondary-background)
     &:hover
         cursor: pointer
 
@@ -67,7 +68,7 @@
     margin-left: 10px
     height: 20px
     width: 20px
-    background-color: $secondary-background
+    background-color: var(--secondary-background)
     position: relative
     right: 1px
     bottom: 1px
@@ -80,11 +81,11 @@
     float: left
 
 .deleteMessageButton
-    fill: $light
+    fill: var(--light)
     background-color: rgb(48, 48, 48)
 
     &:hover
-        fill: $danger
+        fill: var(--danger)
 
 #editConvoNameInput
     border: none

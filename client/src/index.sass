@@ -1,11 +1,11 @@
-@import 'src/globals'
+@import "./globals.scss"
 
 html
     scroll-behavior: smooth
 
 *
-    background-color: $main-background
-    color: #202020
+    background-color: var(--main-background)
+    color: var(--main-text-color)
     overflow-wrap: break-word
 
 .absoluteCenter
@@ -17,7 +17,7 @@ button
     border: none
 
 .LGItem
-    background-color: $main-background
+    background-color: var(--main-background)
     padding: 1rem
 
 .LGItem:hover,
@@ -25,8 +25,8 @@ button
     cursor: pointer
 
 .LGActive
-    background-color: $active
-    color: $light
+    background-color: var(--active)
+    color: var(--light)
 
 #messageBox
     border-left: 1px solid grey
@@ -53,7 +53,7 @@ button
 
     &:focus
         outline: none !important
-        box-shadow: 0 0 5px 1px $light
+        box-shadow: 0 0 5px 1px var(--light)
 
 .show
     display: block !important
@@ -67,12 +67,12 @@ button
     min-width: 15rem
 
 #loginLink
-    background-color: $secondary-background
+    background-color: var(--secondary-background)
     padding: 1rem
     border-radius: 5px
 
 #signupLink
-    background-color: $secondary-background
+    background-color: var(--secondary-background)
     padding: 1rem
     border-radius: 5px
 

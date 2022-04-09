@@ -1,4 +1,4 @@
-@import "src/globals"
+@import "../globals.scss"
 
 #chatBox
     margin-right: auto
@@ -65,17 +65,17 @@
 #sendButton
     height: 35px
     width: 35px
-    background-color: $primary-button !important
+    background-color: var(--primary-button) !important
     border-radius: 50px
 
 .sendButton
-    background-color: $primary-button !important
+    background-color: var(--primary-button) !important
     position: relative
     bottom: 1px
 
 #sendButton:hover,
 #sendButton:hover .sendButton
-    background-color: $hover-button !important
+    background-color: var(--hover-button) !important
 
 #openEmojisButton
     width: 35px
@@ -83,4 +83,4 @@
 
     &:hover
         cursor: pointer
-        fill: $hover-button
+        fill: var(--hover-button)
