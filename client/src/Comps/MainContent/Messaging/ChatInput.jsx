@@ -35,7 +35,7 @@ export default function ChatInput({ containerRef }) {
 
   function handleInputChange(event) {
     event.preventDefault();
-    setCurrentInput(textRef.current.textContent);
+    setCurrentInput(textRef.current.innerText);
   }
 
   function toggleEmojiMenu(event) {
