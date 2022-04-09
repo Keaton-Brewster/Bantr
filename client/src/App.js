@@ -8,6 +8,7 @@ import UserProvider from "./utils/UserProvider";
 import ConversationProvider from "./utils/ConversationProvider";
 import ContactProvider from "./utils/ContactProvider";
 import UIProvider from "./utils/UIProvider";
+import ThemeProvider from "./utils/ThemeProvider";
 
 function App() {
   // I need a better way to handle the updating of user information
@@ -32,28 +33,30 @@ function App() {
     return () => {
       document.removeEventListener("keydown", checkForESC, false);
     };
-  }, []);
+  });
 
   return (
     <UserProvider user={user} setUser={setUser}>
-      <ViewportProvider>
-        <UIProvider>
-          <ConversationProvider>
-            <ContactProvider>
-              <Router>
-                <Switch>
-                  <Route exact path="/signup">
-                    <Signup />
-                  </Route>
-                  <Route exact path="/">
-                    <Home />
-                  </Route>
-                </Switch>
-              </Router>
-            </ContactProvider>
-          </ConversationProvider>
-        </UIProvider>
-      </ViewportProvider>
+      <ThemeProvider>
+        <ViewportProvider>
+          <UIProvider>
+            <ConversationProvider>
+              <ContactProvider>
+                <Router>
+                  <Switch>
+                    <Route exact path="/signup">
+                      <Signup />
+                    </Route>
+                    <Route exact path="/">
+                      <Home />
+                    </Route>
+                  </Switch>
+                </Router>
+              </ContactProvider>
+            </ConversationProvider>
+          </UIProvider>
+        </ViewportProvider>
+      </ThemeProvider>
     </UserProvider>
   );
 }
