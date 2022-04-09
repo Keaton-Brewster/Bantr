@@ -53,7 +53,7 @@ export default function ContactProvider({ children }) {
       const sorted = sortContacts(allContacts);
       setContacts(sorted);
     });
-  }, []);
+  }, [contacts]);
 
   //PROVIDER VALUES
   //================================================================================
