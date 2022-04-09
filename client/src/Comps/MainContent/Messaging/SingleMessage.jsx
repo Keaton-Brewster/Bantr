@@ -1,8 +1,18 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 
-export default function SingleMessage({ data, handleRightClick, index }) {
+export default function SingleMessage({
+  //PROPS
+  //================================================================================
+  data,
+  handleRightClick,
+  index,
+}) {
+  //STATE
+  //================================================================================
   const [message, messages] = data;
 
+  //EFFECTS
+  //================================================================================
   useEffect(() => {
     if (!message.fromMe) return;
     const thisElement = document.getElementById(`message_${index}`);
@@ -14,6 +24,8 @@ export default function SingleMessage({ data, handleRightClick, index }) {
       thisElement.removeEventListener("contextmenu", handleRightClick);
   });
 
+  //COMPONENT
+  //================================================================================
   return (
     <div
       id={`message_${index}`}
@@ -23,7 +35,7 @@ export default function SingleMessage({ data, handleRightClick, index }) {
     >
       <div
         // data-key={i}
-        className={`message rounded px-2 py-1 ${
+        className={`message round-border px-2 py-1 ${
           message.fromMe ? "messageFromMe" : "messageToMe"
         }`}
       >
