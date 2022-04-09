@@ -10,6 +10,13 @@ import ContactProvider from "./utils/ContactProvider";
 import UIProvider from "./utils/UIProvider";
 
 function App() {
+  // I need a better way to handle the updating of user information
+  // if a conversation, contact, or message is added/deleted
+  // I need an effect that will listen for that and call the db to update the user
+  //  witihin the app accordingly. Right now, after reseting the database,
+  // all the contacts are still stored on the user in local storage which is fine,
+  // but like i said, just need an update effect so that if things change on the db
+  // side, it is reflected in the browser siede
   const [user, setUser] = useLocalStorage("user", 0);
 
   const checkForESC = (event) => {
@@ -18,17 +25,14 @@ function App() {
     document.activeElement.blur();
   };
 
-  //? On an application level I need to be checking if the users data has been updated in the data base everytime the app loads
-  //? I also probably need to implement a better way to update the user
-
-  // Basic functionality of like "hit esc - kill focus"
+  // Basic functionality of "hit esc - kill focus"
   useEffect(() => {
     document.addEventListener("keydown", checkForESC, false);
 
     return () => {
       document.removeEventListener("keydown", checkForESC, false);
     };
-  });
+  }, []);
 
   return (
     <UserProvider user={user} setUser={setUser}>
@@ -39,10 +43,10 @@ function App() {
               <Router>
                 <Switch>
                   <Route exact path="/signup">
-                    <Signup/>
+                    <Signup />
                   </Route>
                   <Route exact path="/">
-                    <Home/>
+                    <Home />
                   </Route>
                 </Switch>
               </Router>
