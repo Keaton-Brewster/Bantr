@@ -1,8 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Spinner, ListGroup, Image } from "react-bootstrap";
 import { useContactContext } from "../../../utils/ContactProvider";
 import { useUIContext } from "../../../utils/UIProvider";
 import { useConversations } from "../../../utils/ConversationProvider";
+import { useUserContext } from "../../../utils/UserProvider";
+import API from "../../../utils/API";
 import ContactTopMenu from "./ContactTopMenu";
 import ConfrimContactRemovalModal from "../../Modals/ConfirmContactRemoval_Modal";
 import NewMessageModal from "../../Modals/NewMessage/NewMessageModal";
@@ -12,29 +14,64 @@ export default function Contacts({ containerRef }) {
   // STATE
   //================================================================================
   const { selectedContact } = useContactContext();
-  const { setConversationFromContact, setPendingText, setConvoStateReady } =
-    useConversations();
+  const { user } = useUserContext();
+  const {
+    conversations,
+    setPendingText,
+    selectConversationIndex,
+    addNewConversation,
+    setConvoStateReady,
+  } = useConversations();
+  const { setActiveContent, setActiveMenu } = useUIContext();
+  const [conversationAdded, setConversationAdded] = useState(false);
+  const [newConversation_id, setNewConversation_id] = useState(null);
   const [contactRemovalModalVisible, setContactRemovalModalVisible] =
     useState(false);
   const [newMessageModalVisible, setNewMessageModalVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const { setActiveContent, setActiveMenu } = useUIContext();
 
   // FUNCTIONS
   //================================================================================
-  function goToConversation() {
-    setConversationFromContact(selectedContact._id)
-      .then(() => {
-        setActiveContent({ conversations: true });
-        setActiveMenu({ conversations: true });
-        setConvoStateReady(true);
-      })
-      .catch((error) => console.error(error));
+  const goToConversation = useCallback(() => {
+    setConvoStateReady(true);
+    setNewMessageModalVisible(false);
+    setActiveContent({ conversations: true });
+    setActiveMenu({ conversations: true });
+  }, [setActiveContent, setActiveMenu, setConvoStateReady]);
+
+  function startOrGoToConversation(started, goTo) {
+    API.startOrGoTOConversation(
+      {
+        members: [user._id, selectedContact._id],
+        name: `${selectedContact.givenName} ${selectedContact.familyName}`,
+      },
+      (newConversation) => started(newConversation),
+      (existingConversation) => goTo(existingConversation),
+      (error) =>
+        console.error("conversations.jsx:startOrGoToConversation():: ", error)
+    );
   }
 
   function messageSubmit(text) {
     setPendingText(text);
-    goToConversation();
+
+    startOrGoToConversation(
+      (newConversation) => {
+        addNewConversation(newConversation).then(() => {
+          setNewConversation_id(newConversation._id);
+          setConversationAdded(true);
+        });
+      },
+
+      (existingConversation) => {
+        selectConversationIndex(
+          conversations.findIndex(
+            (convo) => convo._id === existingConversation._id
+          )
+        );
+        goToConversation();
+      }
+    );
   }
 
   // EFFECTS
@@ -42,6 +79,22 @@ export default function Contacts({ containerRef }) {
   useEffect(() => {
     setIsLoading(false);
   }, [selectedContact]);
+
+  useEffect(() => {
+    if (!conversationAdded) return;
+    selectConversationIndex(
+      conversations.findIndex((convo) => convo._id === newConversation_id)
+    );
+    goToConversation();
+    setNewConversation_id(null);
+    setConversationAdded(false);
+  }, [
+    conversationAdded,
+    conversations,
+    goToConversation,
+    newConversation_id,
+    selectConversationIndex,
+  ]);
 
   // COMPONENT
   //================================================================================
@@ -87,7 +140,6 @@ export default function Contacts({ containerRef }) {
           <NewMessageModal
             show={newMessageModalVisible}
             hide={() => setNewMessageModalVisible(false)}
-            selectedContact={selectedContact}
             messageSubmit={messageSubmit}
           />
 
