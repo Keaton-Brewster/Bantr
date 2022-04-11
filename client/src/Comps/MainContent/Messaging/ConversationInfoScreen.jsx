@@ -4,6 +4,7 @@ import { Spinner, ListGroup } from "react-bootstrap";
 import { FiEdit } from "react-icons/fi";
 import { BiSave } from "react-icons/bi";
 import { useConversations } from "../../../utils/ConversationProvider";
+import LGItem from "../../Menu/LGItems";
 import UserCardSM from "../../UserCards/UserCardSM";
 import axios from "axios";
 import MessagesTopMenu from "./MessagesTopMenu";
@@ -74,7 +75,7 @@ function _ConversationInfoScreen({ containerRef }) {
 
       <div className="conversationInfoScreen">
         <ListGroup variant="flush">
-          <ListGroup.Item>
+          <LGItem>
             <div className="mb-3">
               <h4>Group Name</h4>
               {editingConvoName ? (
@@ -96,14 +97,14 @@ function _ConversationInfoScreen({ containerRef }) {
                 />
               )}
             </div>
-          </ListGroup.Item>
+          </LGItem>
 
-          <ListGroup.Item>
+          <LGItem>
             <h4>Members</h4>
             {convoInfo.map((user, index) => {
               return <UserCardSM user={user} key={index} />;
             })}
-          </ListGroup.Item>
+          </LGItem>
         </ListGroup>
       </div>
     </>

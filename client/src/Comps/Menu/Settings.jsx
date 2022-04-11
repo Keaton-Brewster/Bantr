@@ -1,8 +1,9 @@
 import React from "react";
-import { Button, ListGroup, Form } from "react-bootstrap";
+import { Button, ListGroup } from "react-bootstrap";
 import DarkModeToggle from "react-dark-mode-toggle";
 import useLocalStorage from "../../utils/useLocalStorage";
 import { useThemes } from "../../utils/ThemeProvider";
+import LGItem from "./LGItems";
 
 export default function Settings() {
   //STATE
@@ -28,17 +29,17 @@ export default function Settings() {
   return (
     <>
       <ListGroup>
-        <ListGroup.Item className="LGItem text-center">
+        <LGItem className="LGItem text-center" BGTransition>
           <Button onClick={logout}>Logout</Button>
-        </ListGroup.Item>
-        <ListGroup.Item className="LGItem">
+        </LGItem>
+        <LGItem className="LGItem" BGTransition>
           <span>App Theme </span>
           <DarkModeToggle
             onChange={handleThemeToggle}
             checked={theme === "dark" ? true : false}
             size={80}
           />
-        </ListGroup.Item>
+        </LGItem>
       </ListGroup>
     </>
   );

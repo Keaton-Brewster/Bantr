@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import { Modal, Button, ListGroup } from "react-bootstrap";
 import { useContactContext } from "../../../utils/ContactProvider";
 import Recipient from "./Recipient";
+import LGItem from "../../Menu/LGItems";
 
 export default function NewConversationModal({
   //PROPS
@@ -91,7 +92,7 @@ export default function NewConversationModal({
         ) : null}
       </Modal.Header>
       <Modal.Body>
-        <ListGroup.Item
+        <LGItem
           contentEditable
           ref={searchRef}
           className="textarea"
@@ -102,13 +103,13 @@ export default function NewConversationModal({
           {contacts ? (
             contacts.map((contact, index) => {
               return (
-                <ListGroup.Item
+                <LGItem
                   className="LGItem"
                   onClick={() => selectContact(contact)}
                   key={index}
                 >
                   {contact.givenName + " " + contact.familyName}
-                </ListGroup.Item>
+                </LGItem>
               );
             })
           ) : (

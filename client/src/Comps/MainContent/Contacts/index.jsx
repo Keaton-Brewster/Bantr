@@ -8,6 +8,7 @@ import API from "../../../utils/API";
 import ContactTopMenu from "./ContactTopMenu";
 import ConfrimContactRemovalModal from "../../Modals/ConfirmContactRemoval_Modal";
 import NewMessageModal from "../../Modals/NewMessage/NewMessageModal";
+import LGItem from "../../Menu/LGItems";
 import "./contacts.sass";
 
 export default function Contacts({ containerRef }) {
@@ -117,7 +118,7 @@ export default function Contacts({ containerRef }) {
 
           <div className="conversationInfoScreen">
             <ListGroup variant="flush">
-              <ListGroup.Item>
+              <LGItem>
                 <div className="mb-3">
                   <Image
                     style={{ width: "40%", marginLeft: "25%" }}
@@ -126,14 +127,14 @@ export default function Contacts({ containerRef }) {
                     thumbnail
                   />
                 </div>
-              </ListGroup.Item>
+              </LGItem>
 
-              <ListGroup.Item>
+              <LGItem>
                 <h4>Email:</h4>
                 <p
                   style={{ paddingLeft: "20px" }}
                 >{`${selectedContact.email}`}</p>
-              </ListGroup.Item>
+              </LGItem>
             </ListGroup>
           </div>
 

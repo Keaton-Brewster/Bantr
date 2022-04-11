@@ -9,6 +9,7 @@ import NewConversationModal from "../Modals/NewConversation/NewConversationModal
 import NewMessageModal from "../Modals/NewMessage/NewMessageModal";
 import API from "../../utils/API";
 import { useUserContext } from "../../utils/UserProvider";
+import LGItem from "./LGItems";
 
 export default function Conversations() {
   //STATE
@@ -119,7 +120,7 @@ export default function Conversations() {
   return (
     <>
       <ListGroup variant="flush">
-        <ListGroup.Item
+        <LGItem
           className="LGItem"
           onClick={(e) => {
             e.preventDefault();
@@ -128,10 +129,10 @@ export default function Conversations() {
         >
           <AiFillPlusCircle id="addButton" />
           Start A New Message
-        </ListGroup.Item>
+        </LGItem>
         {conversations.map((convo, index) => {
           return (
-            <ListGroup.Item
+            <LGItem
               key={index}
               className={`LGItem ${
                 convo._id === selectedConversation._id && !isMobile
@@ -154,7 +155,7 @@ export default function Conversations() {
               }}
             >
               {convo.name || "Untitled Conversation"}
-            </ListGroup.Item>
+            </LGItem>
           );
         })}
       </ListGroup>

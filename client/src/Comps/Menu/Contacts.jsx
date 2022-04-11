@@ -6,6 +6,7 @@ import API from "../../utils/API";
 import { useContactContext } from "../../utils/ContactProvider";
 import { useUserContext } from "../../utils/UserProvider";
 import { useUIContext } from "../../utils/UIProvider";
+import LGItem from "./LGItems";
 
 export default function Contacts() {
   //STATE
@@ -74,14 +75,14 @@ export default function Contacts() {
       />
 
       <ListGroup>
-        <ListGroup.Item className="LGItem" onClick={showNewContactModal}>
+        <LGItem className="LGItem" onClick={showNewContactModal}>
           <AiFillPlusCircle id="addButton" />
           Add Contact
-        </ListGroup.Item>
+        </LGItem>
         {contacts ? (
           contacts.map((contact, index) => {
             return (
-              <ListGroup.Item
+              <LGItem
                 className={`LGItem ${
                   selectedContact
                     ? contact._id === selectedContact._id && !isMobile
@@ -96,7 +97,7 @@ export default function Contacts() {
                 key={index}
               >
                 {contact.givenName + " " + contact.familyName}
-              </ListGroup.Item>
+              </LGItem>
             );
           })
         ) : (
