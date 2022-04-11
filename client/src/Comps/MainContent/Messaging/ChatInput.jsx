@@ -44,12 +44,12 @@ function _ChatInput({ containerRef }) {
     setEmojiPickerShow(!emojiPickerShow);
   }
 
-  function addEmoji(event, emojiData) {
-    event.preventDefault();
-    const messagePlusEmoji = `${textRef.current.value} ${emojiData.emoji}`;
-    setCurrentInput(messagePlusEmoji);
-    textRef.current.value = messagePlusEmoji;
-  }
+  // function addEmoji(event, emojiData) {
+  //   event.preventDefault();
+  //   const messagePlusEmoji = `${textRef.current.value} ${emojiData.emoji}`;
+  //   setCurrentInput(messagePlusEmoji);
+  //   textRef.current.value = messagePlusEmoji;
+  // }
 
   function testForCMD(event) {
     if (document.activeElement !== textRef.current) return;
