@@ -5,7 +5,6 @@ import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyles = createGlobalStyle`
   :root {
-    background-color: ${({ theme }) => theme.body};
-    color: ${({ theme }) => theme.text};
-    transition: all 0.50s ease;
+    --main-background: ${({ theme }) => theme.body};
+    --main-text-color: ${({ theme }) => theme.text};
   }`;

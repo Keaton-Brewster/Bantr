@@ -1,6 +1,7 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext } from "react";
 import useLocalStorage from "./useLocalStorage";
 import { GlobalStyles } from "./Theme/global";
+import { lightTheme, darkTheme } from "./Theme/themes";
 
 const themeContext = createContext();
 
@@ -13,22 +14,6 @@ export default function ThemeProvider({ children }) {
   //================================================================================
   const [theme, setTheme] = useLocalStorage("theme", "light");
 
-  //FUNCTIONS
-  //================================================================================
-
-  //EFFECTS
-  //================================================================================
-  useEffect(() => {
-    const r = document.querySelector(":root");
-    if (theme === "light") {
-      r.style.setProperty("--main-background", "var(--light)");
-      r.style.setProperty("--main-text-color", "var(--dark)");
-    } else if (theme === "dark") {
-      r.style.setProperty("--main-background", "var(--dark");
-      r.style.setProperty("--main-text-color", "var(--light)");
-    }
-  }, [theme]);
-
   //VALUE
   //================================================================================
   const value = { theme, setTheme };
@@ -38,7 +23,7 @@ export default function ThemeProvider({ children }) {
   return (
     <themeContext.Provider value={value}>
       <>
-        <GlobalStyles />
+        <GlobalStyles theme={theme === "light" ? lightTheme : darkTheme} />
         {children}
       </>
     </themeContext.Provider>
