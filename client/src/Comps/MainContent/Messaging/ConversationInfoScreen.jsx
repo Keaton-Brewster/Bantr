@@ -1,4 +1,5 @@
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import styled from "styled-components";
 import { Spinner, ListGroup } from "react-bootstrap";
 import { FiEdit } from "react-icons/fi";
 import { BiSave } from "react-icons/bi";
@@ -7,15 +8,12 @@ import UserCardSM from "../../UserCards/UserCardSM";
 import axios from "axios";
 import MessagesTopMenu from "./MessagesTopMenu";
 
-export default function ConversationInfoScreen({ containerRef }) {
+function _ConversationInfoScreen({ containerRef }) {
   //STATE
   //================================================================================
   const { selectedConversation, updateConversation } = useConversations();
   const [convoInfo, setConvoInfo] = useState();
   const [editingConvoName, setEditingConvoName] = useState(false);
-  const [conversationName, setConversationName] = useState(
-    selectedConversation.name
-  );
   const [loading, setLoading] = useState(true);
   const editConvoNameInput = useRef();
 
@@ -111,3 +109,9 @@ export default function ConversationInfoScreen({ containerRef }) {
     </>
   );
 }
+
+const ConversationInfoScreen = styled(_ConversationInfoScreen)`
+  transition: background 0.5s ease;
+`;
+
+export default ConversationInfoScreen;
