@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import useLocalStorage from "./useLocalStorage";
+import { GlobalStyles } from "./Theme/global";
 
 const themeContext = createContext();
 
@@ -35,6 +36,11 @@ export default function ThemeProvider({ children }) {
   //COMPONENT
   //================================================================================
   return (
-    <themeContext.Provider value={value}>{children}</themeContext.Provider>
+    <themeContext.Provider value={value}>
+      <>
+        <GlobalStyles />
+        {children}
+      </>
+    </themeContext.Provider>
   );
 }
