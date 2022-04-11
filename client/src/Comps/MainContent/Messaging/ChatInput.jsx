@@ -1,4 +1,5 @@
 import { useRef, useEffect, useState } from "react";
+import styled from "styled-components";
 import { Row, Col } from "react-bootstrap";
 import { FaArrowUp } from "react-icons/fa";
 import { FaRegSmile } from "react-icons/fa";
@@ -7,7 +8,7 @@ import { useViewport } from "../../../utils/ViewportProvider";
 import ImageUploading from "react-images-uploading";
 import Picker from "emoji-picker-react";
 
-export default function ChatInput({ containerRef }) {
+function _ChatInput({ containerRef }) {
   //STATE
   //================================================================================
   const [currentInput, setCurrentInput] = useState(null);
@@ -167,3 +168,9 @@ export default function ChatInput({ containerRef }) {
     </div>
   );
 }
+
+const ChatInput = styled(_ChatInput)`
+  transition: background 0.5s ease;
+`;
+
+export default ChatInput;
