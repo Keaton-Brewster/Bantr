@@ -5,8 +5,8 @@ import { FaArrowUp } from "react-icons/fa";
 import { FaRegSmile } from "react-icons/fa";
 import { useConversations } from "../../../utils/ConversationProvider";
 import { useViewport } from "../../../utils/ViewportProvider";
-import ImageUploading from "react-images-uploading";
-import Picker from "emoji-picker-react";
+// import ImageUploading from "react-images-uploading";
+// import Picker from "emoji-picker-react";
 
 function _ChatInput({ containerRef }) {
   //STATE
@@ -16,7 +16,7 @@ function _ChatInput({ containerRef }) {
   const { width, scrollToBottomMessages } = useViewport();
   const [chatboxWidth, setChatboxWidth] = useState("100%");
   const [emojiPickerShow, setEmojiPickerShow] = useState(false);
-  const [images, setImages] = useState([]);
+  // const [images, setImages] = useState([]);
   const textRef = useRef();
 
   //FUNCTIONS
