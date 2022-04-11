@@ -22,10 +22,8 @@ export default function ThemeProvider({ children }) {
   //================================================================================
   return (
     <themeContext.Provider value={value}>
-      <>
-        <GlobalStyles theme={theme === "light" ? lightTheme : darkTheme} />
-        {children}
-      </>
+      <GlobalStyles theme={theme === "light" ? lightTheme : darkTheme} />
+      {children}
     </themeContext.Provider>
   );
 }
