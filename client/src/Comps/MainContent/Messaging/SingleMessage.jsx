@@ -33,6 +33,7 @@ export default function SingleMessage({
         message.fromMe ? "align-self-end align-items-end" : "align-items-start"
       }`}
     >
+
       <div
         // data-key={i}
         className={`message round-border px-2 py-1 ${
@@ -41,6 +42,7 @@ export default function SingleMessage({
       >
         {message.content}
       </div>
+      
       {
         <div
           className={`text-muted small ${message.fromMe ? "text-right" : ""}`}
