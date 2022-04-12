@@ -19,8 +19,6 @@ function _UserCardSM({ user, className }) {
   );
 }
 
-const UserCardSM = styled(_UserCardSM)`
+export default styled(_UserCardSM)`
   background-color: ${({ theme }) => theme.body};
 `;
-
-export default UserCardSM;

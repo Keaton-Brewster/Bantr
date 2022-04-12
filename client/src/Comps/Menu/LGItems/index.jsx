@@ -18,10 +18,8 @@ const _LGItem = forwardRef(
   }
 );
 
-const LGItem = styled(_LGItem)`
+export default styled(_LGItem)`
   transition: ${({ BGTransition }) =>
     BGTransition ? "background 0.5s ease" : "background 0s linear !important"};
   background-color: ${({ theme }) => theme.body};
 `;
-
-export default LGItem;

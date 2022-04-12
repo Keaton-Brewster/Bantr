@@ -115,8 +115,6 @@ function _ConversationInfoScreen({ containerRef }) {
   );
 }
 
-const ConversationInfoScreen = styled(_ConversationInfoScreen)`
+export default styled(_ConversationInfoScreen)`
   transition: background 0.5s ease;
 `;
-
-export default ConversationInfoScreen;

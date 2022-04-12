@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Nav } from "react-bootstrap";
 import { FaArrowLeft } from "react-icons/fa";
-import './backButton.sass'
+import "./backButton.sass";
 
 function _BackButton({ className, onClick }) {
   return (
@@ -12,8 +12,6 @@ function _BackButton({ className, onClick }) {
   );
 }
 
-const BackButton = styled(_BackButton)`
+export default styled(_BackButton)`
   background-color: ${({ theme }) => theme.topMenuBackground};
 `;
-
-export default BackButton;

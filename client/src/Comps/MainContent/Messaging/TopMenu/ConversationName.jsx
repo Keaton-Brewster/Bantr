@@ -27,8 +27,6 @@ function _ConversationName({ className, isMobile, activeContent }) {
   );
 }
 
-const ConversationName = styled(_ConversationName)`
+export default styled(_ConversationName)`
   background-color: ${({ theme }) => theme.topMenuBackground};
 `;
-
-export default ConversationName;

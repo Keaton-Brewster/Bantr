@@ -76,12 +76,10 @@ function _MessagesTopMenu({ className, containerRef, theme }) {
   );
 }
 
-const MessagesTopMenu = styled(_MessagesTopMenu)`
+export default styled(_MessagesTopMenu)`
   background-color: ${({ theme }) => theme.topMenuBackground};
   position: fixed;
   top: 0px;
   padding: 10px;
   z-index: 20;
 `;
-
-export default MessagesTopMenu;
