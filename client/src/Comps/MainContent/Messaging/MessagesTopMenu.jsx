@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import styled from "styled-components";
 import { Nav } from "react-bootstrap";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { FaArrowLeft } from "react-icons/fa";
@@ -6,12 +7,16 @@ import { useUIContext } from "../../../utils/UIProvider";
 import { useConversations } from "../../../utils/ConversationProvider";
 import { useViewport } from "../../../utils/ViewportProvider";
 
-export default function MessagesTopMenu({ containerRef }) {
+function _MessagesTopMenu({ containerRef }) {
+  //STATE
+  //================================================================================
   const [menuBarWidth, setMenuBarWidth] = useState("100%");
   const { width, isMobile } = useViewport();
   const { selectedConversation } = useConversations();
   const { activeContent, setActiveContent, setDisplay } = useUIContext();
 
+  //FUNCTIONS
+  //================================================================================
   function openConversationInfo() {
     if (activeContent.conversationInfo) return handleBackButton();
     setActiveContent({
@@ -36,14 +41,18 @@ export default function MessagesTopMenu({ containerRef }) {
     }, 590);
   }
 
+  //EFFECTS
+  //================================================================================
   useEffect(() => {
     return setMenuBarWidth(`${containerRef.current.offsetWidth}px`);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [width]);
 
+  //COMPONENT
+  //================================================================================
   return (
     <Nav
-      id="messagesTopMenu"
+      // id="messagesTopMenu"
       className="flex-row justify-content-center"
       style={{ width: menuBarWidth }}
     >
@@ -68,3 +77,16 @@ export default function MessagesTopMenu({ containerRef }) {
     </Nav>
   );
 }
+
+const MessagesTopMenu = styled(_MessagesTopMenu)`
+  background-color: ${({ theme }) => theme.headers};
+  position: fixed;
+  top: 0px;
+  padding: 10px;
+  z-index: 20;
+  & > * {
+    background-color: ${({ theme }) => theme.headers};
+  }
+`;
+
+export default MessagesTopMenu;
