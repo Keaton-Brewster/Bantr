@@ -1,18 +1,22 @@
 import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
+
 import { Spinner, ListGroup } from "react-bootstrap";
 import { FiEdit } from "react-icons/fi";
 import { BiSave } from "react-icons/bi";
 import { useConversations } from "../../../utils/ConversationProvider";
+import { useThemes } from "../../../utils/ThemeProvider";
+
 import LGItem from "../../Menu/LGItems";
 import UserCardSM from "../../UserCards/UserCardSM";
 import axios from "axios";
-import MessagesTopMenu from "./MessagesTopMenu";
+import MessagesTopMenu from "./TopMenu/MessagesTopMenu";
 
 function _ConversationInfoScreen({ containerRef }) {
   //STATE
   //================================================================================
   const { selectedConversation, updateConversation } = useConversations();
+  const { theme } = useThemes();
   const [convoInfo, setConvoInfo] = useState();
   const [editingConvoName, setEditingConvoName] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -71,7 +75,7 @@ function _ConversationInfoScreen({ containerRef }) {
 
   return (
     <>
-      <MessagesTopMenu containerRef={containerRef} />
+      <MessagesTopMenu theme={theme} containerRef={containerRef} />
 
       <div className="conversationInfoScreen">
         <ListGroup variant="flush">
