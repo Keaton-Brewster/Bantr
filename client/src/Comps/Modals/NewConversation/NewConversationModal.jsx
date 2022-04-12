@@ -92,6 +92,7 @@ export default function NewConversationModal({
         ) : null}
       </Modal.Header>
       <Modal.Body>
+        {/* I need to make a specific component for this */}
         <LGItem
           contentEditable
           ref={searchRef}
