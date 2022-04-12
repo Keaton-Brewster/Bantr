@@ -10,15 +10,20 @@ import { useUIContext } from "../../../utils/UIProvider";
 import MessagesTopMenu from "./MessagesTopMenu";
 import "./messaging.sass";
 import { Spinner } from "react-bootstrap";
+import { useThemes } from "../../../utils/ThemeProvider";
 
 export default function Messages({ containerRef }) {
+  //STATE
+  //================================================================================
   const [isLoading, setIsLoading] = useState(true);
   const { display, activeContent } = useUIContext();
   const { selectedConversation } = useConversations();
   const [contextMenuShow, setContextMenuShow] = useState(false);
   const { bottomOfMessages } = useViewport();
+  const { theme } = useThemes();
 
-  // Handler function for message context menu
+  //FUNCTIONS
+  //================================================================================
   function handleRightClick(event, element) {
     if (contextMenuShow) return;
     event.preventDefault();
@@ -26,7 +31,6 @@ export default function Messages({ containerRef }) {
     setContextMenuShow(true);
   }
 
-  // Handler function for clicking away from the message context menu
   const dismissContextMenu = useCallback(() => {
     if (!contextMenuShow) return;
     setContextMenuShow(false);
@@ -39,8 +43,8 @@ export default function Messages({ containerRef }) {
     };
   }, [dismissContextMenu]);
 
-  // When a new conversation is sleceted,
-  // Scroll to the bottom right away
+  //EFFECTS
+  //================================================================================
   useEffect(() => {
     if (isLoading) return;
     document.getElementById("messageWrapper").scrollTop = 1000000;
@@ -52,6 +56,8 @@ export default function Messages({ containerRef }) {
     setIsLoading(false);
   }, [selectedConversation]);
 
+  //COMPONENT
+  //================================================================================
   return isLoading ? (
     <Spinner className="absoluteCenter" animation="border" />
   ) : (
@@ -63,7 +69,7 @@ export default function Messages({ containerRef }) {
 ?   of a messaging app.
     */
     <>
-      <MessagesTopMenu containerRef={containerRef} />
+      <MessagesTopMenu theme={theme} containerRef={containerRef} />
       <MessageContextMenu show={contextMenuShow} />
 
       <div id="messageWrapper">
