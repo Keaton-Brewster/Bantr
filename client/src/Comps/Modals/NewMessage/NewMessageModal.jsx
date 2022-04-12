@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Modal, Button } from "react-bootstrap";
 import { useContactContext } from "../../../utils/ContactProvider";
-import ModalTextInput from "./ModalTextInput";
+import ModalTextInput from "../../Inputs/ModalTextInput";
 
 export default function NewMessageModal({
   //PROPS

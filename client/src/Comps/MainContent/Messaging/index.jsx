@@ -7,7 +7,7 @@ import { useViewport } from "../../../utils/ViewportProvider";
 import { useUIContext } from "../../../utils/UIProvider";
 import { useThemes } from "../../../utils/ThemeProvider";
 
-import ChatInput from "./ChatInput";
+import ChatInput from "../../Inputs/ChatInput";
 import MessageContextMenu from "./MessageContextMenu";
 import SingleMessage from "./SingleMessage";
 import MessagesTopMenu from "./TopMenu/MessagesTopMenu";
