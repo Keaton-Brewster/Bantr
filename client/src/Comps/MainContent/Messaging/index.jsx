@@ -1,16 +1,18 @@
 /* eslint-disable react/jsx-pascal-case */
 import React, { useState, useEffect, useCallback } from "react";
+
+import { Spinner } from "react-bootstrap";
 import { useConversations } from "../../../utils/ConversationProvider";
 import { useViewport } from "../../../utils/ViewportProvider";
-import ChatInput from "./ChatInput";
-import SingleMessage from "./SingleMessage";
-import MessageContextMenu from "./MessageContextMenu";
-import ConversationInfoScreen from "./ConversationInfoScreen";
 import { useUIContext } from "../../../utils/UIProvider";
-import MessagesTopMenu from "./MessagesTopMenu";
-import "./messaging.sass";
-import { Spinner } from "react-bootstrap";
 import { useThemes } from "../../../utils/ThemeProvider";
+
+import ChatInput from "./ChatInput";
+import MessageContextMenu from "./MessageContextMenu";
+import SingleMessage from "./SingleMessage";
+import MessagesTopMenu from "./TopMenu/MessagesTopMenu";
+
+import "./messaging.sass";
 
 export default function Messages({ containerRef }) {
   //STATE
@@ -35,13 +37,6 @@ export default function Messages({ containerRef }) {
     if (!contextMenuShow) return;
     setContextMenuShow(false);
   }, [contextMenuShow]);
-  // Hook to add the dismiss handler function
-  useEffect(() => {
-    document.addEventListener("click", dismissContextMenu);
-    return () => {
-      document.removeEventListener("click", dismissContextMenu);
-    };
-  }, [dismissContextMenu]);
 
   //EFFECTS
   //================================================================================
@@ -49,6 +44,14 @@ export default function Messages({ containerRef }) {
     if (isLoading) return;
     document.getElementById("messageWrapper").scrollTop = 1000000;
   }, [selectedConversation, display, isLoading]);
+
+  // Hook to add the dismiss handler function
+  useEffect(() => {
+    document.addEventListener("click", dismissContextMenu);
+    return () => {
+      document.removeEventListener("click", dismissContextMenu);
+    };
+  }, [dismissContextMenu]);
 
   // Loader effect
   useEffect(() => {
