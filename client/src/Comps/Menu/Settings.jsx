@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button, ListGroup } from "react-bootstrap";
 import DarkModeToggle from "react-dark-mode-toggle";
 import useLocalStorage from "../../utils/useLocalStorage";
@@ -9,7 +9,7 @@ export default function Settings() {
   //STATE
   //================================================================================
   const [user, setUser] = useLocalStorage("user", 0);
-  const { theme, setTheme } = useThemes();
+  const { theme, setThemeName } = useThemes();
 
   //FUNCTIONS
   //================================================================================
@@ -19,10 +19,13 @@ export default function Settings() {
     window.location.href = "/";
   }
 
-  function handleThemeToggle(isDarkMode) {
-    if (isDarkMode) setTheme("dark");
-    else if (!isDarkMode) setTheme("light");
+  function handleThemeToggle(isLightMode) {
+    if (isLightMode) setThemeName("dark");
+    else if (!isLightMode) setThemeName("light");
   }
+
+  //EFFECTS
+  //================================================================================
 
   //COMPONENT
   //================================================================================
@@ -36,7 +39,7 @@ export default function Settings() {
           <span>App Theme </span>
           <DarkModeToggle
             onChange={handleThemeToggle}
-            checked={theme === "dark" ? true : false}
+            checked={theme.name === "dark" ? true : false}
             size={80}
           />
         </LGItem>
