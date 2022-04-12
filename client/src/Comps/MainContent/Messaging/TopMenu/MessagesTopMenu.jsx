@@ -3,16 +3,17 @@ import styled from "styled-components";
 import { Nav } from "react-bootstrap";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { FaArrowLeft } from "react-icons/fa";
-import { useUIContext } from "../../../utils/UIProvider";
-import { useConversations } from "../../../utils/ConversationProvider";
-import { useViewport } from "../../../utils/ViewportProvider";
+import { useUIContext } from "../../../../utils/UIProvider";
+import { useViewport } from "../../../../utils/ViewportProvider";
+import ConversationName from "./ConversationName";
+import ConversationInfoButton from "./ConversationInfoButton";
+import BackButton from "./BackButton";
 
-function _MessagesTopMenu({ containerRef }) {
+function _MessagesTopMenu({ className, containerRef, theme }) {
   //STATE
   //================================================================================
   const [menuBarWidth, setMenuBarWidth] = useState("100%");
   const { width, isMobile } = useViewport();
-  const { selectedConversation } = useConversations();
   const { activeContent, setActiveContent, setDisplay } = useUIContext();
 
   //FUNCTIONS
@@ -52,41 +53,35 @@ function _MessagesTopMenu({ containerRef }) {
   //================================================================================
   return (
     <Nav
-      // id="messagesTopMenu"
-      className="flex-row justify-content-center"
+      className={`${className} 'flex-row justify-content-center'`}
       style={{ width: menuBarWidth }}
     >
-      {isMobile || !activeContent.conversations ? (
-        <Nav.Item onClick={handleBackButton}>
-          <FaArrowLeft className="backButton" />
-        </Nav.Item>
-      ) : null}
-      <Nav.Item
-        id="conversationName"
-        style={{
-          paddingLeft: `${
-            !isMobile && activeContent.conversations ? "30px" : ""
-          }`,
-        }}
-      >
-        {selectedConversation.name || "Untitled Conversation"}
-      </Nav.Item>
-      <Nav.Item onClick={openConversationInfo}>
-        <BsThreeDotsVertical id="conversationInfoButton" />
-      </Nav.Item>
+      <>
+        {isMobile || !activeContent.conversations ? (
+          <BackButton
+            isMobile={isMobile}
+            onClick={handleBackButton}
+            activeContent={activeContent}
+            theme={theme}
+          />
+        ) : null}{" "}
+      </>
+      <ConversationName
+        theme={theme}
+        isMobile={isMobile}
+        activeContent={activeContent}
+      />
+      <ConversationInfoButton theme={theme} onClick={openConversationInfo} />
     </Nav>
   );
 }
 
 const MessagesTopMenu = styled(_MessagesTopMenu)`
-  background-color: ${({ theme }) => theme.headers};
+  background-color: ${({ theme }) => theme.topMenuBackground};
   position: fixed;
   top: 0px;
   padding: 10px;
   z-index: 20;
-  & > * {
-    background-color: ${({ theme }) => theme.headers};
-  }
 `;
 
 export default MessagesTopMenu;
