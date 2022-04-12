@@ -6,11 +6,8 @@ const _LGItem = forwardRef(
   ({ className, children, onClick, contentEditable, onInput }, ref) => {
     return (
       <ListGroup.Item
-        contentEditable={contentEditable}
-        ref={ref}
         className={className}
         onClick={onClick}
-        onInput={onInput}
       >
         {children}
       </ListGroup.Item>
