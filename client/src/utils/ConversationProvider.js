@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState, useCallback } from "react";
-import axios from "axios";
 import { useUserContext } from "../utils/UserProvider";
 import API from "./API";
 
