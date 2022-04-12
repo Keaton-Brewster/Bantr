@@ -79,7 +79,7 @@ function _ConversationInfoScreen({ containerRef }) {
 
       <div className="conversationInfoScreen">
         <ListGroup variant="flush">
-          <LGItem>
+          <LGItem theme={theme}>
             <div className="mb-3">
               <h4>Group Name</h4>
               {editingConvoName ? (
@@ -103,10 +103,10 @@ function _ConversationInfoScreen({ containerRef }) {
             </div>
           </LGItem>
 
-          <LGItem>
+          <LGItem theme={theme}>
             <h4>Members</h4>
             {convoInfo.map((user, index) => {
-              return <UserCardSM user={user} key={index} />;
+              return <UserCardSM theme={theme} user={user} key={index} />;
             })}
           </LGItem>
         </ListGroup>
