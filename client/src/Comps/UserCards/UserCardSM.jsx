@@ -1,9 +1,11 @@
 import { ListGroupItem as Item, Image, Row } from "react-bootstrap";
+import styled from "styled-components";
+
 import "./index.sass";
 
-export default function UserCardSM({ user }) {
+function _UserCardSM({ user, className }) {
   return (
-    <Item>
+    <Item className={className}>
       <Row className="align-content-center">
         <Image
           src={user.imageUrl}
@@ -16,3 +18,9 @@ export default function UserCardSM({ user }) {
     </Item>
   );
 }
+
+const UserCardSM = styled(_UserCardSM)`
+  background-color: ${({ theme }) => theme.body};
+`;
+
+export default UserCardSM;
