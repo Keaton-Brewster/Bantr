@@ -3,6 +3,7 @@ import { Modal, Button, ListGroup } from "react-bootstrap";
 import { useContactContext } from "../../../utils/ContactProvider";
 import Recipient from "./Recipient";
 import LGItem from "../../Menu/LGItems";
+import SearchBox from "../../Inputs/SearchBox";
 
 export default function NewConversationModal({
   //PROPS
@@ -93,11 +94,8 @@ export default function NewConversationModal({
       </Modal.Header>
       <Modal.Body>
         {/* I need to make a specific component for this */}
-        <LGItem
-          contentEditable
+        <SearchBox
           ref={searchRef}
-          className="textarea"
-          id="searchBox"
           onInput={handleInputChange}
         />
         <ListGroup>
