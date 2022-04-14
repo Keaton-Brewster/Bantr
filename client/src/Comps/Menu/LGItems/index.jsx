@@ -5,10 +5,7 @@ import styled from "styled-components";
 const _LGItem = forwardRef(
   ({ className, children, onClick, contentEditable, onInput }, ref) => {
     return (
-      <ListGroup.Item
-        className={className}
-        onClick={onClick}
-      >
+      <ListGroup.Item className={`${className} LGItem`} onClick={onClick}>
         {children}
       </ListGroup.Item>
     );
@@ -19,4 +16,9 @@ export default styled(_LGItem)`
   transition: ${({ BGTransition }) =>
     BGTransition ? "background 0.5s ease" : "background 0s linear !important"};
   background-color: ${({ theme }) => theme.body};
+  padding: 1rem;
+  :hover,
+  :hover > #addButton {
+    cursor: pointer;
+  }
 `;
