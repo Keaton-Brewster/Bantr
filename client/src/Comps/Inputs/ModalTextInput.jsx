@@ -27,12 +27,12 @@ export default function ModalTextInput({
     setEmojiPickerShow(!emojiPickerShow);
   }
 
-  function addEmoji(event, emojiData) {
-    event.preventDefault();
-    const messagePlusEmoji = `${textRef.current.value} ${emojiData.emoji}`;
-    setCurrentInput(messagePlusEmoji);
-    textRef.current.value = messagePlusEmoji;
-  }
+  // function addEmoji(event, emojiData) {
+  //   event.preventDefault();
+  //   const messagePlusEmoji = `${textRef.current.value} ${emojiData.emoji}`;
+  //   setCurrentInput(messagePlusEmoji);
+  //   textRef.current.value = messagePlusEmoji;
+  // }
 
   // function handleImageLoaderChange(imageList, addUpdateIndex) {
   //   console.log(imageList, addUpdateIndex);
