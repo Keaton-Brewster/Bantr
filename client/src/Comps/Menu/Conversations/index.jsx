@@ -1,17 +1,20 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
+import styled from "styled-components";
 import { ListGroup } from "react-bootstrap";
 import { AiFillPlusCircle } from "react-icons/ai";
-import { useConversations } from "../../utils/ConversationProvider";
-import { useUIContext } from "../../utils/UIProvider";
-import { useViewport } from "../../utils/ViewportProvider";
-import { useContactContext } from "../../utils/ContactProvider";
-import NewConversationModal from "../Modals/NewConversation/NewConversationModal";
-import NewMessageModal from "../Modals/NewMessage/NewMessageModal";
-import API from "../../utils/API";
-import { useUserContext } from "../../utils/UserProvider";
-import LGItem from "./LGItems";
 
-export default function Conversations() {
+import { useConversations } from "../../../utils/ConversationProvider";
+import { useUIContext } from "../../../utils/UIProvider";
+import { useViewport } from "../../../utils/ViewportProvider";
+import { useUserContext } from "../../../utils/UserProvider";
+
+import NewConversationModal from "../../Modals/NewConversation/NewConversationModal";
+import NewMessageModal from "../../Modals/NewMessage/NewMessageModal";
+import API from "../../../utils/API";
+import LGItem from "../LGItems";
+import SearchBox from "../../Inputs/SearchBox";
+
+function Conversations() {
   //STATE
   //================================================================================
   const { user } = useUserContext();
@@ -31,6 +34,9 @@ export default function Conversations() {
     useState(null);
   const [conversationAdded, setConversationAdded] = useState(false);
   const [newConversation_id, setNewConversation_id] = useState(null);
+
+  const searchRef = useRef();
+  const [searchValue, setSearchValue] = useState(null);
 
   //FUNCTIONS
   //================================================================================
@@ -90,6 +96,11 @@ export default function Conversations() {
     );
   }
 
+  function handleSearch(event) {
+    event.preventDefault();
+    setSearchValue(searchRef.current.innerText);
+  }
+
   //EFFECTS
   //================================================================================
   useEffect(() => {
@@ -115,6 +126,16 @@ export default function Conversations() {
     selectConversationIndex,
   ]);
 
+  useEffect(() => {
+    if (!searchValue) return;
+
+    //! This will need to handle the intake of a search value and then find
+    //! results matching (if any) including text content and names. 
+    //! Then display those results in some way. 
+
+    console.log(searchValue);
+  }, [searchValue]);
+
   //COMPONENT
   //================================================================================
   return (
@@ -130,6 +151,9 @@ export default function Conversations() {
           <AiFillPlusCircle id="addButton" />
           Start A New Message
         </LGItem>
+
+        <SearchBox ref={searchRef} handleInputChange={handleSearch} />
+
         {conversations.map((convo, index) => {
           return (
             <LGItem
@@ -174,3 +198,5 @@ export default function Conversations() {
     </>
   );
 }
+
+export default styled(Conversations)``;
