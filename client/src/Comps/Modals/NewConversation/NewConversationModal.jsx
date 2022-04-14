@@ -96,7 +96,7 @@ export default function NewConversationModal({
         {/* I need to make a specific component for this */}
         <SearchBox
           ref={searchRef}
-          onInput={handleInputChange}
+          handleInputChange={handleInputChange}
         />
         <ListGroup>
           {contacts ? (
