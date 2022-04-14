@@ -5,10 +5,11 @@ import { FaArrowUp } from "react-icons/fa";
 import { FaRegSmile } from "react-icons/fa";
 import { useConversations } from "../../utils/ConversationProvider";
 import { useViewport } from "../../utils/ViewportProvider";
+import TextInputBox from "./TextInputBox";
 // import ImageUploading from "react-images-uploading";
 // import Picker from "emoji-picker-react";
 
-function _ChatInput({ containerRef }) {
+function ChatInput({ className, containerRef }) {
   //STATE
   //================================================================================
   const [currentInput, setCurrentInput] = useState(null);
@@ -85,7 +86,7 @@ function _ChatInput({ containerRef }) {
   return (
     /*  At some point in time it would be good to re visit this so that you can do CMD+Enter and have the message send. 
         Obviously this would only work for computers, but it would be a good basic function to have */
-    <div id="chatBox" style={{ width: chatboxWidth }}>
+    <div id="chatBox" style={{ width: chatboxWidth }} className={className}>
       <Row>
         <div className={`${emojiPickerShow ? "show" : "hide"}`}>
           {/* <Picker
@@ -146,15 +147,7 @@ function _ChatInput({ containerRef }) {
       </Row>
       <Row>
         <Col xs={9}>
-          <span
-            id="chatInput"
-            className="textarea"
-            role="textbox"
-            contentEditable
-            onInput={handleInputChange}
-            onBlur={handleInputChange}
-            ref={textRef}
-          />
+          <TextInputBox ref={textRef} handleInputChange={handleInputChange} />
         </Col>
         <Col xs={2} className="text-center chatInputButton">
           <FaRegSmile id="openEmojisButton" onClick={toggleEmojiMenu} />
@@ -169,6 +162,12 @@ function _ChatInput({ containerRef }) {
   );
 }
 
-export default styled(_ChatInput)`
+export default styled(ChatInput)`
   transition: background 0.5s ease;
+  margin-right: auto;
+  margin-left: auto;
+  position: fixed;
+  bottom: 0;
+  padding: 15px;
+  padding-right: 30px;
 `;
