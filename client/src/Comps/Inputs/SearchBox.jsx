@@ -15,18 +15,21 @@ const _SearchBox = React.forwardRef(({ className, handleInputChange }, ref) => {
 export default styled(_SearchBox)`   
   padding: 5px;
   padding-left: 20px;
-  margin-bottom: 10px;
+  margin: 10px 0px;
   width: 100%;
   border-radius: 25px;
   border: 1px solid grey;
   overflow-wrap: break-word;
   resize: none;
-  &:focus {
+  :focus {
       outline: none
       box-shadow: 0 0 4px 0px var(--light)
   };
-  &:empty::before {
+  :empty::before {
   content: "Search";
   color: grey;
 };
+  :hover {
+    cursor: auto
+  }
 `;
