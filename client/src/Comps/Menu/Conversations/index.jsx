@@ -7,6 +7,7 @@ import { useConversations } from "../../../utils/ConversationProvider";
 import { useUIContext } from "../../../utils/UIProvider";
 import { useViewport } from "../../../utils/ViewportProvider";
 import { useUserContext } from "../../../utils/UserProvider";
+import { useThemes } from "../../../utils/ThemeProvider";
 
 import NewConversationModal from "../../Modals/NewConversation/NewConversationModal";
 import NewMessageModal from "../../Modals/NewMessage/NewMessageModal";
@@ -14,9 +15,10 @@ import API from "../../../utils/API";
 import LGItem from "../LGItems";
 import SearchBox from "../../Inputs/SearchBox";
 
-function Conversations() {
+function Conversations({ className }) {
   //STATE
   //================================================================================
+  //Contexts
   const { user } = useUserContext();
   const { setActiveContent, setDisplay } = useUIContext();
   const {
@@ -28,18 +30,37 @@ function Conversations() {
     setConvoStateReady,
   } = useConversations();
   const { isMobile } = useViewport();
+  //Modals
   const [newConvoModalVisible, setNewConvoModalVisible] = useState(false);
   const [newMessageModalVisible, setNewMessageModalVisible] = useState(false);
+  //New Conversations Variables
   const [newConversationRecipients, setNewConversationRecipients] =
     useState(null);
   const [conversationAdded, setConversationAdded] = useState(false);
   const [newConversation_id, setNewConversation_id] = useState(null);
-
+  //Handling Search Input
   const searchRef = useRef();
   const [searchValue, setSearchValue] = useState(null);
+  //Theme
+  const { theme } = useThemes();
 
   //FUNCTIONS
   //================================================================================
+  function handleConversationSelection(event, index) {
+    event.preventDefault();
+    selectConversationIndex(index);
+    if (isMobile) {
+      setDisplay({
+        menu: false,
+        mainContent: true,
+      });
+    } else {
+      setActiveContent({
+        conversations: true,
+      });
+    }
+  }
+
   function writeConversationName(recipients) {
     let names = [];
     recipients.forEach((user, index) => {
@@ -130,8 +151,8 @@ function Conversations() {
     if (!searchValue) return;
 
     //! This will need to handle the intake of a search value and then find
-    //! results matching (if any) including text content and names. 
-    //! Then display those results in some way. 
+    //! results matching (if any) including text content and names.
+    //! Then display those results in some way.
 
     console.log(searchValue);
   }, [searchValue]);
@@ -139,7 +160,7 @@ function Conversations() {
   //COMPONENT
   //================================================================================
   return (
-    <>
+    <div className={className}>
       <ListGroup variant="flush">
         <LGItem
           className="LGItem"
@@ -157,28 +178,23 @@ function Conversations() {
         {conversations.map((convo, index) => {
           return (
             <LGItem
+              theme={theme}
               key={index}
-              className={`LGItem ${
+              className={`${
                 convo._id === selectedConversation._id && !isMobile
                   ? "LGActive"
                   : ""
               }`}
-              onClick={(event) => {
-                event.preventDefault();
-                selectConversationIndex(index);
-                if (isMobile) {
-                  setDisplay({
-                    menu: false,
-                    mainContent: true,
-                  });
-                } else {
-                  setActiveContent({
-                    conversations: true,
-                  });
-                }
-              }}
+              onClick={(event) => handleConversationSelection(event, index)}
             >
               {convo.name || "Untitled Conversation"}
+              <br />
+              <span>
+                {convo.messages[convo.messages.length - 1].content.slice(
+                  0,
+                  20
+                ) + "..." || ""}
+              </span>
             </LGItem>
           );
         })}
@@ -195,7 +211,7 @@ function Conversations() {
         hide={() => setNewMessageModalVisible(false)}
         messageSubmit={messageSubmit}
       />
-    </>
+    </div>
   );
 }
 
