@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Nav } from "react-bootstrap";
-import { BsThreeDotsVertical } from "react-icons/bs";
-import { FaArrowLeft } from "react-icons/fa";
 import { useUIContext } from "../../../../utils/UIProvider";
 import { useViewport } from "../../../../utils/ViewportProvider";
 import ConversationName from "./ConversationName";
