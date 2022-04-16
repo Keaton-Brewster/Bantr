@@ -1,24 +1,30 @@
-import React, { forwardRef } from "react";
-import { ListGroup } from "react-bootstrap";
+import React from "react";
 import styled from "styled-components";
 
-const _LGItem = forwardRef(
-  ({ className, children, onClick, contentEditable, onInput }, ref) => {
-    return (
-      <ListGroup.Item className={`${className} LGItem`} onClick={onClick}>
-        {children}
-      </ListGroup.Item>
-    );
-  }
-);
+function _LGItem({ className, children, onClick }) {
+  return (
+    <ul className={className} onClick={onClick}>
+      {children}
+    </ul>
+  );
+}
 
 export default styled(_LGItem)`
   transition: ${({ BGTransition }) =>
     BGTransition ? "background 0.5s ease" : "background 0s linear !important"};
-  background-color: ${({ theme }) => theme.body};
   padding: 1rem;
   :hover,
   :hover > #addButton {
     cursor: pointer;
   }
+  > * {
+    color: inherit;
+    background-color: inherit;
+    transition: inherit;
+  }
+  > span {
+    color: ${({ theme }) => theme.span};
+  }
+  background-color: ${({ theme }) => theme.body};
+  margin-bottom: 0px;
 `;
