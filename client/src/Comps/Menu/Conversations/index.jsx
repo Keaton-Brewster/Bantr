@@ -1,19 +1,18 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import styled from "styled-components";
 import { ListGroup } from "react-bootstrap";
-import { AiFillPlusCircle } from "react-icons/ai";
 
 import { useConversations } from "../../../utils/ConversationProvider";
 import { useUIContext } from "../../../utils/UIProvider";
 import { useViewport } from "../../../utils/ViewportProvider";
 import { useUserContext } from "../../../utils/UserProvider";
-import { useThemes } from "../../../utils/ThemeProvider";
 
 import NewConversationModal from "../../Modals/NewConversation/NewConversationModal";
 import NewMessageModal from "../../Modals/NewMessage/NewMessageModal";
 import API from "../../../utils/API";
-import LGItem from "../LGItems";
+import NewMessageBTN from "./NewMessageBTN";
 import SearchBox from "../../Inputs/SearchBox";
+import ConversationMap from "./ConversationMap";
 
 function Conversations({ className }) {
   //STATE
@@ -41,8 +40,6 @@ function Conversations({ className }) {
   //Handling Search Input
   const searchRef = useRef();
   const [searchValue, setSearchValue] = useState(null);
-  //Theme
-  const { theme } = useThemes();
 
   //FUNCTIONS
   //================================================================================
@@ -122,6 +119,11 @@ function Conversations({ className }) {
     setSearchValue(searchRef.current.innerText);
   }
 
+  function handleNewConvoBTN(e) {
+    e.preventDefault();
+    setNewConvoModalVisible(true);
+  }
+
   //EFFECTS
   //================================================================================
   useEffect(() => {
@@ -162,42 +164,13 @@ function Conversations({ className }) {
   return (
     <div className={className}>
       <ListGroup variant="flush">
-        <LGItem
-          className="LGItem"
-          onClick={(e) => {
-            e.preventDefault();
-            setNewConvoModalVisible(true);
-          }}
-        >
-          <AiFillPlusCircle id="addButton" />
-          Start A New Message
-        </LGItem>
-
+        <NewMessageBTN onClick={handleNewConvoBTN} />
         <SearchBox ref={searchRef} handleInputChange={handleSearch} />
-
-        {conversations.map((convo, index) => {
-          return (
-            <LGItem
-              theme={theme}
-              key={index}
-              className={`${
-                convo._id === selectedConversation._id && !isMobile
-                  ? "LGActive"
-                  : ""
-              }`}
-              onClick={(event) => handleConversationSelection(event, index)}
-            >
-              {convo.name || "Untitled Conversation"}
-              <br />
-              <span>
-                {convo.messages[convo.messages.length - 1].content.slice(
-                  0,
-                  20
-                ) + "..." || ""}
-              </span>
-            </LGItem>
-          );
-        })}
+        <ConversationMap
+          conversations={conversations}
+          selectedConversation={selectedConversation}
+          onClick={handleConversationSelection}
+        />
       </ListGroup>
 
       <NewConversationModal
