@@ -1,20 +1,19 @@
 import { useState, useEffect } from "react";
-import { Container, Row, Col, Spinner } from "react-bootstrap";
 import { BrowserView, MobileView } from "react-device-detect";
 import { useUIContext } from "../utils/UIProvider";
-import Menu from "./Menu";
-import MainContent from "./MainContent";
-import "./animations.sass";
-import { useAppRendering } from "../utils/Reducer";
 import { useConversations } from "../utils/ConversationProvider";
+
+import { Container, Row, Col, Spinner } from "react-bootstrap";
+import MainContent from "./MainContent";
+import Menu from "./Menu";
+
+import "./animations.sass";
 
 export default function Dashboard() {
   //STATE
   //================================================================================
   const { display } = useUIContext();
   const [loading, setLoading] = useState(true);
-  const [state, dispatch] = useAppRendering();
-  const dashboard = state.mainContent;
   const { conversations } = useConversations();
 
   //FUNCTIONS
@@ -31,7 +30,7 @@ export default function Dashboard() {
   //EFFECTS
   //================================================================================
   // useEffect(() => {
-    
+
   // }, [store.profile]);
 
   useEffect(() => {
@@ -65,16 +64,13 @@ export default function Dashboard() {
                 <Col sm={4} style={{ paddingRight: "0px" }}>
                   <Menu />
                 </Col>
-                <Col sm={8} id="messageBox">
-                  <MainContent />
-                </Col>
+                <MainContent />
               </Row>
             </Container>
           </BrowserView>
 
           <MobileView>
             <Container fluid>{renderMobile()}</Container>
-            {/* <Container fluid>{dashboard}</Container> */}
           </MobileView>
         </>
       )}
