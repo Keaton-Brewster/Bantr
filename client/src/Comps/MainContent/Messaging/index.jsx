@@ -5,7 +5,6 @@ import { Spinner } from "react-bootstrap";
 import { useConversations } from "../../../utils/ConversationProvider";
 import { useViewport } from "../../../utils/ViewportProvider";
 import { useUIContext } from "../../../utils/UIProvider";
-import { useThemes } from "../../../utils/ThemeProvider";
 
 import ChatInput from "../../Inputs/ChatInput";
 import MessageContextMenu from "./MessageContextMenu";
@@ -22,7 +21,6 @@ export default function Messages({ containerRef }) {
   const { selectedConversation } = useConversations();
   const [contextMenuShow, setContextMenuShow] = useState(false);
   const { bottomOfMessages } = useViewport();
-  const { theme } = useThemes();
 
   //FUNCTIONS
   //================================================================================
@@ -72,7 +70,7 @@ export default function Messages({ containerRef }) {
 ?   of a messaging app.
     */
     <>
-      <MessagesTopMenu theme={theme} containerRef={containerRef} />
+      <MessagesTopMenu containerRef={containerRef} />
       <MessageContextMenu show={contextMenuShow} />
 
       <div id="messageWrapper">

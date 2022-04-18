@@ -7,7 +7,7 @@ import ConversationName from "./ConversationName";
 import ConversationInfoButton from "./ConversationInfoButton";
 import BackButton from "./BackButton";
 
-function _MessagesTopMenu({ className, containerRef, theme }) {
+function _MessagesTopMenu({ className, containerRef }) {
   //STATE
   //================================================================================
   const [menuBarWidth, setMenuBarWidth] = useState("100%");
@@ -60,16 +60,11 @@ function _MessagesTopMenu({ className, containerRef, theme }) {
             isMobile={isMobile}
             onClick={handleBackButton}
             activeContent={activeContent}
-            theme={theme}
           />
         ) : null}{" "}
       </>
-      <ConversationName
-        theme={theme}
-        isMobile={isMobile}
-        activeContent={activeContent}
-      />
-      <ConversationInfoButton theme={theme} onClick={openConversationInfo} />
+      <ConversationName isMobile={isMobile} activeContent={activeContent} />
+      <ConversationInfoButton onClick={openConversationInfo} />
     </Nav>
   );
 }
