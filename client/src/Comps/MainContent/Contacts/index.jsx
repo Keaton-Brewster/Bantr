@@ -8,7 +8,7 @@ import API from "../../../utils/API";
 import ContactTopMenu from "./ContactTopMenu";
 import ConfrimContactRemovalModal from "../../Modals/ConfirmContactRemoval_Modal";
 import NewMessageModal from "../../Modals/NewMessage/NewMessageModal";
-import LGItem from "../../Menu/LGItems";
+import LGItem from "../../Menu/LGItem";
 import "./contacts.sass";
 
 export default function Contacts({ containerRef }) {

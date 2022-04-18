@@ -5,9 +5,8 @@ import { Spinner, ListGroup } from "react-bootstrap";
 import { FiEdit } from "react-icons/fi";
 import { BiSave } from "react-icons/bi";
 import { useConversations } from "../../../utils/ConversationProvider";
-import { useThemes } from "../../../utils/ThemeProvider";
 
-import LGItem from "../../Menu/LGItems";
+import LGItem from "../../Menu/LGItem";
 import UserCardSM from "../../UserCards/UserCardSM";
 import axios from "axios";
 import MessagesTopMenu from "./TopMenu/MessagesTopMenu";
@@ -16,7 +15,6 @@ function _ConversationInfoScreen({ containerRef }) {
   //STATE
   //================================================================================
   const { selectedConversation, updateConversation } = useConversations();
-  const { theme } = useThemes();
   const [convoInfo, setConvoInfo] = useState();
   const [editingConvoName, setEditingConvoName] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -75,11 +73,11 @@ function _ConversationInfoScreen({ containerRef }) {
 
   return (
     <>
-      <MessagesTopMenu theme={theme} containerRef={containerRef} />
+      <MessagesTopMenu containerRef={containerRef} />
 
       <div className="conversationInfoScreen">
         <ListGroup variant="flush">
-          <LGItem theme={theme}>
+          <LGItem>
             <div className="mb-3">
               <h4>Group Name</h4>
               {editingConvoName ? (
@@ -103,10 +101,10 @@ function _ConversationInfoScreen({ containerRef }) {
             </div>
           </LGItem>
 
-          <LGItem theme={theme}>
+          <LGItem>
             <h4>Members</h4>
             {convoInfo.map((user, index) => {
-              return <UserCardSM theme={theme} user={user} key={index} />;
+              return <UserCardSM user={user} key={index} />;
             })}
           </LGItem>
         </ListGroup>
