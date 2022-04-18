@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { ThemeProvider } from "styled-components";
 import ViewportProvider from "./utils/ViewportProvider";
 import UserProvider from "./utils/UserProvider";
 import ConversationProvider from "./utils/ConversationProvider";
@@ -8,9 +7,7 @@ import ContactProvider from "./utils/ContactProvider";
 import UIProvider from "./utils/UIProvider";
 
 import useLocalStorage from "./utils/useLocalStorage";
-import useTheme from "./utils/useTheme";
-
-import GlobalStyles from "./utils/Theme/global";
+import ThemeProvider from "./utils/ThemeProvider";
 
 import Home from "./Comps/Home";
 import Signup from "./Comps/Signup";
@@ -23,15 +20,21 @@ function App() {
   // all the contacts are still stored on the user in local storage which is fine,
   // but like i said, just need an update effect so that if things change on the db
   // side, it is reflected in the browser siede
-  const [user, setUser] = useLocalStorage("user", 0);
-  const [theme, setTheme] = useTheme();
 
+  //STATE
+  //================================================================================
+  const [user, setUser] = useLocalStorage("user", 0);
+
+  //FUNCTIONS
+  //================================================================================
   const checkForESC = (event) => {
     if (event.key !== "Escape") return;
     event.preventDefault();
     document.activeElement.blur();
   };
 
+  //EFFECTS
+  //================================================================================
   // Basic functionality of "hit esc - kill focus"
   useEffect(() => {
     document.addEventListener("keydown", checkForESC, false);
@@ -41,10 +44,11 @@ function App() {
     };
   });
 
+  //COMPONENT
+  //================================================================================
   return (
     <UserProvider user={user} setUser={setUser}>
-      <ThemeProvider theme={theme}>
-        <GlobalStyles theme={theme} />
+      <ThemeProvider>
         <ViewportProvider>
           <UIProvider>
             <ConversationProvider>
