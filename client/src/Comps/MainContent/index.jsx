@@ -1,12 +1,15 @@
 import { useRef } from "react";
+import styled from "styled-components";
 import { useUIContext } from "../../utils/UIProvider";
-import Messaging from "./Messaging";
-import ConversationInfoScreen from "./Messaging/ConversationInfoScreen";
-import Contacts from "./Contacts";
-import NoContent from "./NoContent";
 import { useConversations } from "../../utils/ConversationProvider";
 
-export default function MainContent() {
+import { Col } from "react-bootstrap";
+import ConversationInfoScreen from "./Messaging/ConversationInfoScreen";
+import NoContent from "./NoContent";
+import Contacts from "./Contacts";
+import Messaging from "./Messaging";
+
+function MainContent({ className }) {
   const { selectedConversation } = useConversations();
   // Container ref is used to give refernce of width to the
   // Chat input so that is always is 100% width of its parent
@@ -23,12 +26,19 @@ export default function MainContent() {
   }
 
   return (
-    <div
-      className={display.mainContent ? "show" : "hide"}
+    <Col
+      sm={8}
+      className={`${display.mainContent ? "show" : "hide"} ${className}`}
       ref={containerRef}
       style={{ overflow: "hidden !important" }}
     >
       {renderSwitch()}
-    </div>
+    </Col>
   );
 }
+
+export default styled(MainContent)`
+  border-left: 1px solid ${({ theme }) => theme.border};
+  height: 100vh;
+  padding: 0;
+`;

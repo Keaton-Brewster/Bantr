@@ -1,16 +1,19 @@
 import React from "react";
 import styled from "styled-components";
 
-const _SearchBox = React.forwardRef(({ className, handleInputChange }, ref) => {
-  return (
-    <div
-      contentEditable
-      onInput={handleInputChange}
-      ref={ref}
-      className={`${className} textarea`}
-    />
-  );
-});
+const _SearchBox = React.forwardRef(
+  ({ className, handleInputChange }, ref) => {
+    return (
+      <div
+        contentEditable
+        role="textbox"
+        onInput={handleInputChange}
+        ref={ref}
+        className={`${className} textarea`}
+      />
+    );
+  }
+);
 
 export default styled(_SearchBox)`   
   padding: 5px;
@@ -18,7 +21,7 @@ export default styled(_SearchBox)`
   margin: 10px 0px;
   width: 100%;
   border-radius: 25px;
-  border: 1px solid grey;
+  border: 1px solid ${({ theme }) => theme.border};
   overflow-wrap: break-word;
   resize: none;
   :focus {

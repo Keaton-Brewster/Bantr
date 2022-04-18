@@ -20,7 +20,7 @@ export default styled(_TextInputBox)`
     margin-bottom: 10px;
     width: 100%;
     border-radius: 25px;
-    border: 1px solid grey;
+    border: 1px solid ${({ theme }) => theme.border};
     resize: none;
     &:focus {
         outline: none
