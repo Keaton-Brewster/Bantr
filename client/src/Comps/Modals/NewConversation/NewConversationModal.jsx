@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import { Modal, Button, ListGroup } from "react-bootstrap";
 import { useContactContext } from "../../../utils/ContactProvider";
 import Recipient from "./Recipient";
-import LGItem from "../../Menu/LGItems";
+import LGItem from "../../Menu/LGItem";
 import SearchBox from "../../Inputs/SearchBox";
 
 export default function NewConversationModal({
