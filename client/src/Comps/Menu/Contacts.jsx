@@ -6,7 +6,7 @@ import API from "../../utils/API";
 import { useContactContext } from "../../utils/ContactProvider";
 import { useUserContext } from "../../utils/UserProvider";
 import { useUIContext } from "../../utils/UIProvider";
-import LGItem from "./LGItems";
+import LGItem from "./LGItem";
 
 export default function Contacts() {
   //STATE
