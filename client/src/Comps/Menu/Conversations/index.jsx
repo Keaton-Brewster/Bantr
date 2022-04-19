@@ -151,12 +151,32 @@ function Conversations({ className }) {
 
   useEffect(() => {
     if (!searchValue) return;
+    let results = [];
 
     //! This will need to handle the intake of a search value and then find
     //! results matching (if any) including text content and names.
     //! Then display those results in some way.
 
-    console.log(searchValue);
+    conversations.forEach((convo) => {
+      // console.log(
+
+      results = [
+        ...results,
+        ...convo.messages
+          .filter((message) => {
+            if (
+              message.content.toLowerCase().includes(searchValue.toLowerCase())
+            )
+              return message.content;
+            else return undefined;
+          })
+          .map((message) => message.content),
+      ];
+
+      // );
+    });
+
+    console.log(results);
   }, [searchValue]);
 
   //COMPONENT
@@ -164,8 +184,8 @@ function Conversations({ className }) {
   return (
     <div className={className}>
       <ListGroup variant="flush">
-        <NewMessageBTN onClick={handleNewConvoBTN} />
         <SearchBox ref={searchRef} handleInputChange={handleSearch} />
+        <NewMessageBTN onClick={handleNewConvoBTN} />
         <ConversationMap
           conversations={conversations}
           selectedConversation={selectedConversation}
@@ -178,7 +198,6 @@ function Conversations({ className }) {
         hide={() => setNewConvoModalVisible(false)}
         setNewConversationRecipients={setNewConversationRecipients}
       />
-
       <NewMessageModal
         show={newMessageModalVisible}
         hide={() => setNewMessageModalVisible(false)}
