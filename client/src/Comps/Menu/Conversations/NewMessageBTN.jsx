@@ -15,4 +15,5 @@ function NewMessageBTN({ className, onClick }) {
 
 export default styled(NewMessageBTN)`
   border-bottom: solid 1px ${({ theme }) => theme.border};
+  border-top: solid 1px ${({ theme }) => theme.border};
 `;
