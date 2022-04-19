@@ -149,6 +149,9 @@ function Conversations({ className }) {
     selectConversationIndex,
   ]);
 
+  // FOR SEARCH FUNCTIONALITY
+  const [searchResults, setSearchResults] = useState([]);
+
   useEffect(() => {
     if (!searchValue) return;
     let results = [];
@@ -159,7 +162,6 @@ function Conversations({ className }) {
 
     conversations.forEach((convo) => {
       // console.log(
-
       results = [
         ...results,
         ...convo.messages
@@ -172,12 +174,9 @@ function Conversations({ className }) {
           })
           .map((message) => message.content),
       ];
-
-      // );
     });
-
-    console.log(results);
-  }, [searchValue]);
+    setSearchResults(results);
+  }, [conversations, searchValue]);
 
   //COMPONENT
   //================================================================================
