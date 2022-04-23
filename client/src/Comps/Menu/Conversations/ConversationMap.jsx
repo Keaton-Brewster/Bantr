@@ -1,37 +1,63 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { useUIContext } from "../../../utils/UIProvider";
+import IndividualConversation from "./IndividualConversation";
 
-import LGItem from "../LGItem";
+function ConversationMap({ className, conversations }) {
+  //STATE
+  //================================================================================
+  const [offset, setOffset] = useState(0);
+  const [targetIndex, setTargetIndex] = useState(null);
 
-function ConversationMap({
-  className,
-  conversations,
-  selectedConversation,
-  onClick,
-}) {
-  const { isMobile } = useUIContext();
+  //FUNCTIONS
+  //================================================================================
+  function slideConvo(target, direction) {
+    if (!targetIndex || !target) return setOffset(0);
 
+    if (direction === "open" && offset < 100) {
+      setOffset(100);
+    } else if (direction === "close" && offset > 0) {
+      setOffset(0);
+    }
+  }
+
+  function handleTouchMove(e) {
+    const target = e.target.dataset.index;
+    setTargetIndex(target);
+    if (e.wheelDeltaX < 0 && e.wheelDeltaY === 0) slideConvo(target, "open");
+    if (e.wheelDeltaX > 0 && e.wheelDeltaY === 0) slideConvo(target, "close");
+  }
+
+  //EFFECTS
+  //================================================================================
+  useEffect(() => {
+    // This disables the browsers automatic fature of two-finger swiping to
+    // Go back page
+    // document.body.addEventListener("wheel", (e) => e.preventDefault(), {
+    //   passive: false,
+    // });
+
+    document.addEventListener("mousewheel", handleTouchMove, false);
+    document.addEventListener("DOMMouseScroll", handleTouchMove, false);
+
+    return () => {
+      document.removeEventListener("mousewheel", handleTouchMove, false);
+      document.removeEventListener("DOMMouseScroll", handleTouchMove, false);
+    };
+  });
+
+  //COMPONENT
+  //================================================================================
   return (
     <div className={className}>
       {conversations.map((convo, index) => {
         return (
-          <LGItem
+          <IndividualConversation
             key={index}
-            className={`${
-              convo._id === selectedConversation._id && !isMobile
-                ? "LGActive"
-                : ""
-            }`}
-            onClick={(event) => onClick(event, index)}
-          >
-            {convo.name || "Untitled Conversation"}
-            <br />
-            <span>
-              {convo.messages[convo.messages.length - 1].content.slice(0, 30) +
-                "..." || ""}
-            </span>
-          </LGItem>
+            convo={convo}
+            index={index}
+            targetIndex={targetIndex}
+            offset={offset}
+          />
         );
       })}
     </div>
