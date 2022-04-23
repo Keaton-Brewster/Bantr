@@ -13,13 +13,13 @@ import API from "../../../utils/API";
 import NewMessageBTN from "./NewMessageBTN";
 import SearchBox from "../../Inputs/SearchBox";
 import ConversationMap from "./ConversationMap";
+import SearchResultsMap from "./SearchResultsMap";
 
 function Conversations({ className }) {
   //STATE
   //================================================================================
   //Contexts
   const { user } = useUserContext();
-  const { setActiveContent, setDisplay } = useUIContext();
   const {
     conversations,
     setPendingText,
@@ -28,7 +28,6 @@ function Conversations({ className }) {
     addNewConversation,
     setConvoStateReady,
   } = useConversations();
-  const { isMobile } = useViewport();
   //Modals
   const [newConvoModalVisible, setNewConvoModalVisible] = useState(false);
   const [newMessageModalVisible, setNewMessageModalVisible] = useState(false);
@@ -43,21 +42,6 @@ function Conversations({ className }) {
 
   //FUNCTIONS
   //================================================================================
-  function handleConversationSelection(event, index) {
-    event.preventDefault();
-    selectConversationIndex(index);
-    if (isMobile) {
-      setDisplay({
-        menu: false,
-        mainContent: true,
-      });
-    } else {
-      setActiveContent({
-        conversations: true,
-      });
-    }
-  }
-
   function writeConversationName(recipients) {
     let names = [];
     recipients.forEach((user, index) => {
@@ -116,7 +100,22 @@ function Conversations({ className }) {
 
   function handleSearch(event) {
     event.preventDefault();
+    if (searchRef.current.innerText.trim() === "") {
+      setSearchValue(null);
+      setSearchResults(null);
+      return;
+    }
     setSearchValue(searchRef.current.innerText);
+  }
+
+  function handleSelectSearched(event, convoId) {
+    event.preventDefault();
+    selectConversationIndex(
+      conversations.findIndex((convo) => convo._id === convoId)
+    );
+    setSearchValue(null);
+    searchRef.current.innerText = "";
+    setSearchResults(null);
   }
 
   function handleNewConvoBTN(e) {
@@ -149,30 +148,34 @@ function Conversations({ className }) {
     selectConversationIndex,
   ]);
 
-  // FOR SEARCH FUNCTIONALITY
-  const [searchResults, setSearchResults] = useState([]);
-
+  //* FOR SEARCH FUNCTIONALITY
+  //================================================================================
+  const [searchResults, setSearchResults] = useState(null);
   useEffect(() => {
     if (!searchValue) return;
     let results = [];
 
-    //! This will need to handle the intake of a search value and then find
-    //! results matching (if any) including text content and names.
-    //! Then display those results in some way.
-
     conversations.forEach((convo) => {
-      // console.log(
       results = [
         ...results,
         ...convo.messages
           .filter((message) => {
             if (
-              message.content.toLowerCase().includes(searchValue.toLowerCase())
+              message.content
+                .toLowerCase()
+                .trim()
+                .includes(searchValue.toLowerCase().trim())
             )
-              return message.content;
-            else return undefined;
+              return true;
+            else return false;
           })
-          .map((message) => message.content),
+          .map((message) => {
+            return {
+              convoId: convo._id,
+              convoName: convo.name,
+              message,
+            };
+          }),
       ];
     });
     setSearchResults(results);
@@ -183,15 +186,27 @@ function Conversations({ className }) {
   return (
     <div className={className}>
       <ListGroup variant="flush">
-        <SearchBox ref={searchRef} handleInputChange={handleSearch} />
-        <NewMessageBTN onClick={handleNewConvoBTN} />
-        <ConversationMap
-          conversations={conversations}
-          selectedConversation={selectedConversation}
-          onClick={handleConversationSelection}
+        <SearchBox
+          ref={searchRef}
+          handleInputChange={handleSearch}
+          fixed={searchValue ? true : false}
         />
-      </ListGroup>
 
+        {searchResults ? (
+          <SearchResultsMap
+            results={searchResults}
+            onClick={handleSelectSearched}
+          />
+        ) : (
+          <>
+            <NewMessageBTN onClick={handleNewConvoBTN} />
+            <ConversationMap
+              conversations={conversations}
+              selectedConversation={selectedConversation}
+            />
+          </>
+        )}
+      </ListGroup>
       <NewConversationModal
         show={newConvoModalVisible}
         hide={() => setNewConvoModalVisible(false)}
@@ -206,4 +221,8 @@ function Conversations({ className }) {
   );
 }
 
-export default styled(Conversations)``;
+export default styled(Conversations)`
+  height: 100vh;
+  overflow-y: scroll;
+  padding-bottom: 4rem;
+`;
