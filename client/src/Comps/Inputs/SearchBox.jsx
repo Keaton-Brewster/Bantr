@@ -22,7 +22,7 @@ export default styled(SearchBox)`
   padding: 5px;
   padding-left: 20px;
   margin: 10px 0px;
-  width: 100%;
+  width: ${({ fixed }) => (fixed ? "32.3333%" : "100%")};
   border-radius: 25px;
   border: 1px solid ${({ theme }) => theme.border};
   overflow-wrap: break-word;
@@ -30,7 +30,6 @@ export default styled(SearchBox)`
   z-index: 20;
   position: ${({ fixed }) => (fixed ? "fixed" : "")};
   top: ${({ fixed }) => (fixed ? "top 0px" : "")}; 
-  max-width: 100em;
   
   :focus {
       outline: none
