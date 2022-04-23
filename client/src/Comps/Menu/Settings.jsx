@@ -1,12 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import useLocalStorage from "../../utils/useLocalStorage";
-import { useThemes } from "../../utils/ThemeProvider";
+import { useThemes } from "../../utils/Theme/ThemeProvider";
 
 import { Button, ListGroup } from "react-bootstrap";
 import LGItem from "./LGItem";
 import DarkModeToggle from "react-dark-mode-toggle";
-
-import { lightTheme, darkTheme } from "../../utils/Theme/themes";
 
 export default function Settings() {
   //STATE
@@ -23,12 +21,9 @@ export default function Settings() {
   }
 
   function handleThemeToggle(isLightMode) {
-    if (isLightMode) setTheme(darkTheme);
-    else if (!isLightMode) setTheme(lightTheme);
+    if (isLightMode) setTheme("dark");
+    else if (!isLightMode) setTheme("light");
   }
-
-  //EFFECTS
-  //================================================================================
 
   //COMPONENT
   //================================================================================
