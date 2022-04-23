@@ -13,7 +13,6 @@ function SearchResultsMap({ className, results, onClick }) {
     <div className={className}>
       {results.length > 0 ? (
         results.map((result, index) => {
-
           return (
             <LGItem
               key={index}
@@ -37,4 +36,6 @@ function SearchResultsMap({ className, results, onClick }) {
   );
 }
 
-export default styled(SearchResultsMap)``;
+export default styled(SearchResultsMap)`
+  margin-top: 4rem;
+`;

@@ -8,7 +8,7 @@ function NewMessageBTN({ className, onClick }) {
   return (
     <LGItem className={`${className}`} onClick={onClick}>
       <AiFillPlusCircle id="addButton" />
-      Start A New Message
+      New Message
     </LGItem>
   );
 }

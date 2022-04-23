@@ -22,6 +22,7 @@ export default function _ThemeProvider({ children }) {
     span: "#777 !important",
     LGActive: "#6eaaff",
     border: "#ddd",
+    danger: "#b00400",
   };
 
   const darkTheme = {
@@ -33,6 +34,7 @@ export default function _ThemeProvider({ children }) {
     span: "#b3b3b3 !important",
     LGActive: "#296eae",
     border: "#333",
+    danger: "#b00400",
   };
 
   const [theme, setTheme] = useLocalStorage("theme", lightTheme);
