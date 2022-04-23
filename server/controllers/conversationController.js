@@ -122,7 +122,6 @@ router.post("/newConversation", (req, res) => {
       },
       (err, exists) => {
         if (exists) {
-          console.log("exists");
           db.Conversation.findOne({
             members: {
               $size: newConversation.members.length,
@@ -134,7 +133,6 @@ router.post("/newConversation", (req, res) => {
             })
             .catch((err) => res.send(err).status(500));
         } else if (!exists) {
-          console.log("does not exist");
           db.Conversation.create(newConversation)
             .then((response) => {
               res.status(200).send(response);
