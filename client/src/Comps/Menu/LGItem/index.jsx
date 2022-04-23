@@ -1,15 +1,20 @@
 import React from "react";
 import styled from "styled-components";
 
-function _LGItem({ className, children, onClick }) {
+function LGItem({ className, children, onClick, style, index }) {
   return (
-    <ul className={className} onClick={onClick}>
+    <ul
+      className={className}
+      onClick={onClick}
+      style={style ? style : {}}
+      data-index={index}
+    >
       {children}
     </ul>
   );
 }
 
-export default styled(_LGItem)`
+export default styled(LGItem)`
   transition: ${({ BGTransition }) =>
     BGTransition ? "background 0.5s ease" : "background 0s linear !important"};
   padding: 1rem;
