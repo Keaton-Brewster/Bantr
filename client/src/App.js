@@ -7,7 +7,7 @@ import ContactProvider from "./utils/ContactProvider";
 import UIProvider from "./utils/UIProvider";
 
 import useLocalStorage from "./utils/useLocalStorage";
-import ThemeProvider from "./utils/ThemeProvider";
+import ThemeProvider from "./utils/Theme/ThemeProvider";
 
 import Home from "./Comps/Home";
 import Signup from "./Comps/Signup";
