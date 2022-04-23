@@ -1,9 +1,10 @@
 import React from "react";
 import styled from "styled-components";
+import { Nav } from "react-bootstrap";
 
-const _SearchBox = React.forwardRef(
-  ({ className, handleInputChange }, ref) => {
-    return (
+const SearchBox = React.forwardRef(({ className, handleInputChange }, ref) => {
+  return (
+    <Nav>
       <div
         contentEditable
         role="textbox"
@@ -11,11 +12,13 @@ const _SearchBox = React.forwardRef(
         ref={ref}
         className={`${className} textarea`}
       />
-    );
-  }
-);
+    </Nav>
+  );
+});
 
-export default styled(_SearchBox)`   
+// This isn't really styled properly right now. I want the searchbox to hover
+// Over the rest of the elements when you are searching, but its not right at all
+export default styled(SearchBox)`   
   padding: 5px;
   padding-left: 20px;
   margin: 10px 0px;
@@ -24,6 +27,11 @@ export default styled(_SearchBox)`
   border: 1px solid ${({ theme }) => theme.border};
   overflow-wrap: break-word;
   resize: none;
+  z-index: 20;
+  position: ${({ fixed }) => (fixed ? "fixed" : "")};
+  top: ${({ fixed }) => (fixed ? "top 0px" : "")}; 
+  max-width: 100em;
+  
   :focus {
       outline: none
       box-shadow: 0 0 4px 0px var(--light)
