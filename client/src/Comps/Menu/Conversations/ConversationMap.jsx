@@ -1,20 +1,29 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, createContext, useContext } from "react";
 import styled from "styled-components";
+import DeleteConversationModal from "../../Modals/DeleteConversationModal";
 import IndividualConversation from "./IndividualConversation";
+
+const DeleteConvoModalContext = createContext();
+
+export function useDeleteConvoModal() {
+  return useContext(DeleteConvoModalContext);
+}
 
 function ConversationMap({ className, conversations }) {
   //STATE
   //================================================================================
   const [offset, setOffset] = useState(0);
   const [targetIndex, setTargetIndex] = useState(null);
+  //modal
+  const [delConvoModalShow, setDelConvoModalShow] = useState(false);
 
   //FUNCTIONS
   //================================================================================
   function slideConvo(target, direction) {
     if (!targetIndex || !target) return setOffset(0);
 
-    if (direction === "open" && offset < 100) {
-      setOffset(100);
+    if (direction === "open" && offset < 80) {
+      setOffset(80);
     } else if (direction === "close" && offset > 0) {
       setOffset(0);
     }
@@ -30,12 +39,6 @@ function ConversationMap({ className, conversations }) {
   //EFFECTS
   //================================================================================
   useEffect(() => {
-    // This disables the browsers automatic fature of two-finger swiping to
-    // Go back page
-    // document.body.addEventListener("wheel", (e) => e.preventDefault(), {
-    //   passive: false,
-    // });
-
     document.addEventListener("mousewheel", handleTouchMove, false);
     document.addEventListener("DOMMouseScroll", handleTouchMove, false);
 
@@ -49,19 +52,32 @@ function ConversationMap({ className, conversations }) {
   //================================================================================
   return (
     <div className={className}>
-      {conversations.map((convo, index) => {
-        return (
-          <IndividualConversation
-            key={index}
-            convo={convo}
-            index={index}
-            targetIndex={targetIndex}
-            offset={offset}
+      <DeleteConvoModalContext.Provider
+        value={[delConvoModalShow, setDelConvoModalShow]}
+      >
+        <>
+          {conversations.map((convo, index) => {
+            return (
+              <IndividualConversation
+                key={index}
+                convo={convo}
+                index={index.toString()}
+                targetIndex={targetIndex}
+                offset={offset}
+              />
+            );
+          })}
+
+          <DeleteConversationModal
+            show={delConvoModalShow}
+            hide={() => setDelConvoModalShow(false)}
           />
-        );
-      })}
+        </>
+      </DeleteConvoModalContext.Provider>
     </div>
   );
 }
 
-export default styled(ConversationMap)``;
+export default styled(ConversationMap)`
+  overflow-x: hidden;
+`;
