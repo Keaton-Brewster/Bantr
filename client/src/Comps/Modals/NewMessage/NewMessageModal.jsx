@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { Modal, Button } from "react-bootstrap";
 import { useContactContext } from "../../../utils/ContactProvider";
 import ModalTextInput from "../../Inputs/ModalTextInput";
+import TextInputBox from "../../Inputs/TextInputBox";
 
 export default function NewMessageModal({
   //PROPS
@@ -14,7 +15,6 @@ export default function NewMessageModal({
   //====================================================================
   const [currentInput, setCurrentInput] = useState(null);
   const [emojiPickerShow, setEmojiPickerShow] = useState(false);
-  // const [images, setImages] = useState([]);
   const textRef = useRef();
 
   //FUNCTIONS
@@ -32,6 +32,11 @@ export default function NewMessageModal({
     event.preventDefault();
     if (!currentInput) return;
     messageSubmit(currentInput);
+  }
+
+  function handleInputChange(e) {
+    e.preventDefault();
+    setCurrentInput(textRef.current.innerText);
   }
 
   //EFFECTS
@@ -61,11 +66,7 @@ export default function NewMessageModal({
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <ModalTextInput
-          textRef={textRef}
-          setCurrentInput={setCurrentInput}
-          emojiPickerState={[emojiPickerShow, setEmojiPickerShow]}
-        />
+        <TextInputBox ref={textRef} handleInputChange={handleInputChange} />
       </Modal.Body>
       <Modal.Footer>
         <Button variant="success" onClick={handleSendButton}>
