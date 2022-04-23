@@ -14,7 +14,8 @@ function generateSeed() {
   let ensureSet = []; // Array for ensuring that at least one of each selected char-set will be included in the final password
   let seed = []; // Array for the final, randomly generated password.
 
-  var range = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
+  const range =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
 
   randomSelector(range);
   charsetEnsure(range);
@@ -81,8 +82,16 @@ const userSeed = [
     "108306498626918685024",
     [
       ObjectId("60a532c9266a4f2cc69925f6"),
-      ObjectId("60a5344d266a4f2cc69925fc")
+      ObjectId("60a5344d266a4f2cc69925fc"),
+      ObjectId("60dd2b58eeda4429a8f4c123"),
     ]
+  ),
+  new User(
+    ObjectId("60dd2b58eeda4429a8f4c123"),
+    "Sven",
+    "Riteboch",
+    "sven@mail.com",
+    "+13854441958"
   ),
   new User(
     ObjectId("60a532c9266a4f2cc69925f6"),
