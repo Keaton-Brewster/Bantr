@@ -7,7 +7,7 @@ import ConversationName from "./ConversationName";
 import ConversationInfoButton from "./ConversationInfoButton";
 import BackButton from "./BackButton";
 
-function _MessagesTopMenu({ className, containerRef }) {
+function MessagesTopMenu({ className, containerRef }) {
   //STATE
   //================================================================================
   const [menuBarWidth, setMenuBarWidth] = useState("100%");
@@ -69,7 +69,7 @@ function _MessagesTopMenu({ className, containerRef }) {
   );
 }
 
-export default styled(_MessagesTopMenu)`
+export default styled(MessagesTopMenu)`
   background-color: ${({ theme }) => theme.topMenuBackground};
   position: fixed;
   top: 0px;
