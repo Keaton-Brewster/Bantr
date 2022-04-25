@@ -78,6 +78,21 @@ const API = {
     else return error(response);
   },
 
+  async hideConversation(conversation_id, user_id, callback, error) {
+    //! For now I am going to have to pause on this. 
+    //! I am probably going to have to totally rethink the way that I 
+    //! am creating and storing messages and conversations. 
+    //! I should have done all of this work as a part of planning, but here we are!
+
+    // const response = await axios
+    //   .put("http://localhost:3001/api/conversations/hideConversation", {
+    //     user_id,
+    //     conversation_id,
+    //   })
+    //   .catch((e) => error(e));
+    // if (response.status === 200) return callback(response.data);
+    // else return error(response);
+  },
   //* This method was not suitable for the purpose I originally meant it
   //* I may come back later and repurpose it, so for now I am only
   //* going to comment it out
