@@ -8,13 +8,12 @@ import { FaTrash } from "react-icons/fa";
 function DeleteConvoBtn({ className }) {
   //STATES
   //================================================================================
-  const [delConvoModalShow, setDelConvoModalShow] = useDeleteConvoModal();
+  const { setDelConvoModalShow } = useDeleteConvoModal();
   //FUNCTIONS
   //================================================================================
   function handleDeleteClick(e) {
     e.preventDefault();
     e.stopPropagation();
-    console.log(e);
     setDelConvoModalShow(true);
   }
   //EFFECTS
