@@ -12,6 +12,10 @@ export default function ConversationProvider({ children }) {
   //STATE
   //================================================================================
   const { user } = useUserContext();
+  //! I need to find a new way to select conversations
+  //! Because I want them to be ordered by off of their 'updated_at'
+  //! Value, I need a way to maintain selected conversation when the
+  //! order of the conversation array changes
   const [selectedConversationIndex, setSelectedConversationIndex] = useState(0);
   const [conversations, setConversations] = useState([]);
   const [pendingText, setPendingText] = useState(null);
@@ -103,11 +107,11 @@ export default function ConversationProvider({ children }) {
   const formattedConversations = conversations
     //This should actually sort conversations by last 'updatedAt' value
     .sort((a, b) => {
-      if (a.familyName < b.familyName) {
-        return -1;
-      }
-      if (a.familyName > b.familyName) {
+      if (a.updated_at < b.updated_at) {
         return 1;
+      }
+      if (a.updated_at > b.updated_at) {
+        return -1;
       }
       return 0;
     })
@@ -125,6 +129,7 @@ export default function ConversationProvider({ children }) {
   useEffect(() => {
     if (!user._id) return;
     loadConversations((conversations) => {
+      console.log(conversations);
       setConversations(conversations);
     });
   }, [user._id, loadConversations]);
