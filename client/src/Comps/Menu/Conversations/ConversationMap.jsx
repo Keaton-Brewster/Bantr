@@ -53,7 +53,7 @@ function ConversationMap({ className, conversations }) {
   return (
     <div className={className}>
       <DeleteConvoModalContext.Provider
-        value={[delConvoModalShow, setDelConvoModalShow]}
+        value={{ delConvoModalShow, setDelConvoModalShow }}
       >
         <>
           {conversations.map((convo, index) => {
@@ -71,6 +71,7 @@ function ConversationMap({ className, conversations }) {
           <DeleteConversationModal
             show={delConvoModalShow}
             hide={() => setDelConvoModalShow(false)}
+            targetIndex={targetIndex}
           />
         </>
       </DeleteConvoModalContext.Provider>
