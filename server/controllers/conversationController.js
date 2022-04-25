@@ -9,6 +9,7 @@ router.get("/:id", (req, res) => {
   const userId = req.params.id;
   try {
     db.Conversation.find({ members: { $in: [ObjectId(userId)] } })
+      .sort("-updated_at")
       .then((convos) => {
         res.send(convos);
       })
@@ -74,6 +75,7 @@ router.put("/newMessage", (request, response) => {
       .then((doc) => {
         if (doc) {
           doc.messages.push(message);
+          doc.updated_at = Date.now();
           doc.save().then((doc) => response.send(doc).status(200));
         } else {
           response.sendStatus(404);
@@ -149,6 +151,16 @@ router.post("/newConversation", (req, res) => {
       "Error creating conversation :: controllers/Conversation :: route=/newConversation ::",
       error
     );
+    res.sendStatus(500);
+  }
+});
+
+router.put("/hideConversation", (req, res) => {
+  try {
+    console.log(req.body);
+    db.Conversation.findOneAndUpdate({});
+    res.sendStatus(200);
+  } catch (err) {
     res.sendStatus(500);
   }
 });
