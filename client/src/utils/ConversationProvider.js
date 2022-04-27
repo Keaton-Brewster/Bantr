@@ -16,7 +16,7 @@ export default function ConversationProvider({ children }) {
   //! Because I want them to be ordered by off of their 'updated_at'
   //! Value, I need a way to maintain selected conversation when the
   //! order of the conversation array changes
-  const [selectedConversationIndex, setSelectedConversationIndex] = useState(0);
+  const [selectedConversation_id, setSelectedConversation_id] = useState(0);
   const [conversations, setConversations] = useState([]);
   const [pendingText, setPendingText] = useState(null);
   const [convoStateReady, setConvoStateReady] = useState(false);
@@ -34,16 +34,16 @@ export default function ConversationProvider({ children }) {
 
   function sendMessage(string) {
     const message_info = {
-        sender_id: user._id,
-        content: string,
-      },
-      conversation_id = conversations[selectedConversationIndex]._id;
+      sender_id: user._id,
+      content: string,
+    };
 
     API.sendMessage(
       message_info,
-      conversation_id,
+      conversations.find((convo) => convo._id === selectedConversation_id),
       (updatedConversation) => {
         updateConversation(updatedConversation);
+        setSelectedConversation_id(updatedConversation._id);
       },
       (error) => {
         console.error(error);
@@ -52,18 +52,16 @@ export default function ConversationProvider({ children }) {
   }
 
   function findConversationByUserID(_id) {
-    let index = null;
-    conversations.forEach((convo, i) => {
-      if (convo.members.includes(_id) && convo.members.length === 2) index = i;
-    });
-    return index;
+    return conversations.find(
+      (convo) => convo.members.includes(_id) && convo.members.length === 2
+    );
   }
 
   const setConversationFromContact = (_id) => {
     return new Promise((resolve, reject) => {
       try {
-        const index = findConversationByUserID(_id);
-        setSelectedConversationIndex(index);
+        const convo_id = findConversationByUserID(_id);
+        setSelectedConversation_id(convo_id);
         resolve();
       } catch (error) {
         reject(error);
@@ -129,8 +127,8 @@ export default function ConversationProvider({ children }) {
   useEffect(() => {
     if (!user._id) return;
     loadConversations((conversations) => {
-      console.log(conversations);
       setConversations(conversations);
+      setSelectedConversation_id(conversations[0]._id);
     });
   }, [user._id, loadConversations]);
 
@@ -147,9 +145,11 @@ export default function ConversationProvider({ children }) {
   //================================================================================
   const value = {
     conversations: formattedConversations,
-    selectedConversation: conversations[selectedConversationIndex],
+    selectedConversation: conversations.find(
+      (convo) => convo._id === selectedConversation_id
+    ),
     sendMessage,
-    selectConversationIndex: setSelectedConversationIndex,
+    setSelectedConversation_id,
     updateConversation,
     setConversationFromContact,
     setPendingText,

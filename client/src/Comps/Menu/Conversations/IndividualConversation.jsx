@@ -20,15 +20,16 @@ function IndividualConversation({
   // providers
   const { setActiveContent, setDisplay } = useUIContext();
   const { isMobile } = useViewport();
-  const { selectedConversation, selectConversationIndex } = useConversations();
+  const { selectedConversation, setSelectedConversation_id } =
+    useConversations();
 
   const [position, setPosition] = useState("0px");
 
   //FUNCTIONS
   //================================================================================
-  function handleConversationSelection(event, index) {
+  function handleConversationSelection(event) {
     event.preventDefault();
-    selectConversationIndex(index);
+    setSelectedConversation_id(convo._id);
     if (isMobile) {
       setDisplay({
         menu: false,
@@ -64,7 +65,10 @@ function IndividualConversation({
 
   //RENDER
   //================================================================================
-  return (
+  // Need to make sure there IS a selected conversation before trying to load. 
+  // Will throw errors if you don't wait for the conversation provider state
+  // to Be fully set
+  return selectedConversation ? (
     <>
       <LGItem
         index={index}
@@ -72,14 +76,14 @@ function IndividualConversation({
         className={`${
           convo._id === selectedConversation._id && !isMobile ? "LGActive" : ""
         } ${className}`}
-        onClick={(event) => handleConversationSelection(event, index)}
+        onClick={handleConversationSelection}
         style={{ right: position }}
       >
         {convo.name || "Untitled Conversation"}
         <br />
-        {/* For some reason, I have to check for lenght here 
-        Because when sending a new message, it takes a second for 
-        the content to load, and if there is no content, the app 
+        {/* For some reason, I have to check for lenght here
+        Because when sending a new message, it takes a second for
+        the content to load, and if there is no content, the app
         errors out and causes the message to not get sent */}
         <span data-index={index}>
           {convo.messages.length > 0
@@ -93,6 +97,8 @@ function IndividualConversation({
         <DeleteConvoBtn />
       </LGItem>
     </>
+  ) : (
+    <></>
   );
 }
 

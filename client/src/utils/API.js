@@ -50,11 +50,11 @@ const API = {
     else return error(response);
   },
 
-  async sendMessage(message_info, conversation_id, proceed, error) {
+  async sendMessage(message_info, conversation, proceed, error) {
     const response = await axios
       .put("/api/conversations/newMessage", {
         message_info,
-        conversation_id,
+        conversation,
       })
       .catch((err) => error(err));
     if (response.status === 200) proceed(response.data);
@@ -79,11 +79,10 @@ const API = {
   },
 
   async hideConversation(conversation_id, user_id, callback, error) {
-    //! For now I am going to have to pause on this. 
-    //! I am probably going to have to totally rethink the way that I 
-    //! am creating and storing messages and conversations. 
+    //! For now I am going to have to pause on this.
+    //! I am probably going to have to totally rethink the way that I
+    //! am creating and storing messages and conversations.
     //! I should have done all of this work as a part of planning, but here we are!
-
     // const response = await axios
     //   .put("http://localhost:3001/api/conversations/hideConversation", {
     //     user_id,

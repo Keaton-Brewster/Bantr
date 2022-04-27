@@ -19,7 +19,7 @@ export default function Contacts({ containerRef }) {
   const {
     conversations,
     setPendingText,
-    selectConversationIndex,
+    setSelectedConversation_id,
     addNewConversation,
     setConvoStateReady,
   } = useConversations();
@@ -65,11 +65,7 @@ export default function Contacts({ containerRef }) {
       },
 
       (existingConversation) => {
-        selectConversationIndex(
-          conversations.findIndex(
-            (convo) => convo._id === existingConversation._id
-          )
-        );
+        setSelectedConversation_id(existingConversation._id);
         goToConversation();
       }
     );
@@ -83,9 +79,7 @@ export default function Contacts({ containerRef }) {
 
   useEffect(() => {
     if (!conversationAdded) return;
-    selectConversationIndex(
-      conversations.findIndex((convo) => convo._id === newConversation_id)
-    );
+    setSelectedConversation_id(newConversation_id);
     goToConversation();
     setNewConversation_id(null);
     setConversationAdded(false);
@@ -94,7 +88,7 @@ export default function Contacts({ containerRef }) {
     conversations,
     goToConversation,
     newConversation_id,
-    selectConversationIndex,
+    setSelectedConversation_id,
   ]);
 
   // COMPONENT

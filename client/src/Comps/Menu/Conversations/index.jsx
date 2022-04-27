@@ -24,7 +24,7 @@ function Conversations({ className }) {
     conversations,
     setPendingText,
     selectedConversation,
-    selectConversationIndex,
+    setSelectedConversation_id,
     addNewConversation,
     setConvoStateReady,
   } = useConversations();
@@ -88,11 +88,7 @@ function Conversations({ className }) {
       },
 
       (existingConversation) => {
-        selectConversationIndex(
-          conversations.findIndex(
-            (convo) => convo._id === existingConversation._id
-          )
-        );
+        setSelectedConversation_id(existingConversation._id);
         goToConversation();
       }
     );
@@ -110,9 +106,7 @@ function Conversations({ className }) {
 
   function handleSelectSearched(event, convoId) {
     event.preventDefault();
-    selectConversationIndex(
-      conversations.findIndex((convo) => convo._id === convoId)
-    );
+    setSelectedConversation_id(convoId);
     setSearchValue(null);
     searchRef.current.innerText = "";
     setSearchResults(null);
@@ -134,9 +128,7 @@ function Conversations({ className }) {
   // Took some manipulation but I think it's good to go.
   useEffect(() => {
     if (!conversationAdded) return;
-    selectConversationIndex(
-      conversations.findIndex((convo) => convo._id === newConversation_id)
-    );
+    setSelectedConversation_id(newConversation_id);
     goToConversation();
     setNewConversation_id(null);
     setConversationAdded(false);
@@ -145,7 +137,7 @@ function Conversations({ className }) {
     conversations,
     goToConversation,
     newConversation_id,
-    selectConversationIndex,
+    setSelectedConversation_id,
   ]);
 
   //* FOR SEARCH FUNCTIONALITY
