@@ -1,4 +1,4 @@
-const FILES_TO_CACHE = ["./src"],
+const FILES_TO_CACHE = ["../build"],
   CACHE_NAME = "banter_static_v1",
   CACHE_VERSION = "0.1.0",
   CURRENT_CACHES = {
@@ -40,6 +40,7 @@ self.addEventListener("activate", (event) => {
     console.error(e);
   }
 });
+
 self.addEventListener("fetch", function (event) {
   // console.log("Fetch!", event.request);
 });

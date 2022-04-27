@@ -43,7 +43,16 @@ function generateSeed() {
 }
 
 class User {
-  constructor(_id, givenName, familyName, email, phoneNum, GID, contacts) {
+  constructor(
+    _id,
+    givenName,
+    familyName,
+    email,
+    phoneNum,
+    GID,
+    contacts,
+    conversations
+  ) {
     this._id = _id;
     this.givenName = givenName || "First name";
     this.familyName = familyName || "Last name";
@@ -51,12 +60,14 @@ class User {
     this.phoneNum = phoneNum;
     this.g_id = GID || null;
     this.imageUrl = `https://avatars.dicebear.com/api/identicon/${generateSeed()}`;
-    this.contacts = contacts;
+    this.contacts = contacts || [];
+    this.conversations = conversations || [];
   }
 }
 
 class Conversation {
-  constructor(members, messages, name) {
+  constructor(_id, members, messages, name) {
+    this._id = _id;
     this.members = members;
     this.messages = messages;
     this.name = name;
@@ -84,7 +95,8 @@ const userSeed = [
       ObjectId("60a532c9266a4f2cc69925f6"),
       ObjectId("60a5344d266a4f2cc69925fc"),
       ObjectId("60dd2b58eeda4429a8f4c123"),
-    ]
+    ],
+    [ObjectId("626218633e20668a886565c7"), ObjectId("626218633e20668a886565c8")]
   ),
   new User(
     ObjectId("60dd2b58eeda4429a8f4c123"),
@@ -125,6 +137,7 @@ const userSeed = [
 
 const conversationSeed = [
   new Conversation(
+    ObjectId("626218633e20668a886565c7"),
     [
       ObjectId("60dd2b58eeda4429a8f4ca91"),
       ObjectId("60a532c9266a4f2cc69925f6"),
@@ -143,6 +156,7 @@ const conversationSeed = [
     "Timmeree Estes"
   ),
   new Conversation(
+    ObjectId("626218633e20668a886565c8"),
     [
       ObjectId("60dd2b58eeda4429a8f4ca91"),
       ObjectId("60a533d0266a4f2cc69925fa"),
