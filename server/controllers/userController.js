@@ -15,7 +15,7 @@ router.put("/getContacts", (request, response) => {
   const { id_array } = request.body;
 
   try {
-    db.User.find({ _id: {$in: id_array } })
+    db.User.find({ _id: { $in: id_array } })
       .then((result) => {
         response.send(result).status(200);
       })
@@ -36,6 +36,19 @@ router.put("/getContacts", (request, response) => {
 router.post("/login", passport.authenticate("local"), (request, response) => {
   const { user } = request;
   response.send(user).status(200);
+});
+
+router.post("/signup", (req, res) => {
+  const userInfoObject = req.body;
+
+  db.User.create(userInfoObject)
+    .then((user) => {
+      console.log(user);
+      res.send(user).status(200);
+    })
+    .catch((err) => {
+      res.send({ error: err }).status(200);
+    });
 });
 
 router.post("/addContact", (request, response) => {
