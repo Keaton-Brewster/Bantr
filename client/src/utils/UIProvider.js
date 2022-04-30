@@ -3,6 +3,7 @@ import { useEffect, useState, createContext, useContext } from "react";
 import { isMobile } from "react-device-detect";
 import { useViewport } from "./ViewportProvider";
 import useLocalStorage from "./useLocalStorage";
+import { useConversations } from "./ConversationProvider";
 
 const UIContext = createContext();
 
@@ -13,6 +14,7 @@ export function useUIContext() {
 export default function UIProvider({ children }) {
   // STATE
   //================================================================================
+  const { width, height } = useViewport();
   const [contentState, setContentState] = useLocalStorage(
     "content_state",
     "default"
@@ -21,8 +23,6 @@ export default function UIProvider({ children }) {
   // I just had what I think might be the best way to handle contect state management.
   // USE LOCAL STORAGE YOU DUMMY. You need to be able to keep track of what is going on for the user, what converstaion theyre on,
   // what page theyre on, etc, and what better way to get around this than by using local storage.
-
-  const { width, height } = useViewport();
 
   const [display, setDisplay] = useState(() => {
     if (isMobile) return { menu: true, mainContent: false };
@@ -60,6 +60,13 @@ export default function UIProvider({ children }) {
       });
     }
   }, [width, height]);
+
+  useEffect(() => {
+    setContentState({
+      storedActiveContent: activeContent,
+      storedActiveMenu: activeMenu,
+    });
+  }, [activeContent, activeMenu]);
 
   // VALUE FOR PROVIDER
   //================================================================================

@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState, useCallback } from "react";
 import { useUserContext } from "../utils/UserProvider";
 import API from "./API";
+import useLocalStorage from "./useLocalStorage";
 
 const conversationContext = React.createContext();
 
@@ -16,8 +17,11 @@ export default function ConversationProvider({ children }) {
   //! Because I want them to be ordered by off of their 'updated_at'
   //! Value, I need a way to maintain selected conversation when the
   //! order of the conversation array changes
-  const [selectedConversation_id, setSelectedConversation_id] = useState(0);
   const [conversations, setConversations] = useState([]);
+  const [selectedConversation_id, setSelectedConversation_id] = useLocalStorage(
+    "last_selected_convo",
+    conversations[0] ? conversations[0]?._id : 0
+  );
   const [pendingText, setPendingText] = useState(null);
   const [convoStateReady, setConvoStateReady] = useState(false);
 
@@ -128,7 +132,6 @@ export default function ConversationProvider({ children }) {
     if (!user._id) return;
     loadConversations((conversations) => {
       setConversations(conversations);
-      setSelectedConversation_id(conversations[0]?._id);
     });
   }, [user._id, loadConversations]);
 
