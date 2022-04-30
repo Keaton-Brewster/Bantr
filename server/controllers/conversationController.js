@@ -46,7 +46,7 @@ router.get("/getInfo/:convo_id", async (req, res) => {
             givenName: user.givenName,
             familyName: user.familyName,
             phoneNum: user.phoneNum,
-            imageUrl: user.imageUrl,
+            photoURL: user.photoURL,
           };
         });
       })
