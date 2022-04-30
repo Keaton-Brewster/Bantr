@@ -58,8 +58,8 @@ class User {
     this.familyName = familyName || "Last name";
     this.email = email || "Email address";
     this.phoneNum = phoneNum;
-    this.g_id = GID || null;
-    this.imageUrl = `https://avatars.dicebear.com/api/identicon/${generateSeed()}`;
+    this.guid = GID || null;
+    this.photoURL = `https://avatars.dicebear.com/api/identicon/${generateSeed()}`;
     this.contacts = contacts || [];
     this.conversations = conversations || [];
   }
@@ -131,7 +131,7 @@ const userSeed = [
     "Maggie",
     "Ichikko",
     "maggie@mail.com",
-    "+17859698002"
+    "+17859698082"
   ),
 ];
 
