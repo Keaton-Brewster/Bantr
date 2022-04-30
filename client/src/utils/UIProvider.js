@@ -11,6 +11,8 @@ export function useUIContext() {
 }
 
 export default function UIProvider({ children }) {
+  // STATE
+  //================================================================================
   const [contentState, setContentState] = useLocalStorage(
     "content_state",
     "default"
@@ -39,6 +41,8 @@ export default function UIProvider({ children }) {
       : contentState.storedActiveMenu
   );
 
+  // EFFECTS
+  //================================================================================
   // This handles the changes between mobile layout and desktop layout
   useEffect(() => {
     const { menu, mainContent } = display;
@@ -57,6 +61,8 @@ export default function UIProvider({ children }) {
     }
   }, [width, height]);
 
+  // VALUE FOR PROVIDER
+  //================================================================================
   const value = {
     activeContent,
     setActiveContent,
@@ -65,14 +71,6 @@ export default function UIProvider({ children }) {
     display,
     setDisplay,
   };
-
-  // useEffect(() => {
-  //   const storableContentState = JSON.stringify({
-  //     storedActiveContent: activeContent,
-  //     storedActiveMenu: activeMenu,
-  //   });
-  //   setContentState(storableContentState);
-  // }, [activeContent, activeMenu]);
 
   return <UIContext.Provider value={value}>{children}</UIContext.Provider>;
 }
