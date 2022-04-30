@@ -1,6 +1,7 @@
 import React from "react";
 import useLocalStorage from "../../utils/useLocalStorage";
 import { useThemes } from "../../utils/Theme/ThemeProvider";
+import { firebaseLogout } from "../../firebase";
 
 import { Button, ListGroup } from "react-bootstrap";
 import LGItem from "./LGItem";
@@ -17,6 +18,7 @@ export default function Settings() {
   function logout(event) {
     event.preventDefault();
     setUser(0);
+    firebaseLogout();
     window.location.href = "/";
   }
 
