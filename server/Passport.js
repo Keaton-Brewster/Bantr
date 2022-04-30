@@ -22,8 +22,8 @@ passport.use(
                         message: "Incorrect email!",
                     });
                 }
-                // checking the users google provided unique ID in db with the provided "GUID"
-                if (user.guid !== id) {
+                // checking the users google provided unique ID in db with the provided "uid"
+                if (user.uid !== id) {
                     return done(null, false, {
                         message: "Error authenticating",
                     });

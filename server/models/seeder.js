@@ -58,7 +58,7 @@ class User {
     this.familyName = familyName || "Last name";
     this.email = email || "Email address";
     this.phoneNum = phoneNum;
-    this.guid = GID || null;
+    this.uid = GID || null;
     this.photoURL = `https://avatars.dicebear.com/api/identicon/${generateSeed()}`;
     this.contacts = contacts || [];
     this.conversations = conversations || [];

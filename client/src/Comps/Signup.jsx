@@ -48,6 +48,7 @@ function Signup({ setUser, className }) {
 
     firebaseSignIn(
       (user) => {
+        console.log(user);
         const { email, photoURL, uid } = user;
         const newUser = {
           email,
@@ -55,9 +56,8 @@ function Signup({ setUser, className }) {
           familyName,
           photoURL,
           phoneNum,
-          guid: uid,
+          uid,
         };
-        console.log(newUser);
         handleSignup(newUser);
       },
       (error) => {

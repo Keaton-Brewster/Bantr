@@ -35,7 +35,7 @@ function generatePictureSeed() {
 }
 
 const userSchema = new Schema({
-  guid: {
+  uid: {
     type: String,
   },
   email: {
