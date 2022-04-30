@@ -8,7 +8,7 @@ function _UserCardSM({ user, className }) {
     <Item className={className}>
       <Row className="align-content-center">
         <Image
-          src={user.imageUrl}
+          src={user.photoURL}
           roundedCircle
           fluid
           className="profilePicture"
