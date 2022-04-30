@@ -31,7 +31,6 @@ const API = {
   },
 
   async getConversations(user_id, proceed, error) {
-    console.log(user_id);
     const res = await axios.get(
       `http://localhost:3001/api/conversations/${user_id}`
     );
