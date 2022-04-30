@@ -35,7 +35,7 @@ function generatePictureSeed() {
 }
 
 const userSchema = new Schema({
-  g_id: {
+  guid: {
     type: String,
   },
   email: {
@@ -53,15 +53,18 @@ const userSchema = new Schema({
   },
   givenName: String,
   familyName: String,
-  phonNum: {
+  phoneNum: {
     type: String,
     unique: true,
   },
-  imageUrl: {
+  photoURL: {
     type: String,
     default: generatePictureSeed(),
   },
-  contacts: [],
+  contacts: {
+    type: [Schema.Types.ObjectId],
+    default: [],
+  },
   conversations: {
     type: [Schema.Types.ObjectId],
     default: [],
