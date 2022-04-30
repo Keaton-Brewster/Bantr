@@ -74,10 +74,6 @@ export default function Contacts({ containerRef }) {
   // EFFECTS
   //================================================================================
   useEffect(() => {
-    setIsLoading(false);
-  }, [selectedContact]);
-
-  useEffect(() => {
     if (!conversationAdded) return;
     setSelectedConversation_id(newConversation_id);
     goToConversation();
@@ -91,15 +87,15 @@ export default function Contacts({ containerRef }) {
     setSelectedConversation_id,
   ]);
 
+  useEffect(() => {
+    console.log("contacts mount");
+  }, []);
+
   // COMPONENT
   //================================================================================
   return (
     <>
-      {isLoading ? (
-        // If loading, return loader
-        <Spinner className="absoluteCenter" animation="border" />
-      ) : // Otherwise return the content: The selected contact if applicable
-      selectedContact ? (
+      {selectedContact ? (
         <>
           <ContactTopMenu
             containerRef={containerRef}
@@ -116,7 +112,7 @@ export default function Contacts({ containerRef }) {
                 <div className="mb-3">
                   <Image
                     style={{ width: "40%", marginLeft: "25%" }}
-                    src={selectedContact.imageUrl}
+                    src={selectedContact.photoURL}
                     fluid
                     thumbnail
                   />
