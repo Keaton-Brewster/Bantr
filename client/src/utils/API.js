@@ -5,8 +5,8 @@ const API = {
     const res = await axios
       .post("http://localhost:3001/api/users/signup", userInfoObject)
       .catch((err) => error(err));
-    if (res.status === 200) return callback(res.data);
-    else return error(res);
+    if (res.data.error) return error(res);
+    else return callback(res.data);
   },
 
   async login(loginObject, callback, error) {
@@ -16,49 +16,50 @@ const API = {
         id: loginObject.googleId,
       })
       .catch((err) => error(err));
-    if (res.status === 200 && res.data) return callback(res.data);
+    if (res?.status === 200 && res.data) return callback(res.data);
     else return error(res);
   },
 
   async getContacts(id_array, callback, error) {
-    const response = await axios
+    const res = await axios
       .put(`http://localhost:3001/api/users/getContacts`, {
         id_array,
       })
       .catch((err) => error(err));
-    if (response.status === 200) return callback(response.data);
-    else return error(response);
+    if (res?.status === 200) return callback(res.data);
+    else return error(res);
   },
 
   async getConversations(user_id, proceed, error) {
-    const response = await axios.get(
+    console.log(user_id);
+    const res = await axios.get(
       `http://localhost:3001/api/conversations/${user_id}`
     );
-    if (response.status === 200) proceed(response.data);
-    else error(response);
+    if (res?.status === 200) return proceed(res.data);
+    else return error(res);
   },
 
   async addContact(user_id, phoneNum, callback, error) {
-    const response = await axios
+    const res = await axios
       .post(`http://localhost:3001/api/users/addContact`, {
         phoneNum,
         user_id,
       })
       .catch((err) => error(err));
-    if (response.status === 200) return callback(response.data);
-    else if (response.status === 304) return error(304);
-    else return error(response);
+    if (res.status === 200) return callback(res.data);
+    else if (res.status === 304) return error(304);
+    else return error(res);
   },
 
   async sendMessage(message_info, conversation, proceed, error) {
-    const response = await axios
+    const res = await axios
       .put("/api/conversations/newMessage", {
         message_info,
         conversation,
       })
       .catch((err) => error(err));
-    if (response.status === 200) proceed(response.data);
-    else error(response);
+    if (res.status === 200) return proceed(res.data);
+    else return error(res);
   },
 
   async startOrGoTOConversation(
@@ -67,15 +68,15 @@ const API = {
     alreadyExists,
     error
   ) {
-    const response = await axios
+    const res = await axios
       .post(
         "http://localhost:3001/api/conversations/newConversation",
         newConversation
       )
       .catch((err) => error(err));
-    if (response.status === 200) return created(response.data);
-    else if (response.status === 202) return alreadyExists(response.data);
-    else return error(response);
+    if (res.status === 200) return created(res.data);
+    else if (res.status === 202) return alreadyExists(res.data);
+    else return error(res);
   },
 
   async hideConversation(conversation_id, user_id, callback, error) {
@@ -83,25 +84,25 @@ const API = {
     //! I am probably going to have to totally rethink the way that I
     //! am creating and storing messages and conversations.
     //! I should have done all of this work as a part of planning, but here we are!
-    // const response = await axios
+    // const res = await axios
     //   .put("http://localhost:3001/api/conversations/hideConversation", {
     //     user_id,
     //     conversation_id,
     //   })
     //   .catch((e) => error(e));
-    // if (response.status === 200) return callback(response.data);
-    // else return error(response);
+    // if (res.status === 200) return callback(res.data);
+    // else return error(res);
   },
   //* This method was not suitable for the purpose I originally meant it
   //* I may come back later and repurpose it, so for now I am only
   //* going to comment it out
 
   // async getContact(_id, callback, error) {
-  //   const response = await axios
+  //   const res = await axios
   //     .get(`http://localhost:3001/api/users/${_id}`)
   //     .catch((err) => error(err));
-  //   if (response.status === 200) return callback(response.data);
-  //   else return error(response);
+  //   if (res.status === 200) return callback(res.data);
+  //   else return error(res);
   // },
 };
 export default API;
