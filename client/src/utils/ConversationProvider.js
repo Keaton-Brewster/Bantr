@@ -70,10 +70,10 @@ export default function ConversationProvider({ children }) {
   };
 
   const loadConversations = useCallback(
-    (cb) => {
+    (callback) => {
       API.getConversations(
         user._id,
-        (conversations) => cb(conversations),
+        (conversations) => callback(conversations),
         (error) =>
           console.error("conversationProvider.js:loadConversation():: ", error)
       );
@@ -128,7 +128,7 @@ export default function ConversationProvider({ children }) {
     if (!user._id) return;
     loadConversations((conversations) => {
       setConversations(conversations);
-      setSelectedConversation_id(conversations[0]._id);
+      setSelectedConversation_id(conversations[0]?._id);
     });
   }, [user._id, loadConversations]);
 
