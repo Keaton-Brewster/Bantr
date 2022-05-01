@@ -65,7 +65,7 @@ function IndividualConversation({
 
   //RENDER
   //================================================================================
-  // Need to make sure there IS a selected conversation before trying to load. 
+  // Need to make sure there IS a selected conversation before trying to load.
   // Will throw errors if you don't wait for the conversation provider state
   // to Be fully set
   return selectedConversation ? (
