@@ -43,7 +43,6 @@ router.post("/signup", (req, res) => {
 
   db.User.create(userInfoObject)
     .then((user) => {
-      console.log(user);
       res.send(user).status(200);
     })
     .catch((err) => {
