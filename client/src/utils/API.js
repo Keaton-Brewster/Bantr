@@ -61,16 +61,11 @@ const API = {
     else return error(res);
   },
 
-  async startOrGoTOConversation(
-    newConversation,
-    created,
-    alreadyExists,
-    error
-  ) {
+  async startOrGoTOConversation(conversation, created, alreadyExists, error) {
     const res = await axios
       .post(
         "http://localhost:3001/api/conversations/newConversation",
-        newConversation
+        conversation
       )
       .catch((err) => error(err));
     if (res.status === 200) return created(res.data);
