@@ -9,17 +9,19 @@ router.get("/:user_id", (req, res) => {
   const { user_id } = req.params;
 
   try {
-    db.User.findOne({ _id: user_id }).then((user) => {
-      db.Conversation.find({ _id: { $in: user.conversations } })
-        .sort("-updated_at")
-        .then((convos) => {
-          res.send(convos);
-        })
-        .catch((error) => {
-          console.error(error);
-          res.sendStatus(404);
-        });
-    });
+    db.User.findOne({ _id: user_id })
+      .then((user) => {
+        db.Conversation.find({ _id: { $in: user.conversations } })
+          .sort("-updated_at")
+          .then((convos) => {
+            res.send(convos);
+          })
+          .catch((error) => {
+            console.error(error);
+            res.sendStatus(404);
+          });
+      })
+      .catch((e) => console.error(e));
   } catch (error) {
     console.error(error);
     res.send(500);
@@ -130,41 +132,39 @@ router.put("/updateConvoName", (req, res) => {
 
 router.post("/newConversation", (req, res) => {
   try {
-    const newConversation = req.body;
+    const conversation = req.body;
 
     db.Conversation.exists(
       {
         members: {
-          $size: newConversation.members.length,
-          $all: newConversation.members,
+          $size: conversation.members.length,
+          $all: conversation.members,
         },
       },
       (err, exists) => {
         if (exists) {
-          db.User.find({ _id: { $in: newConversation.members } }).then(
-            (users) => {
-              users.forEach((user) => {
-                if (!user.conversations.includes(newConversation._id)) {
-                  user.conversations.push(newConversation._id);
-                  user.save();
-                }
-              });
-              db.Conversation.findOne({
-                members: {
-                  $size: newConversation.members.length,
-                  $all: newConversation.members,
-                },
+          db.User.find({ _id: { $in: conversation.members } }).then((users) => {
+            users.forEach((user) => {
+              if (!user.conversations.includes(conversation._id)) {
+                user.conversations.push(conversation._id);
+                user.save();
+              }
+            });
+            db.Conversation.findOne({
+              members: {
+                $size: conversation.members.length,
+                $all: conversation.members,
+              },
+            })
+              .then((doc) => {
+                res.status(202).send(doc);
               })
-                .then((doc) => {
-                  res.status(202).send(doc);
-                })
-                .catch((err) => res.send(err).status(500));
-            }
-          );
+              .catch((err) => res.send(err).status(500));
+          });
         } else if (!exists) {
-          db.Conversation.create(newConversation)
+          db.Conversation.create(conversation)
             .then((response) => {
-              db.User.find({ _id: { $in: newConversation.members } }).then(
+              db.User.find({ _id: { $in: conversation.members } }).then(
                 (users) => {
                   users.forEach((user) => {
                     user.conversations.push(response._id);
