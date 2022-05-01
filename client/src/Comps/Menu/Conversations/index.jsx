@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { ListGroup } from "react-bootstrap";
 
 import { useConversations } from "../../../utils/ConversationProvider";
+import { startOrGoToConversation } from "../../../utils/ConversationProvider";
 import { useUIContext } from "../../../utils/UIProvider";
 import { useViewport } from "../../../utils/ViewportProvider";
 import { useUserContext } from "../../../utils/UserProvider";
@@ -42,34 +43,34 @@ function Conversations({ className }) {
 
   //FUNCTIONS
   //================================================================================
-  function writeConversationName(recipients) {
-    let names = [];
-    recipients.forEach((user, index) => {
-      if (recipients.length - 1 === index)
-        names.push(`${user.givenName} ${user.familyName}`);
-      else names.push(`${user.givenName} ${user.familyName},`);
-    });
-    return names.join(" ").toString();
-  }
+  // function writeConversationName(recipients) {
+  //   let names = [];
+  //   recipients.forEach((user, index) => {
+  //     if (recipients.length - 1 === index)
+  //       names.push(`${user.givenName} ${user.familyName}`);
+  //     else names.push(`${user.givenName} ${user.familyName},`);
+  //   });
+  //   return names.join(" ").toString();
+  // }
 
-  function mapConversationMembers(recipients) {
-    let members = [user._id];
-    recipients.forEach((recipient) => members.push(recipient._id));
-    return members;
-  }
+  // function mapConversationMembers(recipients) {
+  //   let members = [user];
+  //   recipients.forEach((recipient) => members.push(recipient._id));
+  //   return members;
+  // }
 
-  function startOrGoToConversation(started, goTo) {
-    API.startOrGoTOConversation(
-      {
-        members: mapConversationMembers(newConversationRecipients),
-        name: writeConversationName(newConversationRecipients),
-      },
-      (newConversation) => started(newConversation),
-      (existingConversation) => goTo(existingConversation),
-      (error) =>
-        console.error("conversations.jsx:startOrGoToConversation():: ", error)
-    );
-  }
+  // function startOrGoToConversation(started, goTo) {
+  //   API.startOrGoTOConversation(
+  //     {
+  //       members: mapConversationMembers(newConversationRecipients),
+  //       name: writeConversationName(newConversationRecipients),
+  //     },
+  //     (newConversation) => started(newConversation),
+  //     (existingConversation) => goTo(existingConversation),
+  //     (error) =>
+  //       console.error("conversations.jsx:startOrGoToConversation():: ", error)
+  //   );
+  // }
 
   const goToConversation = useCallback(() => {
     setConvoStateReady(true);
@@ -80,6 +81,7 @@ function Conversations({ className }) {
     setPendingText(text);
 
     startOrGoToConversation(
+      [...newConversationRecipients, user],
       (newConversation) => {
         addNewConversation(newConversation).then(() => {
           setNewConversation_id(newConversation._id);

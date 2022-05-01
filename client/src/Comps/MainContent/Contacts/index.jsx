@@ -3,6 +3,7 @@ import { Spinner, ListGroup, Image } from "react-bootstrap";
 import { useContactContext } from "../../../utils/ContactProvider";
 import { useUIContext } from "../../../utils/UIProvider";
 import { useConversations } from "../../../utils/ConversationProvider";
+import { startOrGoToConversation } from "../../../utils/ConversationProvider";
 import { useUserContext } from "../../../utils/UserProvider";
 import API from "../../../utils/API";
 import ContactTopMenu from "./ContactTopMenu";
@@ -40,30 +41,33 @@ export default function Contacts({ containerRef }) {
     setActiveMenu({ conversations: true });
   }, [setActiveContent, setActiveMenu, setConvoStateReady]);
 
-  function startOrGoToConversation(started, goTo) {
-    API.startOrGoTOConversation(
-      {
-        members: [user._id, selectedContact._id],
-        name: `${selectedContact.givenName} ${selectedContact.familyName}`,
-      },
-      (newConversation) => started(newConversation),
-      (existingConversation) => goTo(existingConversation),
-      (error) =>
-        console.error("conversations.jsx:startOrGoToConversation():: ", error)
-    );
-  }
+  // function startOrGoToConversation(started, goTo) {
+  //   API.startOrGoTOConversation(
+  //     {
+  //       members: [user._id, selectedContact._id],
+  //       //! This needs to change. The name should include all group memebrs
+  //       //! and then when the conversation loads for users, their name should
+  //       //! filtered out of the name
+  //       name: `${selectedContact.givenName} ${selectedContact.familyName}`,
+  //     },
+  //     (newConversation) => started(newConversation),
+  //     (existingConversation) => goTo(existingConversation),
+  //     (error) =>
+  //       console.error("conversations.jsx:startOrGoToConversation():: ", error)
+  //   );
+  // }
 
   function messageSubmit(text) {
     setPendingText(text);
-
+    const members = [user, selectedContact];
     startOrGoToConversation(
+      members,
       (newConversation) => {
         addNewConversation(newConversation).then(() => {
           setNewConversation_id(newConversation._id);
           setConversationAdded(true);
         });
       },
-
       (existingConversation) => {
         setSelectedConversation_id(existingConversation._id);
         goToConversation();
@@ -86,10 +90,6 @@ export default function Contacts({ containerRef }) {
     newConversation_id,
     setSelectedConversation_id,
   ]);
-
-  useEffect(() => {
-    console.log("contacts mount");
-  }, []);
 
   // COMPONENT
   //================================================================================
