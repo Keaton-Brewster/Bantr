@@ -42,7 +42,7 @@ function App() {
     return () => {
       document.removeEventListener("keydown", checkForESC, false);
     };
-  });
+  }, []);
 
   //COMPONENT
   //================================================================================
