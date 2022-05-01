@@ -9,8 +9,12 @@ export function useConversations() {
   return useContext(conversationContext);
 }
 
+//================================================================================
+//* COMPONENT
+//================================================================================
 export default function ConversationProvider({ children }) {
-  //STATE
+  //================================================================================
+  //* STATE
   //================================================================================
   const { user } = useUserContext();
   //! I need to find a new way to select conversations
@@ -20,40 +24,53 @@ export default function ConversationProvider({ children }) {
   const [conversations, setConversations] = useState([]);
   const [selectedConversation_id, setSelectedConversation_id] = useLocalStorage(
     "last_selected_convo",
-    conversations[0] ? conversations[0]?._id : 0
+    0
   );
   const [pendingText, setPendingText] = useState(null);
   const [convoStateReady, setConvoStateReady] = useState(false);
 
-  //FUNCTIONS
   //================================================================================
-  function updateConversation(updatedConversation) {
-    const updatedConversations = conversations.map((conversation) => {
-      if (conversation._id === updatedConversation._id)
-        return updatedConversation;
-      return conversation;
-    });
-    setConversations(updatedConversations);
-  }
+  //* FUNCTIONS
+  //================================================================================
+  const updateConversation = useCallback(
+    (updatedConversation) => {
+      const updatedConversations = conversations.map((conversation) => {
+        if (conversation._id === updatedConversation._id)
+          return updatedConversation;
+        return conversation;
+      });
+      setConversations(updatedConversations);
+    },
+    [conversations]
+  );
 
-  function sendMessage(string) {
-    const message_info = {
-      sender_id: user._id,
-      content: string,
-    };
+  const sendMessage = useCallback(
+    (string) => {
+      const message_info = {
+        sender_id: user._id,
+        content: string,
+      };
 
-    API.sendMessage(
-      message_info,
-      conversations.find((convo) => convo._id === selectedConversation_id),
-      (updatedConversation) => {
-        updateConversation(updatedConversation);
-        setSelectedConversation_id(updatedConversation._id);
-      },
-      (error) => {
-        console.error(error);
-      }
-    );
-  }
+      API.sendMessage(
+        message_info,
+        conversations.find((convo) => convo._id === selectedConversation_id),
+        (updatedConversation) => {
+          updateConversation(updatedConversation);
+          setSelectedConversation_id(updatedConversation._id);
+        },
+        (error) => {
+          console.error(error);
+        }
+      );
+    },
+    [
+      conversations,
+      selectedConversation_id,
+      setSelectedConversation_id,
+      updateConversation,
+      user._id,
+    ]
+  );
 
   function findConversationByUserID(_id) {
     return conversations.find(
@@ -61,7 +78,7 @@ export default function ConversationProvider({ children }) {
     );
   }
 
-  const setConversationFromContact = (_id) => {
+  function setConversationFromContact(_id) {
     return new Promise((resolve, reject) => {
       try {
         const convo_id = findConversationByUserID(_id);
@@ -71,7 +88,7 @@ export default function ConversationProvider({ children }) {
         reject(error);
       }
     });
-  };
+  }
 
   const loadConversations = useCallback(
     (callback) => {
@@ -99,15 +116,15 @@ export default function ConversationProvider({ children }) {
     });
   }
 
-  function sendPendingText() {
+  const sendPendingText = useCallback(() => {
     sendMessage(pendingText);
     setPendingText(null);
-  }
+  }, [pendingText, sendMessage]);
 
-  //VARIABLES FOR VALUE
+  //================================================================================
+  //* VARIABLE(S) FOR VALUE
   //================================================================================
   const formattedConversations = conversations
-    //This should actually sort conversations by last 'updatedAt' value
     .sort((a, b) => {
       if (a.updated_at < b.updated_at) {
         return 1;
@@ -126,14 +143,22 @@ export default function ConversationProvider({ children }) {
       return conversation;
     });
 
-  //EFFECTS
+  //================================================================================
+  //* EFFECTS
   //================================================================================
   useEffect(() => {
-    if (!user._id) return;
+    if (!user) return;
     loadConversations((conversations) => {
       setConversations(conversations);
+      if (selectedConversation_id === 0 && conversations.length > 0)
+        setSelectedConversation_id(conversations[0]._id);
     });
-  }, [user._id, loadConversations]);
+  }, [
+    user,
+    loadConversations,
+    selectedConversation_id,
+    setSelectedConversation_id,
+  ]);
 
   useEffect(() => {
     // This effect handles the state delay that occurs when sending a message from the
@@ -141,10 +166,17 @@ export default function ConversationProvider({ children }) {
     if (!pendingText || !convoStateReady) return;
     sendPendingText();
     setConvoStateReady(false);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pendingText, convoStateReady]);
+  }, [pendingText, convoStateReady, sendPendingText]);
 
-  //PROVIDER VALUE
+  // if user signs out or is lost from local storage for any reason
+  // reset the local storage state of selected conversation
+  useEffect(() => {
+    if (user === 0) return setSelectedConversation_id(0);
+    else return;
+  }, [setSelectedConversation_id, user]);
+
+  //================================================================================
+  //* PROVIDER VALUE
   //================================================================================
   const value = {
     conversations: formattedConversations,
@@ -160,11 +192,40 @@ export default function ConversationProvider({ children }) {
     setConvoStateReady,
   };
 
-  //COMPONENT
+  //================================================================================
+  //* RENDER
   //================================================================================
   return (
     <conversationContext.Provider value={value}>
       {children}
     </conversationContext.Provider>
+  );
+}
+//================================================================================
+//* OTHER FUNCTIONS
+//================================================================================
+// Helper function for stertOrGoToConversation()
+function writeConversationName(recipients) {
+  let names = [];
+  recipients.forEach((user, index) => {
+    if (recipients.length - 1 === index)
+      names.push(`${user.givenName} ${user.familyName}`);
+    else names.push(`${user.givenName} ${user.familyName},`);
+  });
+  return names.join(" ").toString();
+}
+
+// For anywhere in the app that you can "start a conversation"
+// Which as of now, is from conversation menu and contacts
+export function startOrGoToConversation(members, started, goTo) {
+  API.startOrGoTOConversation(
+    {
+      members: members.map((mem) => mem._id),
+      name: writeConversationName(members),
+    },
+    (newConversation) => started(newConversation),
+    (existingConversation) => goTo(existingConversation),
+    (error) =>
+      console.error("conversations.jsx:startOrGoToConversation():: ", error)
   );
 }
