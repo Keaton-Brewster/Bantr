@@ -1,0 +1,38 @@
+@import "../../globals.scss"
+
+
+@media screen and (max-width: 680px)
+    #chatBox
+        padding-left: 20px
+
+    #backButton
+        top: 5px
+
+    #messages
+        margin-top: 50px
+
+.chatInputButton
+    padding-left: 0px !important
+
+#sendButton
+    height: 35px
+    width: 35px
+    background-color: var(--primary-button) !important
+    border-radius: 50px
+
+.sendButton
+    background-color: var(--primary-button) !important
+    position: relative
+    bottom: 1px
+
+#sendButton:hover,
+#sendButton:hover .sendButton
+    background-color: var(--hover-button) !important
+
+#openEmojisButton
+    width: 35px
+    height: 35px
+
+    &:hover
+        cursor: pointer
+        fill: var(--hover-button)
