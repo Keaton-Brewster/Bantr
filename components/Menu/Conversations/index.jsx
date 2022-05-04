@@ -2,15 +2,15 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import styled from "styled-components";
 import { ListGroup } from "react-bootstrap";
 
-import { useConversations } from "../../../utils/ConversationProvider";
-import { startOrGoToConversation } from "../../../utils/ConversationProvider";
-import { useUIContext } from "../../../utils/UIProvider";
-import { useViewport } from "../../../utils/ViewportProvider";
-import { useUserContext } from "../../../utils/UserProvider";
+import { useConversations } from "../../../lib/contexts/ConversationProvider";
+import { startOrGoToConversation } from "../../../lib/contexts/ConversationProvider";
+import { useUIContext } from "../../../lib/contexts/UIProvider";
+import { useViewport } from "../../../lib/contexts/ViewportProvider";
+import { useUserContext } from "../../../lib/contexts/UserProvider";
 
 import NewConversationModal from "../../Modals/NewConversation/NewConversationModal";
 import NewMessageModal from "../../Modals/NewMessage/NewMessageModal";
-import API from "../../../utils/API";
+import API from "../../..//lib/API";
 import NewMessageBTN from "./NewMessageBTN";
 import SearchBox from "../../Inputs/SearchBox";
 import ConversationMap from "./ConversationMap";

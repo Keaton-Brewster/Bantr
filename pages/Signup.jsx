@@ -3,11 +3,11 @@ import styled from "styled-components";
 
 import { Container, Row, Form } from "react-bootstrap";
 import Header from "../components/Header";
-import { useViewport } from "../utils/ViewportProvider";
+import { useViewport } from "../lib/contexts/ViewportProvider";
 import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 
-import API from "../utils/API";
+import API from "..//lib/API";
 import { firebaseSignIn } from "../firebase";
 
 function Signup({ setUser, className }) {

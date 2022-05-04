@@ -1,11 +1,11 @@
 import React, { useState, useRef, useEffect } from "react";
 import styled, { withTheme } from "styled-components";
 
-import { useUserContext } from "../../../utils/UserProvider";
-import API from "../../../utils/API";
+import { useUserContext } from "../../../lib/contexts/UserProvider";
+import API from "../../..//lib/API";
 
 import { Modal, Button } from "react-bootstrap";
-import { useConversations } from "../../../utils/ConversationProvider";
+import { useConversations } from "../../../lib/contexts/ConversationProvider";
 
 function DeleteConversationModal({
   show,

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
-import { useUIContext } from "../../../utils/UIProvider";
-import { useConversations } from "../../../utils/ConversationProvider";
+import { useUIContext } from "../../../lib/contexts/UIProvider";
+import { useConversations } from "../../../lib/contexts/ConversationProvider";
 
 import LGItem from "../LGItem";
-import { useViewport } from "../../../utils/ViewportProvider";
+import { useViewport } from "../../../lib/contexts/ViewportProvider";
 import DeleteConvoBtn from "./DeleteConvoBtn";
 
 function IndividualConversation({

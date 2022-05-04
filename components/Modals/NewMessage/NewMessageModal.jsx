@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Modal, Button } from "react-bootstrap";
-import { useContactContext } from "../../../utils/ContactProvider";
+import { useContactContext } from "../../../lib/contexts/ContactProvider";
 import ModalTextInput from "../../Inputs/ModalTextInput";
 import TextInputBox from "../../Inputs/TextInputBox";
 

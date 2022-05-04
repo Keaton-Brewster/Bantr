@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { Spinner, ListGroup } from "react-bootstrap";
 import { FiEdit } from "react-icons/fi";
 import { BiSave } from "react-icons/bi";
-import { useConversations } from "../../../utils/ConversationProvider";
+import { useConversations } from "../../../lib/contexts/ConversationProvider";
 
 import LGItem from "../../Menu/LGItem";
 import UserCardSM from "../../UserCards/UserCardSM";

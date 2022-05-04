@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import { BrowserView, MobileView } from "react-device-detect";
-import { useUIContext } from "../utils/UIProvider";
-import { useConversations } from "../utils/ConversationProvider";
+import { useUIContext } from "../lib/contexts/UIProvider";
+import { useConversations } from "../lib/contexts/ConversationProvider";
 
 import { Container, Row, Col, Spinner } from "react-bootstrap";
 import MainContent from "./MainContent";
 import Menu from "./Menu";
 
-import "./animations.sass";
+// import "./animations.sass";
 
 export default function Dashboard() {
   //STATE

@@ -1,7 +1,7 @@
 import React from "react";
-import useLocalStorage from "../../utils/useLocalStorage";
-import { useThemes } from "../../utils/Theme/ThemeProvider";
-import { firebaseLogout } from "../../firebase";
+import useLocalStorage from "../hooks/useLocalStorage";
+import { useThemes } from "../../lib/Theme/ThemeProvider";
+import { firebaseLogout } from "../../lib/firebase";
 
 import { Button, ListGroup } from "react-bootstrap";
 import LGItem from "./LGItem";

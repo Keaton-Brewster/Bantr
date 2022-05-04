@@ -3,7 +3,7 @@ import React from "react";
 import styled from "styled-components";
 
 import { Nav } from "react-bootstrap";
-import { useConversations } from "../../../../utils/ConversationProvider";
+import { useConversations } from "../../../../lib/contexts/ConversationProvider";
 
 function _ConversationName({ className, isMobile, activeContent }) {
   //STATE

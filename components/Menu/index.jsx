@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { useUIContext } from "../../utils/UIProvider";
+import { useUIContext } from "../../lib/contexts/UIProvider";
 
 import MenuBar from "./MenuBar";
 import Conversations from "./Conversations";

@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import styled from "styled-components";
-import { useUIContext } from "../../utils/UIProvider";
-import { useConversations } from "../../utils/ConversationProvider";
+import { useUIContext } from "../../lib/contexts/UIProvider";
+import { useConversations } from "../../lib/contexts/ConversationProvider";
 
 import { Col } from "react-bootstrap";
 import ConversationInfoScreen from "./Messaging/ConversationInfoScreen";
