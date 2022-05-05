@@ -1,5 +1,5 @@
 import React from "react";
-import useLocalStorage from "../hooks/useLocalStorage";
+import { useAppContext } from "../../lib/providers/AppProvider";
 import { useThemes } from "../../lib/Theme/ThemeProvider";
 import { firebaseLogout } from "../../lib/firebase";
 
@@ -10,14 +10,14 @@ import DarkModeToggle from "react-dark-mode-toggle";
 export default function Settings() {
   //STATE
   //================================================================================
-  const [user, setUser] = useLocalStorage("user", 0);
+  const { dispatch } = useAppContext();
   const [theme, setTheme] = useThemes();
 
   //FUNCTIONS
   //================================================================================
   function logout(event) {
     event.preventDefault();
-    setUser(0);
+    dispatch({ type: "set_user", payload: 0 });
     firebaseLogout();
     window.location.href = "/";
   }

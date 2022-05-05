@@ -1,10 +1,10 @@
 import { useState, useEffect, useCallback } from "react";
 import { Spinner, ListGroup, Image } from "react-bootstrap";
-import { useContactContext } from "../../../lib/contexts/ContactProvider";
-import { useUIContext } from "../../../lib/contexts/UIProvider";
-import { useConversations } from "../../../lib/contexts/ConversationProvider";
-import { startOrGoToConversation } from "../../../lib/contexts/ConversationProvider";
-import { useUserContext } from "../../../lib/contexts/UserProvider";
+import { useContactContext } from "../../../lib/providers/ContactProvider";
+import { useUIContext } from "../../../lib/providers/UIProvider";
+import { useConversations } from "../../../lib/providers/ConversationProvider";
+import { startOrGoToConversation } from "../../../lib/providers/ConversationProvider";
+import { useAppContext } from "../../../lib/providers/AppProvider";
 import API from "../../../lib/API";
 import ContactTopMenu from "./ContactTopMenu";
 import ConfrimContactRemovalModal from "../../Modals/ConfirmContactRemoval_Modal";
@@ -16,7 +16,8 @@ export default function Contacts({ containerRef }) {
   // STATE
   //================================================================================
   const { selectedContact } = useContactContext();
-  const { user } = useUserContext();
+  const { state, dispatch } = useAppContext();
+  const { user } = state;
   const {
     conversations,
     setPendingText,
@@ -115,6 +116,7 @@ export default function Contacts({ containerRef }) {
                     src={selectedContact.photoURL}
                     fluid
                     thumbnail
+                    alt="Profile picture of selected contact"
                   />
                 </div>
               </LGItem>

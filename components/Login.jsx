@@ -1,12 +1,11 @@
 import React from "react";
-import GoogleLogin from "react-google-login";
 import { Container, Row, Form } from "react-bootstrap";
 import API from "../lib/API";
 import Header from "./Header";
-import { useUserContext } from "../lib/contexts/UserProvider.js";
+import { useAppContext } from "../lib/providers/AppProvider.js";
 
 export default function Login() {
-  const { setUser } = useUserContext();
+  const { state, dispatch } = useAppContext();
 
   function handleLogin(response) {
     // Working on a better was to handle authentication
@@ -15,7 +14,10 @@ export default function Login() {
       profileObj,
       (user) => {
         const storableUser = JSON.stringify(user);
-        setUser(storableUser);
+        dispatch({
+          type: "set_user",
+          payload: storableUser,
+        });
       },
       (error) => {
         alert("No user could be found. Please sign up!");
@@ -39,18 +41,18 @@ export default function Login() {
               {/* Need to make this font not bold */}
               Use your Google account to sign in
             </h5>
-            <GoogleLogin
+            {/* <GoogleLogin
               clientId="957666672016-3850ch4mr24gvr89bmt514bn7u359mb4.apps.googleusercontent.com"
               buttonText="Login"
               onSuccess={handleLogin}
               onFailure={handleFailure}
               cookiePolicy={"single_host_origin"}
-            />
+            /> */}
           </Form>
         </Row>
         <Row className="justify-content-center">
           <span id="signupLink" className="text-center">
-            Don't have an account?
+            Don&post have an account?
             <br /> Sign up <a href="/signup">here</a>!
           </span>
         </Row>

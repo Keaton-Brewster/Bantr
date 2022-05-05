@@ -3,16 +3,17 @@ import { ListGroup, Spinner } from "react-bootstrap";
 import { AiFillPlusCircle } from "react-icons/ai";
 import NewContactModal from "../Modals/NewContactModal";
 import API from "../../lib/API";
-import { useContactContext } from "../../lib/contexts/ContactProvider";
-import { useUserContext } from "../../lib/contexts/UserProvider";
-import { useUIContext } from "../../lib/contexts/UIProvider";
+import { useContactContext } from "../../lib/providers/ContactProvider";
+import { useAppContext } from "../../lib/providers/AppProvider";
+import { useUIContext } from "../../lib/providers/UIProvider";
 import LGItem from "./LGItem";
 
 export default function Contacts() {
   //STATE
   //================================================================================
   const { contacts, selectedContact, setSelectedContact } = useContactContext();
-  const { user, setUser } = useUserContext();
+  const { state, dispatch } = useAppContext();
+  const { user } = state;
   const { isMobile } = useUIContext();
   const [newContactModal, setNewContactModal] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -39,7 +40,7 @@ export default function Contacts() {
       (updatedUser) => {
         // need to call to update the user in the local storage
         if (!updatedUser) return alert("You already have that contact!");
-        setUser(updatedUser);
+        dispatch({ type: "set_user", payload: updatedUser });
         setNewContactModal(false);
       },
       (err) => {

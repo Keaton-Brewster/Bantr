@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { Nav, Dropdown, DropdownButton } from "react-bootstrap";
 
-import { useUIContext } from "../../../lib/contexts/UIProvider";
-import { useContactContext } from "../../../lib/contexts/ContactProvider";
-import { useViewport } from "../../../lib/contexts/ViewportProvider";
+import { useUIContext } from "../../../lib/providers/UIProvider";
+import { useContactContext } from "../../../lib/providers/ContactProvider";
+import { useViewport } from "../../../lib/providers/ViewportProvider";
 
 export default function ContactsTopMenu({
   //PROPS

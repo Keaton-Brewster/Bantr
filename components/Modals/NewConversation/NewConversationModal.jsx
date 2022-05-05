@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { Modal, Button, ListGroup } from "react-bootstrap";
-import { useContactContext } from "../../../lib/contexts/ContactProvider";
+import { useContactContext } from "../../../lib/providers/ContactProvider";
 import Recipient from "./Recipient";
 import LGItem from "../../Menu/LGItem";
 import SearchBox from "../../Inputs/SearchBox";

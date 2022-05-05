@@ -1,11 +1,11 @@
 import React, { useState, useRef, useEffect } from "react";
 import styled, { withTheme } from "styled-components";
 
-import { useUserContext } from "../../../lib/contexts/UserProvider";
+import { useAppContext } from "../../../lib/providers/AppProvider";
 import API from "../../..//lib/API";
 
 import { Modal, Button } from "react-bootstrap";
-import { useConversations } from "../../../lib/contexts/ConversationProvider";
+import { useConversations } from "../../../lib/providers/ConversationProvider";
 
 function DeleteConversationModal({
   show,
@@ -16,7 +16,8 @@ function DeleteConversationModal({
 }) {
   // STATES
   //================================================================================
-  const { user } = useUserContext();
+  const { state } = useAppContext();
+  const { user } = state;
   const { conversations } = useConversations();
   // FUNCTIONS
   //================================================================================
@@ -26,8 +27,8 @@ function DeleteConversationModal({
     // This function will need to send the conversation._id and the user._id to the server
     // And then the server will need to add that conversation._id to a list on the user model
     // And use that list to filter out the conversation when returning all conversations to the client
-    //! Above method is not the way to go, I am going to need to overhaul the 
-    //! way conversations are stored in order to get this to work the way 
+    //! Above method is not the way to go, I am going to need to overhaul the
+    //! way conversations are stored in order to get this to work the way
     //! I want it to.
     // API.hideConversation(conversations[targetIndex]._id, user._id);
   }

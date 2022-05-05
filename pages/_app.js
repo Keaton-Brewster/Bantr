@@ -1,17 +1,13 @@
 import { useEffect } from "react";
+import AppProvider from "../lib/providers/AppProvider";
 import ThemeProvider from "../lib/Theme/ThemeProvider";
-import UserProvider from "../lib/contexts/UserProvider";
-import UIProvider from "../lib/contexts/UIProvider";
-import ConversationProvider from "../lib/contexts/ConversationProvider";
-import ViewportProvider from "../lib/contexts/ViewportProvider";
-import useLocalStorage from "../components/hooks/useLocalStorage";
+import UIProvider from "../lib/providers/UIProvider";
+import ConversationProvider from "../lib/providers/ConversationProvider";
+import ViewportProvider from "../lib/providers/ViewportProvider";
 
 function MyApp({ Component, pageProps }) {
   //STATE
   //================================================================================
-  useEffect(() => {
-    const [user, setUser] = useLocalStorage("user", 0);
-  }, []);
 
   //FUNCTIONS
   //================================================================================
@@ -31,22 +27,22 @@ function MyApp({ Component, pageProps }) {
       document.removeEventListener("keydown", checkForESC, false);
     };
   }, []);
-
   //RENDER
   //================================================================================
   return (
     <>
-      <UserProvider user={user} setUser={setUser}>
+      <AppProvider>
         <ConversationProvider>
           <ViewportProvider>
             <UIProvider>
-              <ThemeProvider theme={theme}>
+              <ThemeProvider>
                 <Component {...pageProps} />
+                hello world
               </ThemeProvider>
             </UIProvider>
           </ViewportProvider>
         </ConversationProvider>
-      </UserProvider>
+      </AppProvider>
     </>
   );
 }

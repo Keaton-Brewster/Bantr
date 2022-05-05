@@ -3,13 +3,12 @@ import { useEffect, useState } from "react";
 const PREFIX = "CHAT_v1.0.0__";
 
 export default function useLocalStorage(key, initialValue) {
-  const isBrowser = (() => {
-    return typeof window !== undefined;
-  })();
-  if (!isBrowser) return [];
   const prefixedKey = PREFIX + key;
   const [value, setValue] = useState(() => {
-    const jsonValue = localStorage.getItem(prefixedKey);
+    const jsonValue =
+      typeof window !== undefined
+        ? localStorage.getItem(prefixedKey)
+        : { error: "Window object not found" };
 
     if (typeof jsonValue === "string") return JSON.parse(jsonValue);
     if (typeof initialValue === "function") {

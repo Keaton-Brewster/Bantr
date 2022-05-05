@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { useConversations } from "../../../lib/contexts/ConversationProvider";
-import { useViewport } from "../../../lib/contexts/ViewportProvider";
+import { useConversations } from "../../../lib/providers/ConversationProvider";
+import { useViewport } from "../../../lib/providers/ViewportProvider";
 
 import LGItem from "../LGItem";
 

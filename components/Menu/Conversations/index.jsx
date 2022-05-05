@@ -2,11 +2,11 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import styled from "styled-components";
 import { ListGroup } from "react-bootstrap";
 
-import { useConversations } from "../../../lib/contexts/ConversationProvider";
-import { startOrGoToConversation } from "../../../lib/contexts/ConversationProvider";
-import { useUIContext } from "../../../lib/contexts/UIProvider";
-import { useViewport } from "../../../lib/contexts/ViewportProvider";
-import { useUserContext } from "../../../lib/contexts/UserProvider";
+import { useConversations } from "../../../lib/providers/ConversationProvider";
+import { startOrGoToConversation } from "../../../lib/providers/ConversationProvider";
+import { useUIContext } from "../../../lib/providers/UIProvider";
+import { useViewport } from "../../../lib/providers/ViewportProvider";
+import { useAppContext } from "../../../lib/providers/AppProvider";
 
 import NewConversationModal from "../../Modals/NewConversation/NewConversationModal";
 import NewMessageModal from "../../Modals/NewMessage/NewMessageModal";
@@ -19,8 +19,9 @@ import SearchResultsMap from "./SearchResultsMap";
 function Conversations({ className }) {
   //STATE
   //================================================================================
-  //Contexts
-  const { user } = useUserContext();
+  //CONTEXTS
+  const { state } = useAppContext();
+  const { user } = state;
   const {
     conversations,
     setPendingText,

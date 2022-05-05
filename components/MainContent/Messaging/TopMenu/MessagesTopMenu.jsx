@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Nav } from "react-bootstrap";
-import { useUIContext } from "../../../../lib/contexts/UIProvider";
-import { useViewport } from "../../../../lib/contexts/ViewportProvider";
+import { useUIContext } from "../../../../lib/providers/UIProvider";
+import { useViewport } from "../../../../lib/providers/ViewportProvider";
 import ConversationName from "./ConversationName";
 import ConversationInfoButton from "./ConversationInfoButton";
 import BackButton from "./BackButton";
