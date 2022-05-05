@@ -1,61 +1,61 @@
 /* eslint-disable react/jsx-pascal-case */
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from 'react'
 
-import { Spinner } from "react-bootstrap";
-import { useConversations } from "../../../lib/providers/ConversationProvider";
-import { useViewport } from "../../../lib/providers/ViewportProvider";
-import { useUIContext } from "../../../lib/providers/UIProvider";
+import { Spinner } from 'react-bootstrap'
+import { useConversations } from '../../../lib/providers/ConversationProvider'
+import { useViewport } from '../../../lib/providers/ViewportProvider'
+import { useUIContext } from '../../../lib/providers/UIProvider'
 
-import ChatInput from "../../Inputs/ChatInput";
-import MessageContextMenu from "./MessageContextMenu";
-import SingleMessage from "./SingleMessage";
-import MessagesTopMenu from "./TopMenu/MessagesTopMenu";
+import ChatInput from '../../Inputs/ChatInput'
+import MessageContextMenu from './MessageContextMenu'
+import SingleMessage from './SingleMessage'
+import MessagesTopMenu from './TopMenu/MessagesTopMenu'
 
-// import "./messaging.sass";
+import './messaging.module.sass'
 
 export default function Messages({ containerRef }) {
   //STATE
   //================================================================================
-  const [isLoading, setIsLoading] = useState(true);
-  const { display, activeContent } = useUIContext();
-  const { selectedConversation } = useConversations();
-  const [contextMenuShow, setContextMenuShow] = useState(false);
-  const { bottomOfMessages } = useViewport();
+  const [isLoading, setIsLoading] = useState(true)
+  const { display, activeContent } = useUIContext()
+  const { selectedConversation } = useConversations()
+  const [contextMenuShow, setContextMenuShow] = useState(false)
+  const { bottomOfMessages } = useViewport()
 
   //FUNCTIONS
   //================================================================================
   function handleRightClick(event, element) {
-    if (contextMenuShow) return;
-    event.preventDefault();
+    if (contextMenuShow) return
+    event.preventDefault()
     //? const messageIndex = element.getAttribute("data-key");
-    setContextMenuShow(true);
+    setContextMenuShow(true)
   }
 
   const dismissContextMenu = useCallback(() => {
-    if (!contextMenuShow) return;
-    setContextMenuShow(false);
-  }, [contextMenuShow]);
+    if (!contextMenuShow) return
+    setContextMenuShow(false)
+  }, [contextMenuShow])
 
   //EFFECTS
   //================================================================================
   useEffect(() => {
-    if (isLoading) return;
-    document.getElementById("messageWrapper").scrollTop = 1000000;
-  }, [selectedConversation, display, isLoading]);
+    if (isLoading) return
+    document.getElementById('messageWrapper').scrollTop = 1000000
+  }, [selectedConversation, display, isLoading])
 
   // Hook to add the dismiss handler function
   useEffect(() => {
-    document.addEventListener("click", dismissContextMenu);
+    document.addEventListener('click', dismissContextMenu)
     return () => {
-      document.removeEventListener("click", dismissContextMenu);
-    };
-  }, [dismissContextMenu]);
+      document.removeEventListener('click', dismissContextMenu)
+    }
+  }, [dismissContextMenu])
 
   // Loader effect
   useEffect(() => {
-    if (!selectedConversation) return;
-    setIsLoading(false);
-  }, [selectedConversation]);
+    if (!selectedConversation) return
+    setIsLoading(false)
+  }, [selectedConversation])
 
   //COMPONENT
   //================================================================================
@@ -85,7 +85,7 @@ export default function Messages({ containerRef }) {
                     data={[message, selectedConversation.messages]}
                     handleRightClick={handleRightClick}
                   />
-                );
+                )
               })}
               <div id="bottomOfMessages" ref={bottomOfMessages}></div>
             </div>
@@ -97,5 +97,5 @@ export default function Messages({ containerRef }) {
         )}
       </div>
     </>
-  );
+  )
 }

@@ -1,8 +1,10 @@
 import React from "react";
 import styled from "styled-components";
+
 import { Nav } from "react-bootstrap";
 import { FaArrowLeft } from "react-icons/fa";
-// import "./backButton.sass";
+
+import "./backButton.module.sass";
 
 function _BackButton({ className, onClick }) {
   return (

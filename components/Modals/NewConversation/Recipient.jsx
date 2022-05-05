@@ -1,7 +1,7 @@
 import React from "react";
 import { Badge } from "react-bootstrap";
 import { GrClose } from "react-icons/gr";
-// import "./recipient.sass";
+import "./recipient.module.sass";
 
 export default function Recipient({ userInfo, removeRecipient }) {
   return (

@@ -1,5 +1,5 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react'
+import styled from 'styled-components'
 
 const _TextInputBox = React.forwardRef(
   ({ className, handleInputChange }, ref) => (
@@ -12,7 +12,8 @@ const _TextInputBox = React.forwardRef(
       ref={ref}
     />
   )
-);
+)
+_TextInputBox.displayName = 'TextInputBox'
 
 export default styled(_TextInputBox)`
     padding: 5px;
@@ -35,4 +36,4 @@ export default styled(_TextInputBox)`
     min-height: 40px;
     line-height: 20px;
     max-height: 40vh;
-    `;
+    `

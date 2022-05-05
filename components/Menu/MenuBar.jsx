@@ -4,7 +4,7 @@ import { BiConversation, BiGroup } from "react-icons/bi";
 import { IoSettingsSharp } from "react-icons/io5";
 import { useUIContext } from "../../lib/providers/UIProvider";
 import { useViewport } from "../../lib/providers/ViewportProvider";
-// import "./menubar.sass";
+import "./menubar.module.sass";
 
 export default function MenuBar({ containerRef }) {
   const [menubarWidth, setMenubarWidth] = useState("100%");

@@ -1,7 +1,7 @@
-import { ListGroupItem as Item, Image, Row } from "react-bootstrap";
-import styled from "styled-components";
+import { ListGroupItem as Item, Image, Row } from 'react-bootstrap'
+import styled from 'styled-components'
 
-// import "./index.sass";
+import './index.module.sass'
 
 function _UserCardSM({ user, className }) {
   return (
@@ -12,13 +12,14 @@ function _UserCardSM({ user, className }) {
           roundedCircle
           fluid
           className="profilePicture"
+          alt="User Profile Picture"
         />
         <p>{`${user.givenName} ${user.familyName}`}</p>
       </Row>
     </Item>
-  );
+  )
 }
 
 export default styled(_UserCardSM)`
   background-color: ${({ theme }) => theme.body};
-`;
+`

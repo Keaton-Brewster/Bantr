@@ -1,8 +1,8 @@
-import React from "react";
-import styled from "styled-components";
-import { Nav } from "react-bootstrap";
+import { forwardRef } from 'react'
+import styled from 'styled-components'
+import { Nav } from 'react-bootstrap'
 
-const SearchBox = React.forwardRef(({ className, handleInputChange }, ref) => {
+const SearchBox = forwardRef(({ className, handleInputChange }, ref) => {
   return (
     <Nav>
       <div
@@ -13,8 +13,9 @@ const SearchBox = React.forwardRef(({ className, handleInputChange }, ref) => {
         className={`${className} textarea`}
       />
     </Nav>
-  );
-});
+  )
+})
+SearchBox.displayName = 'SearchBox'
 
 // This isn't really styled properly right now. I want the searchbox to hover
 // Over the rest of the elements when you are searching, but its not right at all
@@ -22,14 +23,14 @@ export default styled(SearchBox)`
   padding: 5px;
   padding-left: 20px;
   margin: 10px 0px;
-  width: ${({ fixed }) => (fixed ? "32.3333%" : "100%")};
+  width: ${({ fixed }) => (fixed ? '32.3333%' : '100%')};
   border-radius: 25px;
   border: 1px solid ${({ theme }) => theme.border};
   overflow-wrap: break-word;
   resize: none;
   z-index: 20;
-  position: ${({ fixed }) => (fixed ? "fixed" : "")};
-  top: ${({ fixed }) => (fixed ? "top 0px" : "")}; 
+  position: ${({ fixed }) => (fixed ? 'fixed' : '')};
+  top: ${({ fixed }) => (fixed ? 'top 0px' : '')}; 
   
   :focus {
       outline: none
@@ -42,4 +43,4 @@ export default styled(SearchBox)`
   :hover {
     cursor: auto
   }
-`;
+`

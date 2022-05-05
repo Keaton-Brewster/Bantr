@@ -1,8 +1,10 @@
-import React, { useEffect } from "react";
+import { useAppContext } from "../lib/providers/AppProvider";
+
 import Dashboard from "../components/Dashboard";
 import Login from "../components/Login";
-import { useAppContext } from "../lib/providers/AppProvider";
-// import "../Comps/Inputs/input.sass";
+
+import "../components/Inputs/input.module.sass";
+
 
 export default function Home() {
   const { state } = useAppContext();

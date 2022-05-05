@@ -4,6 +4,7 @@ import ThemeProvider from "../lib/Theme/ThemeProvider";
 import UIProvider from "../lib/providers/UIProvider";
 import ConversationProvider from "../lib/providers/ConversationProvider";
 import ViewportProvider from "../lib/providers/ViewportProvider";
+import "../styles/index.sass";
 
 function MyApp({ Component, pageProps }) {
   //STATE
@@ -37,7 +38,6 @@ function MyApp({ Component, pageProps }) {
             <UIProvider>
               <ThemeProvider>
                 <Component {...pageProps} />
-                hello world
               </ThemeProvider>
             </UIProvider>
           </ViewportProvider>

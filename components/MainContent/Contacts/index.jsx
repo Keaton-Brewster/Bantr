@@ -1,96 +1,82 @@
-import { useState, useEffect, useCallback } from "react";
-import { Spinner, ListGroup, Image } from "react-bootstrap";
-import { useContactContext } from "../../../lib/providers/ContactProvider";
-import { useUIContext } from "../../../lib/providers/UIProvider";
-import { useConversations } from "../../../lib/providers/ConversationProvider";
-import { startOrGoToConversation } from "../../../lib/providers/ConversationProvider";
-import { useAppContext } from "../../../lib/providers/AppProvider";
-import API from "../../../lib/API";
-import ContactTopMenu from "./ContactTopMenu";
-import ConfrimContactRemovalModal from "../../Modals/ConfirmContactRemoval_Modal";
-import NewMessageModal from "../../Modals/NewMessage/NewMessageModal";
-import LGItem from "../../Menu/LGItem";
-// import "./contacts.sass";
+import { useState, useEffect, useCallback } from 'react'
+import { useContactContext } from '../../../lib/providers/ContactProvider'
+import { useUIContext } from '../../../lib/providers/UIProvider'
+import { useAppContext } from '../../../lib/providers/AppProvider'
+import { useConversations } from '../../../lib/providers/ConversationProvider'
+
+import { startOrGoToConversation } from '../../../lib/providers/ConversationProvider'
+
+import { Spinner, ListGroup, Image } from 'react-bootstrap'
+import ContactTopMenu from './ContactTopMenu'
+import ConfrimContactRemovalModal from '../../Modals/ConfirmContactRemoval_Modal'
+import NewMessageModal from '../../Modals/NewMessage/NewMessageModal'
+import LGItem from '../../Menu/LGItem'
+
+import './contacts.module.sass'
 
 export default function Contacts({ containerRef }) {
   // STATE
   //================================================================================
-  const { selectedContact } = useContactContext();
-  const { state, dispatch } = useAppContext();
-  const { user } = state;
+  const { selectedContact } = useContactContext()
+  const { state, dispatch } = useAppContext()
+  const { user } = state
   const {
     conversations,
     setPendingText,
     setSelectedConversation_id,
     addNewConversation,
     setConvoStateReady,
-  } = useConversations();
-  const { setActiveContent, setActiveMenu } = useUIContext();
-  const [conversationAdded, setConversationAdded] = useState(false);
-  const [newConversation_id, setNewConversation_id] = useState(null);
+  } = useConversations()
+  const { setActiveContent, setActiveMenu } = useUIContext()
+  const [conversationAdded, setConversationAdded] = useState(false)
+  const [newConversation_id, setNewConversation_id] = useState(null)
   const [contactRemovalModalVisible, setContactRemovalModalVisible] =
-    useState(false);
-  const [newMessageModalVisible, setNewMessageModalVisible] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+    useState(false)
+  const [newMessageModalVisible, setNewMessageModalVisible] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
 
   // FUNCTIONS
   //================================================================================
   const goToConversation = useCallback(() => {
-    setConvoStateReady(true);
-    setNewMessageModalVisible(false);
-    setActiveContent({ conversations: true });
-    setActiveMenu({ conversations: true });
-  }, [setActiveContent, setActiveMenu, setConvoStateReady]);
-
-  // function startOrGoToConversation(started, goTo) {
-  //   API.startOrGoTOConversation(
-  //     {
-  //       members: [user._id, selectedContact._id],
-  //       //! This needs to change. The name should include all group memebrs
-  //       //! and then when the conversation loads for users, their name should
-  //       //! filtered out of the name
-  //       name: `${selectedContact.givenName} ${selectedContact.familyName}`,
-  //     },
-  //     (newConversation) => started(newConversation),
-  //     (existingConversation) => goTo(existingConversation),
-  //     (error) =>
-  //       console.error("conversations.jsx:startOrGoToConversation():: ", error)
-  //   );
-  // }
+    setConvoStateReady(true)
+    setNewMessageModalVisible(false)
+    setActiveContent({ conversations: true })
+    setActiveMenu({ conversations: true })
+  }, [setActiveContent, setActiveMenu, setConvoStateReady])
 
   function messageSubmit(text) {
-    setPendingText(text);
-    const members = [user, selectedContact];
+    setPendingText(text)
+    const members = [user, selectedContact]
     startOrGoToConversation(
       members,
       (newConversation) => {
         addNewConversation(newConversation).then(() => {
-          setNewConversation_id(newConversation._id);
-          setConversationAdded(true);
-        });
+          setNewConversation_id(newConversation._id)
+          setConversationAdded(true)
+        })
       },
       (existingConversation) => {
-        setSelectedConversation_id(existingConversation._id);
-        goToConversation();
+        setSelectedConversation_id(existingConversation._id)
+        goToConversation()
       }
-    );
+    )
   }
 
   // EFFECTS
   //================================================================================
   useEffect(() => {
-    if (!conversationAdded) return;
-    setSelectedConversation_id(newConversation_id);
-    goToConversation();
-    setNewConversation_id(null);
-    setConversationAdded(false);
+    if (!conversationAdded) return
+    setSelectedConversation_id(newConversation_id)
+    goToConversation()
+    setNewConversation_id(null)
+    setConversationAdded(false)
   }, [
     conversationAdded,
     conversations,
     goToConversation,
     newConversation_id,
     setSelectedConversation_id,
-  ]);
+  ])
 
   // COMPONENT
   //================================================================================
@@ -103,7 +89,7 @@ export default function Contacts({ containerRef }) {
             setContactRemovalModal={setContactRemovalModalVisible}
             _id={selectedContact._id}
             showNewMessageModal={() => {
-              setNewMessageModalVisible(true);
+              setNewMessageModalVisible(true)
             }}
           />
 
@@ -112,7 +98,7 @@ export default function Contacts({ containerRef }) {
               <LGItem>
                 <div className="mb-3">
                   <Image
-                    style={{ width: "40%", marginLeft: "25%" }}
+                    style={{ width: '40%', marginLeft: '25%' }}
                     src={selectedContact.photoURL}
                     fluid
                     thumbnail
@@ -124,7 +110,7 @@ export default function Contacts({ containerRef }) {
               <LGItem>
                 <h4>Email:</h4>
                 <p
-                  style={{ paddingLeft: "20px" }}
+                  style={{ paddingLeft: '20px' }}
                 >{`${selectedContact.email}`}</p>
               </LGItem>
             </ListGroup>
@@ -146,5 +132,5 @@ export default function Contacts({ containerRef }) {
         <div className="absoluteCenter">Select A Contact</div>
       )}
     </>
-  );
+  )
 }

@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
-import { ListGroup, Spinner } from "react-bootstrap";
-import { AiFillPlusCircle } from "react-icons/ai";
-import NewContactModal from "../Modals/NewContactModal";
-import API from "../../lib/API";
 import { useContactContext } from "../../lib/providers/ContactProvider";
 import { useAppContext } from "../../lib/providers/AppProvider";
 import { useUIContext } from "../../lib/providers/UIProvider";
+
+import { addContact } from "../../lib/api";
+
+import NewContactModal from "../Modals/NewContactModal";
+import { ListGroup, Spinner } from "react-bootstrap";
+import { AiFillPlusCircle } from "react-icons/ai";
 import LGItem from "./LGItem";
 
 export default function Contacts() {
@@ -29,12 +31,12 @@ export default function Contacts() {
     setSelectedContact(contact);
   }
 
-  function addContact(phoneNum) {
+  function handleAddContact(phoneNum) {
     if (phoneNum === user.phoneNum) {
       setNewContactModal(false);
       return alert("you cannot add yourself as a contact");
     }
-    API.addContact(
+    addContact(
       user._id,
       phoneNum,
       (updatedUser) => {
@@ -72,7 +74,7 @@ export default function Contacts() {
       <NewContactModal
         show={newContactModal}
         hide={() => setNewContactModal(false)}
-        addContact={addContact}
+        addContact={handleAddContact}
       />
 
       <ListGroup>

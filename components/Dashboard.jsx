@@ -1,30 +1,30 @@
-import { useState, useEffect } from "react";
-import { BrowserView, MobileView } from "react-device-detect";
-import { useUIContext } from "../lib/providers/UIProvider";
-import { useConversations } from "../lib/providers/ConversationProvider";
+import { useState, useEffect } from 'react'
+import { BrowserView, MobileView } from 'react-device-detect'
+import { useUIContext } from '../lib/providers/UIProvider'
+import { useConversations } from '../lib/providers/ConversationProvider'
 
-import { Container, Row, Col, Spinner } from "react-bootstrap";
-import MainContent from "./MainContent";
-import Menu from "./Menu";
+import { Container, Row, Col, Spinner } from 'react-bootstrap'
+import MainContent from './MainContent'
+import Menu from './Menu'
 
-// import "./animations.sass";
+import './animations.module.sass'
 
 export default function Dashboard() {
   //STATE
   //================================================================================
-  const { display } = useUIContext();
-  const [loading, setLoading] = useState(true);
-  const { conversations } = useConversations();
+  const { display } = useUIContext()
+  const [loading, setLoading] = useState(true)
+  const { conversations } = useConversations()
 
   //FUNCTIONS
   //================================================================================
   function renderMobile() {
-    if (display.menu) return <Menu />;
-    if (display.mainContent) return <MainContent />;
+    if (display.menu) return <Menu />
+    if (display.mainContent) return <MainContent />
   }
 
   function cleanLocalStorage() {
-    localStorage.removeItem("epr_ru");
+    localStorage.removeItem('epr_ru')
   }
 
   //EFFECTS
@@ -34,17 +34,17 @@ export default function Dashboard() {
   // }, [store.profile]);
 
   useEffect(() => {
-    if (!conversations) return;
-    setLoading(false);
-  }, [conversations]);
+    if (!conversations) return
+    setLoading(false)
+  }, [conversations])
 
   // apparently the emoji keyboard thing is storing things in local storage
   // So to stop that from piling up, we will regularly clean it out
   useEffect(() => {
     return () => {
-      cleanLocalStorage();
-    };
-  });
+      cleanLocalStorage()
+    }
+  })
 
   //COMPONENT
   //================================================================================
@@ -60,8 +60,8 @@ export default function Dashboard() {
         <>
           <BrowserView>
             <Container fluid>
-              <Row style={{ marginRight: "0px !important" }}>
-                <Col sm={4} style={{ paddingRight: "0px" }}>
+              <Row style={{ marginRight: '0px !important' }}>
+                <Col sm={4} style={{ paddingRight: '0px' }}>
                   <Menu />
                 </Col>
                 <MainContent />
@@ -75,5 +75,5 @@ export default function Dashboard() {
         </>
       )}
     </>
-  );
+  )
 }

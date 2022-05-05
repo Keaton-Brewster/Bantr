@@ -1,10 +1,8 @@
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import styled, { withTheme } from "styled-components";
-
 import { useAppContext } from "../../../lib/providers/AppProvider";
-import API from "../../..//lib/API";
 
-import { Modal, Button } from "react-bootstrap";
+import { Modal, Button, Spinner } from "react-bootstrap";
 import { useConversations } from "../../../lib/providers/ConversationProvider";
 
 function DeleteConversationModal({
@@ -17,8 +15,9 @@ function DeleteConversationModal({
   // STATES
   //================================================================================
   const { state } = useAppContext();
-  const { user } = state;
+  const user = useRef();
   const { conversations } = useConversations();
+  const [loading, setLoading] = useState(true);
   // FUNCTIONS
   //================================================================================
   function deleteConversation(e) {
@@ -34,9 +33,18 @@ function DeleteConversationModal({
   }
   // EFFECTS
   //================================================================================
+  useEffect(() => {
+    if (!state) return;
+    else {
+      user.current = state.user;
+      setLoading(false);
+    }
+  }, [state]);
   // RENDER
   //================================================================================
-  return (
+  return loading ? (
+    <Spinner animation="border" />
+  ) : (
     <Modal
       show={show}
       onHide={hide}

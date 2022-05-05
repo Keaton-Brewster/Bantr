@@ -1,8 +1,9 @@
-import React from "react";
-import { Container, Row, Form } from "react-bootstrap";
-import API from "../lib/API";
-import Header from "./Header";
 import { useAppContext } from "../lib/providers/AppProvider.js";
+
+import { login } from "../lib/api";
+
+import { Container, Row, Form } from "react-bootstrap";
+import Header from "./Header";
 
 export default function Login() {
   const { state, dispatch } = useAppContext();
@@ -10,7 +11,7 @@ export default function Login() {
   function handleLogin(response) {
     // Working on a better was to handle authentication
     const { profileObj } = response;
-    API.login(
+    login(
       profileObj,
       (user) => {
         const storableUser = JSON.stringify(user);
@@ -52,7 +53,7 @@ export default function Login() {
         </Row>
         <Row className="justify-content-center">
           <span id="signupLink" className="text-center">
-            Don&post have an account?
+            Don&apos;t have an account?
             <br /> Sign up <a href="/signup">here</a>!
           </span>
         </Row>

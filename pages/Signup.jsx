@@ -1,14 +1,15 @@
 import { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 
+import { useViewport } from "../lib/providers/ViewportProvider";
+
+import { signup } from "../lib/api";
+
 import { Container, Row, Form } from "react-bootstrap";
 import Header from "../components/Header";
-import { useViewport } from "../lib/providers/ViewportProvider";
 import PhoneInput from "react-phone-number-input";
-import "react-phone-number-input/style.css";
-
-import API from "..//lib/API";
 import { firebaseSignIn } from "../firebase";
+import "react-phone-number-input/style.css";
 
 function Signup({ setUser, className }) {
   // STATE
@@ -28,7 +29,7 @@ function Signup({ setUser, className }) {
   // FUNCTIONS
   //================================================================================
   function handleSignup(newUser) {
-    API.signup(
+    signup(
       newUser,
       (user) => {
         const stringifiedUser = JSON.stringify(user);
@@ -147,14 +148,6 @@ function Signup({ setUser, className }) {
               >
                 Sign up using your google account
               </button>
-              {/* <GoogleLogin
-                clientId="957666672016-3850ch4mr24gvr89bmt514bn7u359mb4.apps.googleusercontent.com"
-                buttonText="Sign up"
-                onSuccess={googleSignup}
-                onFailure={googleSignup}
-                cookiePolicy={"single_host_origin"}
-                disabled={buttonDisabled}
-              /> */}
             </div>
           </Form>
         </Row>

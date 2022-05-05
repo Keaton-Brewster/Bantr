@@ -1,6 +1,5 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import styled from "styled-components";
-import { ListGroup } from "react-bootstrap";
 
 import { useConversations } from "../../../lib/providers/ConversationProvider";
 import { startOrGoToConversation } from "../../../lib/providers/ConversationProvider";
@@ -8,9 +7,9 @@ import { useUIContext } from "../../../lib/providers/UIProvider";
 import { useViewport } from "../../../lib/providers/ViewportProvider";
 import { useAppContext } from "../../../lib/providers/AppProvider";
 
+import { ListGroup } from "react-bootstrap";
 import NewConversationModal from "../../Modals/NewConversation/NewConversationModal";
 import NewMessageModal from "../../Modals/NewMessage/NewMessageModal";
-import API from "../../..//lib/API";
 import NewMessageBTN from "./NewMessageBTN";
 import SearchBox from "../../Inputs/SearchBox";
 import ConversationMap from "./ConversationMap";
@@ -44,35 +43,6 @@ function Conversations({ className }) {
 
   //FUNCTIONS
   //================================================================================
-  // function writeConversationName(recipients) {
-  //   let names = [];
-  //   recipients.forEach((user, index) => {
-  //     if (recipients.length - 1 === index)
-  //       names.push(`${user.givenName} ${user.familyName}`);
-  //     else names.push(`${user.givenName} ${user.familyName},`);
-  //   });
-  //   return names.join(" ").toString();
-  // }
-
-  // function mapConversationMembers(recipients) {
-  //   let members = [user];
-  //   recipients.forEach((recipient) => members.push(recipient._id));
-  //   return members;
-  // }
-
-  // function startOrGoToConversation(started, goTo) {
-  //   API.startOrGoTOConversation(
-  //     {
-  //       members: mapConversationMembers(newConversationRecipients),
-  //       name: writeConversationName(newConversationRecipients),
-  //     },
-  //     (newConversation) => started(newConversation),
-  //     (existingConversation) => goTo(existingConversation),
-  //     (error) =>
-  //       console.error("conversations.jsx:startOrGoToConversation():: ", error)
-  //   );
-  // }
-
   const goToConversation = useCallback(() => {
     setConvoStateReady(true);
     setNewMessageModalVisible(false);

@@ -1,8 +1,10 @@
 import React from "react";
 import styled from "styled-components";
+
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { Nav } from "react-bootstrap";
-// import "./conversationInfoButton.sass";
+
+import "./conversationInfoButton.module.sass";
 
 function _ConversationInfoButton({ className, onClick }) {
   return (
