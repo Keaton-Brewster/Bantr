@@ -1,34 +1,34 @@
-import { useAppContext } from "../lib/providers/AppProvider.js";
+import { useAppContext } from '../lib/providers/AppProvider.js'
 
-import { login } from "../lib/api";
+import { login } from '../lib/api'
 
-import { Container, Row, Form } from "react-bootstrap";
-import Header from "./Header";
+import { Container, Row, Form } from 'react-bootstrap'
+import Header from './Header'
 
 export default function Login() {
-  const { state, dispatch } = useAppContext();
+  const { state, dispatch } = useAppContext()
 
   function handleLogin(response) {
     // Working on a better was to handle authentication
-    const { profileObj } = response;
+    const { profileObj } = response
     login(
       profileObj,
       (user) => {
-        const storableUser = JSON.stringify(user);
+        const storableUser = JSON.stringify(user)
         dispatch({
-          type: "set_user",
+          type: 'set_user',
           payload: storableUser,
-        });
+        })
       },
       (error) => {
-        alert("No user could be found. Please sign up!");
-        console.error(error);
+        alert('No user could be found. Please sign up!')
+        console.error(error)
       }
-    );
+    )
   }
 
   function handleFailure() {
-    alert("whoops, something went wrong!");
+    alert('whoops, something went wrong!')
   }
 
   return (
@@ -59,5 +59,5 @@ export default function Login() {
         </Row>
       </Container>
     </>
-  );
+  )
 }
