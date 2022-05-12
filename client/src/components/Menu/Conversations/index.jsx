@@ -2,11 +2,11 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import styled from "styled-components";
 import { ListGroup } from "react-bootstrap";
 
-import { useConversations } from "../../../utils/ConversationProvider";
-import { startOrGoToConversation } from "../../../utils/ConversationProvider";
-import { useUIContext } from "../../../utils/UIProvider";
-import { useViewport } from "../../../utils/ViewportProvider";
-import { useUserContext } from "../../../utils/UserProvider";
+import { useConversations } from "../../../utils/providers/ConversationProvider";
+import { startOrGoToConversation } from "../../../utils/providers/ConversationProvider";
+import { useUIContext } from "../../../utils/providers/UIProvider";
+import { useViewport } from "../../../utils/providers/ViewportProvider";
+import { useUserContext } from "../../../utils/providers/UserProvider";
 
 import NewConversationModal from "../../Modals/NewConversation/NewConversationModal";
 import NewMessageModal from "../../Modals/NewMessage/NewMessageModal";
@@ -81,7 +81,7 @@ function Conversations({ className }) {
     setPendingText(text);
 
     startOrGoToConversation(
-      [...newConversationRecipients, user],
+      [user, ...newConversationRecipients],
       (newConversation) => {
         addNewConversation(newConversation).then(() => {
           setNewConversation_id(newConversation._id);

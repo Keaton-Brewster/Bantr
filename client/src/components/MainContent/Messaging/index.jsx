@@ -2,9 +2,9 @@
 import React, { useState, useEffect, useCallback } from "react";
 
 import { Spinner } from "react-bootstrap";
-import { useConversations } from "../../../utils/ConversationProvider";
-import { useViewport } from "../../../utils/ViewportProvider";
-import { useUIContext } from "../../../utils/UIProvider";
+import { useConversations } from "../../../utils/providers/ConversationProvider";
+import { useViewport } from "../../../utils/providers/ViewportProvider";
+import { useUIContext } from "../../../utils/providers/UIProvider";
 
 import ChatInput from "../../Inputs/ChatInput";
 import MessageContextMenu from "./MessageContextMenu";

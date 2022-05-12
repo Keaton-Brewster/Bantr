@@ -1,6 +1,6 @@
 import React from "react";
 import { Navbar } from "react-bootstrap";
-import { useViewport } from "../../utils/ViewportProvider";
+import { useViewport } from "../../utils/providers/ViewportProvider";
 import "./header.sass";
 
 export default function Header() {

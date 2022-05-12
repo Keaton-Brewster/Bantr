@@ -1,5 +1,5 @@
 import React from "react";
-import useLocalStorage from "../../utils/useLocalStorage";
+import useLocalStorage from "../../utils/hooks/useLocalStorage";
 import { useThemes } from "../../utils/Theme/ThemeProvider";
 import { firebaseLogout } from "../../firebase";
 

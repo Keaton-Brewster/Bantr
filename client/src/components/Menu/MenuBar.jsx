@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import { Nav } from "react-bootstrap";
 import { BiConversation, BiGroup } from "react-icons/bi";
 import { IoSettingsSharp } from "react-icons/io5";
-import { useUIContext } from "../../utils/UIProvider";
-import { useViewport } from "../../utils/ViewportProvider";
+import { useUIContext } from "../../utils/providers/UIProvider";
+import { useViewport } from "../../utils/providers/ViewportProvider";
 import "./menubar.sass";
 
 export default function MenuBar({ containerRef }) {

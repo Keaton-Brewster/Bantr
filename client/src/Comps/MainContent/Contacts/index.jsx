@@ -3,7 +3,6 @@ import { useContactContext } from "../../../utils/providers/ContactProvider";
 import { useUIContext } from "../../../utils/providers/UIProvider";
 import { useConversations } from "../../../utils/providers/ConversationProvider";
 import { useUserContext } from "../../../utils/providers/UserProvider";
-
 import { startOrGoToConversation } from "../../../utils/providers/ConversationProvider";
 
 import { Spinner, ListGroup, Image } from "react-bootstrap";

@@ -3,7 +3,7 @@ import GoogleLogin from "react-google-login";
 import { Container, Row, Form } from "react-bootstrap";
 import API from "../utils/API.js";
 import Header from "./Header";
-import { useUserContext } from "../utils/UserProvider.js";
+import { useUserContext } from "../utils/providers/UserProvider.js";
 
 export default function Login() {
   const { setUser } = useUserContext();

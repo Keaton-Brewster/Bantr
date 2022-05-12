@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { Modal, Button, ListGroup } from "react-bootstrap";
-import { useContactContext } from "../../../utils/ContactProvider";
+import { useContactContext } from "../../../utils/providers/ContactProvider";
 import Recipient from "./Recipient";
 import LGItem from "../../Menu/LGItem";
 import SearchBox from "../../Inputs/SearchBox";
@@ -94,10 +94,7 @@ export default function NewConversationModal({
       </Modal.Header>
       <Modal.Body>
         {/* I need to make a specific component for this */}
-        <SearchBox
-          ref={searchRef}
-          handleInputChange={handleInputChange}
-        />
+        <SearchBox ref={searchRef} handleInputChange={handleInputChange} />
         <ListGroup>
           {contacts ? (
             contacts.map((contact, index) => {

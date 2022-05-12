@@ -3,7 +3,7 @@ import React from "react";
 import styled from "styled-components";
 
 import { Nav } from "react-bootstrap";
-import { useConversations } from "../../../../utils/ConversationProvider";
+import { useConversations } from "../../../../utils/providers/ConversationProvider";
 
 function _ConversationName({ className, isMobile, activeContent }) {
   //STATE
@@ -22,7 +22,7 @@ function _ConversationName({ className, isMobile, activeContent }) {
         }`,
       }}
     >
-      {selectedConversation.name || "Untitled Conversation"}
+      {`${selectedConversation.members.length} people`}
     </Nav.Item>
   );
 }

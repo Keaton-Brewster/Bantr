@@ -1,16 +1,16 @@
 import React, { useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import ViewportProvider from "./utils/ViewportProvider";
-import UserProvider from "./utils/UserProvider";
-import ConversationProvider from "./utils/ConversationProvider";
-import ContactProvider from "./utils/ContactProvider";
-import UIProvider from "./utils/UIProvider";
+import ViewportProvider from "./utils/providers/ViewportProvider";
+import UserProvider from "./utils/providers/UserProvider";
+import ConversationProvider from "./utils/providers/ConversationProvider";
+import ContactProvider from "./utils/providers/ContactProvider";
+import UIProvider from "./utils/providers/UIProvider";
 
-import useLocalStorage from "./utils/useLocalStorage";
+import useLocalStorage from "./utils/hooks/useLocalStorage";
 import ThemeProvider from "./utils/Theme/ThemeProvider";
 
-import Home from "./Comps/Home";
-import Signup from "./Comps/Signup";
+import Home from "./components/Home";
+import Signup from "./components/Signup";
 
 function App() {
   // I need a better way to handle the updating of user information

@@ -3,9 +3,9 @@ import { ListGroup, Spinner } from "react-bootstrap";
 import { AiFillPlusCircle } from "react-icons/ai";
 import NewContactModal from "../Modals/NewContactModal";
 import API from "../../utils/API";
-import { useContactContext } from "../../utils/ContactProvider";
-import { useUserContext } from "../../utils/UserProvider";
-import { useUIContext } from "../../utils/UIProvider";
+import { useContactContext } from "../../utils/providers/ContactProvider";
+import { useUserContext } from "../../utils/providers/UserProvider";
+import { useUIContext } from "../../utils/providers/UIProvider";
 import LGItem from "./LGItem";
 
 export default function Contacts() {

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState, useCallback } from "react";
-import { useUserContext } from "../utils/UserProvider";
-import API from "./API";
-import useLocalStorage from "./useLocalStorage";
+import { useUserContext } from "./UserProvider";
+import API from "../API";
+import useLocalStorage from "../hooks/useLocalStorage";
 
 const conversationContext = React.createContext();
 

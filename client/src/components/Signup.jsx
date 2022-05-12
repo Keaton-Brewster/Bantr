@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import { Container, Row, Form } from "react-bootstrap";
 import Header from "./Header";
-import { useViewport } from "../utils/ViewportProvider";
+import { useViewport } from "../utils/providers/ViewportProvider";
 import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 

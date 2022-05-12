@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { BrowserView, MobileView } from "react-device-detect";
-import { useUIContext } from "../utils/UIProvider";
-import { useConversations } from "../utils/ConversationProvider";
+import { useUIContext } from "../utils/providers/UIProvider";
+import { useConversations } from "../utils/providers/ConversationProvider";
 
 import { Container, Row, Col, Spinner } from "react-bootstrap";
 import MainContent from "./MainContent";

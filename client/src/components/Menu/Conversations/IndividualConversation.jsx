@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
-import { useUIContext } from "../../../utils/UIProvider";
-import { useConversations } from "../../../utils/ConversationProvider";
+import { useUIContext } from "../../../utils/providers/UIProvider";
+import { useConversations } from "../../../utils/providers/ConversationProvider";
+import { useUserContext } from "../../../utils/providers/UserProvider";
+import { useViewport } from "../../../utils/providers/ViewportProvider";
 
 import LGItem from "../LGItem";
-import { useViewport } from "../../../utils/ViewportProvider";
 import DeleteConvoBtn from "./DeleteConvoBtn";
 
 function IndividualConversation({
@@ -18,6 +19,7 @@ function IndividualConversation({
   //STATE
   //================================================================================
   // providers
+  const { user } = useUserContext();
   const { setActiveContent, setDisplay } = useUIContext();
   const { isMobile } = useViewport();
   const { selectedConversation, setSelectedConversation_id } =
@@ -45,6 +47,11 @@ function IndividualConversation({
   function slideCloseOnclick(e) {
     const eTargetIndex = e.target.dataset.index;
     if (eTargetIndex !== index) setPosition("0px");
+  }
+
+  function filterName(conversationName) {
+    const { givenName, familyName } = user;
+    return conversationName.replace(`${givenName} ${familyName}, `, "");
   }
 
   //EFFECTS
@@ -79,7 +86,7 @@ function IndividualConversation({
         onClick={handleConversationSelection}
         style={{ right: position }}
       >
-        {convo.name || "Untitled Conversation"}
+        {convo.name ? filterName(convo.name) : "Untitled Conversation"}
         <br />
         {/* For some reason, I have to check for lenght here
         Because when sending a new message, it takes a second for

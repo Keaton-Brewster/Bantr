@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState, createContext, useContext } from "react";
-import API from "./API";
-import { useUserContext } from "../utils/UserProvider";
-import useContactSorting from "./useContactSorting";
+import API from "../API";
+import { useUserContext } from "./UserProvider";
+import useContactSorting from "../hooks/useContactSorting";
 
 const contactContext = createContext();
 
