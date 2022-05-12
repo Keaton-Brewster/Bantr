@@ -1,12 +1,13 @@
-import { useState, useEffect, useCallback } from "react";
-import { Spinner, ListGroup, Image } from "react-bootstrap";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { useContactContext } from "../../../utils/ContactProvider";
 import { useUIContext } from "../../../utils/UIProvider";
 import { useConversations } from "../../../utils/ConversationProvider";
-import { startOrGoToConversation } from "../../../utils/ConversationProvider";
 import { useUserContext } from "../../../utils/UserProvider";
-import API from "../../../utils/API";
-import ContactTopMenu from "./ContactTopMenu";
+
+import { startOrGoToConversation } from "../../../utils/ConversationProvider";
+
+import { Spinner, ListGroup, Image } from "react-bootstrap";
+import ContactTopMenu from "./TopMenu/ContactTopMenu";
 import ConfrimContactRemovalModal from "../../Modals/ConfirmContactRemoval_Modal";
 import NewMessageModal from "../../Modals/NewMessage/NewMessageModal";
 import LGItem from "../../Menu/LGItem";
@@ -30,7 +31,6 @@ export default function Contacts({ containerRef }) {
   const [contactRemovalModalVisible, setContactRemovalModalVisible] =
     useState(false);
   const [newMessageModalVisible, setNewMessageModalVisible] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
 
   // FUNCTIONS
   //================================================================================
@@ -40,22 +40,6 @@ export default function Contacts({ containerRef }) {
     setActiveContent({ conversations: true });
     setActiveMenu({ conversations: true });
   }, [setActiveContent, setActiveMenu, setConvoStateReady]);
-
-  // function startOrGoToConversation(started, goTo) {
-  //   API.startOrGoTOConversation(
-  //     {
-  //       members: [user._id, selectedContact._id],
-  //       //! This needs to change. The name should include all group memebrs
-  //       //! and then when the conversation loads for users, their name should
-  //       //! filtered out of the name
-  //       name: `${selectedContact.givenName} ${selectedContact.familyName}`,
-  //     },
-  //     (newConversation) => started(newConversation),
-  //     (existingConversation) => goTo(existingConversation),
-  //     (error) =>
-  //       console.error("conversations.jsx:startOrGoToConversation():: ", error)
-  //   );
-  // }
 
   function messageSubmit(text) {
     setPendingText(text);
@@ -91,6 +75,12 @@ export default function Contacts({ containerRef }) {
     setSelectedConversation_id,
   ]);
 
+  // Log contact to the console so I can see the info
+  useEffect(() => {
+    console.log(containerRef.current.offsetWidth);
+    console.log(selectedContact);
+  }, [selectedContact]);
+
   // COMPONENT
   //================================================================================
   return (
@@ -111,7 +101,10 @@ export default function Contacts({ containerRef }) {
               <LGItem>
                 <div className="mb-3">
                   <Image
-                    style={{ width: "40%", marginLeft: "25%" }}
+                    style={{
+                      width: "30%",
+                      marginLeft: `${containerRef.current.offsetWidth / 3.4}px`,
+                    }}
                     src={selectedContact.photoURL}
                     fluid
                     thumbnail
@@ -119,8 +112,17 @@ export default function Contacts({ containerRef }) {
                 </div>
               </LGItem>
 
+              <LGItem className="text-center">
+                <h4>{`${selectedContact.givenName} ${selectedContact.familyName}`}</h4>
+              </LGItem>
               <LGItem>
-                <h4>Email:</h4>
+                <h4>Phone</h4>
+                <p
+                  style={{ paddingLeft: "20px" }}
+                >{`${selectedContact.phoneNum}`}</p>
+              </LGItem>
+              <LGItem>
+                <h4>Email</h4>
                 <p
                   style={{ paddingLeft: "20px" }}
                 >{`${selectedContact.email}`}</p>

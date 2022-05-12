@@ -44,13 +44,6 @@ const userSchema = new Schema({
     unique: true,
     match: [/.+@.+\..+/, "Please enter a valid e-mail address"],
   },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
-  updatedAt: {
-    type: Date,
-  },
   givenName: String,
   familyName: String,
   phoneNum: {
@@ -68,6 +61,13 @@ const userSchema = new Schema({
   conversations: {
     type: [Schema.Types.ObjectId],
     default: [],
+  },
+  created_at: {
+    type: Date,
+    default: Date.now,
+  },
+  updated_at: {
+    type: Date,
   },
 });
 

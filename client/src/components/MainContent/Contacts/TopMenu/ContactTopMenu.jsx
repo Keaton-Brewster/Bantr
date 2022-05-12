@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { Nav, Dropdown, DropdownButton } from "react-bootstrap";
 
-import { useUIContext } from "../../../utils/UIProvider";
-import { useContactContext } from "../../../utils/ContactProvider";
-import { useViewport } from "../../../utils/ViewportProvider";
+import { useUIContext } from "../../../../utils/UIProvider";
+import { useContactContext } from "../../../../utils/ContactProvider";
+import { useViewport } from "../../../../utils/ViewportProvider";
 
 export default function ContactsTopMenu({
   //PROPS
@@ -39,7 +39,7 @@ export default function ContactsTopMenu({
   //   }
 
   //! this portion of code is because this Component was copied from another
-  //! Going to leave for now, but it ismostly irrelevant
+  //! Going to leave for now, but it is mostly irrelevant
   //!======================================================================
   // To make the back button multipurpose, simply switch case the state of the current display
   // And then act accordingly

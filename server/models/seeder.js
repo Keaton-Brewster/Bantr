@@ -71,7 +71,7 @@ class Conversation {
     this.members = members;
     this.messages = messages;
     this.name = name;
-    this.created_at = Date.now;
+    this.createdAt = Date.now;
   }
 }
 
@@ -79,7 +79,7 @@ class Message {
   constructor(sender_id, content) {
     this.sender_id = sender_id;
     this.content = content;
-    this.sent_at = Date.now;
+    this.sentAt = Date.now;
   }
 }
 
